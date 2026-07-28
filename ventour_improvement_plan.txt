@@ -1,0 +1,846 @@
+VENTOUR САЙЖРУУЛАЛТЫН ТӨЛӨВЛӨГӨӨ
+=================================
+
+Зорилго
+-------
+
+Одоогийн MVP-г 12–16 долоо хоногийн хугацаанд найдвартай pilot хувилбар болгоно.
+
+Үндсэн дараалал:
+
+  Найдвартай booking
+  → Итгэлцэл ба аюулгүй байдал
+  → Төлбөр ба review
+  → Production ажиллагаа
+  → Social ба өсөлт
+
+Хэрэглэгчийн үндсэн урсгал:
+
+  Discover → Verify → Book → Confirm → Experience → Pay → Review
+
+
+1. ЕРӨНХИЙ ҮЕ ШАТ
+==================
+
+Phase 0 — 2–3 өдөр
+  Суурь хэмжилт, backlog, environment болон migration дүрэм.
+
+Phase 1 — 1–2 долоо хоног
+  Security болон critical booking засвар.
+
+Phase 2 — 2–3 долоо хоног
+  Бүрэн booking lifecycle.
+
+Phase 3 — 2–3 долоо хоног
+  Listing management, availability, inventory, pricing.
+
+Phase 4 — 2 долоо хоног
+  Verification, moderation, trust ба safety.
+
+Phase 5 — 2 долоо хоног
+  Payment, review, rating ба ranking.
+
+Phase 6 — 2 долоо хоног
+  Test, CI/CD, monitoring, backup, production hardening.
+
+Phase 7 — 1–2 долоо хоног
+  UI/UX, localization, accessibility.
+
+Pilot — 2–4 долоо хоног
+  Хязгаарлагдмал хэрэглэгч, guide болон байршилтай туршилт.
+
+
+2. PHASE 0 — СУУРЬ БЭЛТГЭЛ
+==========================
+
+2.1 Backlog priority
+
+  P0 — Мөнгө, өгөгдөл, хэрэглэгчийн аюулгүй байдалд шууд эрсдэлтэй.
+  P1 — Pilot эхлэхээс өмнө заавал хийх.
+  P2 — Production release-д шаардлагатай.
+  P3 — Өсөлт болон нэмэлт сайжруулалт.
+
+2.2 Environment тусгаарлах
+
+  - Local
+  - Test
+  - Staging
+  - Production
+
+Environment бүр тусдаа database, JWT secret, API URL, storage bucket,
+logging configuration болон admin credential ашиглана.
+
+2.3 Database migration дүрэм
+
+  - Production database дээр migration гараар ажиллуулахгүй.
+  - Migration бүр staging дээр автоматаар шалгагдана.
+  - Destructive migration бүр backup болон rollback plan-тай байна.
+  - Seed data зөвхөн local/test environment-д ажиллана.
+
+2.4 Feature flag
+
+Дуусаагүй боломжуудыг release хийхгүйгээр асааж, унтраадаг болгоно:
+
+  - Online payment
+  - Community
+  - Reviews
+  - Image upload
+  - Guide ranking
+
+Амжилтын шалгуур:
+
+  - Staging environment бүрэн асдаг.
+  - Secret repository-д хадгалагдаагүй.
+  - Migration staging дээр автоматаар шалгагддаг.
+  - Дуусаагүй feature хэрэглэгчид харагдахгүй.
+
+
+3. PHASE 1 — CRITICAL SECURITY БА BOOKING FIX
+============================================
+
+3.1 Self-booking хориглох
+
+Listing booking дээр:
+
+  listing.hostId != travelerId
+
+Guide booking дээр:
+
+  guide.userId != travelerId
+
+гэсэн шалгалт сервер талд нэмнэ.
+
+Acceptance criteria:
+
+  - Хэрэглэгч өөрийн listing-ийг booking хийж чадахгүй.
+  - Guide өөрийгөө booking хийж чадахгүй.
+  - API ойлгомжтой 400/409 алдаа буцаана.
+  - Хоёр нөхцөл integration test-тэй байна.
+
+3.2 Давхар booking хамгаалах
+
+GuideAvailability model:
+
+  id
+  guideId
+  startsAt
+  endsAt
+  timeZone
+  status: AVAILABLE | BLOCKED
+
+ListingInventory model:
+
+  id
+  listingId
+  date
+  totalUnits
+  reservedUnits
+  availableUnits
+
+Overlap дүрэм:
+
+  existing.startsAt < new.endsAt
+  AND existing.endsAt > new.startsAt
+  AND existing.status IN (PENDING, CONFIRMED, IN_PROGRESS)
+
+Overlap шалгалт болон booking create-ийг нэг transaction дотор хийнэ.
+PostgreSQL constraint, serializable transaction эсвэл inventory row lock ашиглана.
+
+Acceptance criteria:
+
+  - Ижил guide давхцсан хоёр confirmed booking авахгүй.
+  - Inventory 0 үед listing booking үүсэхгүй.
+  - 10 зэрэгцээ request-ийн concurrency test давна.
+  - UI “Selected time is no longer available” мэдээлэл үзүүлнэ.
+
+3.3 Booking idempotency
+
+Client booking бүрт UUID үүсгээд дараах header явуулна:
+
+  Idempotency-Key: <uuid>
+
+Backend-д дараах мэдээллийг хадгална:
+
+  key
+  userId
+  requestHash
+  responseBody
+  statusCode
+  expiresAt
+
+Acceptance criteria:
+
+  - Ижил key, ижил request нэг booking л үүсгэнэ.
+  - Ижил key, өөр payload 409 буцаана.
+  - Timeout болон retry integration test-тэй байна.
+
+3.4 Session expiration
+
+Refresh token хүчингүй болоход:
+
+  1. Memory session цэвэрлэнэ.
+  2. Secure storage цэвэрлэнэ.
+  3. Navigation-ийг Auth screen рүү reset хийнэ.
+  4. “Session expired, please sign in again” мэдээлэл харуулна.
+
+3.5 Token storage
+
+  - Access token: зөвхөн memory.
+  - Refresh token: Expo SecureStore/Keychain/Keystore.
+  - Preference болон non-sensitive cache: AsyncStorage.
+
+Logout all devices endpoint нэмнэ. Password reset хийсний дараа бүх refresh
+token-ийг revoke хийнэ.
+
+3.6 Input validation
+
+  Booking note       — max 1000 тэмдэгт
+  Message body       — max 2000 тэмдэгт
+  Name               — 2–100 тэмдэгт
+  Phone              — E.164 format
+  Country/city       — 2–100 тэмдэгт
+  Expertise          — item бүр 1–50, max 20 item
+  Guide price        — positive decimal
+  URL                — HTTPS only
+  Image count/size   — хатуу хязгаартай
+
+
+4. PHASE 2 — БҮРЭН BOOKING LIFECYCLE
+====================================
+
+4.1 Booking state machine
+
+Шинэ төлөвүүд:
+
+  DRAFT
+  PENDING
+  CONFIRMED
+  IN_PROGRESS
+  COMPLETED
+  DECLINED
+  CANCELLED_BY_TRAVELER
+  CANCELLED_BY_PROVIDER
+  EXPIRED
+  NO_SHOW
+  DISPUTED
+  REFUND_PENDING
+  REFUNDED
+
+Үндсэн transition:
+
+  Submit    — Traveler — DRAFT → PENDING
+  Accept    — Provider — PENDING → CONFIRMED
+  Decline   — Provider — PENDING → DECLINED
+  Cancel    — Traveler — PENDING/CONFIRMED → CANCELLED_BY_TRAVELER
+  Cancel    — Provider — CONFIRMED → CANCELLED_BY_PROVIDER
+  Start     — System/provider — CONFIRMED → IN_PROGRESS
+  Complete  — System/хоёр тал — IN_PROGRESS → COMPLETED
+  Dispute   — Оролцогч — IN_PROGRESS/COMPLETED → DISPUTED
+
+Хүчингүй transition бүр сервер дээр хориглогдоно.
+
+4.2 Booking audit history
+
+BookingEvent model:
+
+  id
+  bookingId
+  actorId
+  actorType
+  fromStatus
+  toStatus
+  eventType
+  reason
+  metadata
+  createdAt
+
+Ингэснээр хэн, хэзээ, яагаад status өөрчилснийг бүрэн сэргээж чадна.
+
+4.3 Cancellation policy
+
+  type: FLEXIBLE | MODERATE | STRICT | CUSTOM
+  freeCancellationHours
+  lateCancellationPercent
+  noShowPercent
+
+Booking хийхээс өмнө cancellation deadline болон consequence-г харуулна.
+
+4.4 Booking-bound conversation
+
+Booking үүсэх эсвэл accept болоход traveler-provider conversation автоматаар
+үүсгэнэ. Conversation дотор booking summary болон system message харуулна.
+
+System message жишээ:
+
+  Booking request sent
+  Provider accepted the booking
+  Booking time was changed
+  Booking was cancelled by provider
+
+4.5 Notification system
+
+Notification model:
+
+  id
+  userId
+  type
+  title
+  body
+  data
+  readAt
+  createdAt
+
+Notification trigger:
+
+  - Booking created/accepted/declined/cancelled
+  - Booking starting soon
+  - New message
+  - Guide application approved/rejected
+  - Review request
+
+4.6 Completed booking
+
+Background job confirmed booking-ийг хугацаагаар IN_PROGRESS болон COMPLETED
+болгоно. Completed үед:
+
+  - Guide completedTrips нэмэгдэнэ.
+  - Review боломж нээгдэнэ.
+  - Ranking дахин тооцогдоно.
+
+
+5. PHASE 3 — LISTING, CALENDAR, INVENTORY
+=========================================
+
+5.1 Listing CRUD
+
+  POST   /listings
+  GET    /listings/mine
+  PATCH  /listings/:id
+  POST   /listings/:id/publish
+  POST   /listings/:id/unpublish
+  DELETE /listings/:id
+
+Listing workflow:
+
+  DRAFT → PENDING_REVIEW → PUBLISHED → SUSPENDED → ARCHIVED
+
+5.2 Structured pricing
+
+priceUnit-ийг enum болгоно:
+
+  PER_NIGHT
+  PER_HOUR
+  PER_DAY
+  PER_PERSON
+  PER_GROUP
+  PACKAGE
+
+Үнэ дараах бүрэлдэхүүнтэй байна:
+
+  - Base price
+  - Cleaning fee
+  - Service fee
+  - Tax
+  - Extra guest fee
+  - Deposit
+  - Currency
+
+Бүх тооцоог нэг PricingService сервер талд хийнэ.
+
+5.3 Money calculation
+
+JavaScript floating-point Number ашиглахгүй. Minor unit эсвэл decimal arithmetic
+ашиглана:
+
+  amountMinor
+  currency
+
+5.4 Availability calendar
+
+Provider дараах зүйлсийг удирдана:
+
+  - Available/unavailable day
+  - Time slot
+  - Minimum/maximum duration
+  - Preparation buffer
+  - Blackout date
+  - Capacity/inventory
+
+Traveler зөвхөн боломжтой огноо, цагийг сонгоно.
+
+5.5 Search/filter
+
+  - Date range
+  - Guest count
+  - Price range
+  - Category
+  - Rating
+  - Amenities
+  - Guide language
+  - Guide expertise
+  - Verified status
+  - Sort by price/rating/popularity
+
+Search field-д PostgreSQL trigram/GIN index ашиглах боломжийг судална.
+
+
+6. PHASE 4 — VERIFICATION, MODERATION, SAFETY
+============================================
+
+6.1 Verification status салгах
+
+  emailVerifiedAt
+  phoneVerifiedAt
+  identityVerificationStatus
+  guideVerificationStatus
+  referenceVerificationStatus
+
+Public badge нь яг юу шалгагдсаныг тодорхой харуулна.
+
+6.2 Email verification
+
+  Register
+  → Verification token илгээх
+  → Token шалгах
+  → Email verified
+
+Шаардлага:
+
+  - Token hash database-д хадгалах
+  - 15–30 минутын expiry
+  - Resend cooldown
+  - Rate limit
+  - Нэг удаа ашиглах
+
+6.3 Password recovery
+
+  POST /auth/forgot-password
+  POST /auth/reset-password
+  POST /auth/change-password
+  POST /auth/logout-all
+
+Email байгаа эсэхийг задруулахгүй ижил response буцаана.
+
+6.4 Guide verification audit
+
+Application review дээр:
+
+  - Reviewer
+  - Decision
+  - Decision reason
+  - Internal note
+  - Assessment breakdown
+  - Reviewed time
+  - Document/reference status
+
+хадгална. Reject хийхэд reason заавал шаардана.
+
+6.5 Report, block, mute
+
+  POST   /users/:id/block
+  DELETE /users/:id/block
+  POST   /reports
+  POST   /conversations/:id/mute
+
+Block хийсэн хэрэглэгч direct message илгээж, social interaction хийж чадахгүй.
+
+6.6 Content moderation
+
+Report төрлүүд:
+
+  Spam
+  Harassment
+  Scam
+  Unsafe guide behavior
+  Fake listing
+  Inappropriate content
+  Payment fraud
+  Other
+
+Admin action:
+
+  Content remove
+  Warning
+  Temporary suspension
+  Permanent suspension
+  Listing unpublish
+  Guide verification revoke
+
+6.7 Safety
+
+Booking detail дээр:
+
+  - Provider contact
+  - Trip details share
+  - Emergency numbers
+  - Report incident
+  - Offline itinerary
+  - Meeting point
+
+
+7. PHASE 5 — PAYMENT, REVIEW, RANKING
+=====================================
+
+7.1 Pilot payment
+
+PaymentArrangement:
+
+  CASH_ON_ARRIVAL
+  BANK_TRANSFER
+  PROVIDER_TERMINAL
+  ONLINE_PAYMENT
+
+PaymentStatus:
+
+  NOT_REQUIRED
+  PENDING
+  AGREED
+  PAID
+  FAILED
+  REFUND_PENDING
+  REFUNDED
+
+Pilot үед “Payment Methods” цэсийг “Payment policy” гэж нэрлэнэ.
+
+7.2 Online payment шаардлага
+
+Provider сонгохдоо:
+
+  - MNT support
+  - Card tokenization
+  - 3DS/OTP
+  - Refund API
+  - Signed webhook
+  - Settlement
+  - Marketplace split payment
+  - PCI scope
+
+шалгана. VenTour backend картын бүтэн дугаар болон CVV авахгүй.
+
+7.3 Payment transaction
+
+  id
+  bookingId
+  provider
+  providerReference
+  amountMinor
+  currency
+  status
+  failureCode
+  paidAt
+  refundedAt
+  createdAt
+
+Webhook бүр signature verification, replay protection, idempotency болон audit
+log ашиглана.
+
+7.4 Verified review
+
+Review зөвхөн:
+
+  - Booking COMPLETED
+  - Author тухайн booking-ийн traveler
+  - Нэг booking-д нэг review
+
+нөхцөлөөр үүснэ. Review unique constraint-ийг bookingId-д суурилуулна.
+
+7.5 Rating aggregate
+
+Review create/update/delete бүрд transaction дотор average rating болон review
+count шинэчилнэ.
+
+7.6 Ranking
+
+Ranking дараах бодит хэмжүүрт суурилна:
+
+  - Bayesian rating quality
+  - Completed trips
+  - Response rate
+  - Acceptance rate
+  - Recent activity
+  - Provider cancellation penalty
+  - Confirmed report penalty
+
+Admin assessment-ийг бага жинтэй ашиглана.
+
+
+8. PHASE 6 — TEST, CI/CD, MONITORING
+===================================
+
+8.1 Unit test
+
+  - Pricing
+  - Booking transition
+  - Cancellation policy
+  - Ranking calculation
+  - Token/session logic
+
+8.2 Integration test
+
+  - Register/login/refresh/logout
+  - Role authorization
+  - Guide approval
+  - Booking ownership
+  - Self-booking
+  - Double booking
+  - Concurrent accept/cancel
+  - Payment webhook
+  - Review authorization
+
+8.3 Mobile test
+
+  - Auth form validation
+  - Booking form
+  - Session expiration
+  - Loading/error/empty state
+  - Role-based menu
+
+8.4 End-to-end test
+
+  Traveler register
+  → Listing хайх
+  → Booking хийх
+  → Provider accept
+  → Chat
+  → Complete
+  → Review
+
+8.5 CI pipeline
+
+  Install
+  → Prisma generate
+  → Lint/type check/build
+  → Unit tests
+  → Integration tests
+  → Migration validation
+  → Expo Doctor
+  → Security scan
+  → Docker build
+
+8.6 Logging
+
+Structured JSON log:
+
+  Request ID
+  User ID
+  Route
+  Status
+  Latency
+  Error code
+  Booking ID
+  Payment reference
+
+Password, token, OTP, card data болон private message body log-д оруулахгүй.
+
+8.7 Monitoring
+
+  - API error rate
+  - p50/p95/p99 latency
+  - Login/refresh failure
+  - Booking creation failure
+  - Double-booking conflict
+  - Payment failure
+  - Message delivery failure
+  - Database connections/slow queries
+  - Mobile crash-free sessions
+
+8.8 Backup
+
+  - Өдөр тутмын database backup
+  - Point-in-time recovery
+  - Encryption
+  - Off-site copy
+  - Retention policy
+  - Сар бүр restore test
+
+8.9 Production hardening
+
+  - HTTPS only
+  - Reverse proxy/load balancer
+  - pgAdmin public port хаах
+  - Swagger production-д хаах эсвэл хамгаалах
+  - Strong secret validation
+  - Request/upload size limit
+  - Per-route rate limit
+  - Dependency/security scanning
+
+
+9. PHASE 7 — UI/UX, LOCALIZATION, ACCESSIBILITY
+===============================================
+
+9.1 Role-based navigation
+
+  PublicStack
+  AuthStack
+  TravelerStack
+  GuideStack
+  AdminStack
+
+Traveler-д guide/admin screen харагдахгүй. Pending guide-д application status
+харагдана.
+
+9.2 Guide onboarding
+
+  Become a guide
+  → Account үүсгэх/нэвтрэх
+  → Email/phone verification
+  → Application
+  → Document/reference check
+  → Pending status
+  → Approved
+  → Guide workspace
+
+9.3 Localization
+
+Бүх alert, button, placeholder, error, empty state, notification болон backend
+domain error localization key-тэй байна.
+
+Backend stable error code буцаана:
+
+  BOOKING_TIME_UNAVAILABLE
+  SELF_BOOKING_NOT_ALLOWED
+  SESSION_EXPIRED
+  BOOKING_TRANSITION_INVALID
+
+Frontend error code-оор хэрэглэгчийн сонгосон хэл дээр тайлбарлана.
+
+9.4 Accessibility
+
+  - Touch target хамгийн багадаа 44x44
+  - Accessibility label
+  - Form error announcement
+  - Screen-reader heading
+  - Dynamic font
+  - Contrast audit
+  - Image description
+  - Focus management
+  - Reduced motion support
+
+9.5 Design system
+
+Emoji icon-ыг нэг vector icon system-ээр солино. Reusable component:
+
+  Button
+  Input
+  Date picker
+  Time slot picker
+  Booking status badge
+  Error banner
+  Empty state
+  Confirmation modal
+  Skeleton loader
+  Toast
+
+9.6 Network UX
+
+Mutation бүр loading, double-tap protection, retry, success confirmation,
+offline warning болон idempotency дэмжинэ.
+
+Cache дата дээр “Last updated” болон “Offline copy” тэмдэглэгээ харуулна.
+
+
+10. PILOT RELEASE
+=================
+
+Pilot scope:
+
+  - Нэг хот: Улаанбаатар
+  - 10–20 шалгагдсан guide
+  - 50–100 traveler
+  - Pay on arrival
+  - Manual support
+  - Хязгаарлагдмал listing category
+
+Pilot-оос өмнө заавал биелүүлэх:
+
+  - Self/double booking хаалттай.
+  - Email verification ажилладаг.
+  - Guide verification audit-тай.
+  - Booking lifecycle бүрэн.
+  - Cancellation policy харагддаг.
+  - Report/block боломжтой.
+  - Session expiration зөв ажилладаг.
+  - Backup болон monitoring ажилладаг.
+  - Critical test suite pass болсон.
+  - Terms, privacy, safety policy нийтлэгдсэн.
+
+Pilot KPI:
+
+  Booking completion rate              >= 80%
+  Provider response within 2 hours     >= 80%
+  Booking acceptance rate              >= 60%
+  Provider cancellation                < 5%
+  App crash-free sessions              >= 99%
+  API 5xx rate                         < 1%
+  Support response time                < 2 цаг
+  Confirmed safety incident            0
+  Review submission                    >= 30%
+
+
+11. ХЭРЭГЖҮҮЛЭХ TICKET-ИЙН ДАРААЛАЛ
+====================================
+
+  1. Test database болон CI
+  2. Booking state machine
+  3. Self-booking validation
+  4. Double-booking transaction
+  5. Booking idempotency
+  6. Secure token storage
+  7. Global session-expired handler
+  8. Booking audit events
+  9. Cancellation rules
+ 10. Booking conversation
+ 11. Notification entity
+ 12. Listing CRUD
+ 13. Structured availability
+ 14. Inventory
+ 15. Structured pricing
+ 16. Email verification
+ 17. Password reset
+ 18. Guide verification audit
+ 19. Report/block/moderation
+ 20. Completed booking
+ 21. Verified reviews
+ 22. Ranking recalculation
+ 23. Pilot payment arrangement
+ 24. Monitoring болон backup
+ 25. Localization/accessibility polish
+
+
+12. ХҮНИЙ НӨӨЦ БА ХУГАЦАА
+==========================
+
+Санал болгох баг:
+
+  - 1 backend developer
+  - 1 mobile developer
+  - 1 product/UI designer
+  - Part-time QA
+  - Part-time DevOps/security reviewer
+
+Энэ бүрэлдэхүүнээр 12–16 долоо хоногт controlled pilot хийх боломжтой.
+
+Хэрэв нэг developer ажиллавал эхний ээлжид:
+
+  1. Auth/security
+  2. Booking lifecycle
+  3. Availability/inventory
+  4. Guide verification
+  5. Test/monitoring
+
+гэсэн таван хэсэгт төвлөрнө. Social community, advanced ranking болон online
+payment-ийг дараагийн release рүү шилжүүлнэ.
+
+
+13. ЭХНИЙ MILESTONE
+===================
+
+Хамгийн эхний бодит milestone:
+
+  “Хоёр хэрэглэгч давхардахгүй, аюулгүйгаар booking үүсгэж,
+   provider accept/decline, traveler/provider cancel, system complete
+   хийж чаддаг болох.”
+
+Энэ milestone биелсний дараа payment, review, ranking нэмэхэд ашиглагдах
+үндсэн өгөгдөл найдвартай болно.
+

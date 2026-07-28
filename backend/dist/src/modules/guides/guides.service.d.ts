@@ -1,0 +1,274 @@
+import { GuideStatus, PricingType } from '../../generated/prisma/client.js';
+import { PrismaService } from '../../prisma/prisma.service.js';
+import { ApplyGuideDto } from './dto/apply-guide.dto.js';
+import { ReviewGuideApplicationDto } from './dto/review-guide-application.dto.js';
+import { UpdateGuideProfileDto } from './dto/update-guide-profile.dto.js';
+export declare class GuidesService {
+    private readonly prisma;
+    constructor(prisma: PrismaService);
+    findAll(): import("../../generated/prisma/internal/prismaNamespace.js").PrismaPromise<({
+        user: {
+            id: string;
+            name: string;
+            avatarUrl: string | null;
+            isVerified: boolean;
+        };
+    } & {
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+        userId: string;
+        country: string;
+        city: string;
+        bio: string;
+        experienceYears: number;
+        languages: import("@prisma/client/runtime/client").JsonValue;
+        expertise: string[];
+        availability: string[];
+        pricingType: PricingType;
+        price: import("@prisma/client-runtime-utils").Decimal | null;
+        status: GuideStatus;
+        verified: boolean;
+        assessmentScore: number;
+        referenceContact: string | null;
+        codeOfConductAccepted: boolean;
+        rankPoints: number;
+        completedTrips: number;
+        responseRate: number;
+        rating: import("@prisma/client-runtime-utils").Decimal;
+        reviewCount: number;
+    })[]>;
+    ranking(): import("../../generated/prisma/internal/prismaNamespace.js").PrismaPromise<({
+        user: {
+            id: string;
+            name: string;
+            avatarUrl: string | null;
+            isVerified: boolean;
+        };
+    } & {
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+        userId: string;
+        country: string;
+        city: string;
+        bio: string;
+        experienceYears: number;
+        languages: import("@prisma/client/runtime/client").JsonValue;
+        expertise: string[];
+        availability: string[];
+        pricingType: PricingType;
+        price: import("@prisma/client-runtime-utils").Decimal | null;
+        status: GuideStatus;
+        verified: boolean;
+        assessmentScore: number;
+        referenceContact: string | null;
+        codeOfConductAccepted: boolean;
+        rankPoints: number;
+        completedTrips: number;
+        responseRate: number;
+        rating: import("@prisma/client-runtime-utils").Decimal;
+        reviewCount: number;
+    })[]>;
+    findMine(userId: string): Promise<{
+        user: {
+            id: string;
+            name: string;
+            avatarUrl: string | null;
+            isVerified: boolean;
+        };
+    } & {
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+        userId: string;
+        country: string;
+        city: string;
+        bio: string;
+        experienceYears: number;
+        languages: import("@prisma/client/runtime/client").JsonValue;
+        expertise: string[];
+        availability: string[];
+        pricingType: PricingType;
+        price: import("@prisma/client-runtime-utils").Decimal | null;
+        status: GuideStatus;
+        verified: boolean;
+        assessmentScore: number;
+        referenceContact: string | null;
+        codeOfConductAccepted: boolean;
+        rankPoints: number;
+        completedTrips: number;
+        responseRate: number;
+        rating: import("@prisma/client-runtime-utils").Decimal;
+        reviewCount: number;
+    }>;
+    updateMine(userId: string, dto: UpdateGuideProfileDto): Promise<{
+        user: {
+            id: string;
+            name: string;
+            avatarUrl: string | null;
+            isVerified: boolean;
+        };
+    } & {
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+        userId: string;
+        country: string;
+        city: string;
+        bio: string;
+        experienceYears: number;
+        languages: import("@prisma/client/runtime/client").JsonValue;
+        expertise: string[];
+        availability: string[];
+        pricingType: PricingType;
+        price: import("@prisma/client-runtime-utils").Decimal | null;
+        status: GuideStatus;
+        verified: boolean;
+        assessmentScore: number;
+        referenceContact: string | null;
+        codeOfConductAccepted: boolean;
+        rankPoints: number;
+        completedTrips: number;
+        responseRate: number;
+        rating: import("@prisma/client-runtime-utils").Decimal;
+        reviewCount: number;
+    }>;
+    findOne(id: string): Promise<{
+        user: {
+            id: string;
+            name: string;
+            avatarUrl: string | null;
+            isVerified: boolean;
+        };
+    } & {
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+        userId: string;
+        country: string;
+        city: string;
+        bio: string;
+        experienceYears: number;
+        languages: import("@prisma/client/runtime/client").JsonValue;
+        expertise: string[];
+        availability: string[];
+        pricingType: PricingType;
+        price: import("@prisma/client-runtime-utils").Decimal | null;
+        status: GuideStatus;
+        verified: boolean;
+        assessmentScore: number;
+        referenceContact: string | null;
+        codeOfConductAccepted: boolean;
+        rankPoints: number;
+        completedTrips: number;
+        responseRate: number;
+        rating: import("@prisma/client-runtime-utils").Decimal;
+        reviewCount: number;
+    }>;
+    apply(userId: string, dto: ApplyGuideDto): Promise<{
+        user: {
+            id: string;
+            name: string;
+            avatarUrl: string | null;
+            isVerified: boolean;
+        };
+    } & {
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+        userId: string;
+        country: string;
+        city: string;
+        bio: string;
+        experienceYears: number;
+        languages: import("@prisma/client/runtime/client").JsonValue;
+        expertise: string[];
+        availability: string[];
+        pricingType: PricingType;
+        price: import("@prisma/client-runtime-utils").Decimal | null;
+        status: GuideStatus;
+        verified: boolean;
+        assessmentScore: number;
+        referenceContact: string | null;
+        codeOfConductAccepted: boolean;
+        rankPoints: number;
+        completedTrips: number;
+        responseRate: number;
+        rating: import("@prisma/client-runtime-utils").Decimal;
+        reviewCount: number;
+    }>;
+    listApplications(): import("../../generated/prisma/internal/prismaNamespace.js").PrismaPromise<({
+        user: {
+            id: string;
+            email: string;
+            name: string;
+            avatarUrl: string | null;
+            isVerified: boolean;
+        };
+    } & {
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+        userId: string;
+        country: string;
+        city: string;
+        bio: string;
+        experienceYears: number;
+        languages: import("@prisma/client/runtime/client").JsonValue;
+        expertise: string[];
+        availability: string[];
+        pricingType: PricingType;
+        price: import("@prisma/client-runtime-utils").Decimal | null;
+        status: GuideStatus;
+        verified: boolean;
+        assessmentScore: number;
+        referenceContact: string | null;
+        codeOfConductAccepted: boolean;
+        rankPoints: number;
+        completedTrips: number;
+        responseRate: number;
+        rating: import("@prisma/client-runtime-utils").Decimal;
+        reviewCount: number;
+    })[]>;
+    reviewApplication(id: string, dto: ReviewGuideApplicationDto): Promise<{
+        user: {
+            id: string;
+            name: string;
+            avatarUrl: string | null;
+            isVerified: boolean;
+        };
+    } & {
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+        userId: string;
+        country: string;
+        city: string;
+        bio: string;
+        experienceYears: number;
+        languages: import("@prisma/client/runtime/client").JsonValue;
+        expertise: string[];
+        availability: string[];
+        pricingType: PricingType;
+        price: import("@prisma/client-runtime-utils").Decimal | null;
+        status: GuideStatus;
+        verified: boolean;
+        assessmentScore: number;
+        referenceContact: string | null;
+        codeOfConductAccepted: boolean;
+        rankPoints: number;
+        completedTrips: number;
+        responseRate: number;
+        rating: import("@prisma/client-runtime-utils").Decimal;
+        reviewCount: number;
+    }>;
+}

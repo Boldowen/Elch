@@ -1,0 +1,283 @@
+import { ListingCategory } from '../../generated/prisma/client.js';
+import { RequestUser } from '../../common/decorators/current-user.decorator.js';
+import { CreateListingDto } from './dto/create-listing.dto.js';
+import { SetInventoryDto } from './dto/set-inventory.dto.js';
+import { UpdateListingDto } from './dto/update-listing.dto.js';
+import { ListingsService } from './listings.service.js';
+export declare class ListingsController {
+    private readonly listings;
+    constructor(listings: ListingsService);
+    all(category?: ListingCategory, search?: string, page?: string, limit?: string): Promise<{
+        items: ({
+            images: {
+                id: string;
+                listingId: string;
+                url: string;
+                alt: string | null;
+                sortOrder: number;
+            }[];
+            host: {
+                id: string;
+                name: string;
+                avatarUrl: string | null;
+                isVerified: boolean;
+            };
+        } & {
+            id: string;
+            createdAt: Date;
+            updatedAt: Date;
+            deletedAt: Date | null;
+            price: import("@prisma/client-runtime-utils").Decimal;
+            status: import("../../generated/prisma/enums.js").ListingStatus;
+            rating: import("@prisma/client-runtime-utils").Decimal;
+            reviewCount: number;
+            slug: string;
+            title: string;
+            location: string;
+            description: string;
+            category: ListingCategory;
+            priceUnit: import("../../generated/prisma/enums.js").PriceUnit;
+            datesLabel: string;
+            tags: string[];
+            amenities: string[];
+            published: boolean;
+            defaultTotalUnits: number;
+            hostId: string;
+        })[];
+        meta: {
+            page: number;
+            limit: number;
+            total: number;
+            pages: number;
+        };
+    }>;
+    mine(user: RequestUser): import("../../generated/prisma/internal/prismaNamespace.js").PrismaPromise<({
+        _count: {
+            bookings: number;
+        };
+        images: {
+            id: string;
+            listingId: string;
+            url: string;
+            alt: string | null;
+            sortOrder: number;
+        }[];
+    } & {
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+        price: import("@prisma/client-runtime-utils").Decimal;
+        status: import("../../generated/prisma/enums.js").ListingStatus;
+        rating: import("@prisma/client-runtime-utils").Decimal;
+        reviewCount: number;
+        slug: string;
+        title: string;
+        location: string;
+        description: string;
+        category: ListingCategory;
+        priceUnit: import("../../generated/prisma/enums.js").PriceUnit;
+        datesLabel: string;
+        tags: string[];
+        amenities: string[];
+        published: boolean;
+        defaultTotalUnits: number;
+        hostId: string;
+    })[]>;
+    create(user: RequestUser, dto: CreateListingDto): import("../../generated/prisma/models.js").Prisma__ListingClient<{
+        images: {
+            id: string;
+            listingId: string;
+            url: string;
+            alt: string | null;
+            sortOrder: number;
+        }[];
+        host: {
+            id: string;
+            name: string;
+            avatarUrl: string | null;
+            isVerified: boolean;
+        };
+    } & {
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+        price: import("@prisma/client-runtime-utils").Decimal;
+        status: import("../../generated/prisma/enums.js").ListingStatus;
+        rating: import("@prisma/client-runtime-utils").Decimal;
+        reviewCount: number;
+        slug: string;
+        title: string;
+        location: string;
+        description: string;
+        category: ListingCategory;
+        priceUnit: import("../../generated/prisma/enums.js").PriceUnit;
+        datesLabel: string;
+        tags: string[];
+        amenities: string[];
+        published: boolean;
+        defaultTotalUnits: number;
+        hostId: string;
+    }, never, import("@prisma/client/runtime/client").DefaultArgs, {
+        omit: import("../../generated/prisma/internal/prismaNamespace.js").GlobalOmitConfig | undefined;
+    }>;
+    update(user: RequestUser, id: string, dto: UpdateListingDto): Promise<{
+        images: {
+            id: string;
+            listingId: string;
+            url: string;
+            alt: string | null;
+            sortOrder: number;
+        }[];
+        host: {
+            id: string;
+            name: string;
+            avatarUrl: string | null;
+            isVerified: boolean;
+        };
+    } & {
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+        price: import("@prisma/client-runtime-utils").Decimal;
+        status: import("../../generated/prisma/enums.js").ListingStatus;
+        rating: import("@prisma/client-runtime-utils").Decimal;
+        reviewCount: number;
+        slug: string;
+        title: string;
+        location: string;
+        description: string;
+        category: ListingCategory;
+        priceUnit: import("../../generated/prisma/enums.js").PriceUnit;
+        datesLabel: string;
+        tags: string[];
+        amenities: string[];
+        published: boolean;
+        defaultTotalUnits: number;
+        hostId: string;
+    }>;
+    publish(user: RequestUser, id: string): Promise<{
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+        price: import("@prisma/client-runtime-utils").Decimal;
+        status: import("../../generated/prisma/enums.js").ListingStatus;
+        rating: import("@prisma/client-runtime-utils").Decimal;
+        reviewCount: number;
+        slug: string;
+        title: string;
+        location: string;
+        description: string;
+        category: ListingCategory;
+        priceUnit: import("../../generated/prisma/enums.js").PriceUnit;
+        datesLabel: string;
+        tags: string[];
+        amenities: string[];
+        published: boolean;
+        defaultTotalUnits: number;
+        hostId: string;
+    }>;
+    unpublish(user: RequestUser, id: string): Promise<{
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+        price: import("@prisma/client-runtime-utils").Decimal;
+        status: import("../../generated/prisma/enums.js").ListingStatus;
+        rating: import("@prisma/client-runtime-utils").Decimal;
+        reviewCount: number;
+        slug: string;
+        title: string;
+        location: string;
+        description: string;
+        category: ListingCategory;
+        priceUnit: import("../../generated/prisma/enums.js").PriceUnit;
+        datesLabel: string;
+        tags: string[];
+        amenities: string[];
+        published: boolean;
+        defaultTotalUnits: number;
+        hostId: string;
+    }>;
+    archive(user: RequestUser, id: string): Promise<{
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+        price: import("@prisma/client-runtime-utils").Decimal;
+        status: import("../../generated/prisma/enums.js").ListingStatus;
+        rating: import("@prisma/client-runtime-utils").Decimal;
+        reviewCount: number;
+        slug: string;
+        title: string;
+        location: string;
+        description: string;
+        category: ListingCategory;
+        priceUnit: import("../../generated/prisma/enums.js").PriceUnit;
+        datesLabel: string;
+        tags: string[];
+        amenities: string[];
+        published: boolean;
+        defaultTotalUnits: number;
+        hostId: string;
+    }>;
+    inventory(user: RequestUser, id: string, from?: string, to?: string): Promise<{
+        date: Date;
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        listingId: string;
+        totalUnits: number;
+        reservedUnits: number;
+        availableUnits: number;
+    }[]>;
+    setInventory(user: RequestUser, id: string, dto: SetInventoryDto): Promise<{
+        date: Date;
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        listingId: string;
+        totalUnits: number;
+        reservedUnits: number;
+        availableUnits: number;
+    }[]>;
+    one(id: string): Promise<{
+        images: {
+            id: string;
+            listingId: string;
+            url: string;
+            alt: string | null;
+            sortOrder: number;
+        }[];
+        host: {
+            id: string;
+            name: string;
+            avatarUrl: string | null;
+            isVerified: boolean;
+        };
+    } & {
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+        price: import("@prisma/client-runtime-utils").Decimal;
+        status: import("../../generated/prisma/enums.js").ListingStatus;
+        rating: import("@prisma/client-runtime-utils").Decimal;
+        reviewCount: number;
+        slug: string;
+        title: string;
+        location: string;
+        description: string;
+        category: ListingCategory;
+        priceUnit: import("../../generated/prisma/enums.js").PriceUnit;
+        datesLabel: string;
+        tags: string[];
+        amenities: string[];
+        published: boolean;
+        defaultTotalUnits: number;
+        hostId: string;
+    }>;
+}

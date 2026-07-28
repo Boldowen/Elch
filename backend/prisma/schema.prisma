@@ -1,0 +1,460 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  TRAVELER
+  GUIDE
+  ADMIN
+}
+
+enum AuthProvider {
+  EMAIL
+  GOOGLE
+  APPLE
+}
+
+enum GuideStatus {
+  DRAFT
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum ListingCategory {
+  TRENDING
+  HOTEL
+  FOODS
+  NATURE
+}
+
+enum ListingStatus {
+  DRAFT
+  PENDING_REVIEW
+  PUBLISHED
+  SUSPENDED
+  ARCHIVED
+}
+
+enum PriceUnit {
+  PER_NIGHT
+  PER_HOUR
+  PER_DAY
+  PER_PERSON
+  PER_GROUP
+  PACKAGE
+}
+
+enum BookingStatus {
+  DRAFT
+  PENDING
+  CONFIRMED
+  IN_PROGRESS
+  COMPLETED
+  DECLINED
+  CANCELLED_BY_TRAVELER
+  CANCELLED_BY_PROVIDER
+  EXPIRED
+  NO_SHOW
+  DISPUTED
+  REFUND_PENDING
+  REFUNDED
+}
+
+enum BookingActorType {
+  TRAVELER
+  PROVIDER
+  SYSTEM
+  ADMIN
+}
+
+enum CancellationPolicyType {
+  FLEXIBLE
+  MODERATE
+  STRICT
+  CUSTOM
+}
+
+enum MessageType {
+  TEXT
+  IMAGE
+  SYSTEM
+}
+
+enum PricingType {
+  HOURLY
+  PACKAGE
+  NONE
+}
+
+model User {
+  id             String       @id @default(uuid()) @db.Uuid
+  email          String       @unique
+  passwordHash   String?
+  name           String
+  phone          String?
+  avatarUrl      String?
+  provider       AuthProvider @default(EMAIL)
+  roles          Role[]       @default([TRAVELER])
+  isVerified     Boolean      @default(false)
+  lastLoginAt    DateTime?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  deletedAt      DateTime?
+
+  refreshTokens  RefreshToken[]
+  guideProfile   GuideProfile?
+  listings       Listing[]    @relation("ListingHost")
+  bookings       Booking[]    @relation("TravelerBookings")
+  guidedBookings Booking[]    @relation("GuideBookings")
+  favorites      Favorite[]
+  participants   ConversationParticipant[]
+  messages       Message[]
+  paymentMethods PaymentMethod[]
+  reviewsWritten Review[]     @relation("ReviewAuthor")
+  reviewsReceived Review[]    @relation("ReviewGuide")
+  posts          Post[]
+  postLikes      PostLike[]
+  postComments   PostComment[]
+  following      Follow[]     @relation("Following")
+  followers      Follow[]     @relation("Followers")
+  bookingEvents  BookingEvent[]
+  idempotencyKeys IdempotencyKey[]
+
+  @@index([deletedAt])
+  @@index([createdAt])
+}
+
+model RefreshToken {
+  id         String   @id @default(uuid()) @db.Uuid
+  tokenHash  String
+  family     String   @db.Uuid
+  userAgent  String?
+  ipAddress  String?
+  expiresAt  DateTime
+  revokedAt  DateTime?
+  createdAt  DateTime @default(now())
+  userId     String   @db.Uuid
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, expiresAt])
+  @@index([family])
+}
+
+model GuideProfile {
+  id              String       @id @default(uuid()) @db.Uuid
+  userId          String       @unique @db.Uuid
+  country         String
+  city            String
+  bio             String
+  experienceYears Int          @default(0)
+  languages       Json
+  expertise       String[]
+  availability    String[]
+  pricingType     PricingType  @default(HOURLY)
+  price           Decimal?     @db.Decimal(10, 2)
+  status          GuideStatus  @default(DRAFT)
+  verified        Boolean      @default(false)
+  assessmentScore Int          @default(0)
+  referenceContact String?
+  codeOfConductAccepted Boolean @default(false)
+  rankPoints      Int          @default(100)
+  completedTrips  Int          @default(0)
+  responseRate    Int          @default(100)
+  rating          Decimal      @default(0) @db.Decimal(3, 2)
+  reviewCount     Int          @default(0)
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  deletedAt       DateTime?
+  user            User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([status, deletedAt])
+  @@index([city])
+  @@index([rankPoints, rating])
+}
+
+model Listing {
+  id          String          @id @default(uuid()) @db.Uuid
+  slug        String          @unique
+  title       String
+  location    String
+  description String
+  category    ListingCategory
+  price       Decimal         @db.Decimal(10, 2)
+  priceUnit   PriceUnit
+  datesLabel  String
+  tags        String[]
+  amenities   String[]
+  rating      Decimal         @default(0) @db.Decimal(3, 2)
+  reviewCount Int             @default(0)
+  published   Boolean         @default(true)
+  status      ListingStatus   @default(PUBLISHED)
+  defaultTotalUnits Int       @default(1)
+  hostId      String          @db.Uuid
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+  deletedAt   DateTime?
+  host        User            @relation("ListingHost", fields: [hostId], references: [id])
+  images      ListingImage[]
+  bookings    Booking[]
+  favorites   Favorite[]
+  inventory   ListingInventory[]
+
+  @@index([category, published, deletedAt])
+  @@index([location])
+  @@index([rating])
+}
+
+model ListingInventory {
+  id             String   @id @default(uuid()) @db.Uuid
+  listingId      String   @db.Uuid
+  date           DateTime @db.Date
+  totalUnits     Int
+  reservedUnits  Int      @default(0)
+  availableUnits Int
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  listing        Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
+
+  @@unique([listingId, date])
+  @@index([date, availableUnits])
+}
+
+model ListingImage {
+  id        String  @id @default(uuid()) @db.Uuid
+  url       String
+  alt       String?
+  sortOrder Int     @default(0)
+  listingId String  @db.Uuid
+  listing   Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+
+  @@index([listingId, sortOrder])
+}
+
+model Booking {
+  id           String        @id @default(uuid()) @db.Uuid
+  travelerId   String        @db.Uuid
+  guideId      String?       @db.Uuid
+  listingId    String?       @db.Uuid
+  startsAt     DateTime
+  endsAt       DateTime
+  guests       Int           @default(1)
+  amount       Decimal       @db.Decimal(10, 2)
+  currency     String        @default("USD")
+  status       BookingStatus @default(PENDING)
+  note         String?
+  expiresAt    DateTime?
+  cancellationPolicy CancellationPolicyType @default(FLEXIBLE)
+  freeCancellationUntil DateTime?
+  lateCancellationPercent Int @default(0)
+  noShowPercent Int @default(100)
+  cancellationFee Decimal @default(0) @db.Decimal(10, 2)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  cancelledAt  DateTime?
+  deletedAt    DateTime?
+  traveler     User          @relation("TravelerBookings", fields: [travelerId], references: [id])
+  guide        User?         @relation("GuideBookings", fields: [guideId], references: [id])
+  listing      Listing?      @relation(fields: [listingId], references: [id])
+  conversation Conversation?
+  events       BookingEvent[]
+
+  @@index([travelerId, startsAt])
+  @@index([guideId, status])
+  @@index([listingId])
+  @@index([status, expiresAt])
+  @@index([status, startsAt])
+  @@index([status, endsAt])
+}
+
+model BookingEvent {
+  id         String           @id @default(uuid()) @db.Uuid
+  bookingId  String           @db.Uuid
+  actorId    String?          @db.Uuid
+  actorType  BookingActorType
+  fromStatus BookingStatus?
+  toStatus   BookingStatus
+  eventType  String
+  reason     String?
+  metadata   Json?
+  createdAt  DateTime         @default(now())
+  booking    Booking          @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  actor      User?            @relation(fields: [actorId], references: [id], onDelete: SetNull)
+
+  @@index([bookingId, createdAt])
+  @@index([actorId])
+}
+
+model IdempotencyKey {
+  id           String   @id @default(uuid()) @db.Uuid
+  key          String   @db.Uuid
+  userId       String   @db.Uuid
+  requestHash  String
+  responseBody Json?
+  statusCode   Int?
+  expiresAt    DateTime
+  createdAt    DateTime @default(now())
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, key])
+  @@index([expiresAt])
+}
+
+model Favorite {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @db.Uuid
+  listingId String   @db.Uuid
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  listing   Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, listingId])
+  @@index([listingId])
+}
+
+model Conversation {
+  id           String   @id @default(uuid()) @db.Uuid
+  bookingId    String?  @unique @db.Uuid
+  title        String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  deletedAt    DateTime?
+  booking      Booking? @relation(fields: [bookingId], references: [id])
+  participants ConversationParticipant[]
+  messages     Message[]
+
+  @@index([updatedAt])
+}
+
+model ConversationParticipant {
+  id             String       @id @default(uuid()) @db.Uuid
+  conversationId String       @db.Uuid
+  userId         String       @db.Uuid
+  lastReadAt     DateTime?
+  joinedAt       DateTime     @default(now())
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([conversationId, userId])
+  @@index([userId])
+}
+
+model Message {
+  id             String       @id @default(uuid()) @db.Uuid
+  conversationId String       @db.Uuid
+  senderId       String       @db.Uuid
+  type           MessageType  @default(TEXT)
+  body           String?
+  mediaUrl       String?
+  sentAt         DateTime     @default(now())
+  deletedAt      DateTime?
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  sender         User         @relation(fields: [senderId], references: [id])
+
+  @@index([conversationId, sentAt])
+  @@index([senderId])
+}
+
+model PaymentMethod {
+  id          String   @id @default(uuid()) @db.Uuid
+  userId      String   @db.Uuid
+  providerRef String
+  brand       String
+  last4       String
+  expMonth    Int
+  expYear     Int
+  isDefault   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  deletedAt   DateTime?
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, providerRef])
+  @@index([userId, isDefault])
+}
+
+model Review {
+  id        String   @id @default(uuid()) @db.Uuid
+  authorId  String   @db.Uuid
+  guideId   String   @db.Uuid
+  rating    Int
+  text      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
+  author    User     @relation("ReviewAuthor", fields: [authorId], references: [id])
+  guide     User     @relation("ReviewGuide", fields: [guideId], references: [id])
+
+  @@index([guideId, createdAt])
+  @@unique([authorId, guideId])
+}
+
+model Post {
+  id        String        @id @default(uuid()) @db.Uuid
+  authorId  String        @db.Uuid
+  text      String
+  location  String?
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  deletedAt DateTime?
+  author    User          @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  images    PostImage[]
+  likes     PostLike[]
+  comments  PostComment[]
+
+  @@index([createdAt])
+  @@index([authorId, createdAt])
+}
+
+model PostImage {
+  id        String @id @default(uuid()) @db.Uuid
+  postId    String @db.Uuid
+  url       String
+  sortOrder Int    @default(0)
+  post      Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  @@index([postId, sortOrder])
+}
+
+model PostLike {
+  id        String   @id @default(uuid()) @db.Uuid
+  postId    String   @db.Uuid
+  userId    String   @db.Uuid
+  createdAt DateTime @default(now())
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([postId, userId])
+  @@index([userId, createdAt])
+}
+
+model PostComment {
+  id        String   @id @default(uuid()) @db.Uuid
+  postId    String   @db.Uuid
+  authorId  String   @db.Uuid
+  text      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@index([postId, createdAt])
+  @@index([authorId])
+}
+
+model Follow {
+  id          String   @id @default(uuid()) @db.Uuid
+  followerId  String   @db.Uuid
+  followingId String   @db.Uuid
+  createdAt   DateTime @default(now())
+  follower    User     @relation("Following", fields: [followerId], references: [id], onDelete: Cascade)
+  following   User     @relation("Followers", fields: [followingId], references: [id], onDelete: Cascade)
+
+  @@unique([followerId, followingId])
+  @@index([followingId, createdAt])
+}

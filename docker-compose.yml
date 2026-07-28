@@ -1,0 +1,82 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-ventour}
+      POSTGRES_USER: ${POSTGRES_USER:-ventour}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ventour_change_me}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - ventour_network
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  pgadmin:
+    image: dpage/pgadmin4:9
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-admin@ventour.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin_change_me}
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+    ports:
+      - "${PGADMIN_PORT:-5050}:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - ventour_network
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      network: host
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://${POSTGRES_USER:-ventour}:${POSTGRES_PASSWORD:-ventour_change_me}@postgres:5432/${POSTGRES_DB:-ventour}?schema=public
+      PORT: 3000
+    ports:
+      - "${BACKEND_PORT:-3000}:3000"
+    networks:
+      - ventour_network
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command:
+      - sh
+      - -c
+      - |
+        echo "Waiting for PostgreSQL..."
+        until ./node_modules/.bin/prisma migrate deploy; do
+          echo "PostgreSQL not ready. Retrying in 3 seconds..."
+          sleep 3
+        done
+        echo "Migration complete. Starting backend..."
+        exec node dist/src/main.js
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/api/v1/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 15
+
+networks:
+  ventour_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  pgadmin_data:

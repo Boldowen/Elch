@@ -1,0 +1,274 @@
+import { RequestUser } from '../../common/decorators/current-user.decorator.js';
+import { ApplyGuideDto } from './dto/apply-guide.dto.js';
+import { ReviewGuideApplicationDto } from './dto/review-guide-application.dto.js';
+import { UpdateGuideProfileDto } from './dto/update-guide-profile.dto.js';
+import { GuidesService } from './guides.service.js';
+export declare class GuidesController {
+    private readonly guides;
+    constructor(guides: GuidesService);
+    all(): import("../../generated/prisma/internal/prismaNamespace.js").PrismaPromise<({
+        user: {
+            id: string;
+            name: string;
+            avatarUrl: string | null;
+            isVerified: boolean;
+        };
+    } & {
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+        userId: string;
+        country: string;
+        city: string;
+        bio: string;
+        experienceYears: number;
+        languages: import("@prisma/client/runtime/client").JsonValue;
+        expertise: string[];
+        availability: string[];
+        pricingType: import("../../generated/prisma/enums.js").PricingType;
+        price: import("@prisma/client-runtime-utils").Decimal | null;
+        status: import("../../generated/prisma/enums.js").GuideStatus;
+        verified: boolean;
+        assessmentScore: number;
+        referenceContact: string | null;
+        codeOfConductAccepted: boolean;
+        rankPoints: number;
+        completedTrips: number;
+        responseRate: number;
+        rating: import("@prisma/client-runtime-utils").Decimal;
+        reviewCount: number;
+    })[]>;
+    ranking(): import("../../generated/prisma/internal/prismaNamespace.js").PrismaPromise<({
+        user: {
+            id: string;
+            name: string;
+            avatarUrl: string | null;
+            isVerified: boolean;
+        };
+    } & {
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+        userId: string;
+        country: string;
+        city: string;
+        bio: string;
+        experienceYears: number;
+        languages: import("@prisma/client/runtime/client").JsonValue;
+        expertise: string[];
+        availability: string[];
+        pricingType: import("../../generated/prisma/enums.js").PricingType;
+        price: import("@prisma/client-runtime-utils").Decimal | null;
+        status: import("../../generated/prisma/enums.js").GuideStatus;
+        verified: boolean;
+        assessmentScore: number;
+        referenceContact: string | null;
+        codeOfConductAccepted: boolean;
+        rankPoints: number;
+        completedTrips: number;
+        responseRate: number;
+        rating: import("@prisma/client-runtime-utils").Decimal;
+        reviewCount: number;
+    })[]>;
+    me(user: RequestUser): Promise<{
+        user: {
+            id: string;
+            name: string;
+            avatarUrl: string | null;
+            isVerified: boolean;
+        };
+    } & {
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+        userId: string;
+        country: string;
+        city: string;
+        bio: string;
+        experienceYears: number;
+        languages: import("@prisma/client/runtime/client").JsonValue;
+        expertise: string[];
+        availability: string[];
+        pricingType: import("../../generated/prisma/enums.js").PricingType;
+        price: import("@prisma/client-runtime-utils").Decimal | null;
+        status: import("../../generated/prisma/enums.js").GuideStatus;
+        verified: boolean;
+        assessmentScore: number;
+        referenceContact: string | null;
+        codeOfConductAccepted: boolean;
+        rankPoints: number;
+        completedTrips: number;
+        responseRate: number;
+        rating: import("@prisma/client-runtime-utils").Decimal;
+        reviewCount: number;
+    }>;
+    updateMine(user: RequestUser, dto: UpdateGuideProfileDto): Promise<{
+        user: {
+            id: string;
+            name: string;
+            avatarUrl: string | null;
+            isVerified: boolean;
+        };
+    } & {
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+        userId: string;
+        country: string;
+        city: string;
+        bio: string;
+        experienceYears: number;
+        languages: import("@prisma/client/runtime/client").JsonValue;
+        expertise: string[];
+        availability: string[];
+        pricingType: import("../../generated/prisma/enums.js").PricingType;
+        price: import("@prisma/client-runtime-utils").Decimal | null;
+        status: import("../../generated/prisma/enums.js").GuideStatus;
+        verified: boolean;
+        assessmentScore: number;
+        referenceContact: string | null;
+        codeOfConductAccepted: boolean;
+        rankPoints: number;
+        completedTrips: number;
+        responseRate: number;
+        rating: import("@prisma/client-runtime-utils").Decimal;
+        reviewCount: number;
+    }>;
+    applications(): import("../../generated/prisma/internal/prismaNamespace.js").PrismaPromise<({
+        user: {
+            id: string;
+            email: string;
+            name: string;
+            avatarUrl: string | null;
+            isVerified: boolean;
+        };
+    } & {
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+        userId: string;
+        country: string;
+        city: string;
+        bio: string;
+        experienceYears: number;
+        languages: import("@prisma/client/runtime/client").JsonValue;
+        expertise: string[];
+        availability: string[];
+        pricingType: import("../../generated/prisma/enums.js").PricingType;
+        price: import("@prisma/client-runtime-utils").Decimal | null;
+        status: import("../../generated/prisma/enums.js").GuideStatus;
+        verified: boolean;
+        assessmentScore: number;
+        referenceContact: string | null;
+        codeOfConductAccepted: boolean;
+        rankPoints: number;
+        completedTrips: number;
+        responseRate: number;
+        rating: import("@prisma/client-runtime-utils").Decimal;
+        reviewCount: number;
+    })[]>;
+    review(id: string, dto: ReviewGuideApplicationDto): Promise<{
+        user: {
+            id: string;
+            name: string;
+            avatarUrl: string | null;
+            isVerified: boolean;
+        };
+    } & {
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+        userId: string;
+        country: string;
+        city: string;
+        bio: string;
+        experienceYears: number;
+        languages: import("@prisma/client/runtime/client").JsonValue;
+        expertise: string[];
+        availability: string[];
+        pricingType: import("../../generated/prisma/enums.js").PricingType;
+        price: import("@prisma/client-runtime-utils").Decimal | null;
+        status: import("../../generated/prisma/enums.js").GuideStatus;
+        verified: boolean;
+        assessmentScore: number;
+        referenceContact: string | null;
+        codeOfConductAccepted: boolean;
+        rankPoints: number;
+        completedTrips: number;
+        responseRate: number;
+        rating: import("@prisma/client-runtime-utils").Decimal;
+        reviewCount: number;
+    }>;
+    apply(user: RequestUser, dto: ApplyGuideDto): Promise<{
+        user: {
+            id: string;
+            name: string;
+            avatarUrl: string | null;
+            isVerified: boolean;
+        };
+    } & {
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+        userId: string;
+        country: string;
+        city: string;
+        bio: string;
+        experienceYears: number;
+        languages: import("@prisma/client/runtime/client").JsonValue;
+        expertise: string[];
+        availability: string[];
+        pricingType: import("../../generated/prisma/enums.js").PricingType;
+        price: import("@prisma/client-runtime-utils").Decimal | null;
+        status: import("../../generated/prisma/enums.js").GuideStatus;
+        verified: boolean;
+        assessmentScore: number;
+        referenceContact: string | null;
+        codeOfConductAccepted: boolean;
+        rankPoints: number;
+        completedTrips: number;
+        responseRate: number;
+        rating: import("@prisma/client-runtime-utils").Decimal;
+        reviewCount: number;
+    }>;
+    one(id: string): Promise<{
+        user: {
+            id: string;
+            name: string;
+            avatarUrl: string | null;
+            isVerified: boolean;
+        };
+    } & {
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+        userId: string;
+        country: string;
+        city: string;
+        bio: string;
+        experienceYears: number;
+        languages: import("@prisma/client/runtime/client").JsonValue;
+        expertise: string[];
+        availability: string[];
+        pricingType: import("../../generated/prisma/enums.js").PricingType;
+        price: import("@prisma/client-runtime-utils").Decimal | null;
+        status: import("../../generated/prisma/enums.js").GuideStatus;
+        verified: boolean;
+        assessmentScore: number;
+        referenceContact: string | null;
+        codeOfConductAccepted: boolean;
+        rankPoints: number;
+        completedTrips: number;
+        responseRate: number;
+        rating: import("@prisma/client-runtime-utils").Decimal;
+        reviewCount: number;
+    }>;
+}
