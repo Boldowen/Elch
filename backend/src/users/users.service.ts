@@ -10,6 +10,7 @@ const userSelect = {
   avatarUrl: true,
   roles: true,
   isVerified: true,
+  emailVerifiedAt: true,
   createdAt: true,
   guideProfile: true,
 };

@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CurrentUser } from '../../common/decorators/current-user.decorator.js';
 import { ConversationsService } from './conversations.service.js';
@@ -24,6 +24,8 @@ let ConversationsController = class ConversationsController {
     messages(user, id) { return this.conversations.messages(user.sub, id); }
     direct(user, userId) { return this.conversations.direct(user.sub, userId); }
     send(user, id, dto) { return this.conversations.send(user.sub, id, dto); }
+    mute(user, id) { return this.conversations.mute(user.sub, id, true); }
+    unmute(user, id) { return this.conversations.mute(user.sub, id, false); }
 };
 __decorate([
     Get(),
@@ -57,6 +59,22 @@ __decorate([
     __metadata("design:paramtypes", [Object, String, SendMessageDto]),
     __metadata("design:returntype", void 0)
 ], ConversationsController.prototype, "send", null);
+__decorate([
+    Post(':id/mute'),
+    __param(0, CurrentUser()),
+    __param(1, Param('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, String]),
+    __metadata("design:returntype", void 0)
+], ConversationsController.prototype, "mute", null);
+__decorate([
+    Delete(':id/mute'),
+    __param(0, CurrentUser()),
+    __param(1, Param('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, String]),
+    __metadata("design:returntype", void 0)
+], ConversationsController.prototype, "unmute", null);
 ConversationsController = __decorate([
     ApiTags('conversations'),
     ApiBearerAuth(),

@@ -37,7 +37,7 @@ export default function ProfileScreen({ navigation }) {
 
   const user = session.user;
   const links = user.roles?.includes('ADMIN')
-    ? [{ key: 'Guide applications', route: 'AdminGuideApplications', literal: true }, ...LINKS]
+    ? [{ key: 'Safety reports', route: 'AdminReports', literal: true }, { key: 'Guide applications', route: 'AdminGuideApplications', literal: true }, ...LINKS]
     : LINKS;
   return (
     <SafeAreaView style={styles.root} edges={['top']}>

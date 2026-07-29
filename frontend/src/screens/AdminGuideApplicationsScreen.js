@@ -8,7 +8,7 @@ import { colors, radius, spacing } from '../theme';
 
 export default function AdminGuideApplicationsScreen({ navigation }) {
   const [items, setItems] = useState([]);
-  const [scores, setScores] = useState({});
+  const [reviews, setReviews] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -28,13 +28,30 @@ export default function AdminGuideApplicationsScreen({ navigation }) {
   }, [load]);
 
   const review = async (item, decision) => {
-    const score = Number(scores[item.id] ?? 80);
-    if (decision === 'APPROVE' && (!Number.isInteger(score) || score < 0 || score > 100)) {
-      Alert.alert('Invalid score', 'Assessment score must be between 0 and 100.');
+    const draft = reviews[item.id] || {};
+    const assessmentBreakdown = {
+      localKnowledge: Number(draft.localKnowledge ?? 20),
+      communication: Number(draft.communication ?? 20),
+      safety: Number(draft.safety ?? 20),
+      professionalism: Number(draft.professionalism ?? 20),
+    };
+    if (Object.values(assessmentBreakdown).some((score) => !Number.isInteger(score) || score < 0 || score > 25)) {
+      Alert.alert('Invalid assessment', 'Each assessment category must be between 0 and 25.');
+      return;
+    }
+    if (decision === 'REJECT' && !draft.decisionReason?.trim()) {
+      Alert.alert('Reason required', 'Add a decision reason before rejecting.');
       return;
     }
     try {
-      await guidesRepository.reviewApplication(item.id, decision, score);
+      await guidesRepository.reviewApplication(item.id, {
+        decision,
+        decisionReason: draft.decisionReason?.trim() || undefined,
+        internalNote: draft.internalNote?.trim() || undefined,
+        assessmentBreakdown,
+        documentStatus: draft.documentStatus || 'VERIFIED',
+        referenceStatus: draft.referenceStatus || 'VERIFIED',
+      });
       await load();
     } catch (e) {
       Alert.alert('Review failed', apiErrorMessage(e));
@@ -61,14 +78,42 @@ export default function AdminGuideApplicationsScreen({ navigation }) {
               <Text style={styles.value}>{(item.expertise || []).join(', ')}</Text>
               <Text style={styles.label}>Reference</Text>
               <Text style={styles.value}>{item.referenceContact || 'None'}</Text>
-              <Text style={styles.label}>Assessment score</Text>
+              <Text style={styles.label}>Assessment (each 0–25)</Text>
+              {['localKnowledge', 'communication', 'safety', 'professionalism'].map((field) => (
+                <TextInput
+                  key={field}
+                  accessibilityLabel={field}
+                  placeholder={field}
+                  value={String(reviews[item.id]?.[field] ?? 20)}
+                  onChangeText={(value) => setReviews((current) => ({ ...current, [item.id]: { ...current[item.id], [field]: value } }))}
+                  keyboardType="number-pad"
+                  style={styles.score}
+                />
+              ))}
+              <Text style={styles.label}>Decision reason (required for reject)</Text>
               <TextInput
-                accessibilityLabel="Assessment score"
-                value={String(scores[item.id] ?? 80)}
-                onChangeText={(value) => setScores((current) => ({ ...current, [item.id]: value }))}
-                keyboardType="number-pad"
-                style={styles.score}
+                value={reviews[item.id]?.decisionReason || ''}
+                onChangeText={(value) => setReviews((current) => ({ ...current, [item.id]: { ...current[item.id], decisionReason: value } }))}
+                multiline
+                style={styles.note}
               />
+              <Text style={styles.label}>Internal note</Text>
+              <TextInput
+                value={reviews[item.id]?.internalNote || ''}
+                onChangeText={(value) => setReviews((current) => ({ ...current, [item.id]: { ...current[item.id], internalNote: value } }))}
+                multiline
+                style={styles.note}
+              />
+              <View style={styles.actions}>
+                {['documentStatus', 'referenceStatus'].map((field) => {
+                  const value = reviews[item.id]?.[field] || 'VERIFIED';
+                  return (
+                    <Pressable key={field} onPress={() => setReviews((current) => ({ ...current, [item.id]: { ...current[item.id], [field]: value === 'VERIFIED' ? 'FAILED' : 'VERIFIED' } }))} style={styles.checkButton}>
+                      <Text style={styles.value}>{field === 'documentStatus' ? 'Document' : 'Reference'}: {value}</Text>
+                    </Pressable>
+                  );
+                })}
+              </View>
               <View style={styles.actions}>
                 <Pressable accessibilityRole="button" onPress={() => review(item, 'REJECT')} style={styles.reject}>
                   <Text style={styles.rejectText}>Reject</Text>
@@ -95,6 +140,8 @@ const styles = StyleSheet.create({
   label: { color: colors.inkSoft, fontSize: 12, fontWeight: '600', marginTop: 14 },
   value: { color: colors.ink, marginTop: 3, lineHeight: 19 },
   score: { height: 48, borderWidth: 1, borderColor: colors.border, borderRadius: radius.md, paddingHorizontal: 14, marginTop: 6, color: colors.ink },
+  note: { minHeight: 70, borderWidth: 1, borderColor: colors.border, borderRadius: radius.md, padding: 12, marginTop: 6, color: colors.ink, textAlignVertical: 'top' },
+  checkButton: { flex: 1, minHeight: 48, borderWidth: 1, borderColor: colors.border, borderRadius: radius.md, padding: 8, justifyContent: 'center' },
   actions: { flexDirection: 'row', gap: 10, marginTop: 16 },
   reject: { flex: 1, minHeight: 48, borderWidth: 1, borderColor: colors.border, borderRadius: radius.md, alignItems: 'center', justifyContent: 'center' },
   rejectText: { color: colors.ink, fontWeight: '700' },

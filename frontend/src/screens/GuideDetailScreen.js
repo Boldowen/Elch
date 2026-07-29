@@ -36,7 +36,7 @@ export default function GuideDetailScreen({ navigation, route }) {
     try {
       const userId = guide.userId || guide.id;
       const convId = await conversationsRepository.direct(userId);
-      navigation.navigate('Chat', { id: convId, title: guide.name });
+      navigation.navigate('Chat', { id: convId, title: guide.name, peerId: userId });
     } catch (e) {
       Alert.alert('Error', apiErrorMessage(e));
     }

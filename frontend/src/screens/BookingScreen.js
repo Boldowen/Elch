@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AppButton, AppInput, ScreenHeader } from '../components/ui';
@@ -15,7 +15,7 @@ function dateValue(date) {
 }
 
 export default function BookingScreen({ navigation, route }) {
-  const { kind, id, title, price = 0, unit = 'unit' } = route.params;
+  const { kind, id, title, price = 0, unit = 'unit', currency = 'USD' } = route.params;
   const tomorrow = new Date(Date.now() + 86_400_000);
   const [date, setDate] = useState(dateValue(tomorrow));
   const [time, setTime] = useState('10:00');
@@ -23,6 +23,7 @@ export default function BookingScreen({ navigation, route }) {
   const [guests, setGuests] = useState('1');
   const [note, setNote] = useState('');
   const [loading, setLoading] = useState(false);
+  const [quote, setQuote] = useState(null);
   const { t, language } = useT();
 
   const durationLabel = kind === 'guide' ? t('booking.hours') : t('booking.nights');
@@ -30,6 +31,33 @@ export default function BookingScreen({ navigation, route }) {
     () => (Number(price) * Math.max(1, Number(duration) || 1)).toFixed(2),
     [price, duration],
   );
+
+  useEffect(() => {
+    const start = new Date(`${date}T${time}:00`);
+    const durationNumber = Number(duration);
+    const guestNumber = Number(guests);
+    if (Number.isNaN(start.getTime()) || durationNumber < 1 || guestNumber < 1) {
+      setQuote(null);
+      return undefined;
+    }
+    const timer = setTimeout(async () => {
+      try {
+        const unitMs = kind === 'guide' ? 3_600_000 : 86_400_000;
+        setQuote(await bookingsRepository.quote({
+          ...(kind === 'guide' ? { guideId: id } : { listingId: id }),
+          startsAt: start.toISOString(),
+          endsAt: new Date(start.getTime() + durationNumber * unitMs).toISOString(),
+          guests: guestNumber,
+        }));
+      } catch {
+        setQuote(null);
+      }
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [date, duration, guests, id, kind, time]);
+
+  const displayCurrency = quote?.currency || currency;
+  const displayTotal = quote ? quote.amountMinor / 100 : estimatedTotal;
 
   const submit = async () => {
     const start = new Date(`${date}T${time}:00`);
@@ -119,12 +147,17 @@ export default function BookingScreen({ navigation, route }) {
         <View style={styles.summary}>
           <View style={styles.summaryRow}>
             <Text style={styles.summaryLabel}>{t('booking.rate')}</Text>
-            <Text style={styles.summaryValue}>{formatMoney(price, 'USD', language)} / {unit}</Text>
+            <Text style={styles.summaryValue}>{formatMoney(price, currency, language)} / {unit}</Text>
           </View>
           <View style={styles.summaryRow}>
             <Text style={styles.totalLabel}>{t('booking.total')}</Text>
-            <Text style={styles.total}>{formatMoney(estimatedTotal, 'USD', language)}</Text>
+            <Text style={styles.total}>{formatMoney(displayTotal, displayCurrency, language)}</Text>
           </View>
+          {quote ? (
+            <Text style={styles.disclaimer}>
+              Base {formatMoney(quote.baseAmountMinor / 100, displayCurrency, language)} · Fees & tax {formatMoney((quote.cleaningFeeMinor + quote.serviceFeeMinor + quote.taxMinor + quote.extraGuestFeeMinor) / 100, displayCurrency, language)} · Deposit {formatMoney(quote.depositMinor / 100, displayCurrency, language)}
+            </Text>
+          ) : null}
           <Text style={styles.disclaimer}>
             {t('booking.pilot')}
           </Text>

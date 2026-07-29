@@ -11,17 +11,25 @@ export const AnyNull = runtime.AnyNull;
 export const ModelName = {
     User: 'User',
     RefreshToken: 'RefreshToken',
+    EmailVerificationToken: 'EmailVerificationToken',
+    PasswordResetToken: 'PasswordResetToken',
     GuideProfile: 'GuideProfile',
+    GuideVerificationReview: 'GuideVerificationReview',
     Listing: 'Listing',
     ListingInventory: 'ListingInventory',
     ListingImage: 'ListingImage',
     Booking: 'Booking',
+    PilotPayment: 'PilotPayment',
     BookingEvent: 'BookingEvent',
     IdempotencyKey: 'IdempotencyKey',
     Favorite: 'Favorite',
     Conversation: 'Conversation',
     ConversationParticipant: 'ConversationParticipant',
+    UserBlock: 'UserBlock',
+    Report: 'Report',
+    ModerationAction: 'ModerationAction',
     Message: 'Message',
+    Notification: 'Notification',
     PaymentMethod: 'PaymentMethod',
     Review: 'Review',
     Post: 'Post',
@@ -46,6 +54,10 @@ export const UserScalarFieldEnum = {
     provider: 'provider',
     roles: 'roles',
     isVerified: 'isVerified',
+    emailVerifiedAt: 'emailVerifiedAt',
+    moderationStatus: 'moderationStatus',
+    suspendedUntil: 'suspendedUntil',
+    suspensionReason: 'suspensionReason',
     lastLoginAt: 'lastLoginAt',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
@@ -61,6 +73,24 @@ export const RefreshTokenScalarFieldEnum = {
     revokedAt: 'revokedAt',
     createdAt: 'createdAt',
     userId: 'userId'
+};
+export const EmailVerificationTokenScalarFieldEnum = {
+    id: 'id',
+    userId: 'userId',
+    tokenHash: 'tokenHash',
+    expiresAt: 'expiresAt',
+    sentAt: 'sentAt',
+    usedAt: 'usedAt',
+    createdAt: 'createdAt'
+};
+export const PasswordResetTokenScalarFieldEnum = {
+    id: 'id',
+    userId: 'userId',
+    tokenHash: 'tokenHash',
+    expiresAt: 'expiresAt',
+    requestedAt: 'requestedAt',
+    usedAt: 'usedAt',
+    createdAt: 'createdAt'
 };
 export const GuideProfileScalarFieldEnum = {
     id: 'id',
@@ -82,11 +112,29 @@ export const GuideProfileScalarFieldEnum = {
     rankPoints: 'rankPoints',
     completedTrips: 'completedTrips',
     responseRate: 'responseRate',
+    acceptanceRate: 'acceptanceRate',
+    providerCancellationCount: 'providerCancellationCount',
+    confirmedReportCount: 'confirmedReportCount',
+    rankingUpdatedAt: 'rankingUpdatedAt',
     rating: 'rating',
     reviewCount: 'reviewCount',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     deletedAt: 'deletedAt'
+};
+export const GuideVerificationReviewScalarFieldEnum = {
+    id: 'id',
+    guideProfileId: 'guideProfileId',
+    reviewerId: 'reviewerId',
+    decision: 'decision',
+    decisionReason: 'decisionReason',
+    internalNote: 'internalNote',
+    assessmentScore: 'assessmentScore',
+    assessmentBreakdown: 'assessmentBreakdown',
+    documentStatus: 'documentStatus',
+    referenceStatus: 'referenceStatus',
+    applicationSnapshot: 'applicationSnapshot',
+    reviewedAt: 'reviewedAt'
 };
 export const ListingScalarFieldEnum = {
     id: 'id',
@@ -96,6 +144,13 @@ export const ListingScalarFieldEnum = {
     description: 'description',
     category: 'category',
     price: 'price',
+    basePriceMinor: 'basePriceMinor',
+    cleaningFeeMinor: 'cleaningFeeMinor',
+    serviceFeeMinor: 'serviceFeeMinor',
+    taxMinor: 'taxMinor',
+    extraGuestFeeMinor: 'extraGuestFeeMinor',
+    depositMinor: 'depositMinor',
+    currency: 'currency',
     priceUnit: 'priceUnit',
     datesLabel: 'datesLabel',
     tags: 'tags',
@@ -136,6 +191,13 @@ export const BookingScalarFieldEnum = {
     endsAt: 'endsAt',
     guests: 'guests',
     amount: 'amount',
+    amountMinor: 'amountMinor',
+    baseAmountMinor: 'baseAmountMinor',
+    cleaningFeeMinor: 'cleaningFeeMinor',
+    serviceFeeMinor: 'serviceFeeMinor',
+    taxMinor: 'taxMinor',
+    extraGuestFeeMinor: 'extraGuestFeeMinor',
+    depositMinor: 'depositMinor',
     currency: 'currency',
     status: 'status',
     note: 'note',
@@ -145,10 +207,24 @@ export const BookingScalarFieldEnum = {
     lateCancellationPercent: 'lateCancellationPercent',
     noShowPercent: 'noShowPercent',
     cancellationFee: 'cancellationFee',
+    cancellationFeeMinor: 'cancellationFeeMinor',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     cancelledAt: 'cancelledAt',
     deletedAt: 'deletedAt'
+};
+export const PilotPaymentScalarFieldEnum = {
+    id: 'id',
+    bookingId: 'bookingId',
+    arrangement: 'arrangement',
+    status: 'status',
+    instructions: 'instructions',
+    proposedById: 'proposedById',
+    agreedByTravelerAt: 'agreedByTravelerAt',
+    agreedByProviderAt: 'agreedByProviderAt',
+    paidAt: 'paidAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
 };
 export const BookingEventScalarFieldEnum = {
     id: 'id',
@@ -191,7 +267,37 @@ export const ConversationParticipantScalarFieldEnum = {
     conversationId: 'conversationId',
     userId: 'userId',
     lastReadAt: 'lastReadAt',
-    joinedAt: 'joinedAt'
+    joinedAt: 'joinedAt',
+    mutedAt: 'mutedAt'
+};
+export const UserBlockScalarFieldEnum = {
+    id: 'id',
+    blockerId: 'blockerId',
+    blockedId: 'blockedId',
+    createdAt: 'createdAt'
+};
+export const ReportScalarFieldEnum = {
+    id: 'id',
+    reporterId: 'reporterId',
+    reason: 'reason',
+    targetType: 'targetType',
+    targetId: 'targetId',
+    details: 'details',
+    status: 'status',
+    resolution: 'resolution',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    resolvedAt: 'resolvedAt'
+};
+export const ModerationActionScalarFieldEnum = {
+    id: 'id',
+    reportId: 'reportId',
+    adminId: 'adminId',
+    action: 'action',
+    reason: 'reason',
+    metadata: 'metadata',
+    expiresAt: 'expiresAt',
+    createdAt: 'createdAt'
 };
 export const MessageScalarFieldEnum = {
     id: 'id',
@@ -202,6 +308,16 @@ export const MessageScalarFieldEnum = {
     mediaUrl: 'mediaUrl',
     sentAt: 'sentAt',
     deletedAt: 'deletedAt'
+};
+export const NotificationScalarFieldEnum = {
+    id: 'id',
+    userId: 'userId',
+    type: 'type',
+    title: 'title',
+    body: 'body',
+    data: 'data',
+    readAt: 'readAt',
+    createdAt: 'createdAt'
 };
 export const PaymentMethodScalarFieldEnum = {
     id: 'id',
@@ -217,8 +333,10 @@ export const PaymentMethodScalarFieldEnum = {
 };
 export const ReviewScalarFieldEnum = {
     id: 'id',
+    bookingId: 'bookingId',
     authorId: 'authorId',
     guideId: 'guideId',
+    listingId: 'listingId',
     rating: 'rating',
     text: 'text',
     createdAt: 'createdAt',

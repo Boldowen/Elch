@@ -97,8 +97,19 @@ export const bookingsRepository = {
     return data;
   },
 
+  async quote(payload) {
+    const { data } = await api.post('/bookings/quote', payload);
+    return data;
+  },
+
   async updateStatus(id, action) {
     const { data } = await api.patch(`/bookings/${id}/status`, { action });
     return data;
   },
+  async proposePayment(id, arrangement, instructions) {
+    const { data } = await api.post(`/bookings/${id}/payment`, { arrangement, instructions });
+    return data;
+  },
+  async agreePayment(id) { const { data } = await api.post(`/bookings/${id}/payment/agree`); return data; },
+  async markPaymentPaid(id) { const { data } = await api.post(`/bookings/${id}/payment/paid`); return data; },
 };

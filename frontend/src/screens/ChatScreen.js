@@ -8,6 +8,7 @@ import {
   TextInput,
   View,
   Pressable,
+  Alert,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScreenHeader, StateBox } from '../components/ui';
@@ -15,15 +16,17 @@ import { conversationsRepository } from '../repositories/conversationsRepository
 import { useAuth } from '../context/AuthContext';
 import { apiErrorMessage } from '../services/api';
 import { colors, radius, spacing } from '../theme';
+import { trustSafetyRepository } from '../repositories/trustSafetyRepository';
 
 export default function ChatScreen({ navigation, route }) {
-  const { id, title } = route.params;
+  const { id, title, peerId } = route.params;
   const { session } = useAuth();
   const [messages, setMessages] = useState([]);
   const [text, setText] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [sending, setSending] = useState(false);
+  const [muted, setMuted] = useState(Boolean(route.params?.muted));
 
   const load = useCallback(async () => {
     if (!session) return;
@@ -59,6 +62,11 @@ export default function ChatScreen({ navigation, route }) {
   return (
     <SafeAreaView style={styles.root} edges={['top', 'bottom']}>
       <ScreenHeader title={title || 'Chat'} onBack={() => navigation.goBack()} />
+      <View style={styles.safetyActions}>
+        <Pressable onPress={async () => { const next = !muted; await conversationsRepository.mute(id, next); setMuted(next); }}><Text style={styles.safetyText}>{muted ? 'Unmute' : 'Mute'}</Text></Pressable>
+        {peerId ? <Pressable onPress={() => Alert.alert('Report user?', 'A safety report will be sent to VenTour.', [{ text: 'Cancel' }, { text: 'Report', style: 'destructive', onPress: async () => { await trustSafetyRepository.report({ reason: 'HARASSMENT', targetType: 'USER', targetId: peerId, details: 'Reported from conversation' }); Alert.alert('Report sent'); } }])}><Text style={styles.safetyText}>Report</Text></Pressable> : null}
+        {peerId ? <Pressable onPress={() => Alert.alert('Block user?', 'Messaging and social interactions will stop.', [{ text: 'Cancel' }, { text: 'Block', style: 'destructive', onPress: async () => { await trustSafetyRepository.block(peerId); navigation.goBack(); } }])}><Text style={styles.dangerText}>Block</Text></Pressable> : null}
+      </View>
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
@@ -147,4 +155,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   sendText: { color: '#fff', fontWeight: '700' },
+  safetyActions: { minHeight: 44, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', gap: 20, paddingHorizontal: spacing.lg, borderBottomWidth: 1, borderBottomColor: colors.border },
+  safetyText: { color: colors.inkSoft, fontWeight: '600' },
+  dangerText: { color: '#B42318', fontWeight: '700' },
 });

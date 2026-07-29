@@ -12,6 +12,7 @@ export declare class UsersController {
         avatarUrl: string | null;
         roles: import("../generated/prisma/enums.js").Role[];
         isVerified: boolean;
+        emailVerifiedAt: Date | null;
         createdAt: Date;
         guideProfile: {
             id: string;
@@ -36,6 +37,10 @@ export declare class UsersController {
             rankPoints: number;
             completedTrips: number;
             responseRate: number;
+            acceptanceRate: number;
+            providerCancellationCount: number;
+            confirmedReportCount: number;
+            rankingUpdatedAt: Date | null;
             rating: import("@prisma/client-runtime-utils").Decimal;
             reviewCount: number;
         } | null;
@@ -48,6 +53,7 @@ export declare class UsersController {
         avatarUrl: string | null;
         roles: import("../generated/prisma/enums.js").Role[];
         isVerified: boolean;
+        emailVerifiedAt: Date | null;
         createdAt: Date;
         guideProfile: {
             id: string;
@@ -72,6 +78,10 @@ export declare class UsersController {
             rankPoints: number;
             completedTrips: number;
             responseRate: number;
+            acceptanceRate: number;
+            providerCancellationCount: number;
+            confirmedReportCount: number;
+            rankingUpdatedAt: Date | null;
             rating: import("@prisma/client-runtime-utils").Decimal;
             reviewCount: number;
         } | null;

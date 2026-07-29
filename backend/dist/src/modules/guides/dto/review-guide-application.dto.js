@@ -7,25 +7,79 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { IsEnum, IsInt, IsOptional, Max, Min } from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsEnum, IsInt, IsOptional, IsString, Max, MaxLength, Min, ValidateIf, ValidateNested, } from 'class-validator';
+import { VerificationCheckStatus } from '../../../generated/prisma/client.js';
 export var GuideReviewDecision;
 (function (GuideReviewDecision) {
     GuideReviewDecision["APPROVE"] = "APPROVE";
     GuideReviewDecision["REJECT"] = "REJECT";
 })(GuideReviewDecision || (GuideReviewDecision = {}));
+export class AssessmentBreakdownDto {
+    localKnowledge;
+    communication;
+    safety;
+    professionalism;
+}
+__decorate([
+    IsInt(),
+    Min(0),
+    Max(25),
+    __metadata("design:type", Number)
+], AssessmentBreakdownDto.prototype, "localKnowledge", void 0);
+__decorate([
+    IsInt(),
+    Min(0),
+    Max(25),
+    __metadata("design:type", Number)
+], AssessmentBreakdownDto.prototype, "communication", void 0);
+__decorate([
+    IsInt(),
+    Min(0),
+    Max(25),
+    __metadata("design:type", Number)
+], AssessmentBreakdownDto.prototype, "safety", void 0);
+__decorate([
+    IsInt(),
+    Min(0),
+    Max(25),
+    __metadata("design:type", Number)
+], AssessmentBreakdownDto.prototype, "professionalism", void 0);
 export class ReviewGuideApplicationDto {
     decision;
-    assessmentScore;
+    decisionReason;
+    internalNote;
+    assessmentBreakdown;
+    documentStatus;
+    referenceStatus;
 }
 __decorate([
     IsEnum(GuideReviewDecision),
     __metadata("design:type", String)
 ], ReviewGuideApplicationDto.prototype, "decision", void 0);
 __decorate([
+    ValidateIf((dto) => dto.decision === GuideReviewDecision.REJECT),
+    IsString(),
+    MaxLength(500),
+    __metadata("design:type", String)
+], ReviewGuideApplicationDto.prototype, "decisionReason", void 0);
+__decorate([
     IsOptional(),
-    IsInt(),
-    Min(0),
-    Max(100),
-    __metadata("design:type", Number)
-], ReviewGuideApplicationDto.prototype, "assessmentScore", void 0);
+    IsString(),
+    MaxLength(2000),
+    __metadata("design:type", String)
+], ReviewGuideApplicationDto.prototype, "internalNote", void 0);
+__decorate([
+    ValidateNested(),
+    Type(() => AssessmentBreakdownDto),
+    __metadata("design:type", AssessmentBreakdownDto)
+], ReviewGuideApplicationDto.prototype, "assessmentBreakdown", void 0);
+__decorate([
+    IsEnum(VerificationCheckStatus),
+    __metadata("design:type", String)
+], ReviewGuideApplicationDto.prototype, "documentStatus", void 0);
+__decorate([
+    IsEnum(VerificationCheckStatus),
+    __metadata("design:type", String)
+], ReviewGuideApplicationDto.prototype, "referenceStatus", void 0);
 //# sourceMappingURL=review-guide-application.dto.js.map

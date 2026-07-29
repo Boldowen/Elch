@@ -16,6 +16,9 @@ export type GuideProfileAvgAggregateOutputType = {
     rankPoints: number | null;
     completedTrips: number | null;
     responseRate: number | null;
+    acceptanceRate: number | null;
+    providerCancellationCount: number | null;
+    confirmedReportCount: number | null;
     rating: runtime.Decimal | null;
     reviewCount: number | null;
 };
@@ -26,6 +29,9 @@ export type GuideProfileSumAggregateOutputType = {
     rankPoints: number | null;
     completedTrips: number | null;
     responseRate: number | null;
+    acceptanceRate: number | null;
+    providerCancellationCount: number | null;
+    confirmedReportCount: number | null;
     rating: runtime.Decimal | null;
     reviewCount: number | null;
 };
@@ -46,6 +52,10 @@ export type GuideProfileMinAggregateOutputType = {
     rankPoints: number | null;
     completedTrips: number | null;
     responseRate: number | null;
+    acceptanceRate: number | null;
+    providerCancellationCount: number | null;
+    confirmedReportCount: number | null;
+    rankingUpdatedAt: Date | null;
     rating: runtime.Decimal | null;
     reviewCount: number | null;
     createdAt: Date | null;
@@ -69,6 +79,10 @@ export type GuideProfileMaxAggregateOutputType = {
     rankPoints: number | null;
     completedTrips: number | null;
     responseRate: number | null;
+    acceptanceRate: number | null;
+    providerCancellationCount: number | null;
+    confirmedReportCount: number | null;
+    rankingUpdatedAt: Date | null;
     rating: runtime.Decimal | null;
     reviewCount: number | null;
     createdAt: Date | null;
@@ -95,6 +109,10 @@ export type GuideProfileCountAggregateOutputType = {
     rankPoints: number;
     completedTrips: number;
     responseRate: number;
+    acceptanceRate: number;
+    providerCancellationCount: number;
+    confirmedReportCount: number;
+    rankingUpdatedAt: number;
     rating: number;
     reviewCount: number;
     createdAt: number;
@@ -109,6 +127,9 @@ export type GuideProfileAvgAggregateInputType = {
     rankPoints?: true;
     completedTrips?: true;
     responseRate?: true;
+    acceptanceRate?: true;
+    providerCancellationCount?: true;
+    confirmedReportCount?: true;
     rating?: true;
     reviewCount?: true;
 };
@@ -119,6 +140,9 @@ export type GuideProfileSumAggregateInputType = {
     rankPoints?: true;
     completedTrips?: true;
     responseRate?: true;
+    acceptanceRate?: true;
+    providerCancellationCount?: true;
+    confirmedReportCount?: true;
     rating?: true;
     reviewCount?: true;
 };
@@ -139,6 +163,10 @@ export type GuideProfileMinAggregateInputType = {
     rankPoints?: true;
     completedTrips?: true;
     responseRate?: true;
+    acceptanceRate?: true;
+    providerCancellationCount?: true;
+    confirmedReportCount?: true;
+    rankingUpdatedAt?: true;
     rating?: true;
     reviewCount?: true;
     createdAt?: true;
@@ -162,6 +190,10 @@ export type GuideProfileMaxAggregateInputType = {
     rankPoints?: true;
     completedTrips?: true;
     responseRate?: true;
+    acceptanceRate?: true;
+    providerCancellationCount?: true;
+    confirmedReportCount?: true;
+    rankingUpdatedAt?: true;
     rating?: true;
     reviewCount?: true;
     createdAt?: true;
@@ -188,6 +220,10 @@ export type GuideProfileCountAggregateInputType = {
     rankPoints?: true;
     completedTrips?: true;
     responseRate?: true;
+    acceptanceRate?: true;
+    providerCancellationCount?: true;
+    confirmedReportCount?: true;
+    rankingUpdatedAt?: true;
     rating?: true;
     reviewCount?: true;
     createdAt?: true;
@@ -243,6 +279,10 @@ export type GuideProfileGroupByOutputType = {
     rankPoints: number;
     completedTrips: number;
     responseRate: number;
+    acceptanceRate: number;
+    providerCancellationCount: number;
+    confirmedReportCount: number;
+    rankingUpdatedAt: Date | null;
     rating: runtime.Decimal;
     reviewCount: number;
     createdAt: Date;
@@ -280,12 +320,17 @@ export type GuideProfileWhereInput = {
     rankPoints?: Prisma.IntFilter<"GuideProfile"> | number;
     completedTrips?: Prisma.IntFilter<"GuideProfile"> | number;
     responseRate?: Prisma.IntFilter<"GuideProfile"> | number;
+    acceptanceRate?: Prisma.IntFilter<"GuideProfile"> | number;
+    providerCancellationCount?: Prisma.IntFilter<"GuideProfile"> | number;
+    confirmedReportCount?: Prisma.IntFilter<"GuideProfile"> | number;
+    rankingUpdatedAt?: Prisma.DateTimeNullableFilter<"GuideProfile"> | Date | string | null;
     rating?: Prisma.DecimalFilter<"GuideProfile"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
     reviewCount?: Prisma.IntFilter<"GuideProfile"> | number;
     createdAt?: Prisma.DateTimeFilter<"GuideProfile"> | Date | string;
     updatedAt?: Prisma.DateTimeFilter<"GuideProfile"> | Date | string;
     deletedAt?: Prisma.DateTimeNullableFilter<"GuideProfile"> | Date | string | null;
     user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>;
+    verificationReviews?: Prisma.GuideVerificationReviewListRelationFilter;
 };
 export type GuideProfileOrderByWithRelationInput = {
     id?: Prisma.SortOrder;
@@ -307,12 +352,17 @@ export type GuideProfileOrderByWithRelationInput = {
     rankPoints?: Prisma.SortOrder;
     completedTrips?: Prisma.SortOrder;
     responseRate?: Prisma.SortOrder;
+    acceptanceRate?: Prisma.SortOrder;
+    providerCancellationCount?: Prisma.SortOrder;
+    confirmedReportCount?: Prisma.SortOrder;
+    rankingUpdatedAt?: Prisma.SortOrderInput | Prisma.SortOrder;
     rating?: Prisma.SortOrder;
     reviewCount?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
     updatedAt?: Prisma.SortOrder;
     deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder;
     user?: Prisma.UserOrderByWithRelationInput;
+    verificationReviews?: Prisma.GuideVerificationReviewOrderByRelationAggregateInput;
 };
 export type GuideProfileWhereUniqueInput = Prisma.AtLeast<{
     id?: string;
@@ -337,12 +387,17 @@ export type GuideProfileWhereUniqueInput = Prisma.AtLeast<{
     rankPoints?: Prisma.IntFilter<"GuideProfile"> | number;
     completedTrips?: Prisma.IntFilter<"GuideProfile"> | number;
     responseRate?: Prisma.IntFilter<"GuideProfile"> | number;
+    acceptanceRate?: Prisma.IntFilter<"GuideProfile"> | number;
+    providerCancellationCount?: Prisma.IntFilter<"GuideProfile"> | number;
+    confirmedReportCount?: Prisma.IntFilter<"GuideProfile"> | number;
+    rankingUpdatedAt?: Prisma.DateTimeNullableFilter<"GuideProfile"> | Date | string | null;
     rating?: Prisma.DecimalFilter<"GuideProfile"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
     reviewCount?: Prisma.IntFilter<"GuideProfile"> | number;
     createdAt?: Prisma.DateTimeFilter<"GuideProfile"> | Date | string;
     updatedAt?: Prisma.DateTimeFilter<"GuideProfile"> | Date | string;
     deletedAt?: Prisma.DateTimeNullableFilter<"GuideProfile"> | Date | string | null;
     user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>;
+    verificationReviews?: Prisma.GuideVerificationReviewListRelationFilter;
 }, "id" | "userId">;
 export type GuideProfileOrderByWithAggregationInput = {
     id?: Prisma.SortOrder;
@@ -364,6 +419,10 @@ export type GuideProfileOrderByWithAggregationInput = {
     rankPoints?: Prisma.SortOrder;
     completedTrips?: Prisma.SortOrder;
     responseRate?: Prisma.SortOrder;
+    acceptanceRate?: Prisma.SortOrder;
+    providerCancellationCount?: Prisma.SortOrder;
+    confirmedReportCount?: Prisma.SortOrder;
+    rankingUpdatedAt?: Prisma.SortOrderInput | Prisma.SortOrder;
     rating?: Prisma.SortOrder;
     reviewCount?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
@@ -398,6 +457,10 @@ export type GuideProfileScalarWhereWithAggregatesInput = {
     rankPoints?: Prisma.IntWithAggregatesFilter<"GuideProfile"> | number;
     completedTrips?: Prisma.IntWithAggregatesFilter<"GuideProfile"> | number;
     responseRate?: Prisma.IntWithAggregatesFilter<"GuideProfile"> | number;
+    acceptanceRate?: Prisma.IntWithAggregatesFilter<"GuideProfile"> | number;
+    providerCancellationCount?: Prisma.IntWithAggregatesFilter<"GuideProfile"> | number;
+    confirmedReportCount?: Prisma.IntWithAggregatesFilter<"GuideProfile"> | number;
+    rankingUpdatedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"GuideProfile"> | Date | string | null;
     rating?: Prisma.DecimalWithAggregatesFilter<"GuideProfile"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
     reviewCount?: Prisma.IntWithAggregatesFilter<"GuideProfile"> | number;
     createdAt?: Prisma.DateTimeWithAggregatesFilter<"GuideProfile"> | Date | string;
@@ -423,12 +486,17 @@ export type GuideProfileCreateInput = {
     rankPoints?: number;
     completedTrips?: number;
     responseRate?: number;
+    acceptanceRate?: number;
+    providerCancellationCount?: number;
+    confirmedReportCount?: number;
+    rankingUpdatedAt?: Date | string | null;
     rating?: runtime.Decimal | runtime.DecimalJsLike | number | string;
     reviewCount?: number;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     deletedAt?: Date | string | null;
     user: Prisma.UserCreateNestedOneWithoutGuideProfileInput;
+    verificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutGuideProfileInput;
 };
 export type GuideProfileUncheckedCreateInput = {
     id?: string;
@@ -450,11 +518,16 @@ export type GuideProfileUncheckedCreateInput = {
     rankPoints?: number;
     completedTrips?: number;
     responseRate?: number;
+    acceptanceRate?: number;
+    providerCancellationCount?: number;
+    confirmedReportCount?: number;
+    rankingUpdatedAt?: Date | string | null;
     rating?: runtime.Decimal | runtime.DecimalJsLike | number | string;
     reviewCount?: number;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     deletedAt?: Date | string | null;
+    verificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutGuideProfileInput;
 };
 export type GuideProfileUpdateInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -475,12 +548,17 @@ export type GuideProfileUpdateInput = {
     rankPoints?: Prisma.IntFieldUpdateOperationsInput | number;
     completedTrips?: Prisma.IntFieldUpdateOperationsInput | number;
     responseRate?: Prisma.IntFieldUpdateOperationsInput | number;
+    acceptanceRate?: Prisma.IntFieldUpdateOperationsInput | number;
+    providerCancellationCount?: Prisma.IntFieldUpdateOperationsInput | number;
+    confirmedReportCount?: Prisma.IntFieldUpdateOperationsInput | number;
+    rankingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
     reviewCount?: Prisma.IntFieldUpdateOperationsInput | number;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     user?: Prisma.UserUpdateOneRequiredWithoutGuideProfileNestedInput;
+    verificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutGuideProfileNestedInput;
 };
 export type GuideProfileUncheckedUpdateInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -502,11 +580,16 @@ export type GuideProfileUncheckedUpdateInput = {
     rankPoints?: Prisma.IntFieldUpdateOperationsInput | number;
     completedTrips?: Prisma.IntFieldUpdateOperationsInput | number;
     responseRate?: Prisma.IntFieldUpdateOperationsInput | number;
+    acceptanceRate?: Prisma.IntFieldUpdateOperationsInput | number;
+    providerCancellationCount?: Prisma.IntFieldUpdateOperationsInput | number;
+    confirmedReportCount?: Prisma.IntFieldUpdateOperationsInput | number;
+    rankingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
     reviewCount?: Prisma.IntFieldUpdateOperationsInput | number;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    verificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutGuideProfileNestedInput;
 };
 export type GuideProfileCreateManyInput = {
     id?: string;
@@ -528,6 +611,10 @@ export type GuideProfileCreateManyInput = {
     rankPoints?: number;
     completedTrips?: number;
     responseRate?: number;
+    acceptanceRate?: number;
+    providerCancellationCount?: number;
+    confirmedReportCount?: number;
+    rankingUpdatedAt?: Date | string | null;
     rating?: runtime.Decimal | runtime.DecimalJsLike | number | string;
     reviewCount?: number;
     createdAt?: Date | string;
@@ -553,6 +640,10 @@ export type GuideProfileUpdateManyMutationInput = {
     rankPoints?: Prisma.IntFieldUpdateOperationsInput | number;
     completedTrips?: Prisma.IntFieldUpdateOperationsInput | number;
     responseRate?: Prisma.IntFieldUpdateOperationsInput | number;
+    acceptanceRate?: Prisma.IntFieldUpdateOperationsInput | number;
+    providerCancellationCount?: Prisma.IntFieldUpdateOperationsInput | number;
+    confirmedReportCount?: Prisma.IntFieldUpdateOperationsInput | number;
+    rankingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
     reviewCount?: Prisma.IntFieldUpdateOperationsInput | number;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -579,6 +670,10 @@ export type GuideProfileUncheckedUpdateManyInput = {
     rankPoints?: Prisma.IntFieldUpdateOperationsInput | number;
     completedTrips?: Prisma.IntFieldUpdateOperationsInput | number;
     responseRate?: Prisma.IntFieldUpdateOperationsInput | number;
+    acceptanceRate?: Prisma.IntFieldUpdateOperationsInput | number;
+    providerCancellationCount?: Prisma.IntFieldUpdateOperationsInput | number;
+    confirmedReportCount?: Prisma.IntFieldUpdateOperationsInput | number;
+    rankingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
     reviewCount?: Prisma.IntFieldUpdateOperationsInput | number;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -616,6 +711,10 @@ export type GuideProfileCountOrderByAggregateInput = {
     rankPoints?: Prisma.SortOrder;
     completedTrips?: Prisma.SortOrder;
     responseRate?: Prisma.SortOrder;
+    acceptanceRate?: Prisma.SortOrder;
+    providerCancellationCount?: Prisma.SortOrder;
+    confirmedReportCount?: Prisma.SortOrder;
+    rankingUpdatedAt?: Prisma.SortOrder;
     rating?: Prisma.SortOrder;
     reviewCount?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
@@ -629,6 +728,9 @@ export type GuideProfileAvgOrderByAggregateInput = {
     rankPoints?: Prisma.SortOrder;
     completedTrips?: Prisma.SortOrder;
     responseRate?: Prisma.SortOrder;
+    acceptanceRate?: Prisma.SortOrder;
+    providerCancellationCount?: Prisma.SortOrder;
+    confirmedReportCount?: Prisma.SortOrder;
     rating?: Prisma.SortOrder;
     reviewCount?: Prisma.SortOrder;
 };
@@ -649,6 +751,10 @@ export type GuideProfileMaxOrderByAggregateInput = {
     rankPoints?: Prisma.SortOrder;
     completedTrips?: Prisma.SortOrder;
     responseRate?: Prisma.SortOrder;
+    acceptanceRate?: Prisma.SortOrder;
+    providerCancellationCount?: Prisma.SortOrder;
+    confirmedReportCount?: Prisma.SortOrder;
+    rankingUpdatedAt?: Prisma.SortOrder;
     rating?: Prisma.SortOrder;
     reviewCount?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
@@ -672,6 +778,10 @@ export type GuideProfileMinOrderByAggregateInput = {
     rankPoints?: Prisma.SortOrder;
     completedTrips?: Prisma.SortOrder;
     responseRate?: Prisma.SortOrder;
+    acceptanceRate?: Prisma.SortOrder;
+    providerCancellationCount?: Prisma.SortOrder;
+    confirmedReportCount?: Prisma.SortOrder;
+    rankingUpdatedAt?: Prisma.SortOrder;
     rating?: Prisma.SortOrder;
     reviewCount?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
@@ -685,8 +795,15 @@ export type GuideProfileSumOrderByAggregateInput = {
     rankPoints?: Prisma.SortOrder;
     completedTrips?: Prisma.SortOrder;
     responseRate?: Prisma.SortOrder;
+    acceptanceRate?: Prisma.SortOrder;
+    providerCancellationCount?: Prisma.SortOrder;
+    confirmedReportCount?: Prisma.SortOrder;
     rating?: Prisma.SortOrder;
     reviewCount?: Prisma.SortOrder;
+};
+export type GuideProfileScalarRelationFilter = {
+    is?: Prisma.GuideProfileWhereInput;
+    isNot?: Prisma.GuideProfileWhereInput;
 };
 export type GuideProfileCreateNestedOneWithoutUserInput = {
     create?: Prisma.XOR<Prisma.GuideProfileCreateWithoutUserInput, Prisma.GuideProfileUncheckedCreateWithoutUserInput>;
@@ -757,6 +874,18 @@ export type DecimalFieldUpdateOperationsInput = {
     multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string;
     divide?: runtime.Decimal | runtime.DecimalJsLike | number | string;
 };
+export type GuideProfileCreateNestedOneWithoutVerificationReviewsInput = {
+    create?: Prisma.XOR<Prisma.GuideProfileCreateWithoutVerificationReviewsInput, Prisma.GuideProfileUncheckedCreateWithoutVerificationReviewsInput>;
+    connectOrCreate?: Prisma.GuideProfileCreateOrConnectWithoutVerificationReviewsInput;
+    connect?: Prisma.GuideProfileWhereUniqueInput;
+};
+export type GuideProfileUpdateOneRequiredWithoutVerificationReviewsNestedInput = {
+    create?: Prisma.XOR<Prisma.GuideProfileCreateWithoutVerificationReviewsInput, Prisma.GuideProfileUncheckedCreateWithoutVerificationReviewsInput>;
+    connectOrCreate?: Prisma.GuideProfileCreateOrConnectWithoutVerificationReviewsInput;
+    upsert?: Prisma.GuideProfileUpsertWithoutVerificationReviewsInput;
+    connect?: Prisma.GuideProfileWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.GuideProfileUpdateToOneWithWhereWithoutVerificationReviewsInput, Prisma.GuideProfileUpdateWithoutVerificationReviewsInput>, Prisma.GuideProfileUncheckedUpdateWithoutVerificationReviewsInput>;
+};
 export type GuideProfileCreateWithoutUserInput = {
     id?: string;
     country: string;
@@ -776,11 +905,16 @@ export type GuideProfileCreateWithoutUserInput = {
     rankPoints?: number;
     completedTrips?: number;
     responseRate?: number;
+    acceptanceRate?: number;
+    providerCancellationCount?: number;
+    confirmedReportCount?: number;
+    rankingUpdatedAt?: Date | string | null;
     rating?: runtime.Decimal | runtime.DecimalJsLike | number | string;
     reviewCount?: number;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     deletedAt?: Date | string | null;
+    verificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutGuideProfileInput;
 };
 export type GuideProfileUncheckedCreateWithoutUserInput = {
     id?: string;
@@ -801,11 +935,16 @@ export type GuideProfileUncheckedCreateWithoutUserInput = {
     rankPoints?: number;
     completedTrips?: number;
     responseRate?: number;
+    acceptanceRate?: number;
+    providerCancellationCount?: number;
+    confirmedReportCount?: number;
+    rankingUpdatedAt?: Date | string | null;
     rating?: runtime.Decimal | runtime.DecimalJsLike | number | string;
     reviewCount?: number;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     deletedAt?: Date | string | null;
+    verificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutGuideProfileInput;
 };
 export type GuideProfileCreateOrConnectWithoutUserInput = {
     where: Prisma.GuideProfileWhereUniqueInput;
@@ -839,11 +978,16 @@ export type GuideProfileUpdateWithoutUserInput = {
     rankPoints?: Prisma.IntFieldUpdateOperationsInput | number;
     completedTrips?: Prisma.IntFieldUpdateOperationsInput | number;
     responseRate?: Prisma.IntFieldUpdateOperationsInput | number;
+    acceptanceRate?: Prisma.IntFieldUpdateOperationsInput | number;
+    providerCancellationCount?: Prisma.IntFieldUpdateOperationsInput | number;
+    confirmedReportCount?: Prisma.IntFieldUpdateOperationsInput | number;
+    rankingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
     reviewCount?: Prisma.IntFieldUpdateOperationsInput | number;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    verificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutGuideProfileNestedInput;
 };
 export type GuideProfileUncheckedUpdateWithoutUserInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -864,11 +1008,161 @@ export type GuideProfileUncheckedUpdateWithoutUserInput = {
     rankPoints?: Prisma.IntFieldUpdateOperationsInput | number;
     completedTrips?: Prisma.IntFieldUpdateOperationsInput | number;
     responseRate?: Prisma.IntFieldUpdateOperationsInput | number;
+    acceptanceRate?: Prisma.IntFieldUpdateOperationsInput | number;
+    providerCancellationCount?: Prisma.IntFieldUpdateOperationsInput | number;
+    confirmedReportCount?: Prisma.IntFieldUpdateOperationsInput | number;
+    rankingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
     reviewCount?: Prisma.IntFieldUpdateOperationsInput | number;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    verificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutGuideProfileNestedInput;
+};
+export type GuideProfileCreateWithoutVerificationReviewsInput = {
+    id?: string;
+    country: string;
+    city: string;
+    bio: string;
+    experienceYears?: number;
+    languages: Prisma.JsonNullValueInput | runtime.InputJsonValue;
+    expertise?: Prisma.GuideProfileCreateexpertiseInput | string[];
+    availability?: Prisma.GuideProfileCreateavailabilityInput | string[];
+    pricingType?: $Enums.PricingType;
+    price?: runtime.Decimal | runtime.DecimalJsLike | number | string | null;
+    status?: $Enums.GuideStatus;
+    verified?: boolean;
+    assessmentScore?: number;
+    referenceContact?: string | null;
+    codeOfConductAccepted?: boolean;
+    rankPoints?: number;
+    completedTrips?: number;
+    responseRate?: number;
+    acceptanceRate?: number;
+    providerCancellationCount?: number;
+    confirmedReportCount?: number;
+    rankingUpdatedAt?: Date | string | null;
+    rating?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    reviewCount?: number;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    deletedAt?: Date | string | null;
+    user: Prisma.UserCreateNestedOneWithoutGuideProfileInput;
+};
+export type GuideProfileUncheckedCreateWithoutVerificationReviewsInput = {
+    id?: string;
+    userId: string;
+    country: string;
+    city: string;
+    bio: string;
+    experienceYears?: number;
+    languages: Prisma.JsonNullValueInput | runtime.InputJsonValue;
+    expertise?: Prisma.GuideProfileCreateexpertiseInput | string[];
+    availability?: Prisma.GuideProfileCreateavailabilityInput | string[];
+    pricingType?: $Enums.PricingType;
+    price?: runtime.Decimal | runtime.DecimalJsLike | number | string | null;
+    status?: $Enums.GuideStatus;
+    verified?: boolean;
+    assessmentScore?: number;
+    referenceContact?: string | null;
+    codeOfConductAccepted?: boolean;
+    rankPoints?: number;
+    completedTrips?: number;
+    responseRate?: number;
+    acceptanceRate?: number;
+    providerCancellationCount?: number;
+    confirmedReportCount?: number;
+    rankingUpdatedAt?: Date | string | null;
+    rating?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    reviewCount?: number;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    deletedAt?: Date | string | null;
+};
+export type GuideProfileCreateOrConnectWithoutVerificationReviewsInput = {
+    where: Prisma.GuideProfileWhereUniqueInput;
+    create: Prisma.XOR<Prisma.GuideProfileCreateWithoutVerificationReviewsInput, Prisma.GuideProfileUncheckedCreateWithoutVerificationReviewsInput>;
+};
+export type GuideProfileUpsertWithoutVerificationReviewsInput = {
+    update: Prisma.XOR<Prisma.GuideProfileUpdateWithoutVerificationReviewsInput, Prisma.GuideProfileUncheckedUpdateWithoutVerificationReviewsInput>;
+    create: Prisma.XOR<Prisma.GuideProfileCreateWithoutVerificationReviewsInput, Prisma.GuideProfileUncheckedCreateWithoutVerificationReviewsInput>;
+    where?: Prisma.GuideProfileWhereInput;
+};
+export type GuideProfileUpdateToOneWithWhereWithoutVerificationReviewsInput = {
+    where?: Prisma.GuideProfileWhereInput;
+    data: Prisma.XOR<Prisma.GuideProfileUpdateWithoutVerificationReviewsInput, Prisma.GuideProfileUncheckedUpdateWithoutVerificationReviewsInput>;
+};
+export type GuideProfileUpdateWithoutVerificationReviewsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    country?: Prisma.StringFieldUpdateOperationsInput | string;
+    city?: Prisma.StringFieldUpdateOperationsInput | string;
+    bio?: Prisma.StringFieldUpdateOperationsInput | string;
+    experienceYears?: Prisma.IntFieldUpdateOperationsInput | number;
+    languages?: Prisma.JsonNullValueInput | runtime.InputJsonValue;
+    expertise?: Prisma.GuideProfileUpdateexpertiseInput | string[];
+    availability?: Prisma.GuideProfileUpdateavailabilityInput | string[];
+    pricingType?: Prisma.EnumPricingTypeFieldUpdateOperationsInput | $Enums.PricingType;
+    price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null;
+    status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus;
+    verified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    assessmentScore?: Prisma.IntFieldUpdateOperationsInput | number;
+    referenceContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    codeOfConductAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    rankPoints?: Prisma.IntFieldUpdateOperationsInput | number;
+    completedTrips?: Prisma.IntFieldUpdateOperationsInput | number;
+    responseRate?: Prisma.IntFieldUpdateOperationsInput | number;
+    acceptanceRate?: Prisma.IntFieldUpdateOperationsInput | number;
+    providerCancellationCount?: Prisma.IntFieldUpdateOperationsInput | number;
+    confirmedReportCount?: Prisma.IntFieldUpdateOperationsInput | number;
+    rankingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    reviewCount?: Prisma.IntFieldUpdateOperationsInput | number;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    user?: Prisma.UserUpdateOneRequiredWithoutGuideProfileNestedInput;
+};
+export type GuideProfileUncheckedUpdateWithoutVerificationReviewsInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    userId?: Prisma.StringFieldUpdateOperationsInput | string;
+    country?: Prisma.StringFieldUpdateOperationsInput | string;
+    city?: Prisma.StringFieldUpdateOperationsInput | string;
+    bio?: Prisma.StringFieldUpdateOperationsInput | string;
+    experienceYears?: Prisma.IntFieldUpdateOperationsInput | number;
+    languages?: Prisma.JsonNullValueInput | runtime.InputJsonValue;
+    expertise?: Prisma.GuideProfileUpdateexpertiseInput | string[];
+    availability?: Prisma.GuideProfileUpdateavailabilityInput | string[];
+    pricingType?: Prisma.EnumPricingTypeFieldUpdateOperationsInput | $Enums.PricingType;
+    price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null;
+    status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus;
+    verified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    assessmentScore?: Prisma.IntFieldUpdateOperationsInput | number;
+    referenceContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    codeOfConductAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    rankPoints?: Prisma.IntFieldUpdateOperationsInput | number;
+    completedTrips?: Prisma.IntFieldUpdateOperationsInput | number;
+    responseRate?: Prisma.IntFieldUpdateOperationsInput | number;
+    acceptanceRate?: Prisma.IntFieldUpdateOperationsInput | number;
+    providerCancellationCount?: Prisma.IntFieldUpdateOperationsInput | number;
+    confirmedReportCount?: Prisma.IntFieldUpdateOperationsInput | number;
+    rankingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    reviewCount?: Prisma.IntFieldUpdateOperationsInput | number;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+};
+export type GuideProfileCountOutputType = {
+    verificationReviews: number;
+};
+export type GuideProfileCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    verificationReviews?: boolean | GuideProfileCountOutputTypeCountVerificationReviewsArgs;
+};
+export type GuideProfileCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    select?: Prisma.GuideProfileCountOutputTypeSelect<ExtArgs> | null;
+};
+export type GuideProfileCountOutputTypeCountVerificationReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.GuideVerificationReviewWhereInput;
 };
 export type GuideProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
@@ -890,12 +1184,18 @@ export type GuideProfileSelect<ExtArgs extends runtime.Types.Extensions.Internal
     rankPoints?: boolean;
     completedTrips?: boolean;
     responseRate?: boolean;
+    acceptanceRate?: boolean;
+    providerCancellationCount?: boolean;
+    confirmedReportCount?: boolean;
+    rankingUpdatedAt?: boolean;
     rating?: boolean;
     reviewCount?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
     deletedAt?: boolean;
     user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
+    verificationReviews?: boolean | Prisma.GuideProfile$verificationReviewsArgs<ExtArgs>;
+    _count?: boolean | Prisma.GuideProfileCountOutputTypeDefaultArgs<ExtArgs>;
 }, ExtArgs["result"]["guideProfile"]>;
 export type GuideProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
@@ -917,6 +1217,10 @@ export type GuideProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
     rankPoints?: boolean;
     completedTrips?: boolean;
     responseRate?: boolean;
+    acceptanceRate?: boolean;
+    providerCancellationCount?: boolean;
+    confirmedReportCount?: boolean;
+    rankingUpdatedAt?: boolean;
     rating?: boolean;
     reviewCount?: boolean;
     createdAt?: boolean;
@@ -944,6 +1248,10 @@ export type GuideProfileSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
     rankPoints?: boolean;
     completedTrips?: boolean;
     responseRate?: boolean;
+    acceptanceRate?: boolean;
+    providerCancellationCount?: boolean;
+    confirmedReportCount?: boolean;
+    rankingUpdatedAt?: boolean;
     rating?: boolean;
     reviewCount?: boolean;
     createdAt?: boolean;
@@ -971,15 +1279,21 @@ export type GuideProfileSelectScalar = {
     rankPoints?: boolean;
     completedTrips?: boolean;
     responseRate?: boolean;
+    acceptanceRate?: boolean;
+    providerCancellationCount?: boolean;
+    confirmedReportCount?: boolean;
+    rankingUpdatedAt?: boolean;
     rating?: boolean;
     reviewCount?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
     deletedAt?: boolean;
 };
-export type GuideProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "country" | "city" | "bio" | "experienceYears" | "languages" | "expertise" | "availability" | "pricingType" | "price" | "status" | "verified" | "assessmentScore" | "referenceContact" | "codeOfConductAccepted" | "rankPoints" | "completedTrips" | "responseRate" | "rating" | "reviewCount" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["guideProfile"]>;
+export type GuideProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "country" | "city" | "bio" | "experienceYears" | "languages" | "expertise" | "availability" | "pricingType" | "price" | "status" | "verified" | "assessmentScore" | "referenceContact" | "codeOfConductAccepted" | "rankPoints" | "completedTrips" | "responseRate" | "acceptanceRate" | "providerCancellationCount" | "confirmedReportCount" | "rankingUpdatedAt" | "rating" | "reviewCount" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["guideProfile"]>;
 export type GuideProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
+    verificationReviews?: boolean | Prisma.GuideProfile$verificationReviewsArgs<ExtArgs>;
+    _count?: boolean | Prisma.GuideProfileCountOutputTypeDefaultArgs<ExtArgs>;
 };
 export type GuideProfileIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
@@ -991,6 +1305,7 @@ export type $GuideProfilePayload<ExtArgs extends runtime.Types.Extensions.Intern
     name: "GuideProfile";
     objects: {
         user: Prisma.$UserPayload<ExtArgs>;
+        verificationReviews: Prisma.$GuideVerificationReviewPayload<ExtArgs>[];
     };
     scalars: runtime.Types.Extensions.GetPayloadResult<{
         id: string;
@@ -1012,6 +1327,10 @@ export type $GuideProfilePayload<ExtArgs extends runtime.Types.Extensions.Intern
         rankPoints: number;
         completedTrips: number;
         responseRate: number;
+        acceptanceRate: number;
+        providerCancellationCount: number;
+        confirmedReportCount: number;
+        rankingUpdatedAt: Date | null;
         rating: runtime.Decimal;
         reviewCount: number;
         createdAt: Date;
@@ -1070,6 +1389,7 @@ export interface GuideProfileDelegate<ExtArgs extends runtime.Types.Extensions.I
 export interface Prisma__GuideProfileClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise";
     user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
+    verificationReviews<T extends Prisma.GuideProfile$verificationReviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GuideProfile$verificationReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GuideVerificationReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
     then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
     catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): runtime.Types.Utils.JsPromise<T | TResult>;
     finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
@@ -1094,6 +1414,10 @@ export interface GuideProfileFieldRefs {
     readonly rankPoints: Prisma.FieldRef<"GuideProfile", 'Int'>;
     readonly completedTrips: Prisma.FieldRef<"GuideProfile", 'Int'>;
     readonly responseRate: Prisma.FieldRef<"GuideProfile", 'Int'>;
+    readonly acceptanceRate: Prisma.FieldRef<"GuideProfile", 'Int'>;
+    readonly providerCancellationCount: Prisma.FieldRef<"GuideProfile", 'Int'>;
+    readonly confirmedReportCount: Prisma.FieldRef<"GuideProfile", 'Int'>;
+    readonly rankingUpdatedAt: Prisma.FieldRef<"GuideProfile", 'DateTime'>;
     readonly rating: Prisma.FieldRef<"GuideProfile", 'Decimal'>;
     readonly reviewCount: Prisma.FieldRef<"GuideProfile", 'Int'>;
     readonly createdAt: Prisma.FieldRef<"GuideProfile", 'DateTime'>;
@@ -1199,6 +1523,17 @@ export type GuideProfileDeleteArgs<ExtArgs extends runtime.Types.Extensions.Inte
 export type GuideProfileDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     where?: Prisma.GuideProfileWhereInput;
     limit?: number;
+};
+export type GuideProfile$verificationReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    select?: Prisma.GuideVerificationReviewSelect<ExtArgs> | null;
+    omit?: Prisma.GuideVerificationReviewOmit<ExtArgs> | null;
+    include?: Prisma.GuideVerificationReviewInclude<ExtArgs> | null;
+    where?: Prisma.GuideVerificationReviewWhereInput;
+    orderBy?: Prisma.GuideVerificationReviewOrderByWithRelationInput | Prisma.GuideVerificationReviewOrderByWithRelationInput[];
+    cursor?: Prisma.GuideVerificationReviewWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.GuideVerificationReviewScalarFieldEnum | Prisma.GuideVerificationReviewScalarFieldEnum[];
 };
 export type GuideProfileDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     select?: Prisma.GuideProfileSelect<ExtArgs> | null;

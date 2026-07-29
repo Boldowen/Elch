@@ -1,6 +1,6 @@
 # VenTour сайжруулалтын тайлан
 
-**Тайлангийн огноо:** 2026-07-23  
+**Тайлангийн огноо:** 2026-07-28
 **Эх төлөвлөгөө:** `ventour_improvement_plan.txt`  
 **Хамрах хүрээ:** Phase 0–3-ын pilot-д хамгийн өндөр ач холбогдолтой booking, security, lifecycle, CI болон listing inventory
 
@@ -108,6 +108,18 @@ Booking үүсэхэд traveler болон provider-ийн conversation авто
 - Booking completed
 - Dispute opened
 
+### 4.3 Notification
+
+`Notification` entity болон хэрэглэгчийн notification API нэмэгдсэн:
+
+- `GET /notifications` — сүүлийн notification болон unread count
+- `PATCH /notifications/:id/read` — нэг notification уншсанаар тэмдэглэх
+- `PATCH /notifications/read-all` — бүгдийг уншсанаар тэмдэглэх
+
+Booking үүсэх, accept/decline/cancel хийх, автоматаар expire/start/complete болох,
+мөн шинэ message ирэхэд холбогдох хэрэглэгчдэд notification transaction дотор
+үүснэ. Өөр хэрэглэгчийн notification-ийг уншсанаар тэмдэглэх боломжгүй.
+
 ## 5. Cancellation policy
 
 Booking хийх үед cancellation нөхцөлийг snapshot болгон хадгалдаг болсон.
@@ -153,6 +165,53 @@ Refresh token хүчингүй эсвэл хугацаа дууссан үед:
 ### 7.3 Logout all devices
 
 `POST /auth/logout-all` endpoint нэмэгдсэн. Тухайн хэрэглэгчийн revoke хийгдээгүй бүх refresh token-ийг хүчингүй болгоно.
+
+### 7.4 Email verification
+
+- Register хийхэд 256-bit random verification token үүснэ.
+- Database-д raw token биш SHA-256 hash хадгалагдана.
+- Link 30 минутын хүчинтэй бөгөөд зөвхөн нэг удаа ашиглагдана.
+- Нэг token баталгаажмагц бусад идэвхтэй verification link хүчингүй болно.
+- Resend нь 60 секундийн database cooldown болон route rate limit-тэй.
+- Resend response нь email бүртгэлтэй эсэхийг задруулахгүй.
+- Production email delivery Resend API ашиглаж, token болон API key log-д ордоггүй.
+- Mobile app `ventour://verify-email` deep link болон resend action дэмжинэ.
+
+### 7.5 Password recovery
+
+- `POST /auth/forgot-password` нь account байгаа эсэхээс үл хамааран ижил response буцаана.
+- Reset token raw хэлбэрээр хадгалагдахгүй, SHA-256 hash болон 30 минутын expiry ашиглана.
+- Reset link нэг удаа ашиглагдаж, дараа нь тухайн account-ийн бусад reset token хүчингүй болно.
+- `POST /auth/reset-password` болон authenticated `POST /auth/change-password` нэмэгдсэн.
+- Reset/change амжилттай үед бүх refresh token revoke хийгдэнэ.
+- Password 8–64 тэмдэгт, uppercase, lowercase болон number шаардлагатай.
+- Mobile app forgot-password screen, `ventour://reset-password` deep link болон change-password form дэмжинэ.
+
+### 7.6 Guide verification audit
+
+- Review бүр reviewer, decision, reason, internal note болон reviewed time хадгална.
+- Local knowledge, communication, safety, professionalism assessment breakdown хадгалагдана.
+- Document болон reference check тусдаа status-тай.
+- Review хийх үеийн application data immutable snapshot болон үлдэнэ.
+- Reject decision reason-гүй бол API болон database түвшинд хориглоно.
+- Approve хийхийн өмнө document/reference status хоёул `VERIFIED` байх ёстой.
+- Нэг pending application дээр concurrent хоёр шийдвэр үүсэхгүй.
+- Applicant reject хийлгэсний дараа дахин apply хийсэн ч өмнөх audit history хадгалагдана.
+- Approve/reject үр дүн applicant-д notification үүсгэнэ.
+
+### 7.7 Report, block, mute болон moderation
+
+- User block/unblock болон blocked-user list API нэмэгдсэн.
+- Block хийхэд хоёр чиглэлийн follow устаж, message/follow/like/comment хаагдана.
+- Block хийсэн хэрэглэгчдийн post болон comment feed-д харагдахгүй.
+- Conversation mute нь message-г хадгалсаар notification delivery-г зогсооно.
+- User, listing, guide, post, message болон booking report дэмжинэ.
+- Spam, harassment, scam, unsafe behavior, fake listing, inappropriate content, payment fraud report reason дэмжинэ.
+- Admin report queue болон immutable moderation action audit нэмэгдсэн.
+- Content remove, warning, temporary/permanent suspension, listing unpublish, guide verification revoke action хэрэгжинэ.
+- Suspension хийхэд refresh token revoke болж, JWT болон login дээр account status дахин шалгагдана.
+- Temporary suspension хугацаа дуусмагц account автоматаар active болно.
+- Mobile chat дээр mute/report/block, admin profile дээр Safety Reports workspace нэмэгдсэн.
 
 ## 8. Listing management
 
@@ -214,7 +273,66 @@ reservedUnits + availableUnits = totalUnits
 
 Booking transaction өдөр бүрийн inventory row-г атомикаар шинэчилдэг. Нэг listing 2 unit-тэй үед 5 зэрэгцээ хүсэлт ирэхэд яг 2 booking үүсэж, үлдсэн хүсэлтүүд availability conflict авдаг нь integration test-ээр баталгаажсан.
 
-## 10. Mobile application өөрчлөлт
+## 10. Structured pricing
+
+Listing үнэ дараах integer minor-unit бүрэлдэхүүнтэй болсон:
+
+- Base price
+- Cleaning fee
+- Service fee
+- Tax
+- Extra guest fee
+- Deposit
+- ISO 4217 currency
+
+`PricingService` бүх нийлбэр, duration болон guest multiplier, cancellation fee-г
+integer arithmetic-аар тооцно. Booking бүр тухайн үеийн бүх price breakdown болон
+нийт `amountMinor`-ийг snapshot болгон хадгална. `POST /bookings/quote` endpoint нь
+booking хийхээс өмнө серверийн authoritative задаргааг буцаана. Mobile booking
+дэлгэц нийт үнэ, fee/tax болон deposit-ийг энэ quote-оор харуулна.
+
+### 10.1 Verified reviews
+
+- Review зөвхөн `COMPLETED` booking-ийн traveler үүсгэнэ.
+- `bookingId` unique constraint нэг booking-д нэг review-г баталгаажуулна.
+- Guide болон listing booking хоёул review target болж чадна.
+- Public review list зөвхөн booking-оор баталгаажсан review харуулна.
+- Review create transaction дотор average rating болон review count шинэчлэгдэнэ.
+- Rating 1–5, review text 10–2000 тэмдэгтийн validation-тай.
+- Mobile Trips дэлгэц completed, review-гүй booking дээр review action харуулна.
+
+### 10.2 Guide ranking recalculation
+
+Ranking нь дараах хэмжүүрүүдээр deterministic байдлаар тооцогдоно:
+
+- Bayesian verified-review quality — 400 хүртэл point
+- Completed trips — 200 хүртэл point
+- Response rate — 100 хүртэл point
+- Acceptance rate — 100 хүртэл point
+- Recent activity — 100 хүртэл point
+- Admin assessment — 50 хүртэл point
+- Provider cancellation — нэг бүр 50 point penalty
+- Confirmed moderation report — нэг бүр 100 point penalty
+
+Global review average болон 5-review prior ашигласнаар цөөн review-тэй guide шууд
+ranking-ийн дээд хэсэгт гарах эрсдэл буурсан. Ranking цаг тутам автоматаар,
+verified review үүсэхэд шууд, мөн admin endpoint-оор гараар дахин тооцогдоно.
+Mobile ranking дэлгэц response, acceptance, completed trips болон penalty
+хэмжүүрүүдийг ил тод харуулна.
+
+### 10.3 Pilot payment arrangement
+
+- `CASH_ON_ARRIVAL`, `BANK_TRANSFER`, `PROVIDER_TERMINAL` arrangement дэмжинэ.
+- Arrangement booking-тэй one-to-one холбоотой бөгөөд amount/currency-г booking snapshot-оос авна.
+- Proposal хийсэн тал автоматаар зөвшөөрсөнд тооцогдож, нөгөө тал тусдаа agree хийнэ.
+- Хоёр тал зөвшөөрсний дараа status `AGREED` болно.
+- Зөвхөн provider мөнгө хүлээн авснаа `PAID` болгож баталгаажуулна.
+- Method, instructions, proposer, agreement timestamps болон paid time хадгалагдана.
+- Pilot үед `ONLINE_PAYMENT` сервер талаас `ONLINE_PAYMENT_DISABLED` алдаагаар хаалттай.
+- Full card number, CVV, password болон OTP авах model/DTO/UI байхгүй.
+- Traveler Trips болон Guide workspace-оос booking payment policy удирдана.
+
+## 11. Mobile application өөрчлөлт
 
 - Booking create хүсэлт бүр шинэ UUID idempotency key ашиглана.
 - Session expiration global handler нэмэгдсэн.
@@ -224,7 +342,7 @@ Booking transaction өдөр бүрийн inventory row-г атомикаар ш
 - Guide workspace дээр provider-ийн listing болон publish/unpublish action харагдана.
 - Expo SDK dependency version-ууд SDK 57-той нийцүүлэгдсэн.
 
-## 11. Database migration
+## 12. Database migration
 
 Нэмэгдсэн migration-ууд:
 
@@ -242,10 +360,42 @@ Booking transaction өдөр бүрийн inventory row-г атомикаар ш
    - PriceUnit
    - ListingInventory
    - Multi-unit inventory constraint
+4. `20260728120000_notifications`
+   - Notification entity болон type
+   - Unread query index
+5. `20260728150000_structured_pricing`
+   - Listing price component minor units
+   - Booking price snapshot
+   - Currency болон non-negative database constraints
+6. `20260728180000_email_verification`
+   - `emailVerifiedAt`
+   - Hashed, expiring, one-time verification token
+   - Resend cooldown index
+7. `20260728210000_password_recovery`
+   - Hashed, expiring, one-time password reset token
+   - Per-user request cooldown index
+8. `20260728230000_guide_verification_audit`
+   - Reviewer болон immutable application snapshot
+   - Assessment/document/reference audit
+   - Reject reason database constraint
+9. `20260729010000_trust_safety`
+   - User block болон conversation mute
+   - Report queue, reason, target болон status
+   - Moderation action audit болон account suspension
+10. `20260729030000_verified_reviews`
+   - Booking-bound verified review
+   - One-review-per-booking unique constraint
+   - Guide/listing review indexes болон rating constraint
+11. `20260729050000_guide_ranking`
+   - Acceptance/cancellation/report metrics
+   - Ranking recalculation timestamp болон database range constraints
+12. `20260729070000_pilot_payment`
+   - Booking-bound payment arrangement
+   - Two-party agreement болон payment status timestamps
 
-Бүх зургаан migration-ийг хоосон PostgreSQL 17 database дээр дарааллаар deploy хийж шалгасан.
+Бүх арван таван migration-ийг цэвэр PostgreSQL 17 database дээр дарааллаар deploy хийж шалгасан.
 
-## 12. CI ба automated test
+## 13. CI ба automated test
 
 GitHub Actions workflow дараах ажлыг автоматаар гүйцэтгэнэ:
 
@@ -273,8 +423,16 @@ Integration test-ийн үр дүн:
 | Listing create/publish/update/unpublish | PASS |
 | 5 requests/2 inventory units → 2 bookings | PASS |
 | Cancelled booking inventory release | PASS |
+| Email verification hash/expiry/cooldown/one-time use | PASS |
+| Password reset/change болон session revocation | PASS |
+| Guide reject/reapply/approve audit history | PASS |
+| Block/mute/report/moderation/suspension enforcement | PASS |
+| Completed-booking review ownership болон duplicate protection | PASS |
+| Bayesian ranking formula болон penalty weights | PASS |
+| Response/acceptance/activity/cancellation metric aggregation | PASS |
+| Pilot payment proposal/agreement/provider-paid authorization | PASS |
 
-Нийт test suite-ийн одоогийн байдал: **7 integration test, бүгд PASS**. Зарим test нэг test case дотор олон acceptance condition шалгадаг.
+Нийт test suite-ийн одоогийн байдал: **17 integration test, бүгд PASS**. Зарим test нэг test case дотор олон acceptance condition шалгадаг.
 
 Нэмэлт validation:
 
@@ -284,7 +442,7 @@ Integration test-ийн үр дүн:
 - Expo Doctor: 20/20 PASS
 - Android production export: PASS
 
-## 13. Гол өөрчлөгдсөн файлууд
+## 14. Гол өөрчлөгдсөн файлууд
 
 - `backend/prisma/schema.prisma`
 - `backend/src/modules/bookings/bookings.service.ts`
@@ -300,30 +458,25 @@ Integration test-ийн үр дүн:
 - `frontend/src/screens/BookingScreen.js`
 - `frontend/src/screens/GuideDashboardScreen.js`
 
-## 14. Үлдсэн эрсдэл ба дараагийн ажил
+## 15. Үлдсэн эрсдэл ба дараагийн ажил
 
 ### Pilot-оос өмнөх өндөр priority
 
-1. Email verification token, expiry, resend cooldown болон rate limit.
-2. Forgot/reset/change password; reset хийсний дараа бүх session revoke хийх.
-3. Guide verification decision reason болон reviewer audit.
-4. Notification entity болон booking/message notification delivery.
-5. Report, block, mute болон moderation workflow.
-6. Listing create/edit/inventory-д зориулсан бүрэн mobile form/calendar UI.
-7. Provider бүрийн configurable cancellation policy.
-8. Timezone болон daylight-saving edge case-ийн нэмэлт тест.
-9. Structured pricing, tax/fee/deposit болон minor-unit money model.
-10. Monitoring, backup, restore test болон production secret management.
+1. Push notification delivery болон device token management.
+2. Listing create/edit/inventory-д зориулсан бүрэн mobile form/calendar UI.
+3. Provider бүрийн configurable cancellation policy.
+4. Timezone болон daylight-saving edge case-ийн нэмэлт тест.
+5. Monitoring, backup, restore test болон production secret management.
 
 ### Техникийн анхаарах зүйл
 
 - Одоогийн cancellation policy нь бүх booking-д ижил pilot default ашиглаж байна.
 - Background lifecycle job database conditional update-аар duplicate transition-ийг хамгаалдаг боловч production олон instance орчинд metrics болон job monitoring нэмэх шаардлагатай.
 - Mobile listing management нь одоогоор жагсаалт болон publish/unpublish action-тай; бүрэн create/edit/calendar UX дараагийн ажил.
-- Online payment, verified review болон ranking recalculation хараахан хэрэгжээгүй.
+- Online payment хараахан хэрэгжээгүй.
 - Dependency audit-аар илэрсэн vulnerability-уудыг breaking update хийхээс өмнө тусад нь шалгаж, эрсдэлийн үнэлгээ хийх шаардлагатай.
 
-## 15. Дүгнэлт
+## 16. Дүгнэлт
 
 Эхний milestone болох “хоёр хэрэглэгч давхардахгүй, аюулгүй booking үүсгэж, provider accept/decline, талууд cancel, system start/complete хийж чаддаг болох” үндсэн түвшинд биелсэн.
 

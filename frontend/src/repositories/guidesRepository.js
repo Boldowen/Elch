@@ -25,6 +25,11 @@ export const guidesRepository = {
         reviewCount: Number(raw.reviewCount) || 0,
         rankPoints: Number(raw.rankPoints) || 0,
         completedTrips: Number(raw.completedTrips) || 0,
+        responseRate: Number(raw.responseRate) || 0,
+        acceptanceRate: Number(raw.acceptanceRate) || 0,
+        providerCancellationCount: Number(raw.providerCancellationCount) || 0,
+        confirmedReportCount: Number(raw.confirmedReportCount) || 0,
+        rankingUpdatedAt: raw.rankingUpdatedAt || null,
       };
     });
   },
@@ -59,11 +64,8 @@ export const guidesRepository = {
     return data || [];
   },
 
-  async reviewApplication(id, decision, assessmentScore) {
-    const { data } = await api.patch(`/guides/applications/${id}/review`, {
-      decision,
-      ...(decision === 'APPROVE' ? { assessmentScore } : {}),
-    });
+  async reviewApplication(id, payload) {
+    const { data } = await api.patch(`/guides/applications/${id}/review`, payload);
     return data;
   },
 };

@@ -9,14 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service.js';
+import { TrustSafetyService } from '../trust-safety/trust-safety.service.js';
 let SocialService = class SocialService {
     prisma;
-    constructor(prisma) {
+    trust;
+    constructor(prisma, trust) {
         this.prisma = prisma;
+        this.trust = trust;
     }
     async feed(userId) {
+        const blocks = await this.prisma.userBlock.findMany({
+            where: { OR: [{ blockerId: userId }, { blockedId: userId }] },
+            select: { blockerId: true, blockedId: true },
+        });
+        const blockedUserIds = blocks.map((block) => block.blockerId === userId ? block.blockedId : block.blockerId);
         const posts = await this.prisma.post.findMany({
-            where: { deletedAt: null },
+            where: { deletedAt: null, authorId: { notIn: blockedUserIds } },
             include: {
                 author: {
                     select: {
@@ -36,7 +44,7 @@ let SocialService = class SocialService {
                 images: { orderBy: { sortOrder: 'asc' } },
                 likes: { where: { userId }, select: { id: true } },
                 comments: {
-                    where: { deletedAt: null },
+                    where: { deletedAt: null, authorId: { notIn: blockedUserIds } },
                     take: 3,
                     orderBy: { createdAt: 'desc' },
                     include: {
@@ -84,7 +92,8 @@ let SocialService = class SocialService {
         });
     }
     async toggleLike(userId, postId) {
-        await this.assertPost(postId);
+        const post = await this.assertPost(postId);
+        await this.trust.assertInteractionAllowed(userId, post.authorId);
         const existing = await this.prisma.postLike.findUnique({
             where: { postId_userId: { postId, userId } },
         });
@@ -96,7 +105,8 @@ let SocialService = class SocialService {
         return { liked: true };
     }
     async comment(userId, postId, dto) {
-        await this.assertPost(postId);
+        const post = await this.assertPost(postId);
+        await this.trust.assertInteractionAllowed(userId, post.authorId);
         return this.prisma.postComment.create({
             data: { postId, authorId: userId, text: dto.text.trim() },
             include: {
@@ -114,6 +124,7 @@ let SocialService = class SocialService {
         });
         if (!user)
             throw new NotFoundException('Traveler not found');
+        await this.trust.assertInteractionAllowed(userId, followingId);
         const existing = await this.prisma.follow.findUnique({
             where: { followerId_followingId: { followerId: userId, followingId } },
         });
@@ -130,15 +141,16 @@ let SocialService = class SocialService {
     async assertPost(id) {
         const post = await this.prisma.post.findFirst({
             where: { id, deletedAt: null },
-            select: { id: true },
+            select: { id: true, authorId: true },
         });
         if (!post)
             throw new NotFoundException('Post not found');
+        return post;
     }
 };
 SocialService = __decorate([
     Injectable(),
-    __metadata("design:paramtypes", [PrismaService])
+    __metadata("design:paramtypes", [PrismaService, TrustSafetyService])
 ], SocialService);
 export { SocialService };
 //# sourceMappingURL=social.service.js.map

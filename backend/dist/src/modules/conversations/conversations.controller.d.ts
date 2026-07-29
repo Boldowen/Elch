@@ -17,16 +17,17 @@ export declare class ConversationsController {
             conversationId: string;
             lastReadAt: Date | null;
             joinedAt: Date;
+            mutedAt: Date | null;
         })[];
         messages: {
             id: string;
             deletedAt: Date | null;
+            sentAt: Date;
             conversationId: string;
             senderId: string;
             type: import("../../generated/prisma/enums.js").MessageType;
             body: string | null;
             mediaUrl: string | null;
-            sentAt: Date;
         }[];
     } & {
         id: string;
@@ -39,12 +40,12 @@ export declare class ConversationsController {
     messages(user: RequestUser, id: string): Promise<{
         id: string;
         deletedAt: Date | null;
+        sentAt: Date;
         conversationId: string;
         senderId: string;
         type: import("../../generated/prisma/enums.js").MessageType;
         body: string | null;
         mediaUrl: string | null;
-        sentAt: Date;
     }[]>;
     direct(user: RequestUser, userId: string): Promise<{
         id: string;
@@ -57,11 +58,17 @@ export declare class ConversationsController {
     send(user: RequestUser, id: string, dto: SendMessageDto): Promise<{
         id: string;
         deletedAt: Date | null;
+        sentAt: Date;
         conversationId: string;
         senderId: string;
         type: import("../../generated/prisma/enums.js").MessageType;
         body: string | null;
         mediaUrl: string | null;
-        sentAt: Date;
+    }>;
+    mute(user: RequestUser, id: string): Promise<{
+        muted: boolean;
+    }>;
+    unmute(user: RequestUser, id: string): Promise<{
+        muted: boolean;
     }>;
 }

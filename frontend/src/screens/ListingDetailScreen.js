@@ -44,6 +44,7 @@ export default function ListingDetailScreen({ navigation, route }) {
       title: item.title,
       price: item.price,
       unit: item.priceUnit,
+      currency: item.currency,
     });
   };
 

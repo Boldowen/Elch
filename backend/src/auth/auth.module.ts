@@ -4,5 +4,6 @@ import { PassportModule } from '@nestjs/passport';
 import { AuthController } from './auth.controller.js';
 import { AuthService } from './auth.service.js';
 import { JwtStrategy } from './strategies/jwt.strategy.js';
-@Module({ imports: [PassportModule, JwtModule.register({})], controllers: [AuthController], providers: [AuthService, JwtStrategy], exports: [AuthService] })
+import { EmailDeliveryService } from './email-delivery.service.js';
+@Module({ imports: [PassportModule, JwtModule.register({})], controllers: [AuthController], providers: [AuthService, EmailDeliveryService, JwtStrategy], exports: [AuthService] })
 export class AuthModule {}

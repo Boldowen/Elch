@@ -100,6 +100,15 @@ export function AuthProvider({ children }) {
     [updateProfile],
   );
 
+  const refreshUser = useCallback(async () => {
+    if (!session) return null;
+    const user = await authRepository.me();
+    const next = { ...session, user };
+    setSession(next);
+    await storage.saveSession(next);
+    return user;
+  }, [session]);
+
   const setLanguage = useCallback(async (lang) => {
     setLanguageState(lang);
     await storage.setPreference('language', lang);
@@ -120,6 +129,7 @@ export function AuthProvider({ children }) {
       logout,
       updateName,
       updateProfile,
+      refreshUser,
       setLanguage,
       clearError: () => setError(null),
     }),
@@ -136,6 +146,7 @@ export function AuthProvider({ children }) {
       logout,
       updateName,
       updateProfile,
+      refreshUser,
       setLanguage,
     ],
   );

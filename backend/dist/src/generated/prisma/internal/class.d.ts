@@ -34,7 +34,16 @@ export interface PrismaClient<in LogOpts extends Prisma.LogLevel = never, in out
     get refreshToken(): Prisma.RefreshTokenDelegate<ExtArgs, {
         omit: OmitOpts;
     }>;
+    get emailVerificationToken(): Prisma.EmailVerificationTokenDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    get passwordResetToken(): Prisma.PasswordResetTokenDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
     get guideProfile(): Prisma.GuideProfileDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    get guideVerificationReview(): Prisma.GuideVerificationReviewDelegate<ExtArgs, {
         omit: OmitOpts;
     }>;
     get listing(): Prisma.ListingDelegate<ExtArgs, {
@@ -47,6 +56,9 @@ export interface PrismaClient<in LogOpts extends Prisma.LogLevel = never, in out
         omit: OmitOpts;
     }>;
     get booking(): Prisma.BookingDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    get pilotPayment(): Prisma.PilotPaymentDelegate<ExtArgs, {
         omit: OmitOpts;
     }>;
     get bookingEvent(): Prisma.BookingEventDelegate<ExtArgs, {
@@ -64,7 +76,19 @@ export interface PrismaClient<in LogOpts extends Prisma.LogLevel = never, in out
     get conversationParticipant(): Prisma.ConversationParticipantDelegate<ExtArgs, {
         omit: OmitOpts;
     }>;
+    get userBlock(): Prisma.UserBlockDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    get report(): Prisma.ReportDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    get moderationAction(): Prisma.ModerationActionDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
     get message(): Prisma.MessageDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    get notification(): Prisma.NotificationDelegate<ExtArgs, {
         omit: OmitOpts;
     }>;
     get paymentMethod(): Prisma.PaymentMethodDelegate<ExtArgs, {

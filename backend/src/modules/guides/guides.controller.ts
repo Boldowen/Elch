@@ -52,10 +52,18 @@ export class GuidesController {
   @Roles(Role.ADMIN)
   @Patch('applications/:id/review')
   review(
+    @CurrentUser() user: RequestUser,
     @Param('id') id: string,
     @Body() dto: ReviewGuideApplicationDto,
   ) {
-    return this.guides.reviewApplication(id, dto);
+    return this.guides.reviewApplication(user.sub, id, dto);
+  }
+
+  @ApiBearerAuth()
+  @Roles(Role.ADMIN)
+  @Get('applications/:id/reviews')
+  applicationReviews(@Param('id') id: string) {
+    return this.guides.applicationReviews(id);
   }
 
   @ApiBearerAuth()

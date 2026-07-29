@@ -37,6 +37,105 @@ export const GuideStatus = {
 export type GuideStatus = (typeof GuideStatus)[keyof typeof GuideStatus]
 
 
+export const GuideVerificationDecision = {
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type GuideVerificationDecision = (typeof GuideVerificationDecision)[keyof typeof GuideVerificationDecision]
+
+
+export const VerificationCheckStatus = {
+  PENDING: 'PENDING',
+  VERIFIED: 'VERIFIED',
+  FAILED: 'FAILED',
+  NOT_PROVIDED: 'NOT_PROVIDED'
+} as const
+
+export type VerificationCheckStatus = (typeof VerificationCheckStatus)[keyof typeof VerificationCheckStatus]
+
+
+export const UserModerationStatus = {
+  ACTIVE: 'ACTIVE',
+  TEMPORARILY_SUSPENDED: 'TEMPORARILY_SUSPENDED',
+  PERMANENTLY_SUSPENDED: 'PERMANENTLY_SUSPENDED'
+} as const
+
+export type UserModerationStatus = (typeof UserModerationStatus)[keyof typeof UserModerationStatus]
+
+
+export const ReportReason = {
+  SPAM: 'SPAM',
+  HARASSMENT: 'HARASSMENT',
+  SCAM: 'SCAM',
+  UNSAFE_GUIDE_BEHAVIOR: 'UNSAFE_GUIDE_BEHAVIOR',
+  FAKE_LISTING: 'FAKE_LISTING',
+  INAPPROPRIATE_CONTENT: 'INAPPROPRIATE_CONTENT',
+  PAYMENT_FRAUD: 'PAYMENT_FRAUD',
+  OTHER: 'OTHER'
+} as const
+
+export type ReportReason = (typeof ReportReason)[keyof typeof ReportReason]
+
+
+export const ReportTargetType = {
+  USER: 'USER',
+  LISTING: 'LISTING',
+  GUIDE: 'GUIDE',
+  POST: 'POST',
+  MESSAGE: 'MESSAGE',
+  BOOKING: 'BOOKING'
+} as const
+
+export type ReportTargetType = (typeof ReportTargetType)[keyof typeof ReportTargetType]
+
+
+export const ReportStatus = {
+  OPEN: 'OPEN',
+  UNDER_REVIEW: 'UNDER_REVIEW',
+  RESOLVED: 'RESOLVED',
+  DISMISSED: 'DISMISSED'
+} as const
+
+export type ReportStatus = (typeof ReportStatus)[keyof typeof ReportStatus]
+
+
+export const ModerationActionType = {
+  REPORT_DISMISS: 'REPORT_DISMISS',
+  CONTENT_REMOVE: 'CONTENT_REMOVE',
+  WARNING: 'WARNING',
+  TEMPORARY_SUSPENSION: 'TEMPORARY_SUSPENSION',
+  PERMANENT_SUSPENSION: 'PERMANENT_SUSPENSION',
+  LISTING_UNPUBLISH: 'LISTING_UNPUBLISH',
+  GUIDE_VERIFICATION_REVOKE: 'GUIDE_VERIFICATION_REVOKE'
+} as const
+
+export type ModerationActionType = (typeof ModerationActionType)[keyof typeof ModerationActionType]
+
+
+export const PaymentArrangement = {
+  CASH_ON_ARRIVAL: 'CASH_ON_ARRIVAL',
+  BANK_TRANSFER: 'BANK_TRANSFER',
+  PROVIDER_TERMINAL: 'PROVIDER_TERMINAL',
+  ONLINE_PAYMENT: 'ONLINE_PAYMENT'
+} as const
+
+export type PaymentArrangement = (typeof PaymentArrangement)[keyof typeof PaymentArrangement]
+
+
+export const PaymentStatus = {
+  NOT_REQUIRED: 'NOT_REQUIRED',
+  PENDING: 'PENDING',
+  AGREED: 'AGREED',
+  PAID: 'PAID',
+  FAILED: 'FAILED',
+  REFUND_PENDING: 'REFUND_PENDING',
+  REFUNDED: 'REFUNDED'
+} as const
+
+export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
+
+
 export const ListingCategory = {
   TRENDING: 'TRENDING',
   HOTEL: 'HOTEL',
@@ -116,6 +215,22 @@ export const MessageType = {
 } as const
 
 export type MessageType = (typeof MessageType)[keyof typeof MessageType]
+
+
+export const NotificationType = {
+  BOOKING_CREATED: 'BOOKING_CREATED',
+  BOOKING_ACCEPTED: 'BOOKING_ACCEPTED',
+  BOOKING_DECLINED: 'BOOKING_DECLINED',
+  BOOKING_CANCELLED: 'BOOKING_CANCELLED',
+  BOOKING_STARTED: 'BOOKING_STARTED',
+  BOOKING_COMPLETED: 'BOOKING_COMPLETED',
+  BOOKING_EXPIRED: 'BOOKING_EXPIRED',
+  NEW_MESSAGE: 'NEW_MESSAGE',
+  GUIDE_APPLICATION_APPROVED: 'GUIDE_APPLICATION_APPROVED',
+  GUIDE_APPLICATION_REJECTED: 'GUIDE_APPLICATION_REJECTED'
+} as const
+
+export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]
 
 
 export const PricingType = {

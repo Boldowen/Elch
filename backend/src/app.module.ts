@@ -16,6 +16,10 @@ import { JwtAuthGuard } from './auth/guards/jwt-auth.guard.js';
 import { RolesGuard } from './common/guards/roles.guard.js';
 import { RequestIdMiddleware } from './common/middleware/request-id.middleware.js';
 import { ScheduleModule } from '@nestjs/schedule';
+import { NotificationsModule } from './modules/notifications/notifications.module.js';
+import { TrustSafetyModule } from './modules/trust-safety/trust-safety.module.js';
+import { ReviewsModule } from './modules/reviews/reviews.module.js';
+import { RankingModule } from './modules/ranking/ranking.module.js';
 
 @Module({
   imports: [
@@ -29,6 +33,10 @@ import { ScheduleModule } from '@nestjs/schedule';
     GuidesModule,
     BookingsModule,
     ConversationsModule,
+    NotificationsModule,
+    TrustSafetyModule,
+    ReviewsModule,
+    RankingModule,
     SocialModule,
     HealthModule,
   ],

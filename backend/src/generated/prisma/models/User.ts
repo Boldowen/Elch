@@ -33,6 +33,10 @@ export type UserMinAggregateOutputType = {
   avatarUrl: string | null
   provider: $Enums.AuthProvider | null
   isVerified: boolean | null
+  emailVerifiedAt: Date | null
+  moderationStatus: $Enums.UserModerationStatus | null
+  suspendedUntil: Date | null
+  suspensionReason: string | null
   lastLoginAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -48,6 +52,10 @@ export type UserMaxAggregateOutputType = {
   avatarUrl: string | null
   provider: $Enums.AuthProvider | null
   isVerified: boolean | null
+  emailVerifiedAt: Date | null
+  moderationStatus: $Enums.UserModerationStatus | null
+  suspendedUntil: Date | null
+  suspensionReason: string | null
   lastLoginAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -64,6 +72,10 @@ export type UserCountAggregateOutputType = {
   provider: number
   roles: number
   isVerified: number
+  emailVerifiedAt: number
+  moderationStatus: number
+  suspendedUntil: number
+  suspensionReason: number
   lastLoginAt: number
   createdAt: number
   updatedAt: number
@@ -81,6 +93,10 @@ export type UserMinAggregateInputType = {
   avatarUrl?: true
   provider?: true
   isVerified?: true
+  emailVerifiedAt?: true
+  moderationStatus?: true
+  suspendedUntil?: true
+  suspensionReason?: true
   lastLoginAt?: true
   createdAt?: true
   updatedAt?: true
@@ -96,6 +112,10 @@ export type UserMaxAggregateInputType = {
   avatarUrl?: true
   provider?: true
   isVerified?: true
+  emailVerifiedAt?: true
+  moderationStatus?: true
+  suspendedUntil?: true
+  suspensionReason?: true
   lastLoginAt?: true
   createdAt?: true
   updatedAt?: true
@@ -112,6 +132,10 @@ export type UserCountAggregateInputType = {
   provider?: true
   roles?: true
   isVerified?: true
+  emailVerifiedAt?: true
+  moderationStatus?: true
+  suspendedUntil?: true
+  suspensionReason?: true
   lastLoginAt?: true
   createdAt?: true
   updatedAt?: true
@@ -201,6 +225,10 @@ export type UserGroupByOutputType = {
   provider: $Enums.AuthProvider
   roles: $Enums.Role[]
   isVerified: boolean
+  emailVerifiedAt: Date | null
+  moderationStatus: $Enums.UserModerationStatus
+  suspendedUntil: Date | null
+  suspensionReason: string | null
   lastLoginAt: Date | null
   createdAt: Date
   updatedAt: Date
@@ -238,6 +266,10 @@ export type UserWhereInput = {
   provider?: Prisma.EnumAuthProviderFilter<"User"> | $Enums.AuthProvider
   roles?: Prisma.EnumRoleNullableListFilter<"User">
   isVerified?: Prisma.BoolFilter<"User"> | boolean
+  emailVerifiedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFilter<"User"> | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  suspensionReason?: Prisma.StringNullableFilter<"User"> | string | null
   lastLoginAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -260,6 +292,15 @@ export type UserWhereInput = {
   followers?: Prisma.FollowListRelationFilter
   bookingEvents?: Prisma.BookingEventListRelationFilter
   idempotencyKeys?: Prisma.IdempotencyKeyListRelationFilter
+  notifications?: Prisma.NotificationListRelationFilter
+  emailVerificationTokens?: Prisma.EmailVerificationTokenListRelationFilter
+  passwordResetTokens?: Prisma.PasswordResetTokenListRelationFilter
+  guideVerificationReviews?: Prisma.GuideVerificationReviewListRelationFilter
+  blocksCreated?: Prisma.UserBlockListRelationFilter
+  blocksReceived?: Prisma.UserBlockListRelationFilter
+  reportsCreated?: Prisma.ReportListRelationFilter
+  moderationActions?: Prisma.ModerationActionListRelationFilter
+  paymentArrangementsProposed?: Prisma.PilotPaymentListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -272,6 +313,10 @@ export type UserOrderByWithRelationInput = {
   provider?: Prisma.SortOrder
   roles?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
+  emailVerifiedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  moderationStatus?: Prisma.SortOrder
+  suspendedUntil?: Prisma.SortOrderInput | Prisma.SortOrder
+  suspensionReason?: Prisma.SortOrderInput | Prisma.SortOrder
   lastLoginAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -294,6 +339,15 @@ export type UserOrderByWithRelationInput = {
   followers?: Prisma.FollowOrderByRelationAggregateInput
   bookingEvents?: Prisma.BookingEventOrderByRelationAggregateInput
   idempotencyKeys?: Prisma.IdempotencyKeyOrderByRelationAggregateInput
+  notifications?: Prisma.NotificationOrderByRelationAggregateInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenOrderByRelationAggregateInput
+  passwordResetTokens?: Prisma.PasswordResetTokenOrderByRelationAggregateInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewOrderByRelationAggregateInput
+  blocksCreated?: Prisma.UserBlockOrderByRelationAggregateInput
+  blocksReceived?: Prisma.UserBlockOrderByRelationAggregateInput
+  reportsCreated?: Prisma.ReportOrderByRelationAggregateInput
+  moderationActions?: Prisma.ModerationActionOrderByRelationAggregateInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -309,6 +363,10 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   provider?: Prisma.EnumAuthProviderFilter<"User"> | $Enums.AuthProvider
   roles?: Prisma.EnumRoleNullableListFilter<"User">
   isVerified?: Prisma.BoolFilter<"User"> | boolean
+  emailVerifiedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFilter<"User"> | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  suspensionReason?: Prisma.StringNullableFilter<"User"> | string | null
   lastLoginAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -331,6 +389,15 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   followers?: Prisma.FollowListRelationFilter
   bookingEvents?: Prisma.BookingEventListRelationFilter
   idempotencyKeys?: Prisma.IdempotencyKeyListRelationFilter
+  notifications?: Prisma.NotificationListRelationFilter
+  emailVerificationTokens?: Prisma.EmailVerificationTokenListRelationFilter
+  passwordResetTokens?: Prisma.PasswordResetTokenListRelationFilter
+  guideVerificationReviews?: Prisma.GuideVerificationReviewListRelationFilter
+  blocksCreated?: Prisma.UserBlockListRelationFilter
+  blocksReceived?: Prisma.UserBlockListRelationFilter
+  reportsCreated?: Prisma.ReportListRelationFilter
+  moderationActions?: Prisma.ModerationActionListRelationFilter
+  paymentArrangementsProposed?: Prisma.PilotPaymentListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -343,6 +410,10 @@ export type UserOrderByWithAggregationInput = {
   provider?: Prisma.SortOrder
   roles?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
+  emailVerifiedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  moderationStatus?: Prisma.SortOrder
+  suspendedUntil?: Prisma.SortOrderInput | Prisma.SortOrder
+  suspensionReason?: Prisma.SortOrderInput | Prisma.SortOrder
   lastLoginAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -365,6 +436,10 @@ export type UserScalarWhereWithAggregatesInput = {
   provider?: Prisma.EnumAuthProviderWithAggregatesFilter<"User"> | $Enums.AuthProvider
   roles?: Prisma.EnumRoleNullableListFilter<"User">
   isVerified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  emailVerifiedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusWithAggregatesFilter<"User"> | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  suspensionReason?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   lastLoginAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -381,6 +456,10 @@ export type UserCreateInput = {
   provider?: $Enums.AuthProvider
   roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
   isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -403,6 +482,15 @@ export type UserCreateInput = {
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   bookingEvents?: Prisma.BookingEventCreateNestedManyWithoutActorInput
   idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -415,6 +503,10 @@ export type UserUncheckedCreateInput = {
   provider?: $Enums.AuthProvider
   roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
   isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -437,6 +529,15 @@ export type UserUncheckedCreateInput = {
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   bookingEvents?: Prisma.BookingEventUncheckedCreateNestedManyWithoutActorInput
   idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
 }
 
 export type UserUpdateInput = {
@@ -449,6 +550,10 @@ export type UserUpdateInput = {
   provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
   roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -471,6 +576,15 @@ export type UserUpdateInput = {
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   bookingEvents?: Prisma.BookingEventUpdateManyWithoutActorNestedInput
   idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -483,6 +597,10 @@ export type UserUncheckedUpdateInput = {
   provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
   roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -505,6 +623,15 @@ export type UserUncheckedUpdateInput = {
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   bookingEvents?: Prisma.BookingEventUncheckedUpdateManyWithoutActorNestedInput
   idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -517,6 +644,10 @@ export type UserCreateManyInput = {
   provider?: $Enums.AuthProvider
   roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
   isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -533,6 +664,10 @@ export type UserUpdateManyMutationInput = {
   provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
   roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -549,6 +684,10 @@ export type UserUncheckedUpdateManyInput = {
   provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
   roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -573,6 +712,10 @@ export type UserCountOrderByAggregateInput = {
   provider?: Prisma.SortOrder
   roles?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
+  emailVerifiedAt?: Prisma.SortOrder
+  moderationStatus?: Prisma.SortOrder
+  suspendedUntil?: Prisma.SortOrder
+  suspensionReason?: Prisma.SortOrder
   lastLoginAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -588,6 +731,10 @@ export type UserMaxOrderByAggregateInput = {
   avatarUrl?: Prisma.SortOrder
   provider?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
+  emailVerifiedAt?: Prisma.SortOrder
+  moderationStatus?: Prisma.SortOrder
+  suspendedUntil?: Prisma.SortOrder
+  suspensionReason?: Prisma.SortOrder
   lastLoginAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -603,6 +750,10 @@ export type UserMinOrderByAggregateInput = {
   avatarUrl?: Prisma.SortOrder
   provider?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
+  emailVerifiedAt?: Prisma.SortOrder
+  moderationStatus?: Prisma.SortOrder
+  suspendedUntil?: Prisma.SortOrder
+  suspensionReason?: Prisma.SortOrder
   lastLoginAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -648,6 +799,10 @@ export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
 }
 
+export type EnumUserModerationStatusFieldUpdateOperationsInput = {
+  set?: $Enums.UserModerationStatus
+}
+
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
@@ -666,6 +821,34 @@ export type UserUpdateOneRequiredWithoutRefreshTokensNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRefreshTokensInput, Prisma.UserUpdateWithoutRefreshTokensInput>, Prisma.UserUncheckedUpdateWithoutRefreshTokensInput>
 }
 
+export type UserCreateNestedOneWithoutEmailVerificationTokensInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutEmailVerificationTokensInput, Prisma.UserUncheckedCreateWithoutEmailVerificationTokensInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutEmailVerificationTokensInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutEmailVerificationTokensNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutEmailVerificationTokensInput, Prisma.UserUncheckedCreateWithoutEmailVerificationTokensInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutEmailVerificationTokensInput
+  upsert?: Prisma.UserUpsertWithoutEmailVerificationTokensInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutEmailVerificationTokensInput, Prisma.UserUpdateWithoutEmailVerificationTokensInput>, Prisma.UserUncheckedUpdateWithoutEmailVerificationTokensInput>
+}
+
+export type UserCreateNestedOneWithoutPasswordResetTokensInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPasswordResetTokensInput, Prisma.UserUncheckedCreateWithoutPasswordResetTokensInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPasswordResetTokensInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutPasswordResetTokensNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPasswordResetTokensInput, Prisma.UserUncheckedCreateWithoutPasswordResetTokensInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPasswordResetTokensInput
+  upsert?: Prisma.UserUpsertWithoutPasswordResetTokensInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPasswordResetTokensInput, Prisma.UserUpdateWithoutPasswordResetTokensInput>, Prisma.UserUncheckedUpdateWithoutPasswordResetTokensInput>
+}
+
 export type UserCreateNestedOneWithoutGuideProfileInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutGuideProfileInput, Prisma.UserUncheckedCreateWithoutGuideProfileInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutGuideProfileInput
@@ -678,6 +861,20 @@ export type UserUpdateOneRequiredWithoutGuideProfileNestedInput = {
   upsert?: Prisma.UserUpsertWithoutGuideProfileInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutGuideProfileInput, Prisma.UserUpdateWithoutGuideProfileInput>, Prisma.UserUncheckedUpdateWithoutGuideProfileInput>
+}
+
+export type UserCreateNestedOneWithoutGuideVerificationReviewsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutGuideVerificationReviewsInput, Prisma.UserUncheckedCreateWithoutGuideVerificationReviewsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutGuideVerificationReviewsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutGuideVerificationReviewsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutGuideVerificationReviewsInput, Prisma.UserUncheckedCreateWithoutGuideVerificationReviewsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutGuideVerificationReviewsInput
+  upsert?: Prisma.UserUpsertWithoutGuideVerificationReviewsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutGuideVerificationReviewsInput, Prisma.UserUpdateWithoutGuideVerificationReviewsInput>, Prisma.UserUncheckedUpdateWithoutGuideVerificationReviewsInput>
 }
 
 export type UserCreateNestedOneWithoutListingsInput = {
@@ -722,6 +919,20 @@ export type UserUpdateOneWithoutGuidedBookingsNestedInput = {
   delete?: Prisma.UserWhereInput | boolean
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutGuidedBookingsInput, Prisma.UserUpdateWithoutGuidedBookingsInput>, Prisma.UserUncheckedUpdateWithoutGuidedBookingsInput>
+}
+
+export type UserCreateNestedOneWithoutPaymentArrangementsProposedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPaymentArrangementsProposedInput, Prisma.UserUncheckedCreateWithoutPaymentArrangementsProposedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPaymentArrangementsProposedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutPaymentArrangementsProposedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPaymentArrangementsProposedInput, Prisma.UserUncheckedCreateWithoutPaymentArrangementsProposedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPaymentArrangementsProposedInput
+  upsert?: Prisma.UserUpsertWithoutPaymentArrangementsProposedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPaymentArrangementsProposedInput, Prisma.UserUpdateWithoutPaymentArrangementsProposedInput>, Prisma.UserUncheckedUpdateWithoutPaymentArrangementsProposedInput>
 }
 
 export type UserCreateNestedOneWithoutBookingEventsInput = {
@@ -782,6 +993,62 @@ export type UserUpdateOneRequiredWithoutParticipantsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutParticipantsInput, Prisma.UserUpdateWithoutParticipantsInput>, Prisma.UserUncheckedUpdateWithoutParticipantsInput>
 }
 
+export type UserCreateNestedOneWithoutBlocksCreatedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBlocksCreatedInput, Prisma.UserUncheckedCreateWithoutBlocksCreatedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBlocksCreatedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutBlocksReceivedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBlocksReceivedInput, Prisma.UserUncheckedCreateWithoutBlocksReceivedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBlocksReceivedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutBlocksCreatedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBlocksCreatedInput, Prisma.UserUncheckedCreateWithoutBlocksCreatedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBlocksCreatedInput
+  upsert?: Prisma.UserUpsertWithoutBlocksCreatedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBlocksCreatedInput, Prisma.UserUpdateWithoutBlocksCreatedInput>, Prisma.UserUncheckedUpdateWithoutBlocksCreatedInput>
+}
+
+export type UserUpdateOneRequiredWithoutBlocksReceivedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBlocksReceivedInput, Prisma.UserUncheckedCreateWithoutBlocksReceivedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBlocksReceivedInput
+  upsert?: Prisma.UserUpsertWithoutBlocksReceivedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBlocksReceivedInput, Prisma.UserUpdateWithoutBlocksReceivedInput>, Prisma.UserUncheckedUpdateWithoutBlocksReceivedInput>
+}
+
+export type UserCreateNestedOneWithoutReportsCreatedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReportsCreatedInput, Prisma.UserUncheckedCreateWithoutReportsCreatedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReportsCreatedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutReportsCreatedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReportsCreatedInput, Prisma.UserUncheckedCreateWithoutReportsCreatedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReportsCreatedInput
+  upsert?: Prisma.UserUpsertWithoutReportsCreatedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReportsCreatedInput, Prisma.UserUpdateWithoutReportsCreatedInput>, Prisma.UserUncheckedUpdateWithoutReportsCreatedInput>
+}
+
+export type UserCreateNestedOneWithoutModerationActionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutModerationActionsInput, Prisma.UserUncheckedCreateWithoutModerationActionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutModerationActionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutModerationActionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutModerationActionsInput, Prisma.UserUncheckedCreateWithoutModerationActionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutModerationActionsInput
+  upsert?: Prisma.UserUpsertWithoutModerationActionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutModerationActionsInput, Prisma.UserUpdateWithoutModerationActionsInput>, Prisma.UserUncheckedUpdateWithoutModerationActionsInput>
+}
+
 export type UserCreateNestedOneWithoutMessagesInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutMessagesInput, Prisma.UserUncheckedCreateWithoutMessagesInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutMessagesInput
@@ -794,6 +1061,20 @@ export type UserUpdateOneRequiredWithoutMessagesNestedInput = {
   upsert?: Prisma.UserUpsertWithoutMessagesInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMessagesInput, Prisma.UserUpdateWithoutMessagesInput>, Prisma.UserUncheckedUpdateWithoutMessagesInput>
+}
+
+export type UserCreateNestedOneWithoutNotificationsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutNotificationsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationsInput
+  upsert?: Prisma.UserUpsertWithoutNotificationsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutNotificationsInput, Prisma.UserUpdateWithoutNotificationsInput>, Prisma.UserUncheckedUpdateWithoutNotificationsInput>
 }
 
 export type UserCreateNestedOneWithoutPaymentMethodsInput = {
@@ -830,10 +1111,12 @@ export type UserUpdateOneRequiredWithoutReviewsWrittenNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReviewsWrittenInput, Prisma.UserUpdateWithoutReviewsWrittenInput>, Prisma.UserUncheckedUpdateWithoutReviewsWrittenInput>
 }
 
-export type UserUpdateOneRequiredWithoutReviewsReceivedNestedInput = {
+export type UserUpdateOneWithoutReviewsReceivedNestedInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutReviewsReceivedInput, Prisma.UserUncheckedCreateWithoutReviewsReceivedInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutReviewsReceivedInput
   upsert?: Prisma.UserUpsertWithoutReviewsReceivedInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReviewsReceivedInput, Prisma.UserUpdateWithoutReviewsReceivedInput>, Prisma.UserUncheckedUpdateWithoutReviewsReceivedInput>
 }
@@ -918,6 +1201,10 @@ export type UserCreateWithoutRefreshTokensInput = {
   provider?: $Enums.AuthProvider
   roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
   isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -939,6 +1226,15 @@ export type UserCreateWithoutRefreshTokensInput = {
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   bookingEvents?: Prisma.BookingEventCreateNestedManyWithoutActorInput
   idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
 }
 
 export type UserUncheckedCreateWithoutRefreshTokensInput = {
@@ -951,6 +1247,10 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   provider?: $Enums.AuthProvider
   roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
   isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -972,6 +1272,15 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   bookingEvents?: Prisma.BookingEventUncheckedCreateNestedManyWithoutActorInput
   idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
 }
 
 export type UserCreateOrConnectWithoutRefreshTokensInput = {
@@ -1000,6 +1309,10 @@ export type UserUpdateWithoutRefreshTokensInput = {
   provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
   roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1021,6 +1334,15 @@ export type UserUpdateWithoutRefreshTokensInput = {
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   bookingEvents?: Prisma.BookingEventUpdateManyWithoutActorNestedInput
   idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRefreshTokensInput = {
@@ -1033,6 +1355,10 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
   roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1054,6 +1380,415 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   bookingEvents?: Prisma.BookingEventUncheckedUpdateManyWithoutActorNestedInput
   idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+}
+
+export type UserCreateWithoutEmailVerificationTokensInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  name: string
+  phone?: string | null
+  avatarUrl?: string | null
+  provider?: $Enums.AuthProvider
+  roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
+  isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  guideProfile?: Prisma.GuideProfileCreateNestedOneWithoutUserInput
+  listings?: Prisma.ListingCreateNestedManyWithoutHostInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutTravelerInput
+  guidedBookings?: Prisma.BookingCreateNestedManyWithoutGuideInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutUserInput
+  participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
+  reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutGuideInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  bookingEvents?: Prisma.BookingEventCreateNestedManyWithoutActorInput
+  idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+}
+
+export type UserUncheckedCreateWithoutEmailVerificationTokensInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  name: string
+  phone?: string | null
+  avatarUrl?: string | null
+  provider?: $Enums.AuthProvider
+  roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
+  isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  guideProfile?: Prisma.GuideProfileUncheckedCreateNestedOneWithoutUserInput
+  listings?: Prisma.ListingUncheckedCreateNestedManyWithoutHostInput
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutTravelerInput
+  guidedBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutGuideInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutUserInput
+  participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
+  reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutGuideInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  bookingEvents?: Prisma.BookingEventUncheckedCreateNestedManyWithoutActorInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+}
+
+export type UserCreateOrConnectWithoutEmailVerificationTokensInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutEmailVerificationTokensInput, Prisma.UserUncheckedCreateWithoutEmailVerificationTokensInput>
+}
+
+export type UserUpsertWithoutEmailVerificationTokensInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutEmailVerificationTokensInput, Prisma.UserUncheckedUpdateWithoutEmailVerificationTokensInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutEmailVerificationTokensInput, Prisma.UserUncheckedCreateWithoutEmailVerificationTokensInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutEmailVerificationTokensInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutEmailVerificationTokensInput, Prisma.UserUncheckedUpdateWithoutEmailVerificationTokensInput>
+}
+
+export type UserUpdateWithoutEmailVerificationTokensInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  guideProfile?: Prisma.GuideProfileUpdateOneWithoutUserNestedInput
+  listings?: Prisma.ListingUpdateManyWithoutHostNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutTravelerNestedInput
+  guidedBookings?: Prisma.BookingUpdateManyWithoutGuideNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutUserNestedInput
+  participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
+  reviewsWritten?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutGuideNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  bookingEvents?: Prisma.BookingEventUpdateManyWithoutActorNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutEmailVerificationTokensInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideProfile?: Prisma.GuideProfileUncheckedUpdateOneWithoutUserNestedInput
+  listings?: Prisma.ListingUncheckedUpdateManyWithoutHostNestedInput
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutTravelerNestedInput
+  guidedBookings?: Prisma.BookingUncheckedUpdateManyWithoutGuideNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutUserNestedInput
+  participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
+  reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutGuideNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  bookingEvents?: Prisma.BookingEventUncheckedUpdateManyWithoutActorNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+}
+
+export type UserCreateWithoutPasswordResetTokensInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  name: string
+  phone?: string | null
+  avatarUrl?: string | null
+  provider?: $Enums.AuthProvider
+  roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
+  isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  guideProfile?: Prisma.GuideProfileCreateNestedOneWithoutUserInput
+  listings?: Prisma.ListingCreateNestedManyWithoutHostInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutTravelerInput
+  guidedBookings?: Prisma.BookingCreateNestedManyWithoutGuideInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutUserInput
+  participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
+  reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutGuideInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  bookingEvents?: Prisma.BookingEventCreateNestedManyWithoutActorInput
+  idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+}
+
+export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  name: string
+  phone?: string | null
+  avatarUrl?: string | null
+  provider?: $Enums.AuthProvider
+  roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
+  isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  guideProfile?: Prisma.GuideProfileUncheckedCreateNestedOneWithoutUserInput
+  listings?: Prisma.ListingUncheckedCreateNestedManyWithoutHostInput
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutTravelerInput
+  guidedBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutGuideInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutUserInput
+  participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
+  reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutGuideInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  bookingEvents?: Prisma.BookingEventUncheckedCreateNestedManyWithoutActorInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+}
+
+export type UserCreateOrConnectWithoutPasswordResetTokensInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutPasswordResetTokensInput, Prisma.UserUncheckedCreateWithoutPasswordResetTokensInput>
+}
+
+export type UserUpsertWithoutPasswordResetTokensInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutPasswordResetTokensInput, Prisma.UserUncheckedUpdateWithoutPasswordResetTokensInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutPasswordResetTokensInput, Prisma.UserUncheckedCreateWithoutPasswordResetTokensInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutPasswordResetTokensInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutPasswordResetTokensInput, Prisma.UserUncheckedUpdateWithoutPasswordResetTokensInput>
+}
+
+export type UserUpdateWithoutPasswordResetTokensInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  guideProfile?: Prisma.GuideProfileUpdateOneWithoutUserNestedInput
+  listings?: Prisma.ListingUpdateManyWithoutHostNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutTravelerNestedInput
+  guidedBookings?: Prisma.BookingUpdateManyWithoutGuideNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutUserNestedInput
+  participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
+  reviewsWritten?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutGuideNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  bookingEvents?: Prisma.BookingEventUpdateManyWithoutActorNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideProfile?: Prisma.GuideProfileUncheckedUpdateOneWithoutUserNestedInput
+  listings?: Prisma.ListingUncheckedUpdateManyWithoutHostNestedInput
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutTravelerNestedInput
+  guidedBookings?: Prisma.BookingUncheckedUpdateManyWithoutGuideNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutUserNestedInput
+  participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
+  reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutGuideNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  bookingEvents?: Prisma.BookingEventUncheckedUpdateManyWithoutActorNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
 }
 
 export type UserCreateWithoutGuideProfileInput = {
@@ -1066,6 +1801,10 @@ export type UserCreateWithoutGuideProfileInput = {
   provider?: $Enums.AuthProvider
   roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
   isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1087,6 +1826,15 @@ export type UserCreateWithoutGuideProfileInput = {
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   bookingEvents?: Prisma.BookingEventCreateNestedManyWithoutActorInput
   idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
 }
 
 export type UserUncheckedCreateWithoutGuideProfileInput = {
@@ -1099,6 +1847,10 @@ export type UserUncheckedCreateWithoutGuideProfileInput = {
   provider?: $Enums.AuthProvider
   roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
   isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1120,6 +1872,15 @@ export type UserUncheckedCreateWithoutGuideProfileInput = {
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   bookingEvents?: Prisma.BookingEventUncheckedCreateNestedManyWithoutActorInput
   idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
 }
 
 export type UserCreateOrConnectWithoutGuideProfileInput = {
@@ -1148,6 +1909,10 @@ export type UserUpdateWithoutGuideProfileInput = {
   provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
   roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1169,6 +1934,15 @@ export type UserUpdateWithoutGuideProfileInput = {
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   bookingEvents?: Prisma.BookingEventUpdateManyWithoutActorNestedInput
   idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGuideProfileInput = {
@@ -1181,6 +1955,10 @@ export type UserUncheckedUpdateWithoutGuideProfileInput = {
   provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
   roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1202,6 +1980,215 @@ export type UserUncheckedUpdateWithoutGuideProfileInput = {
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   bookingEvents?: Prisma.BookingEventUncheckedUpdateManyWithoutActorNestedInput
   idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+}
+
+export type UserCreateWithoutGuideVerificationReviewsInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  name: string
+  phone?: string | null
+  avatarUrl?: string | null
+  provider?: $Enums.AuthProvider
+  roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
+  isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  guideProfile?: Prisma.GuideProfileCreateNestedOneWithoutUserInput
+  listings?: Prisma.ListingCreateNestedManyWithoutHostInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutTravelerInput
+  guidedBookings?: Prisma.BookingCreateNestedManyWithoutGuideInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutUserInput
+  participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
+  reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutGuideInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  bookingEvents?: Prisma.BookingEventCreateNestedManyWithoutActorInput
+  idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  blocksCreated?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+}
+
+export type UserUncheckedCreateWithoutGuideVerificationReviewsInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  name: string
+  phone?: string | null
+  avatarUrl?: string | null
+  provider?: $Enums.AuthProvider
+  roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
+  isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  guideProfile?: Prisma.GuideProfileUncheckedCreateNestedOneWithoutUserInput
+  listings?: Prisma.ListingUncheckedCreateNestedManyWithoutHostInput
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutTravelerInput
+  guidedBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutGuideInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutUserInput
+  participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
+  reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutGuideInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  bookingEvents?: Prisma.BookingEventUncheckedCreateNestedManyWithoutActorInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  blocksCreated?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+}
+
+export type UserCreateOrConnectWithoutGuideVerificationReviewsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutGuideVerificationReviewsInput, Prisma.UserUncheckedCreateWithoutGuideVerificationReviewsInput>
+}
+
+export type UserUpsertWithoutGuideVerificationReviewsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutGuideVerificationReviewsInput, Prisma.UserUncheckedUpdateWithoutGuideVerificationReviewsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutGuideVerificationReviewsInput, Prisma.UserUncheckedCreateWithoutGuideVerificationReviewsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutGuideVerificationReviewsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutGuideVerificationReviewsInput, Prisma.UserUncheckedUpdateWithoutGuideVerificationReviewsInput>
+}
+
+export type UserUpdateWithoutGuideVerificationReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  guideProfile?: Prisma.GuideProfileUpdateOneWithoutUserNestedInput
+  listings?: Prisma.ListingUpdateManyWithoutHostNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutTravelerNestedInput
+  guidedBookings?: Prisma.BookingUpdateManyWithoutGuideNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutUserNestedInput
+  participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
+  reviewsWritten?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutGuideNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  bookingEvents?: Prisma.BookingEventUpdateManyWithoutActorNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  blocksCreated?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutGuideVerificationReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideProfile?: Prisma.GuideProfileUncheckedUpdateOneWithoutUserNestedInput
+  listings?: Prisma.ListingUncheckedUpdateManyWithoutHostNestedInput
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutTravelerNestedInput
+  guidedBookings?: Prisma.BookingUncheckedUpdateManyWithoutGuideNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutUserNestedInput
+  participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
+  reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutGuideNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  bookingEvents?: Prisma.BookingEventUncheckedUpdateManyWithoutActorNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  blocksCreated?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
 }
 
 export type UserCreateWithoutListingsInput = {
@@ -1214,6 +2201,10 @@ export type UserCreateWithoutListingsInput = {
   provider?: $Enums.AuthProvider
   roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
   isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1235,6 +2226,15 @@ export type UserCreateWithoutListingsInput = {
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   bookingEvents?: Prisma.BookingEventCreateNestedManyWithoutActorInput
   idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
 }
 
 export type UserUncheckedCreateWithoutListingsInput = {
@@ -1247,6 +2247,10 @@ export type UserUncheckedCreateWithoutListingsInput = {
   provider?: $Enums.AuthProvider
   roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
   isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1268,6 +2272,15 @@ export type UserUncheckedCreateWithoutListingsInput = {
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   bookingEvents?: Prisma.BookingEventUncheckedCreateNestedManyWithoutActorInput
   idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
 }
 
 export type UserCreateOrConnectWithoutListingsInput = {
@@ -1296,6 +2309,10 @@ export type UserUpdateWithoutListingsInput = {
   provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
   roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1317,6 +2334,15 @@ export type UserUpdateWithoutListingsInput = {
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   bookingEvents?: Prisma.BookingEventUpdateManyWithoutActorNestedInput
   idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutListingsInput = {
@@ -1329,6 +2355,10 @@ export type UserUncheckedUpdateWithoutListingsInput = {
   provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
   roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1350,6 +2380,15 @@ export type UserUncheckedUpdateWithoutListingsInput = {
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   bookingEvents?: Prisma.BookingEventUncheckedUpdateManyWithoutActorNestedInput
   idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
 }
 
 export type UserCreateWithoutBookingsInput = {
@@ -1362,6 +2401,10 @@ export type UserCreateWithoutBookingsInput = {
   provider?: $Enums.AuthProvider
   roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
   isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1383,6 +2426,15 @@ export type UserCreateWithoutBookingsInput = {
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   bookingEvents?: Prisma.BookingEventCreateNestedManyWithoutActorInput
   idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
 }
 
 export type UserUncheckedCreateWithoutBookingsInput = {
@@ -1395,6 +2447,10 @@ export type UserUncheckedCreateWithoutBookingsInput = {
   provider?: $Enums.AuthProvider
   roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
   isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1416,6 +2472,15 @@ export type UserUncheckedCreateWithoutBookingsInput = {
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   bookingEvents?: Prisma.BookingEventUncheckedCreateNestedManyWithoutActorInput
   idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
 }
 
 export type UserCreateOrConnectWithoutBookingsInput = {
@@ -1433,6 +2498,10 @@ export type UserCreateWithoutGuidedBookingsInput = {
   provider?: $Enums.AuthProvider
   roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
   isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1454,6 +2523,15 @@ export type UserCreateWithoutGuidedBookingsInput = {
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   bookingEvents?: Prisma.BookingEventCreateNestedManyWithoutActorInput
   idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
 }
 
 export type UserUncheckedCreateWithoutGuidedBookingsInput = {
@@ -1466,6 +2544,10 @@ export type UserUncheckedCreateWithoutGuidedBookingsInput = {
   provider?: $Enums.AuthProvider
   roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
   isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1487,6 +2569,15 @@ export type UserUncheckedCreateWithoutGuidedBookingsInput = {
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   bookingEvents?: Prisma.BookingEventUncheckedCreateNestedManyWithoutActorInput
   idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
 }
 
 export type UserCreateOrConnectWithoutGuidedBookingsInput = {
@@ -1515,6 +2606,10 @@ export type UserUpdateWithoutBookingsInput = {
   provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
   roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1536,6 +2631,15 @@ export type UserUpdateWithoutBookingsInput = {
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   bookingEvents?: Prisma.BookingEventUpdateManyWithoutActorNestedInput
   idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBookingsInput = {
@@ -1548,6 +2652,10 @@ export type UserUncheckedUpdateWithoutBookingsInput = {
   provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
   roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1569,6 +2677,15 @@ export type UserUncheckedUpdateWithoutBookingsInput = {
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   bookingEvents?: Prisma.BookingEventUncheckedUpdateManyWithoutActorNestedInput
   idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
 }
 
 export type UserUpsertWithoutGuidedBookingsInput = {
@@ -1592,6 +2709,10 @@ export type UserUpdateWithoutGuidedBookingsInput = {
   provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
   roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1613,6 +2734,15 @@ export type UserUpdateWithoutGuidedBookingsInput = {
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   bookingEvents?: Prisma.BookingEventUpdateManyWithoutActorNestedInput
   idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGuidedBookingsInput = {
@@ -1625,6 +2755,10 @@ export type UserUncheckedUpdateWithoutGuidedBookingsInput = {
   provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
   roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1646,6 +2780,215 @@ export type UserUncheckedUpdateWithoutGuidedBookingsInput = {
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   bookingEvents?: Prisma.BookingEventUncheckedUpdateManyWithoutActorNestedInput
   idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+}
+
+export type UserCreateWithoutPaymentArrangementsProposedInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  name: string
+  phone?: string | null
+  avatarUrl?: string | null
+  provider?: $Enums.AuthProvider
+  roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
+  isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  guideProfile?: Prisma.GuideProfileCreateNestedOneWithoutUserInput
+  listings?: Prisma.ListingCreateNestedManyWithoutHostInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutTravelerInput
+  guidedBookings?: Prisma.BookingCreateNestedManyWithoutGuideInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutUserInput
+  participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
+  reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutGuideInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  bookingEvents?: Prisma.BookingEventCreateNestedManyWithoutActorInput
+  idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
+}
+
+export type UserUncheckedCreateWithoutPaymentArrangementsProposedInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  name: string
+  phone?: string | null
+  avatarUrl?: string | null
+  provider?: $Enums.AuthProvider
+  roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
+  isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  guideProfile?: Prisma.GuideProfileUncheckedCreateNestedOneWithoutUserInput
+  listings?: Prisma.ListingUncheckedCreateNestedManyWithoutHostInput
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutTravelerInput
+  guidedBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutGuideInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutUserInput
+  participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
+  reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutGuideInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  bookingEvents?: Prisma.BookingEventUncheckedCreateNestedManyWithoutActorInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
+}
+
+export type UserCreateOrConnectWithoutPaymentArrangementsProposedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutPaymentArrangementsProposedInput, Prisma.UserUncheckedCreateWithoutPaymentArrangementsProposedInput>
+}
+
+export type UserUpsertWithoutPaymentArrangementsProposedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutPaymentArrangementsProposedInput, Prisma.UserUncheckedUpdateWithoutPaymentArrangementsProposedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutPaymentArrangementsProposedInput, Prisma.UserUncheckedCreateWithoutPaymentArrangementsProposedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutPaymentArrangementsProposedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutPaymentArrangementsProposedInput, Prisma.UserUncheckedUpdateWithoutPaymentArrangementsProposedInput>
+}
+
+export type UserUpdateWithoutPaymentArrangementsProposedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  guideProfile?: Prisma.GuideProfileUpdateOneWithoutUserNestedInput
+  listings?: Prisma.ListingUpdateManyWithoutHostNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutTravelerNestedInput
+  guidedBookings?: Prisma.BookingUpdateManyWithoutGuideNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutUserNestedInput
+  participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
+  reviewsWritten?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutGuideNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  bookingEvents?: Prisma.BookingEventUpdateManyWithoutActorNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
+}
+
+export type UserUncheckedUpdateWithoutPaymentArrangementsProposedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideProfile?: Prisma.GuideProfileUncheckedUpdateOneWithoutUserNestedInput
+  listings?: Prisma.ListingUncheckedUpdateManyWithoutHostNestedInput
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutTravelerNestedInput
+  guidedBookings?: Prisma.BookingUncheckedUpdateManyWithoutGuideNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutUserNestedInput
+  participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
+  reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutGuideNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  bookingEvents?: Prisma.BookingEventUncheckedUpdateManyWithoutActorNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
 }
 
 export type UserCreateWithoutBookingEventsInput = {
@@ -1658,6 +3001,10 @@ export type UserCreateWithoutBookingEventsInput = {
   provider?: $Enums.AuthProvider
   roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
   isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1679,6 +3026,15 @@ export type UserCreateWithoutBookingEventsInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
 }
 
 export type UserUncheckedCreateWithoutBookingEventsInput = {
@@ -1691,6 +3047,10 @@ export type UserUncheckedCreateWithoutBookingEventsInput = {
   provider?: $Enums.AuthProvider
   roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
   isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1712,6 +3072,15 @@ export type UserUncheckedCreateWithoutBookingEventsInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
 }
 
 export type UserCreateOrConnectWithoutBookingEventsInput = {
@@ -1740,6 +3109,10 @@ export type UserUpdateWithoutBookingEventsInput = {
   provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
   roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1761,6 +3134,15 @@ export type UserUpdateWithoutBookingEventsInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBookingEventsInput = {
@@ -1773,6 +3155,10 @@ export type UserUncheckedUpdateWithoutBookingEventsInput = {
   provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
   roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1794,6 +3180,15 @@ export type UserUncheckedUpdateWithoutBookingEventsInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
 }
 
 export type UserCreateWithoutIdempotencyKeysInput = {
@@ -1806,6 +3201,10 @@ export type UserCreateWithoutIdempotencyKeysInput = {
   provider?: $Enums.AuthProvider
   roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
   isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1827,6 +3226,15 @@ export type UserCreateWithoutIdempotencyKeysInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   bookingEvents?: Prisma.BookingEventCreateNestedManyWithoutActorInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
 }
 
 export type UserUncheckedCreateWithoutIdempotencyKeysInput = {
@@ -1839,6 +3247,10 @@ export type UserUncheckedCreateWithoutIdempotencyKeysInput = {
   provider?: $Enums.AuthProvider
   roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
   isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1860,6 +3272,15 @@ export type UserUncheckedCreateWithoutIdempotencyKeysInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   bookingEvents?: Prisma.BookingEventUncheckedCreateNestedManyWithoutActorInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
 }
 
 export type UserCreateOrConnectWithoutIdempotencyKeysInput = {
@@ -1888,6 +3309,10 @@ export type UserUpdateWithoutIdempotencyKeysInput = {
   provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
   roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1909,6 +3334,15 @@ export type UserUpdateWithoutIdempotencyKeysInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   bookingEvents?: Prisma.BookingEventUpdateManyWithoutActorNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutIdempotencyKeysInput = {
@@ -1921,6 +3355,10 @@ export type UserUncheckedUpdateWithoutIdempotencyKeysInput = {
   provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
   roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1942,6 +3380,15 @@ export type UserUncheckedUpdateWithoutIdempotencyKeysInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   bookingEvents?: Prisma.BookingEventUncheckedUpdateManyWithoutActorNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
 }
 
 export type UserCreateWithoutFavoritesInput = {
@@ -1954,6 +3401,10 @@ export type UserCreateWithoutFavoritesInput = {
   provider?: $Enums.AuthProvider
   roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
   isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1975,6 +3426,15 @@ export type UserCreateWithoutFavoritesInput = {
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   bookingEvents?: Prisma.BookingEventCreateNestedManyWithoutActorInput
   idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
 }
 
 export type UserUncheckedCreateWithoutFavoritesInput = {
@@ -1987,6 +3447,10 @@ export type UserUncheckedCreateWithoutFavoritesInput = {
   provider?: $Enums.AuthProvider
   roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
   isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2008,6 +3472,15 @@ export type UserUncheckedCreateWithoutFavoritesInput = {
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   bookingEvents?: Prisma.BookingEventUncheckedCreateNestedManyWithoutActorInput
   idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
 }
 
 export type UserCreateOrConnectWithoutFavoritesInput = {
@@ -2036,6 +3509,10 @@ export type UserUpdateWithoutFavoritesInput = {
   provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
   roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2057,6 +3534,15 @@ export type UserUpdateWithoutFavoritesInput = {
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   bookingEvents?: Prisma.BookingEventUpdateManyWithoutActorNestedInput
   idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFavoritesInput = {
@@ -2069,6 +3555,10 @@ export type UserUncheckedUpdateWithoutFavoritesInput = {
   provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
   roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2090,6 +3580,15 @@ export type UserUncheckedUpdateWithoutFavoritesInput = {
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   bookingEvents?: Prisma.BookingEventUncheckedUpdateManyWithoutActorNestedInput
   idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
 }
 
 export type UserCreateWithoutParticipantsInput = {
@@ -2102,6 +3601,10 @@ export type UserCreateWithoutParticipantsInput = {
   provider?: $Enums.AuthProvider
   roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
   isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2123,6 +3626,15 @@ export type UserCreateWithoutParticipantsInput = {
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   bookingEvents?: Prisma.BookingEventCreateNestedManyWithoutActorInput
   idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
 }
 
 export type UserUncheckedCreateWithoutParticipantsInput = {
@@ -2135,6 +3647,10 @@ export type UserUncheckedCreateWithoutParticipantsInput = {
   provider?: $Enums.AuthProvider
   roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
   isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2156,6 +3672,15 @@ export type UserUncheckedCreateWithoutParticipantsInput = {
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   bookingEvents?: Prisma.BookingEventUncheckedCreateNestedManyWithoutActorInput
   idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
 }
 
 export type UserCreateOrConnectWithoutParticipantsInput = {
@@ -2184,6 +3709,10 @@ export type UserUpdateWithoutParticipantsInput = {
   provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
   roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2205,6 +3734,15 @@ export type UserUpdateWithoutParticipantsInput = {
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   bookingEvents?: Prisma.BookingEventUpdateManyWithoutActorNestedInput
   idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutParticipantsInput = {
@@ -2217,6 +3755,10 @@ export type UserUncheckedUpdateWithoutParticipantsInput = {
   provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
   roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2238,6 +3780,815 @@ export type UserUncheckedUpdateWithoutParticipantsInput = {
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   bookingEvents?: Prisma.BookingEventUncheckedUpdateManyWithoutActorNestedInput
   idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+}
+
+export type UserCreateWithoutBlocksCreatedInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  name: string
+  phone?: string | null
+  avatarUrl?: string | null
+  provider?: $Enums.AuthProvider
+  roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
+  isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  guideProfile?: Prisma.GuideProfileCreateNestedOneWithoutUserInput
+  listings?: Prisma.ListingCreateNestedManyWithoutHostInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutTravelerInput
+  guidedBookings?: Prisma.BookingCreateNestedManyWithoutGuideInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutUserInput
+  participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
+  reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutGuideInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  bookingEvents?: Prisma.BookingEventCreateNestedManyWithoutActorInput
+  idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutReviewerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+}
+
+export type UserUncheckedCreateWithoutBlocksCreatedInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  name: string
+  phone?: string | null
+  avatarUrl?: string | null
+  provider?: $Enums.AuthProvider
+  roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
+  isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  guideProfile?: Prisma.GuideProfileUncheckedCreateNestedOneWithoutUserInput
+  listings?: Prisma.ListingUncheckedCreateNestedManyWithoutHostInput
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutTravelerInput
+  guidedBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutGuideInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutUserInput
+  participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
+  reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutGuideInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  bookingEvents?: Prisma.BookingEventUncheckedCreateNestedManyWithoutActorInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+}
+
+export type UserCreateOrConnectWithoutBlocksCreatedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutBlocksCreatedInput, Prisma.UserUncheckedCreateWithoutBlocksCreatedInput>
+}
+
+export type UserCreateWithoutBlocksReceivedInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  name: string
+  phone?: string | null
+  avatarUrl?: string | null
+  provider?: $Enums.AuthProvider
+  roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
+  isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  guideProfile?: Prisma.GuideProfileCreateNestedOneWithoutUserInput
+  listings?: Prisma.ListingCreateNestedManyWithoutHostInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutTravelerInput
+  guidedBookings?: Prisma.BookingCreateNestedManyWithoutGuideInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutUserInput
+  participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
+  reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutGuideInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  bookingEvents?: Prisma.BookingEventCreateNestedManyWithoutActorInput
+  idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+}
+
+export type UserUncheckedCreateWithoutBlocksReceivedInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  name: string
+  phone?: string | null
+  avatarUrl?: string | null
+  provider?: $Enums.AuthProvider
+  roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
+  isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  guideProfile?: Prisma.GuideProfileUncheckedCreateNestedOneWithoutUserInput
+  listings?: Prisma.ListingUncheckedCreateNestedManyWithoutHostInput
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutTravelerInput
+  guidedBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutGuideInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutUserInput
+  participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
+  reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutGuideInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  bookingEvents?: Prisma.BookingEventUncheckedCreateNestedManyWithoutActorInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+}
+
+export type UserCreateOrConnectWithoutBlocksReceivedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutBlocksReceivedInput, Prisma.UserUncheckedCreateWithoutBlocksReceivedInput>
+}
+
+export type UserUpsertWithoutBlocksCreatedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutBlocksCreatedInput, Prisma.UserUncheckedUpdateWithoutBlocksCreatedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutBlocksCreatedInput, Prisma.UserUncheckedCreateWithoutBlocksCreatedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutBlocksCreatedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutBlocksCreatedInput, Prisma.UserUncheckedUpdateWithoutBlocksCreatedInput>
+}
+
+export type UserUpdateWithoutBlocksCreatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  guideProfile?: Prisma.GuideProfileUpdateOneWithoutUserNestedInput
+  listings?: Prisma.ListingUpdateManyWithoutHostNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutTravelerNestedInput
+  guidedBookings?: Prisma.BookingUpdateManyWithoutGuideNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutUserNestedInput
+  participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
+  reviewsWritten?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutGuideNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  bookingEvents?: Prisma.BookingEventUpdateManyWithoutActorNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutReviewerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutBlocksCreatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideProfile?: Prisma.GuideProfileUncheckedUpdateOneWithoutUserNestedInput
+  listings?: Prisma.ListingUncheckedUpdateManyWithoutHostNestedInput
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutTravelerNestedInput
+  guidedBookings?: Prisma.BookingUncheckedUpdateManyWithoutGuideNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutUserNestedInput
+  participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
+  reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutGuideNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  bookingEvents?: Prisma.BookingEventUncheckedUpdateManyWithoutActorNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+}
+
+export type UserUpsertWithoutBlocksReceivedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutBlocksReceivedInput, Prisma.UserUncheckedUpdateWithoutBlocksReceivedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutBlocksReceivedInput, Prisma.UserUncheckedCreateWithoutBlocksReceivedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutBlocksReceivedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutBlocksReceivedInput, Prisma.UserUncheckedUpdateWithoutBlocksReceivedInput>
+}
+
+export type UserUpdateWithoutBlocksReceivedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  guideProfile?: Prisma.GuideProfileUpdateOneWithoutUserNestedInput
+  listings?: Prisma.ListingUpdateManyWithoutHostNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutTravelerNestedInput
+  guidedBookings?: Prisma.BookingUpdateManyWithoutGuideNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutUserNestedInput
+  participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
+  reviewsWritten?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutGuideNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  bookingEvents?: Prisma.BookingEventUpdateManyWithoutActorNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutBlocksReceivedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideProfile?: Prisma.GuideProfileUncheckedUpdateOneWithoutUserNestedInput
+  listings?: Prisma.ListingUncheckedUpdateManyWithoutHostNestedInput
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutTravelerNestedInput
+  guidedBookings?: Prisma.BookingUncheckedUpdateManyWithoutGuideNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutUserNestedInput
+  participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
+  reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutGuideNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  bookingEvents?: Prisma.BookingEventUncheckedUpdateManyWithoutActorNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+}
+
+export type UserCreateWithoutReportsCreatedInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  name: string
+  phone?: string | null
+  avatarUrl?: string | null
+  provider?: $Enums.AuthProvider
+  roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
+  isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  guideProfile?: Prisma.GuideProfileCreateNestedOneWithoutUserInput
+  listings?: Prisma.ListingCreateNestedManyWithoutHostInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutTravelerInput
+  guidedBookings?: Prisma.BookingCreateNestedManyWithoutGuideInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutUserInput
+  participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
+  reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutGuideInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  bookingEvents?: Prisma.BookingEventCreateNestedManyWithoutActorInput
+  idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+}
+
+export type UserUncheckedCreateWithoutReportsCreatedInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  name: string
+  phone?: string | null
+  avatarUrl?: string | null
+  provider?: $Enums.AuthProvider
+  roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
+  isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  guideProfile?: Prisma.GuideProfileUncheckedCreateNestedOneWithoutUserInput
+  listings?: Prisma.ListingUncheckedCreateNestedManyWithoutHostInput
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutTravelerInput
+  guidedBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutGuideInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutUserInput
+  participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
+  reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutGuideInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  bookingEvents?: Prisma.BookingEventUncheckedCreateNestedManyWithoutActorInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+}
+
+export type UserCreateOrConnectWithoutReportsCreatedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutReportsCreatedInput, Prisma.UserUncheckedCreateWithoutReportsCreatedInput>
+}
+
+export type UserUpsertWithoutReportsCreatedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutReportsCreatedInput, Prisma.UserUncheckedUpdateWithoutReportsCreatedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutReportsCreatedInput, Prisma.UserUncheckedCreateWithoutReportsCreatedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutReportsCreatedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutReportsCreatedInput, Prisma.UserUncheckedUpdateWithoutReportsCreatedInput>
+}
+
+export type UserUpdateWithoutReportsCreatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  guideProfile?: Prisma.GuideProfileUpdateOneWithoutUserNestedInput
+  listings?: Prisma.ListingUpdateManyWithoutHostNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutTravelerNestedInput
+  guidedBookings?: Prisma.BookingUpdateManyWithoutGuideNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutUserNestedInput
+  participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
+  reviewsWritten?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutGuideNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  bookingEvents?: Prisma.BookingEventUpdateManyWithoutActorNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutReportsCreatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideProfile?: Prisma.GuideProfileUncheckedUpdateOneWithoutUserNestedInput
+  listings?: Prisma.ListingUncheckedUpdateManyWithoutHostNestedInput
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutTravelerNestedInput
+  guidedBookings?: Prisma.BookingUncheckedUpdateManyWithoutGuideNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutUserNestedInput
+  participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
+  reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutGuideNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  bookingEvents?: Prisma.BookingEventUncheckedUpdateManyWithoutActorNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+}
+
+export type UserCreateWithoutModerationActionsInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  name: string
+  phone?: string | null
+  avatarUrl?: string | null
+  provider?: $Enums.AuthProvider
+  roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
+  isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  guideProfile?: Prisma.GuideProfileCreateNestedOneWithoutUserInput
+  listings?: Prisma.ListingCreateNestedManyWithoutHostInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutTravelerInput
+  guidedBookings?: Prisma.BookingCreateNestedManyWithoutGuideInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutUserInput
+  participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
+  reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutGuideInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  bookingEvents?: Prisma.BookingEventCreateNestedManyWithoutActorInput
+  idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+}
+
+export type UserUncheckedCreateWithoutModerationActionsInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  name: string
+  phone?: string | null
+  avatarUrl?: string | null
+  provider?: $Enums.AuthProvider
+  roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
+  isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  guideProfile?: Prisma.GuideProfileUncheckedCreateNestedOneWithoutUserInput
+  listings?: Prisma.ListingUncheckedCreateNestedManyWithoutHostInput
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutTravelerInput
+  guidedBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutGuideInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutUserInput
+  participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
+  reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutGuideInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  bookingEvents?: Prisma.BookingEventUncheckedCreateNestedManyWithoutActorInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+}
+
+export type UserCreateOrConnectWithoutModerationActionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutModerationActionsInput, Prisma.UserUncheckedCreateWithoutModerationActionsInput>
+}
+
+export type UserUpsertWithoutModerationActionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutModerationActionsInput, Prisma.UserUncheckedUpdateWithoutModerationActionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutModerationActionsInput, Prisma.UserUncheckedCreateWithoutModerationActionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutModerationActionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutModerationActionsInput, Prisma.UserUncheckedUpdateWithoutModerationActionsInput>
+}
+
+export type UserUpdateWithoutModerationActionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  guideProfile?: Prisma.GuideProfileUpdateOneWithoutUserNestedInput
+  listings?: Prisma.ListingUpdateManyWithoutHostNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutTravelerNestedInput
+  guidedBookings?: Prisma.BookingUpdateManyWithoutGuideNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutUserNestedInput
+  participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
+  reviewsWritten?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutGuideNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  bookingEvents?: Prisma.BookingEventUpdateManyWithoutActorNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutModerationActionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideProfile?: Prisma.GuideProfileUncheckedUpdateOneWithoutUserNestedInput
+  listings?: Prisma.ListingUncheckedUpdateManyWithoutHostNestedInput
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutTravelerNestedInput
+  guidedBookings?: Prisma.BookingUncheckedUpdateManyWithoutGuideNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutUserNestedInput
+  participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
+  reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutGuideNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  bookingEvents?: Prisma.BookingEventUncheckedUpdateManyWithoutActorNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
 }
 
 export type UserCreateWithoutMessagesInput = {
@@ -2250,6 +4601,10 @@ export type UserCreateWithoutMessagesInput = {
   provider?: $Enums.AuthProvider
   roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
   isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2271,6 +4626,15 @@ export type UserCreateWithoutMessagesInput = {
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   bookingEvents?: Prisma.BookingEventCreateNestedManyWithoutActorInput
   idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
 }
 
 export type UserUncheckedCreateWithoutMessagesInput = {
@@ -2283,6 +4647,10 @@ export type UserUncheckedCreateWithoutMessagesInput = {
   provider?: $Enums.AuthProvider
   roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
   isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2304,6 +4672,15 @@ export type UserUncheckedCreateWithoutMessagesInput = {
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   bookingEvents?: Prisma.BookingEventUncheckedCreateNestedManyWithoutActorInput
   idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
 }
 
 export type UserCreateOrConnectWithoutMessagesInput = {
@@ -2332,6 +4709,10 @@ export type UserUpdateWithoutMessagesInput = {
   provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
   roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2353,6 +4734,15 @@ export type UserUpdateWithoutMessagesInput = {
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   bookingEvents?: Prisma.BookingEventUpdateManyWithoutActorNestedInput
   idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMessagesInput = {
@@ -2365,6 +4755,10 @@ export type UserUncheckedUpdateWithoutMessagesInput = {
   provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
   roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2386,6 +4780,215 @@ export type UserUncheckedUpdateWithoutMessagesInput = {
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   bookingEvents?: Prisma.BookingEventUncheckedUpdateManyWithoutActorNestedInput
   idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+}
+
+export type UserCreateWithoutNotificationsInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  name: string
+  phone?: string | null
+  avatarUrl?: string | null
+  provider?: $Enums.AuthProvider
+  roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
+  isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  guideProfile?: Prisma.GuideProfileCreateNestedOneWithoutUserInput
+  listings?: Prisma.ListingCreateNestedManyWithoutHostInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutTravelerInput
+  guidedBookings?: Prisma.BookingCreateNestedManyWithoutGuideInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutUserInput
+  participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
+  reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutGuideInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  bookingEvents?: Prisma.BookingEventCreateNestedManyWithoutActorInput
+  idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+}
+
+export type UserUncheckedCreateWithoutNotificationsInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  name: string
+  phone?: string | null
+  avatarUrl?: string | null
+  provider?: $Enums.AuthProvider
+  roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
+  isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  guideProfile?: Prisma.GuideProfileUncheckedCreateNestedOneWithoutUserInput
+  listings?: Prisma.ListingUncheckedCreateNestedManyWithoutHostInput
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutTravelerInput
+  guidedBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutGuideInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutUserInput
+  participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
+  reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutGuideInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  bookingEvents?: Prisma.BookingEventUncheckedCreateNestedManyWithoutActorInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+}
+
+export type UserCreateOrConnectWithoutNotificationsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+}
+
+export type UserUpsertWithoutNotificationsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutNotificationsInput, Prisma.UserUncheckedUpdateWithoutNotificationsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutNotificationsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutNotificationsInput, Prisma.UserUncheckedUpdateWithoutNotificationsInput>
+}
+
+export type UserUpdateWithoutNotificationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  guideProfile?: Prisma.GuideProfileUpdateOneWithoutUserNestedInput
+  listings?: Prisma.ListingUpdateManyWithoutHostNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutTravelerNestedInput
+  guidedBookings?: Prisma.BookingUpdateManyWithoutGuideNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutUserNestedInput
+  participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
+  reviewsWritten?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutGuideNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  bookingEvents?: Prisma.BookingEventUpdateManyWithoutActorNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutNotificationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideProfile?: Prisma.GuideProfileUncheckedUpdateOneWithoutUserNestedInput
+  listings?: Prisma.ListingUncheckedUpdateManyWithoutHostNestedInput
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutTravelerNestedInput
+  guidedBookings?: Prisma.BookingUncheckedUpdateManyWithoutGuideNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutUserNestedInput
+  participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
+  reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutGuideNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  bookingEvents?: Prisma.BookingEventUncheckedUpdateManyWithoutActorNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
 }
 
 export type UserCreateWithoutPaymentMethodsInput = {
@@ -2398,6 +5001,10 @@ export type UserCreateWithoutPaymentMethodsInput = {
   provider?: $Enums.AuthProvider
   roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
   isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2419,6 +5026,15 @@ export type UserCreateWithoutPaymentMethodsInput = {
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   bookingEvents?: Prisma.BookingEventCreateNestedManyWithoutActorInput
   idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
 }
 
 export type UserUncheckedCreateWithoutPaymentMethodsInput = {
@@ -2431,6 +5047,10 @@ export type UserUncheckedCreateWithoutPaymentMethodsInput = {
   provider?: $Enums.AuthProvider
   roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
   isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2452,6 +5072,15 @@ export type UserUncheckedCreateWithoutPaymentMethodsInput = {
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   bookingEvents?: Prisma.BookingEventUncheckedCreateNestedManyWithoutActorInput
   idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
 }
 
 export type UserCreateOrConnectWithoutPaymentMethodsInput = {
@@ -2480,6 +5109,10 @@ export type UserUpdateWithoutPaymentMethodsInput = {
   provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
   roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2501,6 +5134,15 @@ export type UserUpdateWithoutPaymentMethodsInput = {
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   bookingEvents?: Prisma.BookingEventUpdateManyWithoutActorNestedInput
   idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPaymentMethodsInput = {
@@ -2513,6 +5155,10 @@ export type UserUncheckedUpdateWithoutPaymentMethodsInput = {
   provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
   roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2534,6 +5180,15 @@ export type UserUncheckedUpdateWithoutPaymentMethodsInput = {
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   bookingEvents?: Prisma.BookingEventUncheckedUpdateManyWithoutActorNestedInput
   idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
 }
 
 export type UserCreateWithoutReviewsWrittenInput = {
@@ -2546,6 +5201,10 @@ export type UserCreateWithoutReviewsWrittenInput = {
   provider?: $Enums.AuthProvider
   roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
   isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2567,6 +5226,15 @@ export type UserCreateWithoutReviewsWrittenInput = {
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   bookingEvents?: Prisma.BookingEventCreateNestedManyWithoutActorInput
   idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
 }
 
 export type UserUncheckedCreateWithoutReviewsWrittenInput = {
@@ -2579,6 +5247,10 @@ export type UserUncheckedCreateWithoutReviewsWrittenInput = {
   provider?: $Enums.AuthProvider
   roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
   isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2600,6 +5272,15 @@ export type UserUncheckedCreateWithoutReviewsWrittenInput = {
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   bookingEvents?: Prisma.BookingEventUncheckedCreateNestedManyWithoutActorInput
   idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
 }
 
 export type UserCreateOrConnectWithoutReviewsWrittenInput = {
@@ -2617,6 +5298,10 @@ export type UserCreateWithoutReviewsReceivedInput = {
   provider?: $Enums.AuthProvider
   roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
   isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2638,6 +5323,15 @@ export type UserCreateWithoutReviewsReceivedInput = {
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   bookingEvents?: Prisma.BookingEventCreateNestedManyWithoutActorInput
   idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
 }
 
 export type UserUncheckedCreateWithoutReviewsReceivedInput = {
@@ -2650,6 +5344,10 @@ export type UserUncheckedCreateWithoutReviewsReceivedInput = {
   provider?: $Enums.AuthProvider
   roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
   isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2671,6 +5369,15 @@ export type UserUncheckedCreateWithoutReviewsReceivedInput = {
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   bookingEvents?: Prisma.BookingEventUncheckedCreateNestedManyWithoutActorInput
   idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
 }
 
 export type UserCreateOrConnectWithoutReviewsReceivedInput = {
@@ -2699,6 +5406,10 @@ export type UserUpdateWithoutReviewsWrittenInput = {
   provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
   roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2720,6 +5431,15 @@ export type UserUpdateWithoutReviewsWrittenInput = {
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   bookingEvents?: Prisma.BookingEventUpdateManyWithoutActorNestedInput
   idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewsWrittenInput = {
@@ -2732,6 +5452,10 @@ export type UserUncheckedUpdateWithoutReviewsWrittenInput = {
   provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
   roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2753,6 +5477,15 @@ export type UserUncheckedUpdateWithoutReviewsWrittenInput = {
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   bookingEvents?: Prisma.BookingEventUncheckedUpdateManyWithoutActorNestedInput
   idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
 }
 
 export type UserUpsertWithoutReviewsReceivedInput = {
@@ -2776,6 +5509,10 @@ export type UserUpdateWithoutReviewsReceivedInput = {
   provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
   roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2797,6 +5534,15 @@ export type UserUpdateWithoutReviewsReceivedInput = {
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   bookingEvents?: Prisma.BookingEventUpdateManyWithoutActorNestedInput
   idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewsReceivedInput = {
@@ -2809,6 +5555,10 @@ export type UserUncheckedUpdateWithoutReviewsReceivedInput = {
   provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
   roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2830,6 +5580,15 @@ export type UserUncheckedUpdateWithoutReviewsReceivedInput = {
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   bookingEvents?: Prisma.BookingEventUncheckedUpdateManyWithoutActorNestedInput
   idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
 }
 
 export type UserCreateWithoutPostsInput = {
@@ -2842,6 +5601,10 @@ export type UserCreateWithoutPostsInput = {
   provider?: $Enums.AuthProvider
   roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
   isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2863,6 +5626,15 @@ export type UserCreateWithoutPostsInput = {
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   bookingEvents?: Prisma.BookingEventCreateNestedManyWithoutActorInput
   idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
 }
 
 export type UserUncheckedCreateWithoutPostsInput = {
@@ -2875,6 +5647,10 @@ export type UserUncheckedCreateWithoutPostsInput = {
   provider?: $Enums.AuthProvider
   roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
   isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -2896,6 +5672,15 @@ export type UserUncheckedCreateWithoutPostsInput = {
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   bookingEvents?: Prisma.BookingEventUncheckedCreateNestedManyWithoutActorInput
   idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
 }
 
 export type UserCreateOrConnectWithoutPostsInput = {
@@ -2924,6 +5709,10 @@ export type UserUpdateWithoutPostsInput = {
   provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
   roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2945,6 +5734,15 @@ export type UserUpdateWithoutPostsInput = {
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   bookingEvents?: Prisma.BookingEventUpdateManyWithoutActorNestedInput
   idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPostsInput = {
@@ -2957,6 +5755,10 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
   roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2978,6 +5780,15 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   bookingEvents?: Prisma.BookingEventUncheckedUpdateManyWithoutActorNestedInput
   idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
 }
 
 export type UserCreateWithoutPostLikesInput = {
@@ -2990,6 +5801,10 @@ export type UserCreateWithoutPostLikesInput = {
   provider?: $Enums.AuthProvider
   roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
   isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -3011,6 +5826,15 @@ export type UserCreateWithoutPostLikesInput = {
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   bookingEvents?: Prisma.BookingEventCreateNestedManyWithoutActorInput
   idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
 }
 
 export type UserUncheckedCreateWithoutPostLikesInput = {
@@ -3023,6 +5847,10 @@ export type UserUncheckedCreateWithoutPostLikesInput = {
   provider?: $Enums.AuthProvider
   roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
   isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -3044,6 +5872,15 @@ export type UserUncheckedCreateWithoutPostLikesInput = {
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   bookingEvents?: Prisma.BookingEventUncheckedCreateNestedManyWithoutActorInput
   idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
 }
 
 export type UserCreateOrConnectWithoutPostLikesInput = {
@@ -3072,6 +5909,10 @@ export type UserUpdateWithoutPostLikesInput = {
   provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
   roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3093,6 +5934,15 @@ export type UserUpdateWithoutPostLikesInput = {
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   bookingEvents?: Prisma.BookingEventUpdateManyWithoutActorNestedInput
   idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPostLikesInput = {
@@ -3105,6 +5955,10 @@ export type UserUncheckedUpdateWithoutPostLikesInput = {
   provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
   roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3126,6 +5980,15 @@ export type UserUncheckedUpdateWithoutPostLikesInput = {
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   bookingEvents?: Prisma.BookingEventUncheckedUpdateManyWithoutActorNestedInput
   idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
 }
 
 export type UserCreateWithoutPostCommentsInput = {
@@ -3138,6 +6001,10 @@ export type UserCreateWithoutPostCommentsInput = {
   provider?: $Enums.AuthProvider
   roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
   isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -3159,6 +6026,15 @@ export type UserCreateWithoutPostCommentsInput = {
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   bookingEvents?: Prisma.BookingEventCreateNestedManyWithoutActorInput
   idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
 }
 
 export type UserUncheckedCreateWithoutPostCommentsInput = {
@@ -3171,6 +6047,10 @@ export type UserUncheckedCreateWithoutPostCommentsInput = {
   provider?: $Enums.AuthProvider
   roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
   isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -3192,6 +6072,15 @@ export type UserUncheckedCreateWithoutPostCommentsInput = {
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   bookingEvents?: Prisma.BookingEventUncheckedCreateNestedManyWithoutActorInput
   idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
 }
 
 export type UserCreateOrConnectWithoutPostCommentsInput = {
@@ -3220,6 +6109,10 @@ export type UserUpdateWithoutPostCommentsInput = {
   provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
   roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3241,6 +6134,15 @@ export type UserUpdateWithoutPostCommentsInput = {
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   bookingEvents?: Prisma.BookingEventUpdateManyWithoutActorNestedInput
   idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPostCommentsInput = {
@@ -3253,6 +6155,10 @@ export type UserUncheckedUpdateWithoutPostCommentsInput = {
   provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
   roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3274,6 +6180,15 @@ export type UserUncheckedUpdateWithoutPostCommentsInput = {
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   bookingEvents?: Prisma.BookingEventUncheckedUpdateManyWithoutActorNestedInput
   idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
 }
 
 export type UserCreateWithoutFollowingInput = {
@@ -3286,6 +6201,10 @@ export type UserCreateWithoutFollowingInput = {
   provider?: $Enums.AuthProvider
   roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
   isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -3307,6 +6226,15 @@ export type UserCreateWithoutFollowingInput = {
   followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
   bookingEvents?: Prisma.BookingEventCreateNestedManyWithoutActorInput
   idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
 }
 
 export type UserUncheckedCreateWithoutFollowingInput = {
@@ -3319,6 +6247,10 @@ export type UserUncheckedCreateWithoutFollowingInput = {
   provider?: $Enums.AuthProvider
   roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
   isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -3340,6 +6272,15 @@ export type UserUncheckedCreateWithoutFollowingInput = {
   followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
   bookingEvents?: Prisma.BookingEventUncheckedCreateNestedManyWithoutActorInput
   idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
 }
 
 export type UserCreateOrConnectWithoutFollowingInput = {
@@ -3357,6 +6298,10 @@ export type UserCreateWithoutFollowersInput = {
   provider?: $Enums.AuthProvider
   roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
   isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -3378,6 +6323,15 @@ export type UserCreateWithoutFollowersInput = {
   following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
   bookingEvents?: Prisma.BookingEventCreateNestedManyWithoutActorInput
   idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
 }
 
 export type UserUncheckedCreateWithoutFollowersInput = {
@@ -3390,6 +6344,10 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   provider?: $Enums.AuthProvider
   roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
   isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
   lastLoginAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -3411,6 +6369,15 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
   bookingEvents?: Prisma.BookingEventUncheckedCreateNestedManyWithoutActorInput
   idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
 }
 
 export type UserCreateOrConnectWithoutFollowersInput = {
@@ -3439,6 +6406,10 @@ export type UserUpdateWithoutFollowingInput = {
   provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
   roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3460,6 +6431,15 @@ export type UserUpdateWithoutFollowingInput = {
   followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
   bookingEvents?: Prisma.BookingEventUpdateManyWithoutActorNestedInput
   idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFollowingInput = {
@@ -3472,6 +6452,10 @@ export type UserUncheckedUpdateWithoutFollowingInput = {
   provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
   roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3493,6 +6477,15 @@ export type UserUncheckedUpdateWithoutFollowingInput = {
   followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
   bookingEvents?: Prisma.BookingEventUncheckedUpdateManyWithoutActorNestedInput
   idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
 }
 
 export type UserUpsertWithoutFollowersInput = {
@@ -3516,6 +6509,10 @@ export type UserUpdateWithoutFollowersInput = {
   provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
   roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3537,6 +6534,15 @@ export type UserUpdateWithoutFollowersInput = {
   following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
   bookingEvents?: Prisma.BookingEventUpdateManyWithoutActorNestedInput
   idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFollowersInput = {
@@ -3549,6 +6555,10 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
   roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3570,6 +6580,15 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
   bookingEvents?: Prisma.BookingEventUncheckedUpdateManyWithoutActorNestedInput
   idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
 }
 
 
@@ -3595,6 +6614,15 @@ export type UserCountOutputType = {
   followers: number
   bookingEvents: number
   idempotencyKeys: number
+  notifications: number
+  emailVerificationTokens: number
+  passwordResetTokens: number
+  guideVerificationReviews: number
+  blocksCreated: number
+  blocksReceived: number
+  reportsCreated: number
+  moderationActions: number
+  paymentArrangementsProposed: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3615,6 +6643,15 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   followers?: boolean | UserCountOutputTypeCountFollowersArgs
   bookingEvents?: boolean | UserCountOutputTypeCountBookingEventsArgs
   idempotencyKeys?: boolean | UserCountOutputTypeCountIdempotencyKeysArgs
+  notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
+  emailVerificationTokens?: boolean | UserCountOutputTypeCountEmailVerificationTokensArgs
+  passwordResetTokens?: boolean | UserCountOutputTypeCountPasswordResetTokensArgs
+  guideVerificationReviews?: boolean | UserCountOutputTypeCountGuideVerificationReviewsArgs
+  blocksCreated?: boolean | UserCountOutputTypeCountBlocksCreatedArgs
+  blocksReceived?: boolean | UserCountOutputTypeCountBlocksReceivedArgs
+  reportsCreated?: boolean | UserCountOutputTypeCountReportsCreatedArgs
+  moderationActions?: boolean | UserCountOutputTypeCountModerationActionsArgs
+  paymentArrangementsProposed?: boolean | UserCountOutputTypeCountPaymentArrangementsProposedArgs
 }
 
 /**
@@ -3746,6 +6783,69 @@ export type UserCountOutputTypeCountIdempotencyKeysArgs<ExtArgs extends runtime.
   where?: Prisma.IdempotencyKeyWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.NotificationWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountEmailVerificationTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.EmailVerificationTokenWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountPasswordResetTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PasswordResetTokenWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountGuideVerificationReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.GuideVerificationReviewWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountBlocksCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserBlockWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountBlocksReceivedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserBlockWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountReportsCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReportWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountModerationActionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ModerationActionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountPaymentArrangementsProposedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PilotPaymentWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -3757,6 +6857,10 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   provider?: boolean
   roles?: boolean
   isVerified?: boolean
+  emailVerifiedAt?: boolean
+  moderationStatus?: boolean
+  suspendedUntil?: boolean
+  suspensionReason?: boolean
   lastLoginAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -3779,6 +6883,15 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   followers?: boolean | Prisma.User$followersArgs<ExtArgs>
   bookingEvents?: boolean | Prisma.User$bookingEventsArgs<ExtArgs>
   idempotencyKeys?: boolean | Prisma.User$idempotencyKeysArgs<ExtArgs>
+  notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
+  emailVerificationTokens?: boolean | Prisma.User$emailVerificationTokensArgs<ExtArgs>
+  passwordResetTokens?: boolean | Prisma.User$passwordResetTokensArgs<ExtArgs>
+  guideVerificationReviews?: boolean | Prisma.User$guideVerificationReviewsArgs<ExtArgs>
+  blocksCreated?: boolean | Prisma.User$blocksCreatedArgs<ExtArgs>
+  blocksReceived?: boolean | Prisma.User$blocksReceivedArgs<ExtArgs>
+  reportsCreated?: boolean | Prisma.User$reportsCreatedArgs<ExtArgs>
+  moderationActions?: boolean | Prisma.User$moderationActionsArgs<ExtArgs>
+  paymentArrangementsProposed?: boolean | Prisma.User$paymentArrangementsProposedArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -3792,6 +6905,10 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   provider?: boolean
   roles?: boolean
   isVerified?: boolean
+  emailVerifiedAt?: boolean
+  moderationStatus?: boolean
+  suspendedUntil?: boolean
+  suspensionReason?: boolean
   lastLoginAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -3808,6 +6925,10 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   provider?: boolean
   roles?: boolean
   isVerified?: boolean
+  emailVerifiedAt?: boolean
+  moderationStatus?: boolean
+  suspendedUntil?: boolean
+  suspensionReason?: boolean
   lastLoginAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -3824,13 +6945,17 @@ export type UserSelectScalar = {
   provider?: boolean
   roles?: boolean
   isVerified?: boolean
+  emailVerifiedAt?: boolean
+  moderationStatus?: boolean
+  suspendedUntil?: boolean
+  suspensionReason?: boolean
   lastLoginAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "passwordHash" | "name" | "phone" | "avatarUrl" | "provider" | "roles" | "isVerified" | "lastLoginAt" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "passwordHash" | "name" | "phone" | "avatarUrl" | "provider" | "roles" | "isVerified" | "emailVerifiedAt" | "moderationStatus" | "suspendedUntil" | "suspensionReason" | "lastLoginAt" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>
   guideProfile?: boolean | Prisma.User$guideProfileArgs<ExtArgs>
@@ -3850,6 +6975,15 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   followers?: boolean | Prisma.User$followersArgs<ExtArgs>
   bookingEvents?: boolean | Prisma.User$bookingEventsArgs<ExtArgs>
   idempotencyKeys?: boolean | Prisma.User$idempotencyKeysArgs<ExtArgs>
+  notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
+  emailVerificationTokens?: boolean | Prisma.User$emailVerificationTokensArgs<ExtArgs>
+  passwordResetTokens?: boolean | Prisma.User$passwordResetTokensArgs<ExtArgs>
+  guideVerificationReviews?: boolean | Prisma.User$guideVerificationReviewsArgs<ExtArgs>
+  blocksCreated?: boolean | Prisma.User$blocksCreatedArgs<ExtArgs>
+  blocksReceived?: boolean | Prisma.User$blocksReceivedArgs<ExtArgs>
+  reportsCreated?: boolean | Prisma.User$reportsCreatedArgs<ExtArgs>
+  moderationActions?: boolean | Prisma.User$moderationActionsArgs<ExtArgs>
+  paymentArrangementsProposed?: boolean | Prisma.User$paymentArrangementsProposedArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -3876,6 +7010,15 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     followers: Prisma.$FollowPayload<ExtArgs>[]
     bookingEvents: Prisma.$BookingEventPayload<ExtArgs>[]
     idempotencyKeys: Prisma.$IdempotencyKeyPayload<ExtArgs>[]
+    notifications: Prisma.$NotificationPayload<ExtArgs>[]
+    emailVerificationTokens: Prisma.$EmailVerificationTokenPayload<ExtArgs>[]
+    passwordResetTokens: Prisma.$PasswordResetTokenPayload<ExtArgs>[]
+    guideVerificationReviews: Prisma.$GuideVerificationReviewPayload<ExtArgs>[]
+    blocksCreated: Prisma.$UserBlockPayload<ExtArgs>[]
+    blocksReceived: Prisma.$UserBlockPayload<ExtArgs>[]
+    reportsCreated: Prisma.$ReportPayload<ExtArgs>[]
+    moderationActions: Prisma.$ModerationActionPayload<ExtArgs>[]
+    paymentArrangementsProposed: Prisma.$PilotPaymentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -3887,6 +7030,10 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     provider: $Enums.AuthProvider
     roles: $Enums.Role[]
     isVerified: boolean
+    emailVerifiedAt: Date | null
+    moderationStatus: $Enums.UserModerationStatus
+    suspendedUntil: Date | null
+    suspensionReason: string | null
     lastLoginAt: Date | null
     createdAt: Date
     updatedAt: Date
@@ -4303,6 +7450,15 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   followers<T extends Prisma.User$followersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$followersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FollowPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   bookingEvents<T extends Prisma.User$bookingEventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$bookingEventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BookingEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   idempotencyKeys<T extends Prisma.User$idempotencyKeysArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$idempotencyKeysArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$IdempotencyKeyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  notifications<T extends Prisma.User$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  emailVerificationTokens<T extends Prisma.User$emailVerificationTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$emailVerificationTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EmailVerificationTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  passwordResetTokens<T extends Prisma.User$passwordResetTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$passwordResetTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  guideVerificationReviews<T extends Prisma.User$guideVerificationReviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$guideVerificationReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GuideVerificationReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  blocksCreated<T extends Prisma.User$blocksCreatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$blocksCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserBlockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  blocksReceived<T extends Prisma.User$blocksReceivedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$blocksReceivedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserBlockPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reportsCreated<T extends Prisma.User$reportsCreatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reportsCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  moderationActions<T extends Prisma.User$moderationActionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$moderationActionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ModerationActionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  paymentArrangementsProposed<T extends Prisma.User$paymentArrangementsProposedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$paymentArrangementsProposedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PilotPaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4341,6 +7497,10 @@ export interface UserFieldRefs {
   readonly provider: Prisma.FieldRef<"User", 'AuthProvider'>
   readonly roles: Prisma.FieldRef<"User", 'Role[]'>
   readonly isVerified: Prisma.FieldRef<"User", 'Boolean'>
+  readonly emailVerifiedAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly moderationStatus: Prisma.FieldRef<"User", 'UserModerationStatus'>
+  readonly suspendedUntil: Prisma.FieldRef<"User", 'DateTime'>
+  readonly suspensionReason: Prisma.FieldRef<"User", 'String'>
   readonly lastLoginAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
@@ -5162,6 +8322,222 @@ export type User$idempotencyKeysArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.IdempotencyKeyScalarFieldEnum | Prisma.IdempotencyKeyScalarFieldEnum[]
+}
+
+/**
+ * User.notifications
+ */
+export type User$notificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Notification
+   */
+  select?: Prisma.NotificationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Notification
+   */
+  omit?: Prisma.NotificationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.NotificationInclude<ExtArgs> | null
+  where?: Prisma.NotificationWhereInput
+  orderBy?: Prisma.NotificationOrderByWithRelationInput | Prisma.NotificationOrderByWithRelationInput[]
+  cursor?: Prisma.NotificationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.NotificationScalarFieldEnum | Prisma.NotificationScalarFieldEnum[]
+}
+
+/**
+ * User.emailVerificationTokens
+ */
+export type User$emailVerificationTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the EmailVerificationToken
+   */
+  select?: Prisma.EmailVerificationTokenSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the EmailVerificationToken
+   */
+  omit?: Prisma.EmailVerificationTokenOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EmailVerificationTokenInclude<ExtArgs> | null
+  where?: Prisma.EmailVerificationTokenWhereInput
+  orderBy?: Prisma.EmailVerificationTokenOrderByWithRelationInput | Prisma.EmailVerificationTokenOrderByWithRelationInput[]
+  cursor?: Prisma.EmailVerificationTokenWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.EmailVerificationTokenScalarFieldEnum | Prisma.EmailVerificationTokenScalarFieldEnum[]
+}
+
+/**
+ * User.passwordResetTokens
+ */
+export type User$passwordResetTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PasswordResetToken
+   */
+  select?: Prisma.PasswordResetTokenSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PasswordResetToken
+   */
+  omit?: Prisma.PasswordResetTokenOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PasswordResetTokenInclude<ExtArgs> | null
+  where?: Prisma.PasswordResetTokenWhereInput
+  orderBy?: Prisma.PasswordResetTokenOrderByWithRelationInput | Prisma.PasswordResetTokenOrderByWithRelationInput[]
+  cursor?: Prisma.PasswordResetTokenWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PasswordResetTokenScalarFieldEnum | Prisma.PasswordResetTokenScalarFieldEnum[]
+}
+
+/**
+ * User.guideVerificationReviews
+ */
+export type User$guideVerificationReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GuideVerificationReview
+   */
+  select?: Prisma.GuideVerificationReviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the GuideVerificationReview
+   */
+  omit?: Prisma.GuideVerificationReviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GuideVerificationReviewInclude<ExtArgs> | null
+  where?: Prisma.GuideVerificationReviewWhereInput
+  orderBy?: Prisma.GuideVerificationReviewOrderByWithRelationInput | Prisma.GuideVerificationReviewOrderByWithRelationInput[]
+  cursor?: Prisma.GuideVerificationReviewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.GuideVerificationReviewScalarFieldEnum | Prisma.GuideVerificationReviewScalarFieldEnum[]
+}
+
+/**
+ * User.blocksCreated
+ */
+export type User$blocksCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserBlock
+   */
+  select?: Prisma.UserBlockSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserBlock
+   */
+  omit?: Prisma.UserBlockOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserBlockInclude<ExtArgs> | null
+  where?: Prisma.UserBlockWhereInput
+  orderBy?: Prisma.UserBlockOrderByWithRelationInput | Prisma.UserBlockOrderByWithRelationInput[]
+  cursor?: Prisma.UserBlockWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UserBlockScalarFieldEnum | Prisma.UserBlockScalarFieldEnum[]
+}
+
+/**
+ * User.blocksReceived
+ */
+export type User$blocksReceivedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserBlock
+   */
+  select?: Prisma.UserBlockSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserBlock
+   */
+  omit?: Prisma.UserBlockOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserBlockInclude<ExtArgs> | null
+  where?: Prisma.UserBlockWhereInput
+  orderBy?: Prisma.UserBlockOrderByWithRelationInput | Prisma.UserBlockOrderByWithRelationInput[]
+  cursor?: Prisma.UserBlockWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UserBlockScalarFieldEnum | Prisma.UserBlockScalarFieldEnum[]
+}
+
+/**
+ * User.reportsCreated
+ */
+export type User$reportsCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Report
+   */
+  select?: Prisma.ReportSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Report
+   */
+  omit?: Prisma.ReportOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReportInclude<ExtArgs> | null
+  where?: Prisma.ReportWhereInput
+  orderBy?: Prisma.ReportOrderByWithRelationInput | Prisma.ReportOrderByWithRelationInput[]
+  cursor?: Prisma.ReportWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReportScalarFieldEnum | Prisma.ReportScalarFieldEnum[]
+}
+
+/**
+ * User.moderationActions
+ */
+export type User$moderationActionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ModerationAction
+   */
+  select?: Prisma.ModerationActionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ModerationAction
+   */
+  omit?: Prisma.ModerationActionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ModerationActionInclude<ExtArgs> | null
+  where?: Prisma.ModerationActionWhereInput
+  orderBy?: Prisma.ModerationActionOrderByWithRelationInput | Prisma.ModerationActionOrderByWithRelationInput[]
+  cursor?: Prisma.ModerationActionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ModerationActionScalarFieldEnum | Prisma.ModerationActionScalarFieldEnum[]
+}
+
+/**
+ * User.paymentArrangementsProposed
+ */
+export type User$paymentArrangementsProposedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PilotPayment
+   */
+  select?: Prisma.PilotPaymentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PilotPayment
+   */
+  omit?: Prisma.PilotPaymentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PilotPaymentInclude<ExtArgs> | null
+  where?: Prisma.PilotPaymentWhereInput
+  orderBy?: Prisma.PilotPaymentOrderByWithRelationInput | Prisma.PilotPaymentOrderByWithRelationInput[]
+  cursor?: Prisma.PilotPaymentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PilotPaymentScalarFieldEnum | Prisma.PilotPaymentScalarFieldEnum[]
 }
 
 /**

@@ -89,7 +89,7 @@ export default function CommunityScreen({ navigation }) {
     if (!session) return navigation.navigate('Auth', { mode: 'login' });
     try {
       const id = await conversationsRepository.direct(userId);
-      navigation.navigate('Chat', { id, title: 'Chat' });
+      navigation.navigate('Chat', { id, title: 'Chat', peerId: userId });
     } catch (e) {
       Alert.alert('Error', apiErrorMessage(e));
     }

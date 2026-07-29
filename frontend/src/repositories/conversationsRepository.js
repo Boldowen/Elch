@@ -24,4 +24,11 @@ export const conversationsRepository = {
     const { data } = await api.post(`/conversations/direct/${userId}`);
     return String(data?.id ?? userId);
   },
+
+  async mute(conversationId, muted = true) {
+    const { data } = muted
+      ? await api.post(`/conversations/${conversationId}/mute`)
+      : await api.delete(`/conversations/${conversationId}/mute`);
+    return data;
+  },
 };

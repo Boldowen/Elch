@@ -7,10 +7,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { Module } from '@nestjs/common';
 import { SocialController } from './social.controller.js';
 import { SocialService } from './social.service.js';
+import { TrustSafetyModule } from '../trust-safety/trust-safety.module.js';
 let SocialModule = class SocialModule {
 };
 SocialModule = __decorate([
-    Module({ controllers: [SocialController], providers: [SocialService] })
+    Module({ imports: [TrustSafetyModule], controllers: [SocialController], providers: [SocialService] })
 ], SocialModule);
 export { SocialModule };
 //# sourceMappingURL=social.module.js.map

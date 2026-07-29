@@ -17,6 +17,78 @@ export declare const GuideStatus: {
     readonly REJECTED: "REJECTED";
 };
 export type GuideStatus = (typeof GuideStatus)[keyof typeof GuideStatus];
+export declare const GuideVerificationDecision: {
+    readonly APPROVED: "APPROVED";
+    readonly REJECTED: "REJECTED";
+};
+export type GuideVerificationDecision = (typeof GuideVerificationDecision)[keyof typeof GuideVerificationDecision];
+export declare const VerificationCheckStatus: {
+    readonly PENDING: "PENDING";
+    readonly VERIFIED: "VERIFIED";
+    readonly FAILED: "FAILED";
+    readonly NOT_PROVIDED: "NOT_PROVIDED";
+};
+export type VerificationCheckStatus = (typeof VerificationCheckStatus)[keyof typeof VerificationCheckStatus];
+export declare const UserModerationStatus: {
+    readonly ACTIVE: "ACTIVE";
+    readonly TEMPORARILY_SUSPENDED: "TEMPORARILY_SUSPENDED";
+    readonly PERMANENTLY_SUSPENDED: "PERMANENTLY_SUSPENDED";
+};
+export type UserModerationStatus = (typeof UserModerationStatus)[keyof typeof UserModerationStatus];
+export declare const ReportReason: {
+    readonly SPAM: "SPAM";
+    readonly HARASSMENT: "HARASSMENT";
+    readonly SCAM: "SCAM";
+    readonly UNSAFE_GUIDE_BEHAVIOR: "UNSAFE_GUIDE_BEHAVIOR";
+    readonly FAKE_LISTING: "FAKE_LISTING";
+    readonly INAPPROPRIATE_CONTENT: "INAPPROPRIATE_CONTENT";
+    readonly PAYMENT_FRAUD: "PAYMENT_FRAUD";
+    readonly OTHER: "OTHER";
+};
+export type ReportReason = (typeof ReportReason)[keyof typeof ReportReason];
+export declare const ReportTargetType: {
+    readonly USER: "USER";
+    readonly LISTING: "LISTING";
+    readonly GUIDE: "GUIDE";
+    readonly POST: "POST";
+    readonly MESSAGE: "MESSAGE";
+    readonly BOOKING: "BOOKING";
+};
+export type ReportTargetType = (typeof ReportTargetType)[keyof typeof ReportTargetType];
+export declare const ReportStatus: {
+    readonly OPEN: "OPEN";
+    readonly UNDER_REVIEW: "UNDER_REVIEW";
+    readonly RESOLVED: "RESOLVED";
+    readonly DISMISSED: "DISMISSED";
+};
+export type ReportStatus = (typeof ReportStatus)[keyof typeof ReportStatus];
+export declare const ModerationActionType: {
+    readonly REPORT_DISMISS: "REPORT_DISMISS";
+    readonly CONTENT_REMOVE: "CONTENT_REMOVE";
+    readonly WARNING: "WARNING";
+    readonly TEMPORARY_SUSPENSION: "TEMPORARY_SUSPENSION";
+    readonly PERMANENT_SUSPENSION: "PERMANENT_SUSPENSION";
+    readonly LISTING_UNPUBLISH: "LISTING_UNPUBLISH";
+    readonly GUIDE_VERIFICATION_REVOKE: "GUIDE_VERIFICATION_REVOKE";
+};
+export type ModerationActionType = (typeof ModerationActionType)[keyof typeof ModerationActionType];
+export declare const PaymentArrangement: {
+    readonly CASH_ON_ARRIVAL: "CASH_ON_ARRIVAL";
+    readonly BANK_TRANSFER: "BANK_TRANSFER";
+    readonly PROVIDER_TERMINAL: "PROVIDER_TERMINAL";
+    readonly ONLINE_PAYMENT: "ONLINE_PAYMENT";
+};
+export type PaymentArrangement = (typeof PaymentArrangement)[keyof typeof PaymentArrangement];
+export declare const PaymentStatus: {
+    readonly NOT_REQUIRED: "NOT_REQUIRED";
+    readonly PENDING: "PENDING";
+    readonly AGREED: "AGREED";
+    readonly PAID: "PAID";
+    readonly FAILED: "FAILED";
+    readonly REFUND_PENDING: "REFUND_PENDING";
+    readonly REFUNDED: "REFUNDED";
+};
+export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus];
 export declare const ListingCategory: {
     readonly TRENDING: "TRENDING";
     readonly HOTEL: "HOTEL";
@@ -77,6 +149,19 @@ export declare const MessageType: {
     readonly SYSTEM: "SYSTEM";
 };
 export type MessageType = (typeof MessageType)[keyof typeof MessageType];
+export declare const NotificationType: {
+    readonly BOOKING_CREATED: "BOOKING_CREATED";
+    readonly BOOKING_ACCEPTED: "BOOKING_ACCEPTED";
+    readonly BOOKING_DECLINED: "BOOKING_DECLINED";
+    readonly BOOKING_CANCELLED: "BOOKING_CANCELLED";
+    readonly BOOKING_STARTED: "BOOKING_STARTED";
+    readonly BOOKING_COMPLETED: "BOOKING_COMPLETED";
+    readonly BOOKING_EXPIRED: "BOOKING_EXPIRED";
+    readonly NEW_MESSAGE: "NEW_MESSAGE";
+    readonly GUIDE_APPLICATION_APPROVED: "GUIDE_APPLICATION_APPROVED";
+    readonly GUIDE_APPLICATION_REJECTED: "GUIDE_APPLICATION_REJECTED";
+};
+export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType];
 export declare const PricingType: {
     readonly HOURLY: "HOURLY";
     readonly PACKAGE: "PACKAGE";

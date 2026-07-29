@@ -8,7 +8,13 @@ export declare class CreateListingDto {
     location: string;
     description: string;
     category: ListingCategory;
-    price: number;
+    basePriceMinor: number;
+    cleaningFeeMinor: number;
+    serviceFeeMinor: number;
+    taxMinor: number;
+    extraGuestFeeMinor: number;
+    depositMinor: number;
+    currency: string;
     priceUnit: PriceUnit;
     datesLabel: string;
     tags: string[];

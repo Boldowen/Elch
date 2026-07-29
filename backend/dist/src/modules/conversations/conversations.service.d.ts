@@ -1,8 +1,10 @@
 import { PrismaService } from '../../prisma/prisma.service.js';
 import { SendMessageDto } from './dto/send-message.dto.js';
+import { TrustSafetyService } from '../trust-safety/trust-safety.service.js';
 export declare class ConversationsService {
     private readonly prisma;
-    constructor(prisma: PrismaService);
+    private readonly trust;
+    constructor(prisma: PrismaService, trust: TrustSafetyService);
     list(userId: string): import("../../generated/prisma/internal/prismaNamespace.js").PrismaPromise<({
         participants: ({
             user: {
@@ -16,16 +18,17 @@ export declare class ConversationsService {
             conversationId: string;
             lastReadAt: Date | null;
             joinedAt: Date;
+            mutedAt: Date | null;
         })[];
         messages: {
             id: string;
             deletedAt: Date | null;
+            sentAt: Date;
             conversationId: string;
             senderId: string;
             type: import("../../generated/prisma/enums.js").MessageType;
             body: string | null;
             mediaUrl: string | null;
-            sentAt: Date;
         }[];
     } & {
         id: string;
@@ -46,22 +49,25 @@ export declare class ConversationsService {
     messages(userId: string, id: string): Promise<{
         id: string;
         deletedAt: Date | null;
+        sentAt: Date;
         conversationId: string;
         senderId: string;
         type: import("../../generated/prisma/enums.js").MessageType;
         body: string | null;
         mediaUrl: string | null;
-        sentAt: Date;
     }[]>;
     send(userId: string, id: string, dto: SendMessageDto): Promise<{
         id: string;
         deletedAt: Date | null;
+        sentAt: Date;
         conversationId: string;
         senderId: string;
         type: import("../../generated/prisma/enums.js").MessageType;
         body: string | null;
         mediaUrl: string | null;
-        sentAt: Date;
+    }>;
+    mute(userId: string, id: string, muted: boolean): Promise<{
+        muted: boolean;
     }>;
     private assertMember;
 }

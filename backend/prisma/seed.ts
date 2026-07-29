@@ -30,7 +30,7 @@ async function main() {
   ];
   for (const row of rows) {
     const { images, ...data } = row;
-    await prisma.listing.upsert({ where: { slug: row.slug }, update: {}, create: { ...data, hostId: host.id, images: { create: images.map((url, sortOrder) => ({ url, sortOrder })) } } });
+    await prisma.listing.upsert({ where: { slug: row.slug }, update: {}, create: { ...data, basePriceMinor: data.price * 100, hostId: host.id, images: { create: images.map((url, sortOrder) => ({ url, sortOrder })) } } });
   }
   let post = await prisma.post.findFirst({ where: { authorId: friend.id, text: { startsWith: 'Sunrise over Khuvsgul' } } });
   post ??= await prisma.post.create({ data: { authorId: friend.id, text: 'Sunrise over Khuvsgul was worth the 5am start. Looking for two travel buddies to share a northbound ride next week.', location: 'Lake Khuvsgul, Mongolia', images: { create: [{ url: img.lake, sortOrder: 0 }] } } });

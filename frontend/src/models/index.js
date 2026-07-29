@@ -6,6 +6,7 @@ export function mapUser(j = {}) {
     phone: String(j.phone ?? ''),
     roles: (j.roles || []).map(String),
     avatarUrl: j.avatarUrl ? String(j.avatarUrl) : null,
+    emailVerifiedAt: j.emailVerifiedAt ? String(j.emailVerifiedAt) : null,
     get isGuide() {
       return this.roles.includes('GUIDE');
     },
@@ -32,7 +33,9 @@ export function mapListing(json = {}) {
     ),
     rating: Number(json.rating) || 0,
     reviews: Number(json.reviewCount ?? json.reviews ?? 0) || 0,
-    price: Number(json.price) || 0,
+    price: Number.isInteger(json.basePriceMinor) ? json.basePriceMinor / 100 : Number(json.price) || 0,
+    basePriceMinor: Number(json.basePriceMinor) || 0,
+    currency: String(json.currency ?? 'USD'),
     priceUnit: ({ PER_NIGHT: 'night', PER_HOUR: 'hour', PER_DAY: 'day', PER_PERSON: 'person', PER_GROUP: 'group', PACKAGE: 'package' })[json.priceUnit] || String(json.priceUnit ?? 'night'),
     dates: String(json.datesLabel ?? json.dates ?? ''),
     tags: (json.tags || []).map(String),
@@ -132,6 +135,7 @@ export function mapConversation(json = {}, currentUserId) {
     }
   }
   const latest = (json.messages || [])[0];
+  const mine = participants.find((participant) => String(participant.userId) === String(currentUserId));
   return {
     id: String(json.id ?? ''),
     guide: String(peer?.name ?? 'Traveler'),
@@ -141,6 +145,7 @@ export function mapConversation(json = {}, currentUserId) {
       (latest?.mediaUrl ? 'Photo' : 'Start a conversation'),
     time: timeLabel(json.updatedAt),
     peerId: peer?.id ? String(peer.id) : null,
+    muted: Boolean(mine?.mutedAt),
   };
 }
 

@@ -1,9 +1,11 @@
 import { PrismaService } from '../../prisma/prisma.service.js';
 import { CreateCommentDto } from './dto/create-comment.dto.js';
 import { CreatePostDto } from './dto/create-post.dto.js';
+import { TrustSafetyService } from '../trust-safety/trust-safety.service.js';
 export declare class SocialService {
     private readonly prisma;
-    constructor(prisma: PrismaService);
+    private readonly trust;
+    constructor(prisma: PrismaService, trust: TrustSafetyService);
     feed(userId: string): Promise<{
         liked: boolean;
         author: {

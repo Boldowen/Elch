@@ -185,6 +185,11 @@ export default function GuideDashboardScreen({ navigation }) {
                             </Pressable>
                           </View>
                         ) : null}
+                        {['CONFIRMED', 'IN_PROGRESS'].includes(booking.status) ? (
+                          <Pressable onPress={() => navigation.navigate('PaymentMethods', { booking, role: 'provider' })} style={styles.listingAction}>
+                            <Text style={styles.declineText}>Payment policy {booking.payment ? `· ${booking.payment.status}` : ''}</Text>
+                          </Pressable>
+                        ) : null}
                       </View>
                     ))
                   )}

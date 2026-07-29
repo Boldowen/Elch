@@ -13,17 +13,25 @@ export declare const AnyNull: import("@prisma/client-runtime-utils").AnyNullClas
 export declare const ModelName: {
     readonly User: "User";
     readonly RefreshToken: "RefreshToken";
+    readonly EmailVerificationToken: "EmailVerificationToken";
+    readonly PasswordResetToken: "PasswordResetToken";
     readonly GuideProfile: "GuideProfile";
+    readonly GuideVerificationReview: "GuideVerificationReview";
     readonly Listing: "Listing";
     readonly ListingInventory: "ListingInventory";
     readonly ListingImage: "ListingImage";
     readonly Booking: "Booking";
+    readonly PilotPayment: "PilotPayment";
     readonly BookingEvent: "BookingEvent";
     readonly IdempotencyKey: "IdempotencyKey";
     readonly Favorite: "Favorite";
     readonly Conversation: "Conversation";
     readonly ConversationParticipant: "ConversationParticipant";
+    readonly UserBlock: "UserBlock";
+    readonly Report: "Report";
+    readonly ModerationAction: "ModerationAction";
     readonly Message: "Message";
+    readonly Notification: "Notification";
     readonly PaymentMethod: "PaymentMethod";
     readonly Review: "Review";
     readonly Post: "Post";
@@ -50,6 +58,10 @@ export declare const UserScalarFieldEnum: {
     readonly provider: "provider";
     readonly roles: "roles";
     readonly isVerified: "isVerified";
+    readonly emailVerifiedAt: "emailVerifiedAt";
+    readonly moderationStatus: "moderationStatus";
+    readonly suspendedUntil: "suspendedUntil";
+    readonly suspensionReason: "suspensionReason";
     readonly lastLoginAt: "lastLoginAt";
     readonly createdAt: "createdAt";
     readonly updatedAt: "updatedAt";
@@ -68,6 +80,26 @@ export declare const RefreshTokenScalarFieldEnum: {
     readonly userId: "userId";
 };
 export type RefreshTokenScalarFieldEnum = (typeof RefreshTokenScalarFieldEnum)[keyof typeof RefreshTokenScalarFieldEnum];
+export declare const EmailVerificationTokenScalarFieldEnum: {
+    readonly id: "id";
+    readonly userId: "userId";
+    readonly tokenHash: "tokenHash";
+    readonly expiresAt: "expiresAt";
+    readonly sentAt: "sentAt";
+    readonly usedAt: "usedAt";
+    readonly createdAt: "createdAt";
+};
+export type EmailVerificationTokenScalarFieldEnum = (typeof EmailVerificationTokenScalarFieldEnum)[keyof typeof EmailVerificationTokenScalarFieldEnum];
+export declare const PasswordResetTokenScalarFieldEnum: {
+    readonly id: "id";
+    readonly userId: "userId";
+    readonly tokenHash: "tokenHash";
+    readonly expiresAt: "expiresAt";
+    readonly requestedAt: "requestedAt";
+    readonly usedAt: "usedAt";
+    readonly createdAt: "createdAt";
+};
+export type PasswordResetTokenScalarFieldEnum = (typeof PasswordResetTokenScalarFieldEnum)[keyof typeof PasswordResetTokenScalarFieldEnum];
 export declare const GuideProfileScalarFieldEnum: {
     readonly id: "id";
     readonly userId: "userId";
@@ -88,6 +120,10 @@ export declare const GuideProfileScalarFieldEnum: {
     readonly rankPoints: "rankPoints";
     readonly completedTrips: "completedTrips";
     readonly responseRate: "responseRate";
+    readonly acceptanceRate: "acceptanceRate";
+    readonly providerCancellationCount: "providerCancellationCount";
+    readonly confirmedReportCount: "confirmedReportCount";
+    readonly rankingUpdatedAt: "rankingUpdatedAt";
     readonly rating: "rating";
     readonly reviewCount: "reviewCount";
     readonly createdAt: "createdAt";
@@ -95,6 +131,21 @@ export declare const GuideProfileScalarFieldEnum: {
     readonly deletedAt: "deletedAt";
 };
 export type GuideProfileScalarFieldEnum = (typeof GuideProfileScalarFieldEnum)[keyof typeof GuideProfileScalarFieldEnum];
+export declare const GuideVerificationReviewScalarFieldEnum: {
+    readonly id: "id";
+    readonly guideProfileId: "guideProfileId";
+    readonly reviewerId: "reviewerId";
+    readonly decision: "decision";
+    readonly decisionReason: "decisionReason";
+    readonly internalNote: "internalNote";
+    readonly assessmentScore: "assessmentScore";
+    readonly assessmentBreakdown: "assessmentBreakdown";
+    readonly documentStatus: "documentStatus";
+    readonly referenceStatus: "referenceStatus";
+    readonly applicationSnapshot: "applicationSnapshot";
+    readonly reviewedAt: "reviewedAt";
+};
+export type GuideVerificationReviewScalarFieldEnum = (typeof GuideVerificationReviewScalarFieldEnum)[keyof typeof GuideVerificationReviewScalarFieldEnum];
 export declare const ListingScalarFieldEnum: {
     readonly id: "id";
     readonly slug: "slug";
@@ -103,6 +154,13 @@ export declare const ListingScalarFieldEnum: {
     readonly description: "description";
     readonly category: "category";
     readonly price: "price";
+    readonly basePriceMinor: "basePriceMinor";
+    readonly cleaningFeeMinor: "cleaningFeeMinor";
+    readonly serviceFeeMinor: "serviceFeeMinor";
+    readonly taxMinor: "taxMinor";
+    readonly extraGuestFeeMinor: "extraGuestFeeMinor";
+    readonly depositMinor: "depositMinor";
+    readonly currency: "currency";
     readonly priceUnit: "priceUnit";
     readonly datesLabel: "datesLabel";
     readonly tags: "tags";
@@ -146,6 +204,13 @@ export declare const BookingScalarFieldEnum: {
     readonly endsAt: "endsAt";
     readonly guests: "guests";
     readonly amount: "amount";
+    readonly amountMinor: "amountMinor";
+    readonly baseAmountMinor: "baseAmountMinor";
+    readonly cleaningFeeMinor: "cleaningFeeMinor";
+    readonly serviceFeeMinor: "serviceFeeMinor";
+    readonly taxMinor: "taxMinor";
+    readonly extraGuestFeeMinor: "extraGuestFeeMinor";
+    readonly depositMinor: "depositMinor";
     readonly currency: "currency";
     readonly status: "status";
     readonly note: "note";
@@ -155,12 +220,27 @@ export declare const BookingScalarFieldEnum: {
     readonly lateCancellationPercent: "lateCancellationPercent";
     readonly noShowPercent: "noShowPercent";
     readonly cancellationFee: "cancellationFee";
+    readonly cancellationFeeMinor: "cancellationFeeMinor";
     readonly createdAt: "createdAt";
     readonly updatedAt: "updatedAt";
     readonly cancelledAt: "cancelledAt";
     readonly deletedAt: "deletedAt";
 };
 export type BookingScalarFieldEnum = (typeof BookingScalarFieldEnum)[keyof typeof BookingScalarFieldEnum];
+export declare const PilotPaymentScalarFieldEnum: {
+    readonly id: "id";
+    readonly bookingId: "bookingId";
+    readonly arrangement: "arrangement";
+    readonly status: "status";
+    readonly instructions: "instructions";
+    readonly proposedById: "proposedById";
+    readonly agreedByTravelerAt: "agreedByTravelerAt";
+    readonly agreedByProviderAt: "agreedByProviderAt";
+    readonly paidAt: "paidAt";
+    readonly createdAt: "createdAt";
+    readonly updatedAt: "updatedAt";
+};
+export type PilotPaymentScalarFieldEnum = (typeof PilotPaymentScalarFieldEnum)[keyof typeof PilotPaymentScalarFieldEnum];
 export declare const BookingEventScalarFieldEnum: {
     readonly id: "id";
     readonly bookingId: "bookingId";
@@ -207,8 +287,41 @@ export declare const ConversationParticipantScalarFieldEnum: {
     readonly userId: "userId";
     readonly lastReadAt: "lastReadAt";
     readonly joinedAt: "joinedAt";
+    readonly mutedAt: "mutedAt";
 };
 export type ConversationParticipantScalarFieldEnum = (typeof ConversationParticipantScalarFieldEnum)[keyof typeof ConversationParticipantScalarFieldEnum];
+export declare const UserBlockScalarFieldEnum: {
+    readonly id: "id";
+    readonly blockerId: "blockerId";
+    readonly blockedId: "blockedId";
+    readonly createdAt: "createdAt";
+};
+export type UserBlockScalarFieldEnum = (typeof UserBlockScalarFieldEnum)[keyof typeof UserBlockScalarFieldEnum];
+export declare const ReportScalarFieldEnum: {
+    readonly id: "id";
+    readonly reporterId: "reporterId";
+    readonly reason: "reason";
+    readonly targetType: "targetType";
+    readonly targetId: "targetId";
+    readonly details: "details";
+    readonly status: "status";
+    readonly resolution: "resolution";
+    readonly createdAt: "createdAt";
+    readonly updatedAt: "updatedAt";
+    readonly resolvedAt: "resolvedAt";
+};
+export type ReportScalarFieldEnum = (typeof ReportScalarFieldEnum)[keyof typeof ReportScalarFieldEnum];
+export declare const ModerationActionScalarFieldEnum: {
+    readonly id: "id";
+    readonly reportId: "reportId";
+    readonly adminId: "adminId";
+    readonly action: "action";
+    readonly reason: "reason";
+    readonly metadata: "metadata";
+    readonly expiresAt: "expiresAt";
+    readonly createdAt: "createdAt";
+};
+export type ModerationActionScalarFieldEnum = (typeof ModerationActionScalarFieldEnum)[keyof typeof ModerationActionScalarFieldEnum];
 export declare const MessageScalarFieldEnum: {
     readonly id: "id";
     readonly conversationId: "conversationId";
@@ -220,6 +333,17 @@ export declare const MessageScalarFieldEnum: {
     readonly deletedAt: "deletedAt";
 };
 export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum];
+export declare const NotificationScalarFieldEnum: {
+    readonly id: "id";
+    readonly userId: "userId";
+    readonly type: "type";
+    readonly title: "title";
+    readonly body: "body";
+    readonly data: "data";
+    readonly readAt: "readAt";
+    readonly createdAt: "createdAt";
+};
+export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum];
 export declare const PaymentMethodScalarFieldEnum: {
     readonly id: "id";
     readonly userId: "userId";
@@ -235,8 +359,10 @@ export declare const PaymentMethodScalarFieldEnum: {
 export type PaymentMethodScalarFieldEnum = (typeof PaymentMethodScalarFieldEnum)[keyof typeof PaymentMethodScalarFieldEnum];
 export declare const ReviewScalarFieldEnum: {
     readonly id: "id";
+    readonly bookingId: "bookingId";
     readonly authorId: "authorId";
     readonly guideId: "guideId";
+    readonly listingId: "listingId";
     readonly rating: "rating";
     readonly text: "text";
     readonly createdAt: "createdAt";

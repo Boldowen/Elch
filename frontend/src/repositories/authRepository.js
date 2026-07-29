@@ -45,4 +45,29 @@ export const authRepository = {
     const { data } = await api.patch('/users/me', payload);
     return mapUser(data);
   },
+
+  async verifyEmail(token) {
+    const { data } = await api.post('/auth/verify-email', { token });
+    return data;
+  },
+
+  async resendVerification(email) {
+    const { data } = await api.post('/auth/resend-verification', { email });
+    return data;
+  },
+
+  async forgotPassword(email) {
+    const { data } = await api.post('/auth/forgot-password', { email });
+    return data;
+  },
+
+  async resetPassword(token, newPassword) {
+    const { data } = await api.post('/auth/reset-password', { token, newPassword });
+    return data;
+  },
+
+  async changePassword(currentPassword, newPassword) {
+    const { data } = await api.post('/auth/change-password', { currentPassword, newPassword });
+    return data;
+  },
 };

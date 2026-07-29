@@ -7,19 +7,37 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
+import { PrismaService } from '../../prisma/prisma.service.js';
+import { UserModerationStatus } from '../../generated/prisma/client.js';
 let JwtStrategy = class JwtStrategy extends PassportStrategy(Strategy) {
-    constructor(config) {
+    prisma;
+    constructor(config, prisma) {
         super({ jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(), ignoreExpiration: false, secretOrKey: config.getOrThrow('JWT_ACCESS_SECRET') });
+        this.prisma = prisma;
     }
-    validate(payload) { return payload; }
+    async validate(payload) {
+        const user = await this.prisma.user.findFirst({
+            where: { id: payload.sub, deletedAt: null },
+            select: { moderationStatus: true, suspendedUntil: true },
+        });
+        if (!user)
+            throw new UnauthorizedException();
+        if (user.moderationStatus === UserModerationStatus.TEMPORARILY_SUSPENDED && user.suspendedUntil && user.suspendedUntil <= new Date()) {
+            await this.prisma.user.update({ where: { id: payload.sub }, data: { moderationStatus: UserModerationStatus.ACTIVE, suspendedUntil: null, suspensionReason: null } });
+            return payload;
+        }
+        if (user.moderationStatus !== UserModerationStatus.ACTIVE)
+            throw new UnauthorizedException('Account suspended');
+        return payload;
+    }
 };
 JwtStrategy = __decorate([
     Injectable(),
-    __metadata("design:paramtypes", [ConfigService])
+    __metadata("design:paramtypes", [ConfigService, PrismaService])
 ], JwtStrategy);
 export { JwtStrategy };
 //# sourceMappingURL=jwt.strategy.js.map

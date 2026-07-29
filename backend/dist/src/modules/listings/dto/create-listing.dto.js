@@ -8,7 +8,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Type } from 'class-transformer';
-import { ArrayMaxSize, IsArray, IsEnum, IsInt, IsNumber, IsString, IsUrl, Max, MaxLength, Min, MinLength, ValidateNested, } from 'class-validator';
+import { ArrayMaxSize, IsArray, IsEnum, IsInt, IsISO4217CurrencyCode, IsString, IsUrl, Max, MaxLength, Min, MinLength, ValidateNested, } from 'class-validator';
 import { ListingCategory, PriceUnit } from '../../../generated/prisma/client.js';
 class ListingImageDto {
     url;
@@ -28,7 +28,13 @@ export class CreateListingDto {
     location;
     description;
     category;
-    price;
+    basePriceMinor;
+    cleaningFeeMinor = 0;
+    serviceFeeMinor = 0;
+    taxMinor = 0;
+    extraGuestFeeMinor = 0;
+    depositMinor = 0;
+    currency = 'USD';
     priceUnit;
     datesLabel = 'Flexible dates';
     tags = [];
@@ -59,10 +65,45 @@ __decorate([
     __metadata("design:type", String)
 ], CreateListingDto.prototype, "category", void 0);
 __decorate([
-    IsNumber({ maxDecimalPlaces: 2 }),
-    Min(0.01),
+    IsInt(),
+    Min(1),
+    Max(2_000_000_000),
     __metadata("design:type", Number)
-], CreateListingDto.prototype, "price", void 0);
+], CreateListingDto.prototype, "basePriceMinor", void 0);
+__decorate([
+    IsInt(),
+    Min(0),
+    Max(2_000_000_000),
+    __metadata("design:type", Number)
+], CreateListingDto.prototype, "cleaningFeeMinor", void 0);
+__decorate([
+    IsInt(),
+    Min(0),
+    Max(2_000_000_000),
+    __metadata("design:type", Number)
+], CreateListingDto.prototype, "serviceFeeMinor", void 0);
+__decorate([
+    IsInt(),
+    Min(0),
+    Max(2_000_000_000),
+    __metadata("design:type", Number)
+], CreateListingDto.prototype, "taxMinor", void 0);
+__decorate([
+    IsInt(),
+    Min(0),
+    Max(2_000_000_000),
+    __metadata("design:type", Number)
+], CreateListingDto.prototype, "extraGuestFeeMinor", void 0);
+__decorate([
+    IsInt(),
+    Min(0),
+    Max(2_000_000_000),
+    __metadata("design:type", Number)
+], CreateListingDto.prototype, "depositMinor", void 0);
+__decorate([
+    IsISO4217CurrencyCode(),
+    __metadata("design:type", String)
+], CreateListingDto.prototype, "currency", void 0);
 __decorate([
     IsEnum(PriceUnit),
     __metadata("design:type", String)

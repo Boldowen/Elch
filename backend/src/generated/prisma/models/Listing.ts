@@ -28,6 +28,12 @@ export type AggregateListing = {
 
 export type ListingAvgAggregateOutputType = {
   price: runtime.Decimal | null
+  basePriceMinor: number | null
+  cleaningFeeMinor: number | null
+  serviceFeeMinor: number | null
+  taxMinor: number | null
+  extraGuestFeeMinor: number | null
+  depositMinor: number | null
   rating: runtime.Decimal | null
   reviewCount: number | null
   defaultTotalUnits: number | null
@@ -35,6 +41,12 @@ export type ListingAvgAggregateOutputType = {
 
 export type ListingSumAggregateOutputType = {
   price: runtime.Decimal | null
+  basePriceMinor: number | null
+  cleaningFeeMinor: number | null
+  serviceFeeMinor: number | null
+  taxMinor: number | null
+  extraGuestFeeMinor: number | null
+  depositMinor: number | null
   rating: runtime.Decimal | null
   reviewCount: number | null
   defaultTotalUnits: number | null
@@ -48,6 +60,13 @@ export type ListingMinAggregateOutputType = {
   description: string | null
   category: $Enums.ListingCategory | null
   price: runtime.Decimal | null
+  basePriceMinor: number | null
+  cleaningFeeMinor: number | null
+  serviceFeeMinor: number | null
+  taxMinor: number | null
+  extraGuestFeeMinor: number | null
+  depositMinor: number | null
+  currency: string | null
   priceUnit: $Enums.PriceUnit | null
   datesLabel: string | null
   rating: runtime.Decimal | null
@@ -69,6 +88,13 @@ export type ListingMaxAggregateOutputType = {
   description: string | null
   category: $Enums.ListingCategory | null
   price: runtime.Decimal | null
+  basePriceMinor: number | null
+  cleaningFeeMinor: number | null
+  serviceFeeMinor: number | null
+  taxMinor: number | null
+  extraGuestFeeMinor: number | null
+  depositMinor: number | null
+  currency: string | null
   priceUnit: $Enums.PriceUnit | null
   datesLabel: string | null
   rating: runtime.Decimal | null
@@ -90,6 +116,13 @@ export type ListingCountAggregateOutputType = {
   description: number
   category: number
   price: number
+  basePriceMinor: number
+  cleaningFeeMinor: number
+  serviceFeeMinor: number
+  taxMinor: number
+  extraGuestFeeMinor: number
+  depositMinor: number
+  currency: number
   priceUnit: number
   datesLabel: number
   tags: number
@@ -109,6 +142,12 @@ export type ListingCountAggregateOutputType = {
 
 export type ListingAvgAggregateInputType = {
   price?: true
+  basePriceMinor?: true
+  cleaningFeeMinor?: true
+  serviceFeeMinor?: true
+  taxMinor?: true
+  extraGuestFeeMinor?: true
+  depositMinor?: true
   rating?: true
   reviewCount?: true
   defaultTotalUnits?: true
@@ -116,6 +155,12 @@ export type ListingAvgAggregateInputType = {
 
 export type ListingSumAggregateInputType = {
   price?: true
+  basePriceMinor?: true
+  cleaningFeeMinor?: true
+  serviceFeeMinor?: true
+  taxMinor?: true
+  extraGuestFeeMinor?: true
+  depositMinor?: true
   rating?: true
   reviewCount?: true
   defaultTotalUnits?: true
@@ -129,6 +174,13 @@ export type ListingMinAggregateInputType = {
   description?: true
   category?: true
   price?: true
+  basePriceMinor?: true
+  cleaningFeeMinor?: true
+  serviceFeeMinor?: true
+  taxMinor?: true
+  extraGuestFeeMinor?: true
+  depositMinor?: true
+  currency?: true
   priceUnit?: true
   datesLabel?: true
   rating?: true
@@ -150,6 +202,13 @@ export type ListingMaxAggregateInputType = {
   description?: true
   category?: true
   price?: true
+  basePriceMinor?: true
+  cleaningFeeMinor?: true
+  serviceFeeMinor?: true
+  taxMinor?: true
+  extraGuestFeeMinor?: true
+  depositMinor?: true
+  currency?: true
   priceUnit?: true
   datesLabel?: true
   rating?: true
@@ -171,6 +230,13 @@ export type ListingCountAggregateInputType = {
   description?: true
   category?: true
   price?: true
+  basePriceMinor?: true
+  cleaningFeeMinor?: true
+  serviceFeeMinor?: true
+  taxMinor?: true
+  extraGuestFeeMinor?: true
+  depositMinor?: true
+  currency?: true
   priceUnit?: true
   datesLabel?: true
   tags?: true
@@ -281,6 +347,13 @@ export type ListingGroupByOutputType = {
   description: string
   category: $Enums.ListingCategory
   price: runtime.Decimal
+  basePriceMinor: number
+  cleaningFeeMinor: number
+  serviceFeeMinor: number
+  taxMinor: number
+  extraGuestFeeMinor: number
+  depositMinor: number
+  currency: string
   priceUnit: $Enums.PriceUnit
   datesLabel: string
   tags: string[]
@@ -327,6 +400,13 @@ export type ListingWhereInput = {
   description?: Prisma.StringFilter<"Listing"> | string
   category?: Prisma.EnumListingCategoryFilter<"Listing"> | $Enums.ListingCategory
   price?: Prisma.DecimalFilter<"Listing"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  basePriceMinor?: Prisma.IntFilter<"Listing"> | number
+  cleaningFeeMinor?: Prisma.IntFilter<"Listing"> | number
+  serviceFeeMinor?: Prisma.IntFilter<"Listing"> | number
+  taxMinor?: Prisma.IntFilter<"Listing"> | number
+  extraGuestFeeMinor?: Prisma.IntFilter<"Listing"> | number
+  depositMinor?: Prisma.IntFilter<"Listing"> | number
+  currency?: Prisma.StringFilter<"Listing"> | string
   priceUnit?: Prisma.EnumPriceUnitFilter<"Listing"> | $Enums.PriceUnit
   datesLabel?: Prisma.StringFilter<"Listing"> | string
   tags?: Prisma.StringNullableListFilter<"Listing">
@@ -345,6 +425,7 @@ export type ListingWhereInput = {
   bookings?: Prisma.BookingListRelationFilter
   favorites?: Prisma.FavoriteListRelationFilter
   inventory?: Prisma.ListingInventoryListRelationFilter
+  reviews?: Prisma.ReviewListRelationFilter
 }
 
 export type ListingOrderByWithRelationInput = {
@@ -355,6 +436,13 @@ export type ListingOrderByWithRelationInput = {
   description?: Prisma.SortOrder
   category?: Prisma.SortOrder
   price?: Prisma.SortOrder
+  basePriceMinor?: Prisma.SortOrder
+  cleaningFeeMinor?: Prisma.SortOrder
+  serviceFeeMinor?: Prisma.SortOrder
+  taxMinor?: Prisma.SortOrder
+  extraGuestFeeMinor?: Prisma.SortOrder
+  depositMinor?: Prisma.SortOrder
+  currency?: Prisma.SortOrder
   priceUnit?: Prisma.SortOrder
   datesLabel?: Prisma.SortOrder
   tags?: Prisma.SortOrder
@@ -373,6 +461,7 @@ export type ListingOrderByWithRelationInput = {
   bookings?: Prisma.BookingOrderByRelationAggregateInput
   favorites?: Prisma.FavoriteOrderByRelationAggregateInput
   inventory?: Prisma.ListingInventoryOrderByRelationAggregateInput
+  reviews?: Prisma.ReviewOrderByRelationAggregateInput
 }
 
 export type ListingWhereUniqueInput = Prisma.AtLeast<{
@@ -386,6 +475,13 @@ export type ListingWhereUniqueInput = Prisma.AtLeast<{
   description?: Prisma.StringFilter<"Listing"> | string
   category?: Prisma.EnumListingCategoryFilter<"Listing"> | $Enums.ListingCategory
   price?: Prisma.DecimalFilter<"Listing"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  basePriceMinor?: Prisma.IntFilter<"Listing"> | number
+  cleaningFeeMinor?: Prisma.IntFilter<"Listing"> | number
+  serviceFeeMinor?: Prisma.IntFilter<"Listing"> | number
+  taxMinor?: Prisma.IntFilter<"Listing"> | number
+  extraGuestFeeMinor?: Prisma.IntFilter<"Listing"> | number
+  depositMinor?: Prisma.IntFilter<"Listing"> | number
+  currency?: Prisma.StringFilter<"Listing"> | string
   priceUnit?: Prisma.EnumPriceUnitFilter<"Listing"> | $Enums.PriceUnit
   datesLabel?: Prisma.StringFilter<"Listing"> | string
   tags?: Prisma.StringNullableListFilter<"Listing">
@@ -404,6 +500,7 @@ export type ListingWhereUniqueInput = Prisma.AtLeast<{
   bookings?: Prisma.BookingListRelationFilter
   favorites?: Prisma.FavoriteListRelationFilter
   inventory?: Prisma.ListingInventoryListRelationFilter
+  reviews?: Prisma.ReviewListRelationFilter
 }, "id" | "slug">
 
 export type ListingOrderByWithAggregationInput = {
@@ -414,6 +511,13 @@ export type ListingOrderByWithAggregationInput = {
   description?: Prisma.SortOrder
   category?: Prisma.SortOrder
   price?: Prisma.SortOrder
+  basePriceMinor?: Prisma.SortOrder
+  cleaningFeeMinor?: Prisma.SortOrder
+  serviceFeeMinor?: Prisma.SortOrder
+  taxMinor?: Prisma.SortOrder
+  extraGuestFeeMinor?: Prisma.SortOrder
+  depositMinor?: Prisma.SortOrder
+  currency?: Prisma.SortOrder
   priceUnit?: Prisma.SortOrder
   datesLabel?: Prisma.SortOrder
   tags?: Prisma.SortOrder
@@ -445,6 +549,13 @@ export type ListingScalarWhereWithAggregatesInput = {
   description?: Prisma.StringWithAggregatesFilter<"Listing"> | string
   category?: Prisma.EnumListingCategoryWithAggregatesFilter<"Listing"> | $Enums.ListingCategory
   price?: Prisma.DecimalWithAggregatesFilter<"Listing"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  basePriceMinor?: Prisma.IntWithAggregatesFilter<"Listing"> | number
+  cleaningFeeMinor?: Prisma.IntWithAggregatesFilter<"Listing"> | number
+  serviceFeeMinor?: Prisma.IntWithAggregatesFilter<"Listing"> | number
+  taxMinor?: Prisma.IntWithAggregatesFilter<"Listing"> | number
+  extraGuestFeeMinor?: Prisma.IntWithAggregatesFilter<"Listing"> | number
+  depositMinor?: Prisma.IntWithAggregatesFilter<"Listing"> | number
+  currency?: Prisma.StringWithAggregatesFilter<"Listing"> | string
   priceUnit?: Prisma.EnumPriceUnitWithAggregatesFilter<"Listing"> | $Enums.PriceUnit
   datesLabel?: Prisma.StringWithAggregatesFilter<"Listing"> | string
   tags?: Prisma.StringNullableListFilter<"Listing">
@@ -468,6 +579,13 @@ export type ListingCreateInput = {
   description: string
   category: $Enums.ListingCategory
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  basePriceMinor: number
+  cleaningFeeMinor?: number
+  serviceFeeMinor?: number
+  taxMinor?: number
+  extraGuestFeeMinor?: number
+  depositMinor?: number
+  currency?: string
   priceUnit: $Enums.PriceUnit
   datesLabel: string
   tags?: Prisma.ListingCreatetagsInput | string[]
@@ -485,6 +603,7 @@ export type ListingCreateInput = {
   bookings?: Prisma.BookingCreateNestedManyWithoutListingInput
   favorites?: Prisma.FavoriteCreateNestedManyWithoutListingInput
   inventory?: Prisma.ListingInventoryCreateNestedManyWithoutListingInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutListingInput
 }
 
 export type ListingUncheckedCreateInput = {
@@ -495,6 +614,13 @@ export type ListingUncheckedCreateInput = {
   description: string
   category: $Enums.ListingCategory
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  basePriceMinor: number
+  cleaningFeeMinor?: number
+  serviceFeeMinor?: number
+  taxMinor?: number
+  extraGuestFeeMinor?: number
+  depositMinor?: number
+  currency?: string
   priceUnit: $Enums.PriceUnit
   datesLabel: string
   tags?: Prisma.ListingCreatetagsInput | string[]
@@ -512,6 +638,7 @@ export type ListingUncheckedCreateInput = {
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutListingInput
   favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutListingInput
   inventory?: Prisma.ListingInventoryUncheckedCreateNestedManyWithoutListingInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutListingInput
 }
 
 export type ListingUpdateInput = {
@@ -522,6 +649,13 @@ export type ListingUpdateInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.EnumListingCategoryFieldUpdateOperationsInput | $Enums.ListingCategory
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  basePriceMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  cleaningFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  serviceFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  taxMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  extraGuestFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  depositMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   priceUnit?: Prisma.EnumPriceUnitFieldUpdateOperationsInput | $Enums.PriceUnit
   datesLabel?: Prisma.StringFieldUpdateOperationsInput | string
   tags?: Prisma.ListingUpdatetagsInput | string[]
@@ -539,6 +673,7 @@ export type ListingUpdateInput = {
   bookings?: Prisma.BookingUpdateManyWithoutListingNestedInput
   favorites?: Prisma.FavoriteUpdateManyWithoutListingNestedInput
   inventory?: Prisma.ListingInventoryUpdateManyWithoutListingNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutListingNestedInput
 }
 
 export type ListingUncheckedUpdateInput = {
@@ -549,6 +684,13 @@ export type ListingUncheckedUpdateInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.EnumListingCategoryFieldUpdateOperationsInput | $Enums.ListingCategory
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  basePriceMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  cleaningFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  serviceFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  taxMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  extraGuestFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  depositMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   priceUnit?: Prisma.EnumPriceUnitFieldUpdateOperationsInput | $Enums.PriceUnit
   datesLabel?: Prisma.StringFieldUpdateOperationsInput | string
   tags?: Prisma.ListingUpdatetagsInput | string[]
@@ -566,6 +708,7 @@ export type ListingUncheckedUpdateInput = {
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutListingNestedInput
   favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutListingNestedInput
   inventory?: Prisma.ListingInventoryUncheckedUpdateManyWithoutListingNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutListingNestedInput
 }
 
 export type ListingCreateManyInput = {
@@ -576,6 +719,13 @@ export type ListingCreateManyInput = {
   description: string
   category: $Enums.ListingCategory
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  basePriceMinor: number
+  cleaningFeeMinor?: number
+  serviceFeeMinor?: number
+  taxMinor?: number
+  extraGuestFeeMinor?: number
+  depositMinor?: number
+  currency?: string
   priceUnit: $Enums.PriceUnit
   datesLabel: string
   tags?: Prisma.ListingCreatetagsInput | string[]
@@ -599,6 +749,13 @@ export type ListingUpdateManyMutationInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.EnumListingCategoryFieldUpdateOperationsInput | $Enums.ListingCategory
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  basePriceMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  cleaningFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  serviceFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  taxMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  extraGuestFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  depositMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   priceUnit?: Prisma.EnumPriceUnitFieldUpdateOperationsInput | $Enums.PriceUnit
   datesLabel?: Prisma.StringFieldUpdateOperationsInput | string
   tags?: Prisma.ListingUpdatetagsInput | string[]
@@ -621,6 +778,13 @@ export type ListingUncheckedUpdateManyInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.EnumListingCategoryFieldUpdateOperationsInput | $Enums.ListingCategory
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  basePriceMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  cleaningFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  serviceFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  taxMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  extraGuestFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  depositMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   priceUnit?: Prisma.EnumPriceUnitFieldUpdateOperationsInput | $Enums.PriceUnit
   datesLabel?: Prisma.StringFieldUpdateOperationsInput | string
   tags?: Prisma.ListingUpdatetagsInput | string[]
@@ -654,6 +818,13 @@ export type ListingCountOrderByAggregateInput = {
   description?: Prisma.SortOrder
   category?: Prisma.SortOrder
   price?: Prisma.SortOrder
+  basePriceMinor?: Prisma.SortOrder
+  cleaningFeeMinor?: Prisma.SortOrder
+  serviceFeeMinor?: Prisma.SortOrder
+  taxMinor?: Prisma.SortOrder
+  extraGuestFeeMinor?: Prisma.SortOrder
+  depositMinor?: Prisma.SortOrder
+  currency?: Prisma.SortOrder
   priceUnit?: Prisma.SortOrder
   datesLabel?: Prisma.SortOrder
   tags?: Prisma.SortOrder
@@ -671,6 +842,12 @@ export type ListingCountOrderByAggregateInput = {
 
 export type ListingAvgOrderByAggregateInput = {
   price?: Prisma.SortOrder
+  basePriceMinor?: Prisma.SortOrder
+  cleaningFeeMinor?: Prisma.SortOrder
+  serviceFeeMinor?: Prisma.SortOrder
+  taxMinor?: Prisma.SortOrder
+  extraGuestFeeMinor?: Prisma.SortOrder
+  depositMinor?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   reviewCount?: Prisma.SortOrder
   defaultTotalUnits?: Prisma.SortOrder
@@ -684,6 +861,13 @@ export type ListingMaxOrderByAggregateInput = {
   description?: Prisma.SortOrder
   category?: Prisma.SortOrder
   price?: Prisma.SortOrder
+  basePriceMinor?: Prisma.SortOrder
+  cleaningFeeMinor?: Prisma.SortOrder
+  serviceFeeMinor?: Prisma.SortOrder
+  taxMinor?: Prisma.SortOrder
+  extraGuestFeeMinor?: Prisma.SortOrder
+  depositMinor?: Prisma.SortOrder
+  currency?: Prisma.SortOrder
   priceUnit?: Prisma.SortOrder
   datesLabel?: Prisma.SortOrder
   rating?: Prisma.SortOrder
@@ -705,6 +889,13 @@ export type ListingMinOrderByAggregateInput = {
   description?: Prisma.SortOrder
   category?: Prisma.SortOrder
   price?: Prisma.SortOrder
+  basePriceMinor?: Prisma.SortOrder
+  cleaningFeeMinor?: Prisma.SortOrder
+  serviceFeeMinor?: Prisma.SortOrder
+  taxMinor?: Prisma.SortOrder
+  extraGuestFeeMinor?: Prisma.SortOrder
+  depositMinor?: Prisma.SortOrder
+  currency?: Prisma.SortOrder
   priceUnit?: Prisma.SortOrder
   datesLabel?: Prisma.SortOrder
   rating?: Prisma.SortOrder
@@ -720,6 +911,12 @@ export type ListingMinOrderByAggregateInput = {
 
 export type ListingSumOrderByAggregateInput = {
   price?: Prisma.SortOrder
+  basePriceMinor?: Prisma.SortOrder
+  cleaningFeeMinor?: Prisma.SortOrder
+  serviceFeeMinor?: Prisma.SortOrder
+  taxMinor?: Prisma.SortOrder
+  extraGuestFeeMinor?: Prisma.SortOrder
+  depositMinor?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   reviewCount?: Prisma.SortOrder
   defaultTotalUnits?: Prisma.SortOrder
@@ -865,6 +1062,22 @@ export type ListingUpdateOneRequiredWithoutFavoritesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ListingUpdateToOneWithWhereWithoutFavoritesInput, Prisma.ListingUpdateWithoutFavoritesInput>, Prisma.ListingUncheckedUpdateWithoutFavoritesInput>
 }
 
+export type ListingCreateNestedOneWithoutReviewsInput = {
+  create?: Prisma.XOR<Prisma.ListingCreateWithoutReviewsInput, Prisma.ListingUncheckedCreateWithoutReviewsInput>
+  connectOrCreate?: Prisma.ListingCreateOrConnectWithoutReviewsInput
+  connect?: Prisma.ListingWhereUniqueInput
+}
+
+export type ListingUpdateOneWithoutReviewsNestedInput = {
+  create?: Prisma.XOR<Prisma.ListingCreateWithoutReviewsInput, Prisma.ListingUncheckedCreateWithoutReviewsInput>
+  connectOrCreate?: Prisma.ListingCreateOrConnectWithoutReviewsInput
+  upsert?: Prisma.ListingUpsertWithoutReviewsInput
+  disconnect?: Prisma.ListingWhereInput | boolean
+  delete?: Prisma.ListingWhereInput | boolean
+  connect?: Prisma.ListingWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ListingUpdateToOneWithWhereWithoutReviewsInput, Prisma.ListingUpdateWithoutReviewsInput>, Prisma.ListingUncheckedUpdateWithoutReviewsInput>
+}
+
 export type ListingCreateWithoutHostInput = {
   id?: string
   slug: string
@@ -873,6 +1086,13 @@ export type ListingCreateWithoutHostInput = {
   description: string
   category: $Enums.ListingCategory
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  basePriceMinor: number
+  cleaningFeeMinor?: number
+  serviceFeeMinor?: number
+  taxMinor?: number
+  extraGuestFeeMinor?: number
+  depositMinor?: number
+  currency?: string
   priceUnit: $Enums.PriceUnit
   datesLabel: string
   tags?: Prisma.ListingCreatetagsInput | string[]
@@ -889,6 +1109,7 @@ export type ListingCreateWithoutHostInput = {
   bookings?: Prisma.BookingCreateNestedManyWithoutListingInput
   favorites?: Prisma.FavoriteCreateNestedManyWithoutListingInput
   inventory?: Prisma.ListingInventoryCreateNestedManyWithoutListingInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutListingInput
 }
 
 export type ListingUncheckedCreateWithoutHostInput = {
@@ -899,6 +1120,13 @@ export type ListingUncheckedCreateWithoutHostInput = {
   description: string
   category: $Enums.ListingCategory
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  basePriceMinor: number
+  cleaningFeeMinor?: number
+  serviceFeeMinor?: number
+  taxMinor?: number
+  extraGuestFeeMinor?: number
+  depositMinor?: number
+  currency?: string
   priceUnit: $Enums.PriceUnit
   datesLabel: string
   tags?: Prisma.ListingCreatetagsInput | string[]
@@ -915,6 +1143,7 @@ export type ListingUncheckedCreateWithoutHostInput = {
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutListingInput
   favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutListingInput
   inventory?: Prisma.ListingInventoryUncheckedCreateNestedManyWithoutListingInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutListingInput
 }
 
 export type ListingCreateOrConnectWithoutHostInput = {
@@ -954,6 +1183,13 @@ export type ListingScalarWhereInput = {
   description?: Prisma.StringFilter<"Listing"> | string
   category?: Prisma.EnumListingCategoryFilter<"Listing"> | $Enums.ListingCategory
   price?: Prisma.DecimalFilter<"Listing"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  basePriceMinor?: Prisma.IntFilter<"Listing"> | number
+  cleaningFeeMinor?: Prisma.IntFilter<"Listing"> | number
+  serviceFeeMinor?: Prisma.IntFilter<"Listing"> | number
+  taxMinor?: Prisma.IntFilter<"Listing"> | number
+  extraGuestFeeMinor?: Prisma.IntFilter<"Listing"> | number
+  depositMinor?: Prisma.IntFilter<"Listing"> | number
+  currency?: Prisma.StringFilter<"Listing"> | string
   priceUnit?: Prisma.EnumPriceUnitFilter<"Listing"> | $Enums.PriceUnit
   datesLabel?: Prisma.StringFilter<"Listing"> | string
   tags?: Prisma.StringNullableListFilter<"Listing">
@@ -977,6 +1213,13 @@ export type ListingCreateWithoutInventoryInput = {
   description: string
   category: $Enums.ListingCategory
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  basePriceMinor: number
+  cleaningFeeMinor?: number
+  serviceFeeMinor?: number
+  taxMinor?: number
+  extraGuestFeeMinor?: number
+  depositMinor?: number
+  currency?: string
   priceUnit: $Enums.PriceUnit
   datesLabel: string
   tags?: Prisma.ListingCreatetagsInput | string[]
@@ -993,6 +1236,7 @@ export type ListingCreateWithoutInventoryInput = {
   images?: Prisma.ListingImageCreateNestedManyWithoutListingInput
   bookings?: Prisma.BookingCreateNestedManyWithoutListingInput
   favorites?: Prisma.FavoriteCreateNestedManyWithoutListingInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutListingInput
 }
 
 export type ListingUncheckedCreateWithoutInventoryInput = {
@@ -1003,6 +1247,13 @@ export type ListingUncheckedCreateWithoutInventoryInput = {
   description: string
   category: $Enums.ListingCategory
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  basePriceMinor: number
+  cleaningFeeMinor?: number
+  serviceFeeMinor?: number
+  taxMinor?: number
+  extraGuestFeeMinor?: number
+  depositMinor?: number
+  currency?: string
   priceUnit: $Enums.PriceUnit
   datesLabel: string
   tags?: Prisma.ListingCreatetagsInput | string[]
@@ -1019,6 +1270,7 @@ export type ListingUncheckedCreateWithoutInventoryInput = {
   images?: Prisma.ListingImageUncheckedCreateNestedManyWithoutListingInput
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutListingInput
   favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutListingInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutListingInput
 }
 
 export type ListingCreateOrConnectWithoutInventoryInput = {
@@ -1045,6 +1297,13 @@ export type ListingUpdateWithoutInventoryInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.EnumListingCategoryFieldUpdateOperationsInput | $Enums.ListingCategory
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  basePriceMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  cleaningFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  serviceFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  taxMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  extraGuestFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  depositMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   priceUnit?: Prisma.EnumPriceUnitFieldUpdateOperationsInput | $Enums.PriceUnit
   datesLabel?: Prisma.StringFieldUpdateOperationsInput | string
   tags?: Prisma.ListingUpdatetagsInput | string[]
@@ -1061,6 +1320,7 @@ export type ListingUpdateWithoutInventoryInput = {
   images?: Prisma.ListingImageUpdateManyWithoutListingNestedInput
   bookings?: Prisma.BookingUpdateManyWithoutListingNestedInput
   favorites?: Prisma.FavoriteUpdateManyWithoutListingNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutListingNestedInput
 }
 
 export type ListingUncheckedUpdateWithoutInventoryInput = {
@@ -1071,6 +1331,13 @@ export type ListingUncheckedUpdateWithoutInventoryInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.EnumListingCategoryFieldUpdateOperationsInput | $Enums.ListingCategory
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  basePriceMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  cleaningFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  serviceFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  taxMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  extraGuestFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  depositMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   priceUnit?: Prisma.EnumPriceUnitFieldUpdateOperationsInput | $Enums.PriceUnit
   datesLabel?: Prisma.StringFieldUpdateOperationsInput | string
   tags?: Prisma.ListingUpdatetagsInput | string[]
@@ -1087,6 +1354,7 @@ export type ListingUncheckedUpdateWithoutInventoryInput = {
   images?: Prisma.ListingImageUncheckedUpdateManyWithoutListingNestedInput
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutListingNestedInput
   favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutListingNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutListingNestedInput
 }
 
 export type ListingCreateWithoutImagesInput = {
@@ -1097,6 +1365,13 @@ export type ListingCreateWithoutImagesInput = {
   description: string
   category: $Enums.ListingCategory
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  basePriceMinor: number
+  cleaningFeeMinor?: number
+  serviceFeeMinor?: number
+  taxMinor?: number
+  extraGuestFeeMinor?: number
+  depositMinor?: number
+  currency?: string
   priceUnit: $Enums.PriceUnit
   datesLabel: string
   tags?: Prisma.ListingCreatetagsInput | string[]
@@ -1113,6 +1388,7 @@ export type ListingCreateWithoutImagesInput = {
   bookings?: Prisma.BookingCreateNestedManyWithoutListingInput
   favorites?: Prisma.FavoriteCreateNestedManyWithoutListingInput
   inventory?: Prisma.ListingInventoryCreateNestedManyWithoutListingInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutListingInput
 }
 
 export type ListingUncheckedCreateWithoutImagesInput = {
@@ -1123,6 +1399,13 @@ export type ListingUncheckedCreateWithoutImagesInput = {
   description: string
   category: $Enums.ListingCategory
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  basePriceMinor: number
+  cleaningFeeMinor?: number
+  serviceFeeMinor?: number
+  taxMinor?: number
+  extraGuestFeeMinor?: number
+  depositMinor?: number
+  currency?: string
   priceUnit: $Enums.PriceUnit
   datesLabel: string
   tags?: Prisma.ListingCreatetagsInput | string[]
@@ -1139,6 +1422,7 @@ export type ListingUncheckedCreateWithoutImagesInput = {
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutListingInput
   favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutListingInput
   inventory?: Prisma.ListingInventoryUncheckedCreateNestedManyWithoutListingInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutListingInput
 }
 
 export type ListingCreateOrConnectWithoutImagesInput = {
@@ -1165,6 +1449,13 @@ export type ListingUpdateWithoutImagesInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.EnumListingCategoryFieldUpdateOperationsInput | $Enums.ListingCategory
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  basePriceMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  cleaningFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  serviceFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  taxMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  extraGuestFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  depositMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   priceUnit?: Prisma.EnumPriceUnitFieldUpdateOperationsInput | $Enums.PriceUnit
   datesLabel?: Prisma.StringFieldUpdateOperationsInput | string
   tags?: Prisma.ListingUpdatetagsInput | string[]
@@ -1181,6 +1472,7 @@ export type ListingUpdateWithoutImagesInput = {
   bookings?: Prisma.BookingUpdateManyWithoutListingNestedInput
   favorites?: Prisma.FavoriteUpdateManyWithoutListingNestedInput
   inventory?: Prisma.ListingInventoryUpdateManyWithoutListingNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutListingNestedInput
 }
 
 export type ListingUncheckedUpdateWithoutImagesInput = {
@@ -1191,6 +1483,13 @@ export type ListingUncheckedUpdateWithoutImagesInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.EnumListingCategoryFieldUpdateOperationsInput | $Enums.ListingCategory
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  basePriceMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  cleaningFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  serviceFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  taxMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  extraGuestFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  depositMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   priceUnit?: Prisma.EnumPriceUnitFieldUpdateOperationsInput | $Enums.PriceUnit
   datesLabel?: Prisma.StringFieldUpdateOperationsInput | string
   tags?: Prisma.ListingUpdatetagsInput | string[]
@@ -1207,6 +1506,7 @@ export type ListingUncheckedUpdateWithoutImagesInput = {
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutListingNestedInput
   favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutListingNestedInput
   inventory?: Prisma.ListingInventoryUncheckedUpdateManyWithoutListingNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutListingNestedInput
 }
 
 export type ListingCreateWithoutBookingsInput = {
@@ -1217,6 +1517,13 @@ export type ListingCreateWithoutBookingsInput = {
   description: string
   category: $Enums.ListingCategory
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  basePriceMinor: number
+  cleaningFeeMinor?: number
+  serviceFeeMinor?: number
+  taxMinor?: number
+  extraGuestFeeMinor?: number
+  depositMinor?: number
+  currency?: string
   priceUnit: $Enums.PriceUnit
   datesLabel: string
   tags?: Prisma.ListingCreatetagsInput | string[]
@@ -1233,6 +1540,7 @@ export type ListingCreateWithoutBookingsInput = {
   images?: Prisma.ListingImageCreateNestedManyWithoutListingInput
   favorites?: Prisma.FavoriteCreateNestedManyWithoutListingInput
   inventory?: Prisma.ListingInventoryCreateNestedManyWithoutListingInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutListingInput
 }
 
 export type ListingUncheckedCreateWithoutBookingsInput = {
@@ -1243,6 +1551,13 @@ export type ListingUncheckedCreateWithoutBookingsInput = {
   description: string
   category: $Enums.ListingCategory
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  basePriceMinor: number
+  cleaningFeeMinor?: number
+  serviceFeeMinor?: number
+  taxMinor?: number
+  extraGuestFeeMinor?: number
+  depositMinor?: number
+  currency?: string
   priceUnit: $Enums.PriceUnit
   datesLabel: string
   tags?: Prisma.ListingCreatetagsInput | string[]
@@ -1259,6 +1574,7 @@ export type ListingUncheckedCreateWithoutBookingsInput = {
   images?: Prisma.ListingImageUncheckedCreateNestedManyWithoutListingInput
   favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutListingInput
   inventory?: Prisma.ListingInventoryUncheckedCreateNestedManyWithoutListingInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutListingInput
 }
 
 export type ListingCreateOrConnectWithoutBookingsInput = {
@@ -1285,6 +1601,13 @@ export type ListingUpdateWithoutBookingsInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.EnumListingCategoryFieldUpdateOperationsInput | $Enums.ListingCategory
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  basePriceMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  cleaningFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  serviceFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  taxMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  extraGuestFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  depositMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   priceUnit?: Prisma.EnumPriceUnitFieldUpdateOperationsInput | $Enums.PriceUnit
   datesLabel?: Prisma.StringFieldUpdateOperationsInput | string
   tags?: Prisma.ListingUpdatetagsInput | string[]
@@ -1301,6 +1624,7 @@ export type ListingUpdateWithoutBookingsInput = {
   images?: Prisma.ListingImageUpdateManyWithoutListingNestedInput
   favorites?: Prisma.FavoriteUpdateManyWithoutListingNestedInput
   inventory?: Prisma.ListingInventoryUpdateManyWithoutListingNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutListingNestedInput
 }
 
 export type ListingUncheckedUpdateWithoutBookingsInput = {
@@ -1311,6 +1635,13 @@ export type ListingUncheckedUpdateWithoutBookingsInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.EnumListingCategoryFieldUpdateOperationsInput | $Enums.ListingCategory
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  basePriceMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  cleaningFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  serviceFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  taxMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  extraGuestFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  depositMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   priceUnit?: Prisma.EnumPriceUnitFieldUpdateOperationsInput | $Enums.PriceUnit
   datesLabel?: Prisma.StringFieldUpdateOperationsInput | string
   tags?: Prisma.ListingUpdatetagsInput | string[]
@@ -1327,6 +1658,7 @@ export type ListingUncheckedUpdateWithoutBookingsInput = {
   images?: Prisma.ListingImageUncheckedUpdateManyWithoutListingNestedInput
   favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutListingNestedInput
   inventory?: Prisma.ListingInventoryUncheckedUpdateManyWithoutListingNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutListingNestedInput
 }
 
 export type ListingCreateWithoutFavoritesInput = {
@@ -1337,6 +1669,13 @@ export type ListingCreateWithoutFavoritesInput = {
   description: string
   category: $Enums.ListingCategory
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  basePriceMinor: number
+  cleaningFeeMinor?: number
+  serviceFeeMinor?: number
+  taxMinor?: number
+  extraGuestFeeMinor?: number
+  depositMinor?: number
+  currency?: string
   priceUnit: $Enums.PriceUnit
   datesLabel: string
   tags?: Prisma.ListingCreatetagsInput | string[]
@@ -1353,6 +1692,7 @@ export type ListingCreateWithoutFavoritesInput = {
   images?: Prisma.ListingImageCreateNestedManyWithoutListingInput
   bookings?: Prisma.BookingCreateNestedManyWithoutListingInput
   inventory?: Prisma.ListingInventoryCreateNestedManyWithoutListingInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutListingInput
 }
 
 export type ListingUncheckedCreateWithoutFavoritesInput = {
@@ -1363,6 +1703,13 @@ export type ListingUncheckedCreateWithoutFavoritesInput = {
   description: string
   category: $Enums.ListingCategory
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  basePriceMinor: number
+  cleaningFeeMinor?: number
+  serviceFeeMinor?: number
+  taxMinor?: number
+  extraGuestFeeMinor?: number
+  depositMinor?: number
+  currency?: string
   priceUnit: $Enums.PriceUnit
   datesLabel: string
   tags?: Prisma.ListingCreatetagsInput | string[]
@@ -1379,6 +1726,7 @@ export type ListingUncheckedCreateWithoutFavoritesInput = {
   images?: Prisma.ListingImageUncheckedCreateNestedManyWithoutListingInput
   bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutListingInput
   inventory?: Prisma.ListingInventoryUncheckedCreateNestedManyWithoutListingInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutListingInput
 }
 
 export type ListingCreateOrConnectWithoutFavoritesInput = {
@@ -1405,6 +1753,13 @@ export type ListingUpdateWithoutFavoritesInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.EnumListingCategoryFieldUpdateOperationsInput | $Enums.ListingCategory
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  basePriceMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  cleaningFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  serviceFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  taxMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  extraGuestFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  depositMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   priceUnit?: Prisma.EnumPriceUnitFieldUpdateOperationsInput | $Enums.PriceUnit
   datesLabel?: Prisma.StringFieldUpdateOperationsInput | string
   tags?: Prisma.ListingUpdatetagsInput | string[]
@@ -1421,6 +1776,7 @@ export type ListingUpdateWithoutFavoritesInput = {
   images?: Prisma.ListingImageUpdateManyWithoutListingNestedInput
   bookings?: Prisma.BookingUpdateManyWithoutListingNestedInput
   inventory?: Prisma.ListingInventoryUpdateManyWithoutListingNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutListingNestedInput
 }
 
 export type ListingUncheckedUpdateWithoutFavoritesInput = {
@@ -1431,6 +1787,13 @@ export type ListingUncheckedUpdateWithoutFavoritesInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.EnumListingCategoryFieldUpdateOperationsInput | $Enums.ListingCategory
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  basePriceMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  cleaningFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  serviceFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  taxMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  extraGuestFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  depositMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   priceUnit?: Prisma.EnumPriceUnitFieldUpdateOperationsInput | $Enums.PriceUnit
   datesLabel?: Prisma.StringFieldUpdateOperationsInput | string
   tags?: Prisma.ListingUpdatetagsInput | string[]
@@ -1447,6 +1810,159 @@ export type ListingUncheckedUpdateWithoutFavoritesInput = {
   images?: Prisma.ListingImageUncheckedUpdateManyWithoutListingNestedInput
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutListingNestedInput
   inventory?: Prisma.ListingInventoryUncheckedUpdateManyWithoutListingNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutListingNestedInput
+}
+
+export type ListingCreateWithoutReviewsInput = {
+  id?: string
+  slug: string
+  title: string
+  location: string
+  description: string
+  category: $Enums.ListingCategory
+  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  basePriceMinor: number
+  cleaningFeeMinor?: number
+  serviceFeeMinor?: number
+  taxMinor?: number
+  extraGuestFeeMinor?: number
+  depositMinor?: number
+  currency?: string
+  priceUnit: $Enums.PriceUnit
+  datesLabel: string
+  tags?: Prisma.ListingCreatetagsInput | string[]
+  amenities?: Prisma.ListingCreateamenitiesInput | string[]
+  rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: number
+  published?: boolean
+  status?: $Enums.ListingStatus
+  defaultTotalUnits?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  host: Prisma.UserCreateNestedOneWithoutListingsInput
+  images?: Prisma.ListingImageCreateNestedManyWithoutListingInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutListingInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutListingInput
+  inventory?: Prisma.ListingInventoryCreateNestedManyWithoutListingInput
+}
+
+export type ListingUncheckedCreateWithoutReviewsInput = {
+  id?: string
+  slug: string
+  title: string
+  location: string
+  description: string
+  category: $Enums.ListingCategory
+  price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  basePriceMinor: number
+  cleaningFeeMinor?: number
+  serviceFeeMinor?: number
+  taxMinor?: number
+  extraGuestFeeMinor?: number
+  depositMinor?: number
+  currency?: string
+  priceUnit: $Enums.PriceUnit
+  datesLabel: string
+  tags?: Prisma.ListingCreatetagsInput | string[]
+  amenities?: Prisma.ListingCreateamenitiesInput | string[]
+  rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: number
+  published?: boolean
+  status?: $Enums.ListingStatus
+  defaultTotalUnits?: number
+  hostId: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  images?: Prisma.ListingImageUncheckedCreateNestedManyWithoutListingInput
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutListingInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutListingInput
+  inventory?: Prisma.ListingInventoryUncheckedCreateNestedManyWithoutListingInput
+}
+
+export type ListingCreateOrConnectWithoutReviewsInput = {
+  where: Prisma.ListingWhereUniqueInput
+  create: Prisma.XOR<Prisma.ListingCreateWithoutReviewsInput, Prisma.ListingUncheckedCreateWithoutReviewsInput>
+}
+
+export type ListingUpsertWithoutReviewsInput = {
+  update: Prisma.XOR<Prisma.ListingUpdateWithoutReviewsInput, Prisma.ListingUncheckedUpdateWithoutReviewsInput>
+  create: Prisma.XOR<Prisma.ListingCreateWithoutReviewsInput, Prisma.ListingUncheckedCreateWithoutReviewsInput>
+  where?: Prisma.ListingWhereInput
+}
+
+export type ListingUpdateToOneWithWhereWithoutReviewsInput = {
+  where?: Prisma.ListingWhereInput
+  data: Prisma.XOR<Prisma.ListingUpdateWithoutReviewsInput, Prisma.ListingUncheckedUpdateWithoutReviewsInput>
+}
+
+export type ListingUpdateWithoutReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  location?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.EnumListingCategoryFieldUpdateOperationsInput | $Enums.ListingCategory
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  basePriceMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  cleaningFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  serviceFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  taxMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  extraGuestFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  depositMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  priceUnit?: Prisma.EnumPriceUnitFieldUpdateOperationsInput | $Enums.PriceUnit
+  datesLabel?: Prisma.StringFieldUpdateOperationsInput | string
+  tags?: Prisma.ListingUpdatetagsInput | string[]
+  amenities?: Prisma.ListingUpdateamenitiesInput | string[]
+  rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
+  defaultTotalUnits?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  host?: Prisma.UserUpdateOneRequiredWithoutListingsNestedInput
+  images?: Prisma.ListingImageUpdateManyWithoutListingNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutListingNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutListingNestedInput
+  inventory?: Prisma.ListingInventoryUpdateManyWithoutListingNestedInput
+}
+
+export type ListingUncheckedUpdateWithoutReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  location?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  category?: Prisma.EnumListingCategoryFieldUpdateOperationsInput | $Enums.ListingCategory
+  price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  basePriceMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  cleaningFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  serviceFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  taxMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  extraGuestFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  depositMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  priceUnit?: Prisma.EnumPriceUnitFieldUpdateOperationsInput | $Enums.PriceUnit
+  datesLabel?: Prisma.StringFieldUpdateOperationsInput | string
+  tags?: Prisma.ListingUpdatetagsInput | string[]
+  amenities?: Prisma.ListingUpdateamenitiesInput | string[]
+  rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  published?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.EnumListingStatusFieldUpdateOperationsInput | $Enums.ListingStatus
+  defaultTotalUnits?: Prisma.IntFieldUpdateOperationsInput | number
+  hostId?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  images?: Prisma.ListingImageUncheckedUpdateManyWithoutListingNestedInput
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutListingNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutListingNestedInput
+  inventory?: Prisma.ListingInventoryUncheckedUpdateManyWithoutListingNestedInput
 }
 
 export type ListingCreateManyHostInput = {
@@ -1457,6 +1973,13 @@ export type ListingCreateManyHostInput = {
   description: string
   category: $Enums.ListingCategory
   price: runtime.Decimal | runtime.DecimalJsLike | number | string
+  basePriceMinor: number
+  cleaningFeeMinor?: number
+  serviceFeeMinor?: number
+  taxMinor?: number
+  extraGuestFeeMinor?: number
+  depositMinor?: number
+  currency?: string
   priceUnit: $Enums.PriceUnit
   datesLabel: string
   tags?: Prisma.ListingCreatetagsInput | string[]
@@ -1479,6 +2002,13 @@ export type ListingUpdateWithoutHostInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.EnumListingCategoryFieldUpdateOperationsInput | $Enums.ListingCategory
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  basePriceMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  cleaningFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  serviceFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  taxMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  extraGuestFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  depositMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   priceUnit?: Prisma.EnumPriceUnitFieldUpdateOperationsInput | $Enums.PriceUnit
   datesLabel?: Prisma.StringFieldUpdateOperationsInput | string
   tags?: Prisma.ListingUpdatetagsInput | string[]
@@ -1495,6 +2025,7 @@ export type ListingUpdateWithoutHostInput = {
   bookings?: Prisma.BookingUpdateManyWithoutListingNestedInput
   favorites?: Prisma.FavoriteUpdateManyWithoutListingNestedInput
   inventory?: Prisma.ListingInventoryUpdateManyWithoutListingNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutListingNestedInput
 }
 
 export type ListingUncheckedUpdateWithoutHostInput = {
@@ -1505,6 +2036,13 @@ export type ListingUncheckedUpdateWithoutHostInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.EnumListingCategoryFieldUpdateOperationsInput | $Enums.ListingCategory
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  basePriceMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  cleaningFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  serviceFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  taxMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  extraGuestFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  depositMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   priceUnit?: Prisma.EnumPriceUnitFieldUpdateOperationsInput | $Enums.PriceUnit
   datesLabel?: Prisma.StringFieldUpdateOperationsInput | string
   tags?: Prisma.ListingUpdatetagsInput | string[]
@@ -1521,6 +2059,7 @@ export type ListingUncheckedUpdateWithoutHostInput = {
   bookings?: Prisma.BookingUncheckedUpdateManyWithoutListingNestedInput
   favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutListingNestedInput
   inventory?: Prisma.ListingInventoryUncheckedUpdateManyWithoutListingNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutListingNestedInput
 }
 
 export type ListingUncheckedUpdateManyWithoutHostInput = {
@@ -1531,6 +2070,13 @@ export type ListingUncheckedUpdateManyWithoutHostInput = {
   description?: Prisma.StringFieldUpdateOperationsInput | string
   category?: Prisma.EnumListingCategoryFieldUpdateOperationsInput | $Enums.ListingCategory
   price?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  basePriceMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  cleaningFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  serviceFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  taxMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  extraGuestFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  depositMinor?: Prisma.IntFieldUpdateOperationsInput | number
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
   priceUnit?: Prisma.EnumPriceUnitFieldUpdateOperationsInput | $Enums.PriceUnit
   datesLabel?: Prisma.StringFieldUpdateOperationsInput | string
   tags?: Prisma.ListingUpdatetagsInput | string[]
@@ -1555,6 +2101,7 @@ export type ListingCountOutputType = {
   bookings: number
   favorites: number
   inventory: number
+  reviews: number
 }
 
 export type ListingCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1562,6 +2109,7 @@ export type ListingCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   bookings?: boolean | ListingCountOutputTypeCountBookingsArgs
   favorites?: boolean | ListingCountOutputTypeCountFavoritesArgs
   inventory?: boolean | ListingCountOutputTypeCountInventoryArgs
+  reviews?: boolean | ListingCountOutputTypeCountReviewsArgs
 }
 
 /**
@@ -1602,6 +2150,13 @@ export type ListingCountOutputTypeCountInventoryArgs<ExtArgs extends runtime.Typ
   where?: Prisma.ListingInventoryWhereInput
 }
 
+/**
+ * ListingCountOutputType without action
+ */
+export type ListingCountOutputTypeCountReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ReviewWhereInput
+}
+
 
 export type ListingSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1611,6 +2166,13 @@ export type ListingSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   description?: boolean
   category?: boolean
   price?: boolean
+  basePriceMinor?: boolean
+  cleaningFeeMinor?: boolean
+  serviceFeeMinor?: boolean
+  taxMinor?: boolean
+  extraGuestFeeMinor?: boolean
+  depositMinor?: boolean
+  currency?: boolean
   priceUnit?: boolean
   datesLabel?: boolean
   tags?: boolean
@@ -1629,6 +2191,7 @@ export type ListingSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   bookings?: boolean | Prisma.Listing$bookingsArgs<ExtArgs>
   favorites?: boolean | Prisma.Listing$favoritesArgs<ExtArgs>
   inventory?: boolean | Prisma.Listing$inventoryArgs<ExtArgs>
+  reviews?: boolean | Prisma.Listing$reviewsArgs<ExtArgs>
   _count?: boolean | Prisma.ListingCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["listing"]>
 
@@ -1640,6 +2203,13 @@ export type ListingSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   description?: boolean
   category?: boolean
   price?: boolean
+  basePriceMinor?: boolean
+  cleaningFeeMinor?: boolean
+  serviceFeeMinor?: boolean
+  taxMinor?: boolean
+  extraGuestFeeMinor?: boolean
+  depositMinor?: boolean
+  currency?: boolean
   priceUnit?: boolean
   datesLabel?: boolean
   tags?: boolean
@@ -1664,6 +2234,13 @@ export type ListingSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   description?: boolean
   category?: boolean
   price?: boolean
+  basePriceMinor?: boolean
+  cleaningFeeMinor?: boolean
+  serviceFeeMinor?: boolean
+  taxMinor?: boolean
+  extraGuestFeeMinor?: boolean
+  depositMinor?: boolean
+  currency?: boolean
   priceUnit?: boolean
   datesLabel?: boolean
   tags?: boolean
@@ -1688,6 +2265,13 @@ export type ListingSelectScalar = {
   description?: boolean
   category?: boolean
   price?: boolean
+  basePriceMinor?: boolean
+  cleaningFeeMinor?: boolean
+  serviceFeeMinor?: boolean
+  taxMinor?: boolean
+  extraGuestFeeMinor?: boolean
+  depositMinor?: boolean
+  currency?: boolean
   priceUnit?: boolean
   datesLabel?: boolean
   tags?: boolean
@@ -1703,13 +2287,14 @@ export type ListingSelectScalar = {
   deletedAt?: boolean
 }
 
-export type ListingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "title" | "location" | "description" | "category" | "price" | "priceUnit" | "datesLabel" | "tags" | "amenities" | "rating" | "reviewCount" | "published" | "status" | "defaultTotalUnits" | "hostId" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["listing"]>
+export type ListingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "title" | "location" | "description" | "category" | "price" | "basePriceMinor" | "cleaningFeeMinor" | "serviceFeeMinor" | "taxMinor" | "extraGuestFeeMinor" | "depositMinor" | "currency" | "priceUnit" | "datesLabel" | "tags" | "amenities" | "rating" | "reviewCount" | "published" | "status" | "defaultTotalUnits" | "hostId" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["listing"]>
 export type ListingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   host?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   images?: boolean | Prisma.Listing$imagesArgs<ExtArgs>
   bookings?: boolean | Prisma.Listing$bookingsArgs<ExtArgs>
   favorites?: boolean | Prisma.Listing$favoritesArgs<ExtArgs>
   inventory?: boolean | Prisma.Listing$inventoryArgs<ExtArgs>
+  reviews?: boolean | Prisma.Listing$reviewsArgs<ExtArgs>
   _count?: boolean | Prisma.ListingCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ListingIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1727,6 +2312,7 @@ export type $ListingPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     bookings: Prisma.$BookingPayload<ExtArgs>[]
     favorites: Prisma.$FavoritePayload<ExtArgs>[]
     inventory: Prisma.$ListingInventoryPayload<ExtArgs>[]
+    reviews: Prisma.$ReviewPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1736,6 +2322,13 @@ export type $ListingPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     description: string
     category: $Enums.ListingCategory
     price: runtime.Decimal
+    basePriceMinor: number
+    cleaningFeeMinor: number
+    serviceFeeMinor: number
+    taxMinor: number
+    extraGuestFeeMinor: number
+    depositMinor: number
+    currency: string
     priceUnit: $Enums.PriceUnit
     datesLabel: string
     tags: string[]
@@ -2148,6 +2741,7 @@ export interface Prisma__ListingClient<T, Null = never, ExtArgs extends runtime.
   bookings<T extends Prisma.Listing$bookingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Listing$bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   favorites<T extends Prisma.Listing$favoritesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Listing$favoritesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FavoritePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   inventory<T extends Prisma.Listing$inventoryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Listing$inventoryArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ListingInventoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reviews<T extends Prisma.Listing$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Listing$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2184,6 +2778,13 @@ export interface ListingFieldRefs {
   readonly description: Prisma.FieldRef<"Listing", 'String'>
   readonly category: Prisma.FieldRef<"Listing", 'ListingCategory'>
   readonly price: Prisma.FieldRef<"Listing", 'Decimal'>
+  readonly basePriceMinor: Prisma.FieldRef<"Listing", 'Int'>
+  readonly cleaningFeeMinor: Prisma.FieldRef<"Listing", 'Int'>
+  readonly serviceFeeMinor: Prisma.FieldRef<"Listing", 'Int'>
+  readonly taxMinor: Prisma.FieldRef<"Listing", 'Int'>
+  readonly extraGuestFeeMinor: Prisma.FieldRef<"Listing", 'Int'>
+  readonly depositMinor: Prisma.FieldRef<"Listing", 'Int'>
+  readonly currency: Prisma.FieldRef<"Listing", 'String'>
   readonly priceUnit: Prisma.FieldRef<"Listing", 'PriceUnit'>
   readonly datesLabel: Prisma.FieldRef<"Listing", 'String'>
   readonly tags: Prisma.FieldRef<"Listing", 'String[]'>
@@ -2691,6 +3292,30 @@ export type Listing$inventoryArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.ListingInventoryScalarFieldEnum | Prisma.ListingInventoryScalarFieldEnum[]
+}
+
+/**
+ * Listing.reviews
+ */
+export type Listing$reviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Review
+   */
+  select?: Prisma.ReviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Review
+   */
+  omit?: Prisma.ReviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ReviewInclude<ExtArgs> | null
+  where?: Prisma.ReviewWhereInput
+  orderBy?: Prisma.ReviewOrderByWithRelationInput | Prisma.ReviewOrderByWithRelationInput[]
+  cursor?: Prisma.ReviewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ReviewScalarFieldEnum | Prisma.ReviewScalarFieldEnum[]
 }
 
 /**

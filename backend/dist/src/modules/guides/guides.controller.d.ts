@@ -36,6 +36,10 @@ export declare class GuidesController {
         rankPoints: number;
         completedTrips: number;
         responseRate: number;
+        acceptanceRate: number;
+        providerCancellationCount: number;
+        confirmedReportCount: number;
+        rankingUpdatedAt: Date | null;
         rating: import("@prisma/client-runtime-utils").Decimal;
         reviewCount: number;
     })[]>;
@@ -69,6 +73,10 @@ export declare class GuidesController {
         rankPoints: number;
         completedTrips: number;
         responseRate: number;
+        acceptanceRate: number;
+        providerCancellationCount: number;
+        confirmedReportCount: number;
+        rankingUpdatedAt: Date | null;
         rating: import("@prisma/client-runtime-utils").Decimal;
         reviewCount: number;
     })[]>;
@@ -102,6 +110,10 @@ export declare class GuidesController {
         rankPoints: number;
         completedTrips: number;
         responseRate: number;
+        acceptanceRate: number;
+        providerCancellationCount: number;
+        confirmedReportCount: number;
+        rankingUpdatedAt: Date | null;
         rating: import("@prisma/client-runtime-utils").Decimal;
         reviewCount: number;
     }>;
@@ -135,6 +147,10 @@ export declare class GuidesController {
         rankPoints: number;
         completedTrips: number;
         responseRate: number;
+        acceptanceRate: number;
+        providerCancellationCount: number;
+        confirmedReportCount: number;
+        rankingUpdatedAt: Date | null;
         rating: import("@prisma/client-runtime-utils").Decimal;
         reviewCount: number;
     }>;
@@ -146,6 +162,25 @@ export declare class GuidesController {
             avatarUrl: string | null;
             isVerified: boolean;
         };
+        verificationReviews: ({
+            reviewer: {
+                id: string;
+                name: string;
+            };
+        } & {
+            id: string;
+            assessmentScore: number;
+            guideProfileId: string;
+            reviewerId: string;
+            decision: import("../../generated/prisma/enums.js").GuideVerificationDecision;
+            decisionReason: string | null;
+            internalNote: string | null;
+            assessmentBreakdown: import("@prisma/client/runtime/client").JsonValue;
+            documentStatus: import("../../generated/prisma/enums.js").VerificationCheckStatus;
+            referenceStatus: import("../../generated/prisma/enums.js").VerificationCheckStatus;
+            applicationSnapshot: import("@prisma/client/runtime/client").JsonValue;
+            reviewedAt: Date;
+        })[];
     } & {
         id: string;
         createdAt: Date;
@@ -169,10 +204,14 @@ export declare class GuidesController {
         rankPoints: number;
         completedTrips: number;
         responseRate: number;
+        acceptanceRate: number;
+        providerCancellationCount: number;
+        confirmedReportCount: number;
+        rankingUpdatedAt: Date | null;
         rating: import("@prisma/client-runtime-utils").Decimal;
         reviewCount: number;
     })[]>;
-    review(id: string, dto: ReviewGuideApplicationDto): Promise<{
+    review(user: RequestUser, id: string, dto: ReviewGuideApplicationDto): Promise<({
         user: {
             id: string;
             name: string;
@@ -202,9 +241,33 @@ export declare class GuidesController {
         rankPoints: number;
         completedTrips: number;
         responseRate: number;
+        acceptanceRate: number;
+        providerCancellationCount: number;
+        confirmedReportCount: number;
+        rankingUpdatedAt: Date | null;
         rating: import("@prisma/client-runtime-utils").Decimal;
         reviewCount: number;
-    }>;
+    }) | null>;
+    applicationReviews(id: string): import("../../generated/prisma/internal/prismaNamespace.js").PrismaPromise<({
+        reviewer: {
+            id: string;
+            email: string;
+            name: string;
+        };
+    } & {
+        id: string;
+        assessmentScore: number;
+        guideProfileId: string;
+        reviewerId: string;
+        decision: import("../../generated/prisma/enums.js").GuideVerificationDecision;
+        decisionReason: string | null;
+        internalNote: string | null;
+        assessmentBreakdown: import("@prisma/client/runtime/client").JsonValue;
+        documentStatus: import("../../generated/prisma/enums.js").VerificationCheckStatus;
+        referenceStatus: import("../../generated/prisma/enums.js").VerificationCheckStatus;
+        applicationSnapshot: import("@prisma/client/runtime/client").JsonValue;
+        reviewedAt: Date;
+    })[]>;
     apply(user: RequestUser, dto: ApplyGuideDto): Promise<{
         user: {
             id: string;
@@ -235,6 +298,10 @@ export declare class GuidesController {
         rankPoints: number;
         completedTrips: number;
         responseRate: number;
+        acceptanceRate: number;
+        providerCancellationCount: number;
+        confirmedReportCount: number;
+        rankingUpdatedAt: Date | null;
         rating: import("@prisma/client-runtime-utils").Decimal;
         reviewCount: number;
     }>;
@@ -268,6 +335,10 @@ export declare class GuidesController {
         rankPoints: number;
         completedTrips: number;
         responseRate: number;
+        acceptanceRate: number;
+        providerCancellationCount: number;
+        confirmedReportCount: number;
+        rankingUpdatedAt: Date | null;
         rating: import("@prisma/client-runtime-utils").Decimal;
         reviewCount: number;
     }>;

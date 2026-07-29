@@ -4,6 +4,7 @@ import {
   BookingActorType,
   BookingStatus,
   MessageType,
+  NotificationType,
   Prisma,
 } from '../../generated/prisma/client.js';
 import { PrismaService } from '../../prisma/prisma.service.js';
@@ -54,7 +55,14 @@ export class BookingLifecycleService {
     return this.prisma.$transaction(async (tx) => {
       const booking = await tx.booking.findUnique({
         where: { id: bookingId },
-        select: { travelerId: true, guideId: true, listingId: true, startsAt: true, endsAt: true },
+        select: {
+          travelerId: true,
+          guideId: true,
+          listingId: true,
+          startsAt: true,
+          endsAt: true,
+          listing: { select: { hostId: true } },
+        },
       });
       if (!booking) return false;
       const changed = await tx.booking.updateMany({
@@ -100,6 +108,22 @@ export class BookingLifecycleService {
           },
         });
       }
+      const providerId = booking.guideId ?? booking.listing?.hostId;
+      const notification = toStatus === BookingStatus.EXPIRED
+        ? { type: NotificationType.BOOKING_EXPIRED, title: 'Booking expired', body: 'Booking request expired' }
+        : toStatus === BookingStatus.IN_PROGRESS
+          ? { type: NotificationType.BOOKING_STARTED, title: 'Booking started', body: 'Your booking has started' }
+          : { type: NotificationType.BOOKING_COMPLETED, title: 'Booking completed', body: 'Your booking is complete. You can now leave a review.' };
+      const recipients = [...new Set([booking.travelerId, providerId].filter((id): id is string => Boolean(id)))];
+      await tx.notification.createMany({
+        data: recipients.map((userId) => ({
+          userId,
+          type: notification.type,
+          title: notification.title,
+          body: notification.body,
+          data: { bookingId },
+        })),
+      });
       if (toStatus === BookingStatus.COMPLETED && booking.guideId) {
         await tx.guideProfile.updateMany({
           where: { userId: booking.guideId },

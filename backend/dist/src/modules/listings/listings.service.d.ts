@@ -3,9 +3,11 @@ import { PrismaService } from '../../prisma/prisma.service.js';
 import { CreateListingDto } from './dto/create-listing.dto.js';
 import { SetInventoryDto } from './dto/set-inventory.dto.js';
 import { UpdateListingDto } from './dto/update-listing.dto.js';
+import { PricingService } from '../pricing/pricing.service.js';
 export declare class ListingsService {
     private readonly prisma;
-    constructor(prisma: PrismaService);
+    private readonly pricing;
+    constructor(prisma: PrismaService, pricing: PricingService);
     findAll(query: {
         category?: ListingCategory;
         search?: string;
@@ -13,6 +15,12 @@ export declare class ListingsService {
         limit?: number;
     }): Promise<{
         items: ({
+            host: {
+                id: string;
+                name: string;
+                avatarUrl: string | null;
+                isVerified: boolean;
+            };
             images: {
                 id: string;
                 listingId: string;
@@ -20,12 +28,6 @@ export declare class ListingsService {
                 alt: string | null;
                 sortOrder: number;
             }[];
-            host: {
-                id: string;
-                name: string;
-                avatarUrl: string | null;
-                isVerified: boolean;
-            };
         } & {
             id: string;
             createdAt: Date;
@@ -40,6 +42,13 @@ export declare class ListingsService {
             location: string;
             description: string;
             category: ListingCategory;
+            basePriceMinor: number;
+            cleaningFeeMinor: number;
+            serviceFeeMinor: number;
+            taxMinor: number;
+            extraGuestFeeMinor: number;
+            depositMinor: number;
+            currency: string;
             priceUnit: import("../../generated/prisma/enums.js").PriceUnit;
             datesLabel: string;
             tags: string[];
@@ -56,6 +65,12 @@ export declare class ListingsService {
         };
     }>;
     findOne(id: string): Promise<{
+        host: {
+            id: string;
+            name: string;
+            avatarUrl: string | null;
+            isVerified: boolean;
+        };
         images: {
             id: string;
             listingId: string;
@@ -63,12 +78,6 @@ export declare class ListingsService {
             alt: string | null;
             sortOrder: number;
         }[];
-        host: {
-            id: string;
-            name: string;
-            avatarUrl: string | null;
-            isVerified: boolean;
-        };
     } & {
         id: string;
         createdAt: Date;
@@ -83,6 +92,13 @@ export declare class ListingsService {
         location: string;
         description: string;
         category: ListingCategory;
+        basePriceMinor: number;
+        cleaningFeeMinor: number;
+        serviceFeeMinor: number;
+        taxMinor: number;
+        extraGuestFeeMinor: number;
+        depositMinor: number;
+        currency: string;
         priceUnit: import("../../generated/prisma/enums.js").PriceUnit;
         datesLabel: string;
         tags: string[];
@@ -116,6 +132,13 @@ export declare class ListingsService {
         location: string;
         description: string;
         category: ListingCategory;
+        basePriceMinor: number;
+        cleaningFeeMinor: number;
+        serviceFeeMinor: number;
+        taxMinor: number;
+        extraGuestFeeMinor: number;
+        depositMinor: number;
+        currency: string;
         priceUnit: import("../../generated/prisma/enums.js").PriceUnit;
         datesLabel: string;
         tags: string[];
@@ -125,6 +148,12 @@ export declare class ListingsService {
         hostId: string;
     })[]>;
     create(userId: string, dto: CreateListingDto): import("../../generated/prisma/models.js").Prisma__ListingClient<{
+        host: {
+            id: string;
+            name: string;
+            avatarUrl: string | null;
+            isVerified: boolean;
+        };
         images: {
             id: string;
             listingId: string;
@@ -132,12 +161,6 @@ export declare class ListingsService {
             alt: string | null;
             sortOrder: number;
         }[];
-        host: {
-            id: string;
-            name: string;
-            avatarUrl: string | null;
-            isVerified: boolean;
-        };
     } & {
         id: string;
         createdAt: Date;
@@ -152,6 +175,13 @@ export declare class ListingsService {
         location: string;
         description: string;
         category: ListingCategory;
+        basePriceMinor: number;
+        cleaningFeeMinor: number;
+        serviceFeeMinor: number;
+        taxMinor: number;
+        extraGuestFeeMinor: number;
+        depositMinor: number;
+        currency: string;
         priceUnit: import("../../generated/prisma/enums.js").PriceUnit;
         datesLabel: string;
         tags: string[];
@@ -163,6 +193,12 @@ export declare class ListingsService {
         omit: import("../../generated/prisma/internal/prismaNamespace.js").GlobalOmitConfig | undefined;
     }>;
     update(userId: string, id: string, dto: UpdateListingDto): Promise<{
+        host: {
+            id: string;
+            name: string;
+            avatarUrl: string | null;
+            isVerified: boolean;
+        };
         images: {
             id: string;
             listingId: string;
@@ -170,12 +206,6 @@ export declare class ListingsService {
             alt: string | null;
             sortOrder: number;
         }[];
-        host: {
-            id: string;
-            name: string;
-            avatarUrl: string | null;
-            isVerified: boolean;
-        };
     } & {
         id: string;
         createdAt: Date;
@@ -190,6 +220,13 @@ export declare class ListingsService {
         location: string;
         description: string;
         category: ListingCategory;
+        basePriceMinor: number;
+        cleaningFeeMinor: number;
+        serviceFeeMinor: number;
+        taxMinor: number;
+        extraGuestFeeMinor: number;
+        depositMinor: number;
+        currency: string;
         priceUnit: import("../../generated/prisma/enums.js").PriceUnit;
         datesLabel: string;
         tags: string[];
@@ -212,6 +249,13 @@ export declare class ListingsService {
         location: string;
         description: string;
         category: ListingCategory;
+        basePriceMinor: number;
+        cleaningFeeMinor: number;
+        serviceFeeMinor: number;
+        taxMinor: number;
+        extraGuestFeeMinor: number;
+        depositMinor: number;
+        currency: string;
         priceUnit: import("../../generated/prisma/enums.js").PriceUnit;
         datesLabel: string;
         tags: string[];
@@ -234,6 +278,13 @@ export declare class ListingsService {
         location: string;
         description: string;
         category: ListingCategory;
+        basePriceMinor: number;
+        cleaningFeeMinor: number;
+        serviceFeeMinor: number;
+        taxMinor: number;
+        extraGuestFeeMinor: number;
+        depositMinor: number;
+        currency: string;
         priceUnit: import("../../generated/prisma/enums.js").PriceUnit;
         datesLabel: string;
         tags: string[];
@@ -256,6 +307,13 @@ export declare class ListingsService {
         location: string;
         description: string;
         category: ListingCategory;
+        basePriceMinor: number;
+        cleaningFeeMinor: number;
+        serviceFeeMinor: number;
+        taxMinor: number;
+        extraGuestFeeMinor: number;
+        depositMinor: number;
+        currency: string;
         priceUnit: import("../../generated/prisma/enums.js").PriceUnit;
         datesLabel: string;
         tags: string[];

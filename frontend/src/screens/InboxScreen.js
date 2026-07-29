@@ -88,6 +88,8 @@ export default function InboxScreen({ navigation }) {
                 navigation.navigate('Chat', {
                   id: item.id,
                   title: item.guide,
+                  peerId: item.peerId,
+                  muted: item.muted,
                 })
               }
             >

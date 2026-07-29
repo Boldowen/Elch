@@ -8,7 +8,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { BadRequestException, ConflictException, Injectable, NotFoundException, } from '@nestjs/common';
-import { GuideStatus, PricingType, Role } from '../../generated/prisma/client.js';
+import { GuideStatus, GuideVerificationDecision, NotificationType, PricingType, Role, VerificationCheckStatus, } from '../../generated/prisma/client.js';
 import { PrismaService } from '../../prisma/prisma.service.js';
 import { GuideReviewDecision, } from './dto/review-guide-application.dto.js';
 const publicGuideInclude = {
@@ -163,11 +163,23 @@ let GuidesService = class GuidesService {
                         isVerified: true,
                     },
                 },
+                verificationReviews: {
+                    take: 5,
+                    orderBy: { reviewedAt: 'desc' },
+                    include: { reviewer: { select: { id: true, name: true } } },
+                },
             },
             orderBy: { createdAt: 'asc' },
         });
     }
-    async reviewApplication(id, dto) {
+    applicationReviews(id) {
+        return this.prisma.guideVerificationReview.findMany({
+            where: { guideProfileId: id },
+            include: { reviewer: { select: { id: true, name: true, email: true } } },
+            orderBy: { reviewedAt: 'desc' },
+        });
+    }
+    async reviewApplication(reviewerId, id, dto) {
         const application = await this.prisma.guideProfile.findUnique({
             where: { id },
             include: { user: { select: { roles: true } } },
@@ -179,18 +191,59 @@ let GuidesService = class GuidesService {
             throw new ConflictException('This application has already been reviewed');
         }
         const approved = dto.decision === GuideReviewDecision.APPROVE;
-        const assessmentScore = approved ? (dto.assessmentScore ?? 0) : 0;
+        const decisionReason = dto.decisionReason?.trim() || null;
+        if (!approved && !decisionReason) {
+            throw new BadRequestException('A rejection reason is required');
+        }
+        if (approved && (dto.documentStatus !== VerificationCheckStatus.VERIFIED ||
+            dto.referenceStatus !== VerificationCheckStatus.VERIFIED)) {
+            throw new BadRequestException('Document and reference checks must be verified before approval');
+        }
+        const assessmentScore = Object.values(dto.assessmentBreakdown).reduce((total, score) => total + score, 0);
         const rankPoints = 100 + application.experienceYears * 10 + assessmentScore;
         return this.prisma.$transaction(async (transaction) => {
-            const profile = await transaction.guideProfile.update({
-                where: { id },
+            const changed = await transaction.guideProfile.updateMany({
+                where: { id, status: GuideStatus.PENDING },
                 data: {
                     status: approved ? GuideStatus.APPROVED : GuideStatus.REJECTED,
                     verified: approved,
                     assessmentScore,
                     rankPoints,
                 },
-                include: publicGuideInclude,
+            });
+            if (changed.count !== 1)
+                throw new ConflictException('This application has already been reviewed');
+            await transaction.guideVerificationReview.create({
+                data: {
+                    guideProfileId: id,
+                    reviewerId,
+                    decision: approved ? GuideVerificationDecision.APPROVED : GuideVerificationDecision.REJECTED,
+                    decisionReason,
+                    internalNote: dto.internalNote?.trim() || null,
+                    assessmentScore,
+                    assessmentBreakdown: {
+                        localKnowledge: dto.assessmentBreakdown.localKnowledge,
+                        communication: dto.assessmentBreakdown.communication,
+                        safety: dto.assessmentBreakdown.safety,
+                        professionalism: dto.assessmentBreakdown.professionalism,
+                    },
+                    documentStatus: dto.documentStatus,
+                    referenceStatus: dto.referenceStatus,
+                    applicationSnapshot: {
+                        country: application.country,
+                        city: application.city,
+                        bio: application.bio,
+                        experienceYears: application.experienceYears,
+                        languages: application.languages,
+                        expertise: application.expertise,
+                        availability: application.availability,
+                        pricingType: application.pricingType,
+                        price: application.price?.toString() ?? null,
+                        referenceContact: application.referenceContact,
+                        codeOfConductAccepted: application.codeOfConductAccepted,
+                        submittedAt: application.updatedAt.toISOString(),
+                    },
+                },
             });
             if (approved) {
                 await transaction.user.update({
@@ -203,7 +256,16 @@ let GuidesService = class GuidesService {
                     },
                 });
             }
-            return profile;
+            await transaction.notification.create({
+                data: {
+                    userId: application.userId,
+                    type: approved ? NotificationType.GUIDE_APPLICATION_APPROVED : NotificationType.GUIDE_APPLICATION_REJECTED,
+                    title: approved ? 'Guide application approved' : 'Guide application rejected',
+                    body: approved ? 'Your guide workspace is now available.' : `Your guide application was not approved: ${decisionReason}`,
+                    data: { guideProfileId: id },
+                },
+            });
+            return transaction.guideProfile.findUnique({ where: { id }, include: publicGuideInclude });
         });
     }
 };

@@ -40,8 +40,11 @@ let GuidesController = class GuidesController {
     applications() {
         return this.guides.listApplications();
     }
-    review(id, dto) {
-        return this.guides.reviewApplication(id, dto);
+    review(user, id, dto) {
+        return this.guides.reviewApplication(user.sub, id, dto);
+    }
+    applicationReviews(id) {
+        return this.guides.applicationReviews(id);
     }
     apply(user, dto) {
         return this.guides.apply(user.sub, dto);
@@ -93,12 +96,22 @@ __decorate([
     ApiBearerAuth(),
     Roles(Role.ADMIN),
     Patch('applications/:id/review'),
-    __param(0, Param('id')),
-    __param(1, Body()),
+    __param(0, CurrentUser()),
+    __param(1, Param('id')),
+    __param(2, Body()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, ReviewGuideApplicationDto]),
+    __metadata("design:paramtypes", [Object, String, ReviewGuideApplicationDto]),
     __metadata("design:returntype", void 0)
 ], GuidesController.prototype, "review", null);
+__decorate([
+    ApiBearerAuth(),
+    Roles(Role.ADMIN),
+    Get('applications/:id/reviews'),
+    __param(0, Param('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], GuidesController.prototype, "applicationReviews", null);
 __decorate([
     ApiBearerAuth(),
     Post('apply'),

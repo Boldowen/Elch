@@ -112,6 +112,11 @@ export default function AuthScreen({ navigation, route }) {
           />
 
           <View style={styles.links}>
+            {!isRegister ? (
+              <Pressable onPress={() => navigation.navigate('ForgotPassword')}>
+                <Text style={styles.link}>Forgot password?</Text>
+              </Pressable>
+            ) : null}
             <Pressable
               onPress={() => setMode(isRegister ? 'login' : 'register')}
             >

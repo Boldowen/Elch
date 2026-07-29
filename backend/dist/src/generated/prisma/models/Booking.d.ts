@@ -12,16 +12,32 @@ export type AggregateBooking = {
 export type BookingAvgAggregateOutputType = {
     guests: number | null;
     amount: runtime.Decimal | null;
+    amountMinor: number | null;
+    baseAmountMinor: number | null;
+    cleaningFeeMinor: number | null;
+    serviceFeeMinor: number | null;
+    taxMinor: number | null;
+    extraGuestFeeMinor: number | null;
+    depositMinor: number | null;
     lateCancellationPercent: number | null;
     noShowPercent: number | null;
     cancellationFee: runtime.Decimal | null;
+    cancellationFeeMinor: number | null;
 };
 export type BookingSumAggregateOutputType = {
     guests: number | null;
     amount: runtime.Decimal | null;
+    amountMinor: number | null;
+    baseAmountMinor: number | null;
+    cleaningFeeMinor: number | null;
+    serviceFeeMinor: number | null;
+    taxMinor: number | null;
+    extraGuestFeeMinor: number | null;
+    depositMinor: number | null;
     lateCancellationPercent: number | null;
     noShowPercent: number | null;
     cancellationFee: runtime.Decimal | null;
+    cancellationFeeMinor: number | null;
 };
 export type BookingMinAggregateOutputType = {
     id: string | null;
@@ -32,6 +48,13 @@ export type BookingMinAggregateOutputType = {
     endsAt: Date | null;
     guests: number | null;
     amount: runtime.Decimal | null;
+    amountMinor: number | null;
+    baseAmountMinor: number | null;
+    cleaningFeeMinor: number | null;
+    serviceFeeMinor: number | null;
+    taxMinor: number | null;
+    extraGuestFeeMinor: number | null;
+    depositMinor: number | null;
     currency: string | null;
     status: $Enums.BookingStatus | null;
     note: string | null;
@@ -41,6 +64,7 @@ export type BookingMinAggregateOutputType = {
     lateCancellationPercent: number | null;
     noShowPercent: number | null;
     cancellationFee: runtime.Decimal | null;
+    cancellationFeeMinor: number | null;
     createdAt: Date | null;
     updatedAt: Date | null;
     cancelledAt: Date | null;
@@ -55,6 +79,13 @@ export type BookingMaxAggregateOutputType = {
     endsAt: Date | null;
     guests: number | null;
     amount: runtime.Decimal | null;
+    amountMinor: number | null;
+    baseAmountMinor: number | null;
+    cleaningFeeMinor: number | null;
+    serviceFeeMinor: number | null;
+    taxMinor: number | null;
+    extraGuestFeeMinor: number | null;
+    depositMinor: number | null;
     currency: string | null;
     status: $Enums.BookingStatus | null;
     note: string | null;
@@ -64,6 +95,7 @@ export type BookingMaxAggregateOutputType = {
     lateCancellationPercent: number | null;
     noShowPercent: number | null;
     cancellationFee: runtime.Decimal | null;
+    cancellationFeeMinor: number | null;
     createdAt: Date | null;
     updatedAt: Date | null;
     cancelledAt: Date | null;
@@ -78,6 +110,13 @@ export type BookingCountAggregateOutputType = {
     endsAt: number;
     guests: number;
     amount: number;
+    amountMinor: number;
+    baseAmountMinor: number;
+    cleaningFeeMinor: number;
+    serviceFeeMinor: number;
+    taxMinor: number;
+    extraGuestFeeMinor: number;
+    depositMinor: number;
     currency: number;
     status: number;
     note: number;
@@ -87,6 +126,7 @@ export type BookingCountAggregateOutputType = {
     lateCancellationPercent: number;
     noShowPercent: number;
     cancellationFee: number;
+    cancellationFeeMinor: number;
     createdAt: number;
     updatedAt: number;
     cancelledAt: number;
@@ -96,16 +136,32 @@ export type BookingCountAggregateOutputType = {
 export type BookingAvgAggregateInputType = {
     guests?: true;
     amount?: true;
+    amountMinor?: true;
+    baseAmountMinor?: true;
+    cleaningFeeMinor?: true;
+    serviceFeeMinor?: true;
+    taxMinor?: true;
+    extraGuestFeeMinor?: true;
+    depositMinor?: true;
     lateCancellationPercent?: true;
     noShowPercent?: true;
     cancellationFee?: true;
+    cancellationFeeMinor?: true;
 };
 export type BookingSumAggregateInputType = {
     guests?: true;
     amount?: true;
+    amountMinor?: true;
+    baseAmountMinor?: true;
+    cleaningFeeMinor?: true;
+    serviceFeeMinor?: true;
+    taxMinor?: true;
+    extraGuestFeeMinor?: true;
+    depositMinor?: true;
     lateCancellationPercent?: true;
     noShowPercent?: true;
     cancellationFee?: true;
+    cancellationFeeMinor?: true;
 };
 export type BookingMinAggregateInputType = {
     id?: true;
@@ -116,6 +172,13 @@ export type BookingMinAggregateInputType = {
     endsAt?: true;
     guests?: true;
     amount?: true;
+    amountMinor?: true;
+    baseAmountMinor?: true;
+    cleaningFeeMinor?: true;
+    serviceFeeMinor?: true;
+    taxMinor?: true;
+    extraGuestFeeMinor?: true;
+    depositMinor?: true;
     currency?: true;
     status?: true;
     note?: true;
@@ -125,6 +188,7 @@ export type BookingMinAggregateInputType = {
     lateCancellationPercent?: true;
     noShowPercent?: true;
     cancellationFee?: true;
+    cancellationFeeMinor?: true;
     createdAt?: true;
     updatedAt?: true;
     cancelledAt?: true;
@@ -139,6 +203,13 @@ export type BookingMaxAggregateInputType = {
     endsAt?: true;
     guests?: true;
     amount?: true;
+    amountMinor?: true;
+    baseAmountMinor?: true;
+    cleaningFeeMinor?: true;
+    serviceFeeMinor?: true;
+    taxMinor?: true;
+    extraGuestFeeMinor?: true;
+    depositMinor?: true;
     currency?: true;
     status?: true;
     note?: true;
@@ -148,6 +219,7 @@ export type BookingMaxAggregateInputType = {
     lateCancellationPercent?: true;
     noShowPercent?: true;
     cancellationFee?: true;
+    cancellationFeeMinor?: true;
     createdAt?: true;
     updatedAt?: true;
     cancelledAt?: true;
@@ -162,6 +234,13 @@ export type BookingCountAggregateInputType = {
     endsAt?: true;
     guests?: true;
     amount?: true;
+    amountMinor?: true;
+    baseAmountMinor?: true;
+    cleaningFeeMinor?: true;
+    serviceFeeMinor?: true;
+    taxMinor?: true;
+    extraGuestFeeMinor?: true;
+    depositMinor?: true;
     currency?: true;
     status?: true;
     note?: true;
@@ -171,6 +250,7 @@ export type BookingCountAggregateInputType = {
     lateCancellationPercent?: true;
     noShowPercent?: true;
     cancellationFee?: true;
+    cancellationFeeMinor?: true;
     createdAt?: true;
     updatedAt?: true;
     cancelledAt?: true;
@@ -214,6 +294,13 @@ export type BookingGroupByOutputType = {
     endsAt: Date;
     guests: number;
     amount: runtime.Decimal;
+    amountMinor: number;
+    baseAmountMinor: number;
+    cleaningFeeMinor: number;
+    serviceFeeMinor: number;
+    taxMinor: number;
+    extraGuestFeeMinor: number;
+    depositMinor: number;
     currency: string;
     status: $Enums.BookingStatus;
     note: string | null;
@@ -223,6 +310,7 @@ export type BookingGroupByOutputType = {
     lateCancellationPercent: number;
     noShowPercent: number;
     cancellationFee: runtime.Decimal;
+    cancellationFeeMinor: number;
     createdAt: Date;
     updatedAt: Date;
     cancelledAt: Date | null;
@@ -248,6 +336,13 @@ export type BookingWhereInput = {
     endsAt?: Prisma.DateTimeFilter<"Booking"> | Date | string;
     guests?: Prisma.IntFilter<"Booking"> | number;
     amount?: Prisma.DecimalFilter<"Booking"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor?: Prisma.IntFilter<"Booking"> | number;
+    baseAmountMinor?: Prisma.IntFilter<"Booking"> | number;
+    cleaningFeeMinor?: Prisma.IntFilter<"Booking"> | number;
+    serviceFeeMinor?: Prisma.IntFilter<"Booking"> | number;
+    taxMinor?: Prisma.IntFilter<"Booking"> | number;
+    extraGuestFeeMinor?: Prisma.IntFilter<"Booking"> | number;
+    depositMinor?: Prisma.IntFilter<"Booking"> | number;
     currency?: Prisma.StringFilter<"Booking"> | string;
     status?: Prisma.EnumBookingStatusFilter<"Booking"> | $Enums.BookingStatus;
     note?: Prisma.StringNullableFilter<"Booking"> | string | null;
@@ -257,6 +352,7 @@ export type BookingWhereInput = {
     lateCancellationPercent?: Prisma.IntFilter<"Booking"> | number;
     noShowPercent?: Prisma.IntFilter<"Booking"> | number;
     cancellationFee?: Prisma.DecimalFilter<"Booking"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: Prisma.IntFilter<"Booking"> | number;
     createdAt?: Prisma.DateTimeFilter<"Booking"> | Date | string;
     updatedAt?: Prisma.DateTimeFilter<"Booking"> | Date | string;
     cancelledAt?: Prisma.DateTimeNullableFilter<"Booking"> | Date | string | null;
@@ -266,6 +362,8 @@ export type BookingWhereInput = {
     listing?: Prisma.XOR<Prisma.ListingNullableScalarRelationFilter, Prisma.ListingWhereInput> | null;
     conversation?: Prisma.XOR<Prisma.ConversationNullableScalarRelationFilter, Prisma.ConversationWhereInput> | null;
     events?: Prisma.BookingEventListRelationFilter;
+    review?: Prisma.XOR<Prisma.ReviewNullableScalarRelationFilter, Prisma.ReviewWhereInput> | null;
+    payment?: Prisma.XOR<Prisma.PilotPaymentNullableScalarRelationFilter, Prisma.PilotPaymentWhereInput> | null;
 };
 export type BookingOrderByWithRelationInput = {
     id?: Prisma.SortOrder;
@@ -276,6 +374,13 @@ export type BookingOrderByWithRelationInput = {
     endsAt?: Prisma.SortOrder;
     guests?: Prisma.SortOrder;
     amount?: Prisma.SortOrder;
+    amountMinor?: Prisma.SortOrder;
+    baseAmountMinor?: Prisma.SortOrder;
+    cleaningFeeMinor?: Prisma.SortOrder;
+    serviceFeeMinor?: Prisma.SortOrder;
+    taxMinor?: Prisma.SortOrder;
+    extraGuestFeeMinor?: Prisma.SortOrder;
+    depositMinor?: Prisma.SortOrder;
     currency?: Prisma.SortOrder;
     status?: Prisma.SortOrder;
     note?: Prisma.SortOrderInput | Prisma.SortOrder;
@@ -285,6 +390,7 @@ export type BookingOrderByWithRelationInput = {
     lateCancellationPercent?: Prisma.SortOrder;
     noShowPercent?: Prisma.SortOrder;
     cancellationFee?: Prisma.SortOrder;
+    cancellationFeeMinor?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
     updatedAt?: Prisma.SortOrder;
     cancelledAt?: Prisma.SortOrderInput | Prisma.SortOrder;
@@ -294,6 +400,8 @@ export type BookingOrderByWithRelationInput = {
     listing?: Prisma.ListingOrderByWithRelationInput;
     conversation?: Prisma.ConversationOrderByWithRelationInput;
     events?: Prisma.BookingEventOrderByRelationAggregateInput;
+    review?: Prisma.ReviewOrderByWithRelationInput;
+    payment?: Prisma.PilotPaymentOrderByWithRelationInput;
 };
 export type BookingWhereUniqueInput = Prisma.AtLeast<{
     id?: string;
@@ -307,6 +415,13 @@ export type BookingWhereUniqueInput = Prisma.AtLeast<{
     endsAt?: Prisma.DateTimeFilter<"Booking"> | Date | string;
     guests?: Prisma.IntFilter<"Booking"> | number;
     amount?: Prisma.DecimalFilter<"Booking"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor?: Prisma.IntFilter<"Booking"> | number;
+    baseAmountMinor?: Prisma.IntFilter<"Booking"> | number;
+    cleaningFeeMinor?: Prisma.IntFilter<"Booking"> | number;
+    serviceFeeMinor?: Prisma.IntFilter<"Booking"> | number;
+    taxMinor?: Prisma.IntFilter<"Booking"> | number;
+    extraGuestFeeMinor?: Prisma.IntFilter<"Booking"> | number;
+    depositMinor?: Prisma.IntFilter<"Booking"> | number;
     currency?: Prisma.StringFilter<"Booking"> | string;
     status?: Prisma.EnumBookingStatusFilter<"Booking"> | $Enums.BookingStatus;
     note?: Prisma.StringNullableFilter<"Booking"> | string | null;
@@ -316,6 +431,7 @@ export type BookingWhereUniqueInput = Prisma.AtLeast<{
     lateCancellationPercent?: Prisma.IntFilter<"Booking"> | number;
     noShowPercent?: Prisma.IntFilter<"Booking"> | number;
     cancellationFee?: Prisma.DecimalFilter<"Booking"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: Prisma.IntFilter<"Booking"> | number;
     createdAt?: Prisma.DateTimeFilter<"Booking"> | Date | string;
     updatedAt?: Prisma.DateTimeFilter<"Booking"> | Date | string;
     cancelledAt?: Prisma.DateTimeNullableFilter<"Booking"> | Date | string | null;
@@ -325,6 +441,8 @@ export type BookingWhereUniqueInput = Prisma.AtLeast<{
     listing?: Prisma.XOR<Prisma.ListingNullableScalarRelationFilter, Prisma.ListingWhereInput> | null;
     conversation?: Prisma.XOR<Prisma.ConversationNullableScalarRelationFilter, Prisma.ConversationWhereInput> | null;
     events?: Prisma.BookingEventListRelationFilter;
+    review?: Prisma.XOR<Prisma.ReviewNullableScalarRelationFilter, Prisma.ReviewWhereInput> | null;
+    payment?: Prisma.XOR<Prisma.PilotPaymentNullableScalarRelationFilter, Prisma.PilotPaymentWhereInput> | null;
 }, "id">;
 export type BookingOrderByWithAggregationInput = {
     id?: Prisma.SortOrder;
@@ -335,6 +453,13 @@ export type BookingOrderByWithAggregationInput = {
     endsAt?: Prisma.SortOrder;
     guests?: Prisma.SortOrder;
     amount?: Prisma.SortOrder;
+    amountMinor?: Prisma.SortOrder;
+    baseAmountMinor?: Prisma.SortOrder;
+    cleaningFeeMinor?: Prisma.SortOrder;
+    serviceFeeMinor?: Prisma.SortOrder;
+    taxMinor?: Prisma.SortOrder;
+    extraGuestFeeMinor?: Prisma.SortOrder;
+    depositMinor?: Prisma.SortOrder;
     currency?: Prisma.SortOrder;
     status?: Prisma.SortOrder;
     note?: Prisma.SortOrderInput | Prisma.SortOrder;
@@ -344,6 +469,7 @@ export type BookingOrderByWithAggregationInput = {
     lateCancellationPercent?: Prisma.SortOrder;
     noShowPercent?: Prisma.SortOrder;
     cancellationFee?: Prisma.SortOrder;
+    cancellationFeeMinor?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
     updatedAt?: Prisma.SortOrder;
     cancelledAt?: Prisma.SortOrderInput | Prisma.SortOrder;
@@ -366,6 +492,13 @@ export type BookingScalarWhereWithAggregatesInput = {
     endsAt?: Prisma.DateTimeWithAggregatesFilter<"Booking"> | Date | string;
     guests?: Prisma.IntWithAggregatesFilter<"Booking"> | number;
     amount?: Prisma.DecimalWithAggregatesFilter<"Booking"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor?: Prisma.IntWithAggregatesFilter<"Booking"> | number;
+    baseAmountMinor?: Prisma.IntWithAggregatesFilter<"Booking"> | number;
+    cleaningFeeMinor?: Prisma.IntWithAggregatesFilter<"Booking"> | number;
+    serviceFeeMinor?: Prisma.IntWithAggregatesFilter<"Booking"> | number;
+    taxMinor?: Prisma.IntWithAggregatesFilter<"Booking"> | number;
+    extraGuestFeeMinor?: Prisma.IntWithAggregatesFilter<"Booking"> | number;
+    depositMinor?: Prisma.IntWithAggregatesFilter<"Booking"> | number;
     currency?: Prisma.StringWithAggregatesFilter<"Booking"> | string;
     status?: Prisma.EnumBookingStatusWithAggregatesFilter<"Booking"> | $Enums.BookingStatus;
     note?: Prisma.StringNullableWithAggregatesFilter<"Booking"> | string | null;
@@ -375,6 +508,7 @@ export type BookingScalarWhereWithAggregatesInput = {
     lateCancellationPercent?: Prisma.IntWithAggregatesFilter<"Booking"> | number;
     noShowPercent?: Prisma.IntWithAggregatesFilter<"Booking"> | number;
     cancellationFee?: Prisma.DecimalWithAggregatesFilter<"Booking"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: Prisma.IntWithAggregatesFilter<"Booking"> | number;
     createdAt?: Prisma.DateTimeWithAggregatesFilter<"Booking"> | Date | string;
     updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Booking"> | Date | string;
     cancelledAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Booking"> | Date | string | null;
@@ -386,6 +520,13 @@ export type BookingCreateInput = {
     endsAt: Date | string;
     guests?: number;
     amount: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor: number;
+    baseAmountMinor: number;
+    cleaningFeeMinor?: number;
+    serviceFeeMinor?: number;
+    taxMinor?: number;
+    extraGuestFeeMinor?: number;
+    depositMinor?: number;
     currency?: string;
     status?: $Enums.BookingStatus;
     note?: string | null;
@@ -395,6 +536,7 @@ export type BookingCreateInput = {
     lateCancellationPercent?: number;
     noShowPercent?: number;
     cancellationFee?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: number;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     cancelledAt?: Date | string | null;
@@ -404,6 +546,8 @@ export type BookingCreateInput = {
     listing?: Prisma.ListingCreateNestedOneWithoutBookingsInput;
     conversation?: Prisma.ConversationCreateNestedOneWithoutBookingInput;
     events?: Prisma.BookingEventCreateNestedManyWithoutBookingInput;
+    review?: Prisma.ReviewCreateNestedOneWithoutBookingInput;
+    payment?: Prisma.PilotPaymentCreateNestedOneWithoutBookingInput;
 };
 export type BookingUncheckedCreateInput = {
     id?: string;
@@ -414,6 +558,13 @@ export type BookingUncheckedCreateInput = {
     endsAt: Date | string;
     guests?: number;
     amount: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor: number;
+    baseAmountMinor: number;
+    cleaningFeeMinor?: number;
+    serviceFeeMinor?: number;
+    taxMinor?: number;
+    extraGuestFeeMinor?: number;
+    depositMinor?: number;
     currency?: string;
     status?: $Enums.BookingStatus;
     note?: string | null;
@@ -423,12 +574,15 @@ export type BookingUncheckedCreateInput = {
     lateCancellationPercent?: number;
     noShowPercent?: number;
     cancellationFee?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: number;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     cancelledAt?: Date | string | null;
     deletedAt?: Date | string | null;
     conversation?: Prisma.ConversationUncheckedCreateNestedOneWithoutBookingInput;
     events?: Prisma.BookingEventUncheckedCreateNestedManyWithoutBookingInput;
+    review?: Prisma.ReviewUncheckedCreateNestedOneWithoutBookingInput;
+    payment?: Prisma.PilotPaymentUncheckedCreateNestedOneWithoutBookingInput;
 };
 export type BookingUpdateInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -436,6 +590,13 @@ export type BookingUpdateInput = {
     endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     guests?: Prisma.IntFieldUpdateOperationsInput | number;
     amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    baseAmountMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    cleaningFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    serviceFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    taxMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    extraGuestFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    depositMinor?: Prisma.IntFieldUpdateOperationsInput | number;
     currency?: Prisma.StringFieldUpdateOperationsInput | string;
     status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus;
     note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -445,6 +606,7 @@ export type BookingUpdateInput = {
     lateCancellationPercent?: Prisma.IntFieldUpdateOperationsInput | number;
     noShowPercent?: Prisma.IntFieldUpdateOperationsInput | number;
     cancellationFee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
@@ -454,6 +616,8 @@ export type BookingUpdateInput = {
     listing?: Prisma.ListingUpdateOneWithoutBookingsNestedInput;
     conversation?: Prisma.ConversationUpdateOneWithoutBookingNestedInput;
     events?: Prisma.BookingEventUpdateManyWithoutBookingNestedInput;
+    review?: Prisma.ReviewUpdateOneWithoutBookingNestedInput;
+    payment?: Prisma.PilotPaymentUpdateOneWithoutBookingNestedInput;
 };
 export type BookingUncheckedUpdateInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -464,6 +628,13 @@ export type BookingUncheckedUpdateInput = {
     endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     guests?: Prisma.IntFieldUpdateOperationsInput | number;
     amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    baseAmountMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    cleaningFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    serviceFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    taxMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    extraGuestFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    depositMinor?: Prisma.IntFieldUpdateOperationsInput | number;
     currency?: Prisma.StringFieldUpdateOperationsInput | string;
     status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus;
     note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -473,12 +644,15 @@ export type BookingUncheckedUpdateInput = {
     lateCancellationPercent?: Prisma.IntFieldUpdateOperationsInput | number;
     noShowPercent?: Prisma.IntFieldUpdateOperationsInput | number;
     cancellationFee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     conversation?: Prisma.ConversationUncheckedUpdateOneWithoutBookingNestedInput;
     events?: Prisma.BookingEventUncheckedUpdateManyWithoutBookingNestedInput;
+    review?: Prisma.ReviewUncheckedUpdateOneWithoutBookingNestedInput;
+    payment?: Prisma.PilotPaymentUncheckedUpdateOneWithoutBookingNestedInput;
 };
 export type BookingCreateManyInput = {
     id?: string;
@@ -489,6 +663,13 @@ export type BookingCreateManyInput = {
     endsAt: Date | string;
     guests?: number;
     amount: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor: number;
+    baseAmountMinor: number;
+    cleaningFeeMinor?: number;
+    serviceFeeMinor?: number;
+    taxMinor?: number;
+    extraGuestFeeMinor?: number;
+    depositMinor?: number;
     currency?: string;
     status?: $Enums.BookingStatus;
     note?: string | null;
@@ -498,6 +679,7 @@ export type BookingCreateManyInput = {
     lateCancellationPercent?: number;
     noShowPercent?: number;
     cancellationFee?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: number;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     cancelledAt?: Date | string | null;
@@ -509,6 +691,13 @@ export type BookingUpdateManyMutationInput = {
     endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     guests?: Prisma.IntFieldUpdateOperationsInput | number;
     amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    baseAmountMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    cleaningFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    serviceFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    taxMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    extraGuestFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    depositMinor?: Prisma.IntFieldUpdateOperationsInput | number;
     currency?: Prisma.StringFieldUpdateOperationsInput | string;
     status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus;
     note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -518,6 +707,7 @@ export type BookingUpdateManyMutationInput = {
     lateCancellationPercent?: Prisma.IntFieldUpdateOperationsInput | number;
     noShowPercent?: Prisma.IntFieldUpdateOperationsInput | number;
     cancellationFee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
@@ -532,6 +722,13 @@ export type BookingUncheckedUpdateManyInput = {
     endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     guests?: Prisma.IntFieldUpdateOperationsInput | number;
     amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    baseAmountMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    cleaningFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    serviceFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    taxMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    extraGuestFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    depositMinor?: Prisma.IntFieldUpdateOperationsInput | number;
     currency?: Prisma.StringFieldUpdateOperationsInput | string;
     status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus;
     note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -541,6 +738,7 @@ export type BookingUncheckedUpdateManyInput = {
     lateCancellationPercent?: Prisma.IntFieldUpdateOperationsInput | number;
     noShowPercent?: Prisma.IntFieldUpdateOperationsInput | number;
     cancellationFee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
@@ -563,6 +761,13 @@ export type BookingCountOrderByAggregateInput = {
     endsAt?: Prisma.SortOrder;
     guests?: Prisma.SortOrder;
     amount?: Prisma.SortOrder;
+    amountMinor?: Prisma.SortOrder;
+    baseAmountMinor?: Prisma.SortOrder;
+    cleaningFeeMinor?: Prisma.SortOrder;
+    serviceFeeMinor?: Prisma.SortOrder;
+    taxMinor?: Prisma.SortOrder;
+    extraGuestFeeMinor?: Prisma.SortOrder;
+    depositMinor?: Prisma.SortOrder;
     currency?: Prisma.SortOrder;
     status?: Prisma.SortOrder;
     note?: Prisma.SortOrder;
@@ -572,6 +777,7 @@ export type BookingCountOrderByAggregateInput = {
     lateCancellationPercent?: Prisma.SortOrder;
     noShowPercent?: Prisma.SortOrder;
     cancellationFee?: Prisma.SortOrder;
+    cancellationFeeMinor?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
     updatedAt?: Prisma.SortOrder;
     cancelledAt?: Prisma.SortOrder;
@@ -580,9 +786,17 @@ export type BookingCountOrderByAggregateInput = {
 export type BookingAvgOrderByAggregateInput = {
     guests?: Prisma.SortOrder;
     amount?: Prisma.SortOrder;
+    amountMinor?: Prisma.SortOrder;
+    baseAmountMinor?: Prisma.SortOrder;
+    cleaningFeeMinor?: Prisma.SortOrder;
+    serviceFeeMinor?: Prisma.SortOrder;
+    taxMinor?: Prisma.SortOrder;
+    extraGuestFeeMinor?: Prisma.SortOrder;
+    depositMinor?: Prisma.SortOrder;
     lateCancellationPercent?: Prisma.SortOrder;
     noShowPercent?: Prisma.SortOrder;
     cancellationFee?: Prisma.SortOrder;
+    cancellationFeeMinor?: Prisma.SortOrder;
 };
 export type BookingMaxOrderByAggregateInput = {
     id?: Prisma.SortOrder;
@@ -593,6 +807,13 @@ export type BookingMaxOrderByAggregateInput = {
     endsAt?: Prisma.SortOrder;
     guests?: Prisma.SortOrder;
     amount?: Prisma.SortOrder;
+    amountMinor?: Prisma.SortOrder;
+    baseAmountMinor?: Prisma.SortOrder;
+    cleaningFeeMinor?: Prisma.SortOrder;
+    serviceFeeMinor?: Prisma.SortOrder;
+    taxMinor?: Prisma.SortOrder;
+    extraGuestFeeMinor?: Prisma.SortOrder;
+    depositMinor?: Prisma.SortOrder;
     currency?: Prisma.SortOrder;
     status?: Prisma.SortOrder;
     note?: Prisma.SortOrder;
@@ -602,6 +823,7 @@ export type BookingMaxOrderByAggregateInput = {
     lateCancellationPercent?: Prisma.SortOrder;
     noShowPercent?: Prisma.SortOrder;
     cancellationFee?: Prisma.SortOrder;
+    cancellationFeeMinor?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
     updatedAt?: Prisma.SortOrder;
     cancelledAt?: Prisma.SortOrder;
@@ -616,6 +838,13 @@ export type BookingMinOrderByAggregateInput = {
     endsAt?: Prisma.SortOrder;
     guests?: Prisma.SortOrder;
     amount?: Prisma.SortOrder;
+    amountMinor?: Prisma.SortOrder;
+    baseAmountMinor?: Prisma.SortOrder;
+    cleaningFeeMinor?: Prisma.SortOrder;
+    serviceFeeMinor?: Prisma.SortOrder;
+    taxMinor?: Prisma.SortOrder;
+    extraGuestFeeMinor?: Prisma.SortOrder;
+    depositMinor?: Prisma.SortOrder;
     currency?: Prisma.SortOrder;
     status?: Prisma.SortOrder;
     note?: Prisma.SortOrder;
@@ -625,6 +854,7 @@ export type BookingMinOrderByAggregateInput = {
     lateCancellationPercent?: Prisma.SortOrder;
     noShowPercent?: Prisma.SortOrder;
     cancellationFee?: Prisma.SortOrder;
+    cancellationFeeMinor?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
     updatedAt?: Prisma.SortOrder;
     cancelledAt?: Prisma.SortOrder;
@@ -633,9 +863,17 @@ export type BookingMinOrderByAggregateInput = {
 export type BookingSumOrderByAggregateInput = {
     guests?: Prisma.SortOrder;
     amount?: Prisma.SortOrder;
+    amountMinor?: Prisma.SortOrder;
+    baseAmountMinor?: Prisma.SortOrder;
+    cleaningFeeMinor?: Prisma.SortOrder;
+    serviceFeeMinor?: Prisma.SortOrder;
+    taxMinor?: Prisma.SortOrder;
+    extraGuestFeeMinor?: Prisma.SortOrder;
+    depositMinor?: Prisma.SortOrder;
     lateCancellationPercent?: Prisma.SortOrder;
     noShowPercent?: Prisma.SortOrder;
     cancellationFee?: Prisma.SortOrder;
+    cancellationFeeMinor?: Prisma.SortOrder;
 };
 export type BookingScalarRelationFilter = {
     is?: Prisma.BookingWhereInput;
@@ -765,6 +1003,18 @@ export type EnumBookingStatusFieldUpdateOperationsInput = {
 export type EnumCancellationPolicyTypeFieldUpdateOperationsInput = {
     set?: $Enums.CancellationPolicyType;
 };
+export type BookingCreateNestedOneWithoutPaymentInput = {
+    create?: Prisma.XOR<Prisma.BookingCreateWithoutPaymentInput, Prisma.BookingUncheckedCreateWithoutPaymentInput>;
+    connectOrCreate?: Prisma.BookingCreateOrConnectWithoutPaymentInput;
+    connect?: Prisma.BookingWhereUniqueInput;
+};
+export type BookingUpdateOneRequiredWithoutPaymentNestedInput = {
+    create?: Prisma.XOR<Prisma.BookingCreateWithoutPaymentInput, Prisma.BookingUncheckedCreateWithoutPaymentInput>;
+    connectOrCreate?: Prisma.BookingCreateOrConnectWithoutPaymentInput;
+    upsert?: Prisma.BookingUpsertWithoutPaymentInput;
+    connect?: Prisma.BookingWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.BookingUpdateToOneWithWhereWithoutPaymentInput, Prisma.BookingUpdateWithoutPaymentInput>, Prisma.BookingUncheckedUpdateWithoutPaymentInput>;
+};
 export type BookingCreateNestedOneWithoutEventsInput = {
     create?: Prisma.XOR<Prisma.BookingCreateWithoutEventsInput, Prisma.BookingUncheckedCreateWithoutEventsInput>;
     connectOrCreate?: Prisma.BookingCreateOrConnectWithoutEventsInput;
@@ -791,12 +1041,33 @@ export type BookingUpdateOneWithoutConversationNestedInput = {
     connect?: Prisma.BookingWhereUniqueInput;
     update?: Prisma.XOR<Prisma.XOR<Prisma.BookingUpdateToOneWithWhereWithoutConversationInput, Prisma.BookingUpdateWithoutConversationInput>, Prisma.BookingUncheckedUpdateWithoutConversationInput>;
 };
+export type BookingCreateNestedOneWithoutReviewInput = {
+    create?: Prisma.XOR<Prisma.BookingCreateWithoutReviewInput, Prisma.BookingUncheckedCreateWithoutReviewInput>;
+    connectOrCreate?: Prisma.BookingCreateOrConnectWithoutReviewInput;
+    connect?: Prisma.BookingWhereUniqueInput;
+};
+export type BookingUpdateOneWithoutReviewNestedInput = {
+    create?: Prisma.XOR<Prisma.BookingCreateWithoutReviewInput, Prisma.BookingUncheckedCreateWithoutReviewInput>;
+    connectOrCreate?: Prisma.BookingCreateOrConnectWithoutReviewInput;
+    upsert?: Prisma.BookingUpsertWithoutReviewInput;
+    disconnect?: Prisma.BookingWhereInput | boolean;
+    delete?: Prisma.BookingWhereInput | boolean;
+    connect?: Prisma.BookingWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.BookingUpdateToOneWithWhereWithoutReviewInput, Prisma.BookingUpdateWithoutReviewInput>, Prisma.BookingUncheckedUpdateWithoutReviewInput>;
+};
 export type BookingCreateWithoutTravelerInput = {
     id?: string;
     startsAt: Date | string;
     endsAt: Date | string;
     guests?: number;
     amount: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor: number;
+    baseAmountMinor: number;
+    cleaningFeeMinor?: number;
+    serviceFeeMinor?: number;
+    taxMinor?: number;
+    extraGuestFeeMinor?: number;
+    depositMinor?: number;
     currency?: string;
     status?: $Enums.BookingStatus;
     note?: string | null;
@@ -806,6 +1077,7 @@ export type BookingCreateWithoutTravelerInput = {
     lateCancellationPercent?: number;
     noShowPercent?: number;
     cancellationFee?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: number;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     cancelledAt?: Date | string | null;
@@ -814,6 +1086,8 @@ export type BookingCreateWithoutTravelerInput = {
     listing?: Prisma.ListingCreateNestedOneWithoutBookingsInput;
     conversation?: Prisma.ConversationCreateNestedOneWithoutBookingInput;
     events?: Prisma.BookingEventCreateNestedManyWithoutBookingInput;
+    review?: Prisma.ReviewCreateNestedOneWithoutBookingInput;
+    payment?: Prisma.PilotPaymentCreateNestedOneWithoutBookingInput;
 };
 export type BookingUncheckedCreateWithoutTravelerInput = {
     id?: string;
@@ -823,6 +1097,13 @@ export type BookingUncheckedCreateWithoutTravelerInput = {
     endsAt: Date | string;
     guests?: number;
     amount: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor: number;
+    baseAmountMinor: number;
+    cleaningFeeMinor?: number;
+    serviceFeeMinor?: number;
+    taxMinor?: number;
+    extraGuestFeeMinor?: number;
+    depositMinor?: number;
     currency?: string;
     status?: $Enums.BookingStatus;
     note?: string | null;
@@ -832,12 +1113,15 @@ export type BookingUncheckedCreateWithoutTravelerInput = {
     lateCancellationPercent?: number;
     noShowPercent?: number;
     cancellationFee?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: number;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     cancelledAt?: Date | string | null;
     deletedAt?: Date | string | null;
     conversation?: Prisma.ConversationUncheckedCreateNestedOneWithoutBookingInput;
     events?: Prisma.BookingEventUncheckedCreateNestedManyWithoutBookingInput;
+    review?: Prisma.ReviewUncheckedCreateNestedOneWithoutBookingInput;
+    payment?: Prisma.PilotPaymentUncheckedCreateNestedOneWithoutBookingInput;
 };
 export type BookingCreateOrConnectWithoutTravelerInput = {
     where: Prisma.BookingWhereUniqueInput;
@@ -853,6 +1137,13 @@ export type BookingCreateWithoutGuideInput = {
     endsAt: Date | string;
     guests?: number;
     amount: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor: number;
+    baseAmountMinor: number;
+    cleaningFeeMinor?: number;
+    serviceFeeMinor?: number;
+    taxMinor?: number;
+    extraGuestFeeMinor?: number;
+    depositMinor?: number;
     currency?: string;
     status?: $Enums.BookingStatus;
     note?: string | null;
@@ -862,6 +1153,7 @@ export type BookingCreateWithoutGuideInput = {
     lateCancellationPercent?: number;
     noShowPercent?: number;
     cancellationFee?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: number;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     cancelledAt?: Date | string | null;
@@ -870,6 +1162,8 @@ export type BookingCreateWithoutGuideInput = {
     listing?: Prisma.ListingCreateNestedOneWithoutBookingsInput;
     conversation?: Prisma.ConversationCreateNestedOneWithoutBookingInput;
     events?: Prisma.BookingEventCreateNestedManyWithoutBookingInput;
+    review?: Prisma.ReviewCreateNestedOneWithoutBookingInput;
+    payment?: Prisma.PilotPaymentCreateNestedOneWithoutBookingInput;
 };
 export type BookingUncheckedCreateWithoutGuideInput = {
     id?: string;
@@ -879,6 +1173,13 @@ export type BookingUncheckedCreateWithoutGuideInput = {
     endsAt: Date | string;
     guests?: number;
     amount: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor: number;
+    baseAmountMinor: number;
+    cleaningFeeMinor?: number;
+    serviceFeeMinor?: number;
+    taxMinor?: number;
+    extraGuestFeeMinor?: number;
+    depositMinor?: number;
     currency?: string;
     status?: $Enums.BookingStatus;
     note?: string | null;
@@ -888,12 +1189,15 @@ export type BookingUncheckedCreateWithoutGuideInput = {
     lateCancellationPercent?: number;
     noShowPercent?: number;
     cancellationFee?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: number;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     cancelledAt?: Date | string | null;
     deletedAt?: Date | string | null;
     conversation?: Prisma.ConversationUncheckedCreateNestedOneWithoutBookingInput;
     events?: Prisma.BookingEventUncheckedCreateNestedManyWithoutBookingInput;
+    review?: Prisma.ReviewUncheckedCreateNestedOneWithoutBookingInput;
+    payment?: Prisma.PilotPaymentUncheckedCreateNestedOneWithoutBookingInput;
 };
 export type BookingCreateOrConnectWithoutGuideInput = {
     where: Prisma.BookingWhereUniqueInput;
@@ -928,6 +1232,13 @@ export type BookingScalarWhereInput = {
     endsAt?: Prisma.DateTimeFilter<"Booking"> | Date | string;
     guests?: Prisma.IntFilter<"Booking"> | number;
     amount?: Prisma.DecimalFilter<"Booking"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor?: Prisma.IntFilter<"Booking"> | number;
+    baseAmountMinor?: Prisma.IntFilter<"Booking"> | number;
+    cleaningFeeMinor?: Prisma.IntFilter<"Booking"> | number;
+    serviceFeeMinor?: Prisma.IntFilter<"Booking"> | number;
+    taxMinor?: Prisma.IntFilter<"Booking"> | number;
+    extraGuestFeeMinor?: Prisma.IntFilter<"Booking"> | number;
+    depositMinor?: Prisma.IntFilter<"Booking"> | number;
     currency?: Prisma.StringFilter<"Booking"> | string;
     status?: Prisma.EnumBookingStatusFilter<"Booking"> | $Enums.BookingStatus;
     note?: Prisma.StringNullableFilter<"Booking"> | string | null;
@@ -937,6 +1248,7 @@ export type BookingScalarWhereInput = {
     lateCancellationPercent?: Prisma.IntFilter<"Booking"> | number;
     noShowPercent?: Prisma.IntFilter<"Booking"> | number;
     cancellationFee?: Prisma.DecimalFilter<"Booking"> | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: Prisma.IntFilter<"Booking"> | number;
     createdAt?: Prisma.DateTimeFilter<"Booking"> | Date | string;
     updatedAt?: Prisma.DateTimeFilter<"Booking"> | Date | string;
     cancelledAt?: Prisma.DateTimeNullableFilter<"Booking"> | Date | string | null;
@@ -961,6 +1273,13 @@ export type BookingCreateWithoutListingInput = {
     endsAt: Date | string;
     guests?: number;
     amount: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor: number;
+    baseAmountMinor: number;
+    cleaningFeeMinor?: number;
+    serviceFeeMinor?: number;
+    taxMinor?: number;
+    extraGuestFeeMinor?: number;
+    depositMinor?: number;
     currency?: string;
     status?: $Enums.BookingStatus;
     note?: string | null;
@@ -970,6 +1289,7 @@ export type BookingCreateWithoutListingInput = {
     lateCancellationPercent?: number;
     noShowPercent?: number;
     cancellationFee?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: number;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     cancelledAt?: Date | string | null;
@@ -978,6 +1298,8 @@ export type BookingCreateWithoutListingInput = {
     guide?: Prisma.UserCreateNestedOneWithoutGuidedBookingsInput;
     conversation?: Prisma.ConversationCreateNestedOneWithoutBookingInput;
     events?: Prisma.BookingEventCreateNestedManyWithoutBookingInput;
+    review?: Prisma.ReviewCreateNestedOneWithoutBookingInput;
+    payment?: Prisma.PilotPaymentCreateNestedOneWithoutBookingInput;
 };
 export type BookingUncheckedCreateWithoutListingInput = {
     id?: string;
@@ -987,6 +1309,13 @@ export type BookingUncheckedCreateWithoutListingInput = {
     endsAt: Date | string;
     guests?: number;
     amount: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor: number;
+    baseAmountMinor: number;
+    cleaningFeeMinor?: number;
+    serviceFeeMinor?: number;
+    taxMinor?: number;
+    extraGuestFeeMinor?: number;
+    depositMinor?: number;
     currency?: string;
     status?: $Enums.BookingStatus;
     note?: string | null;
@@ -996,12 +1325,15 @@ export type BookingUncheckedCreateWithoutListingInput = {
     lateCancellationPercent?: number;
     noShowPercent?: number;
     cancellationFee?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: number;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     cancelledAt?: Date | string | null;
     deletedAt?: Date | string | null;
     conversation?: Prisma.ConversationUncheckedCreateNestedOneWithoutBookingInput;
     events?: Prisma.BookingEventUncheckedCreateNestedManyWithoutBookingInput;
+    review?: Prisma.ReviewUncheckedCreateNestedOneWithoutBookingInput;
+    payment?: Prisma.PilotPaymentUncheckedCreateNestedOneWithoutBookingInput;
 };
 export type BookingCreateOrConnectWithoutListingInput = {
     where: Prisma.BookingWhereUniqueInput;
@@ -1024,12 +1356,19 @@ export type BookingUpdateManyWithWhereWithoutListingInput = {
     where: Prisma.BookingScalarWhereInput;
     data: Prisma.XOR<Prisma.BookingUpdateManyMutationInput, Prisma.BookingUncheckedUpdateManyWithoutListingInput>;
 };
-export type BookingCreateWithoutEventsInput = {
+export type BookingCreateWithoutPaymentInput = {
     id?: string;
     startsAt: Date | string;
     endsAt: Date | string;
     guests?: number;
     amount: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor: number;
+    baseAmountMinor: number;
+    cleaningFeeMinor?: number;
+    serviceFeeMinor?: number;
+    taxMinor?: number;
+    extraGuestFeeMinor?: number;
+    depositMinor?: number;
     currency?: string;
     status?: $Enums.BookingStatus;
     note?: string | null;
@@ -1039,6 +1378,7 @@ export type BookingCreateWithoutEventsInput = {
     lateCancellationPercent?: number;
     noShowPercent?: number;
     cancellationFee?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: number;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     cancelledAt?: Date | string | null;
@@ -1047,6 +1387,157 @@ export type BookingCreateWithoutEventsInput = {
     guide?: Prisma.UserCreateNestedOneWithoutGuidedBookingsInput;
     listing?: Prisma.ListingCreateNestedOneWithoutBookingsInput;
     conversation?: Prisma.ConversationCreateNestedOneWithoutBookingInput;
+    events?: Prisma.BookingEventCreateNestedManyWithoutBookingInput;
+    review?: Prisma.ReviewCreateNestedOneWithoutBookingInput;
+};
+export type BookingUncheckedCreateWithoutPaymentInput = {
+    id?: string;
+    travelerId: string;
+    guideId?: string | null;
+    listingId?: string | null;
+    startsAt: Date | string;
+    endsAt: Date | string;
+    guests?: number;
+    amount: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor: number;
+    baseAmountMinor: number;
+    cleaningFeeMinor?: number;
+    serviceFeeMinor?: number;
+    taxMinor?: number;
+    extraGuestFeeMinor?: number;
+    depositMinor?: number;
+    currency?: string;
+    status?: $Enums.BookingStatus;
+    note?: string | null;
+    expiresAt?: Date | string | null;
+    cancellationPolicy?: $Enums.CancellationPolicyType;
+    freeCancellationUntil?: Date | string | null;
+    lateCancellationPercent?: number;
+    noShowPercent?: number;
+    cancellationFee?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: number;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    cancelledAt?: Date | string | null;
+    deletedAt?: Date | string | null;
+    conversation?: Prisma.ConversationUncheckedCreateNestedOneWithoutBookingInput;
+    events?: Prisma.BookingEventUncheckedCreateNestedManyWithoutBookingInput;
+    review?: Prisma.ReviewUncheckedCreateNestedOneWithoutBookingInput;
+};
+export type BookingCreateOrConnectWithoutPaymentInput = {
+    where: Prisma.BookingWhereUniqueInput;
+    create: Prisma.XOR<Prisma.BookingCreateWithoutPaymentInput, Prisma.BookingUncheckedCreateWithoutPaymentInput>;
+};
+export type BookingUpsertWithoutPaymentInput = {
+    update: Prisma.XOR<Prisma.BookingUpdateWithoutPaymentInput, Prisma.BookingUncheckedUpdateWithoutPaymentInput>;
+    create: Prisma.XOR<Prisma.BookingCreateWithoutPaymentInput, Prisma.BookingUncheckedCreateWithoutPaymentInput>;
+    where?: Prisma.BookingWhereInput;
+};
+export type BookingUpdateToOneWithWhereWithoutPaymentInput = {
+    where?: Prisma.BookingWhereInput;
+    data: Prisma.XOR<Prisma.BookingUpdateWithoutPaymentInput, Prisma.BookingUncheckedUpdateWithoutPaymentInput>;
+};
+export type BookingUpdateWithoutPaymentInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    guests?: Prisma.IntFieldUpdateOperationsInput | number;
+    amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    baseAmountMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    cleaningFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    serviceFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    taxMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    extraGuestFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    depositMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    currency?: Prisma.StringFieldUpdateOperationsInput | string;
+    status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus;
+    note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    cancellationPolicy?: Prisma.EnumCancellationPolicyTypeFieldUpdateOperationsInput | $Enums.CancellationPolicyType;
+    freeCancellationUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    lateCancellationPercent?: Prisma.IntFieldUpdateOperationsInput | number;
+    noShowPercent?: Prisma.IntFieldUpdateOperationsInput | number;
+    cancellationFee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    traveler?: Prisma.UserUpdateOneRequiredWithoutBookingsNestedInput;
+    guide?: Prisma.UserUpdateOneWithoutGuidedBookingsNestedInput;
+    listing?: Prisma.ListingUpdateOneWithoutBookingsNestedInput;
+    conversation?: Prisma.ConversationUpdateOneWithoutBookingNestedInput;
+    events?: Prisma.BookingEventUpdateManyWithoutBookingNestedInput;
+    review?: Prisma.ReviewUpdateOneWithoutBookingNestedInput;
+};
+export type BookingUncheckedUpdateWithoutPaymentInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    travelerId?: Prisma.StringFieldUpdateOperationsInput | string;
+    guideId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    listingId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    guests?: Prisma.IntFieldUpdateOperationsInput | number;
+    amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    baseAmountMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    cleaningFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    serviceFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    taxMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    extraGuestFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    depositMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    currency?: Prisma.StringFieldUpdateOperationsInput | string;
+    status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus;
+    note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    cancellationPolicy?: Prisma.EnumCancellationPolicyTypeFieldUpdateOperationsInput | $Enums.CancellationPolicyType;
+    freeCancellationUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    lateCancellationPercent?: Prisma.IntFieldUpdateOperationsInput | number;
+    noShowPercent?: Prisma.IntFieldUpdateOperationsInput | number;
+    cancellationFee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    conversation?: Prisma.ConversationUncheckedUpdateOneWithoutBookingNestedInput;
+    events?: Prisma.BookingEventUncheckedUpdateManyWithoutBookingNestedInput;
+    review?: Prisma.ReviewUncheckedUpdateOneWithoutBookingNestedInput;
+};
+export type BookingCreateWithoutEventsInput = {
+    id?: string;
+    startsAt: Date | string;
+    endsAt: Date | string;
+    guests?: number;
+    amount: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor: number;
+    baseAmountMinor: number;
+    cleaningFeeMinor?: number;
+    serviceFeeMinor?: number;
+    taxMinor?: number;
+    extraGuestFeeMinor?: number;
+    depositMinor?: number;
+    currency?: string;
+    status?: $Enums.BookingStatus;
+    note?: string | null;
+    expiresAt?: Date | string | null;
+    cancellationPolicy?: $Enums.CancellationPolicyType;
+    freeCancellationUntil?: Date | string | null;
+    lateCancellationPercent?: number;
+    noShowPercent?: number;
+    cancellationFee?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: number;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    cancelledAt?: Date | string | null;
+    deletedAt?: Date | string | null;
+    traveler: Prisma.UserCreateNestedOneWithoutBookingsInput;
+    guide?: Prisma.UserCreateNestedOneWithoutGuidedBookingsInput;
+    listing?: Prisma.ListingCreateNestedOneWithoutBookingsInput;
+    conversation?: Prisma.ConversationCreateNestedOneWithoutBookingInput;
+    review?: Prisma.ReviewCreateNestedOneWithoutBookingInput;
+    payment?: Prisma.PilotPaymentCreateNestedOneWithoutBookingInput;
 };
 export type BookingUncheckedCreateWithoutEventsInput = {
     id?: string;
@@ -1057,6 +1548,13 @@ export type BookingUncheckedCreateWithoutEventsInput = {
     endsAt: Date | string;
     guests?: number;
     amount: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor: number;
+    baseAmountMinor: number;
+    cleaningFeeMinor?: number;
+    serviceFeeMinor?: number;
+    taxMinor?: number;
+    extraGuestFeeMinor?: number;
+    depositMinor?: number;
     currency?: string;
     status?: $Enums.BookingStatus;
     note?: string | null;
@@ -1066,11 +1564,14 @@ export type BookingUncheckedCreateWithoutEventsInput = {
     lateCancellationPercent?: number;
     noShowPercent?: number;
     cancellationFee?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: number;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     cancelledAt?: Date | string | null;
     deletedAt?: Date | string | null;
     conversation?: Prisma.ConversationUncheckedCreateNestedOneWithoutBookingInput;
+    review?: Prisma.ReviewUncheckedCreateNestedOneWithoutBookingInput;
+    payment?: Prisma.PilotPaymentUncheckedCreateNestedOneWithoutBookingInput;
 };
 export type BookingCreateOrConnectWithoutEventsInput = {
     where: Prisma.BookingWhereUniqueInput;
@@ -1091,6 +1592,13 @@ export type BookingUpdateWithoutEventsInput = {
     endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     guests?: Prisma.IntFieldUpdateOperationsInput | number;
     amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    baseAmountMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    cleaningFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    serviceFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    taxMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    extraGuestFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    depositMinor?: Prisma.IntFieldUpdateOperationsInput | number;
     currency?: Prisma.StringFieldUpdateOperationsInput | string;
     status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus;
     note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -1100,6 +1608,7 @@ export type BookingUpdateWithoutEventsInput = {
     lateCancellationPercent?: Prisma.IntFieldUpdateOperationsInput | number;
     noShowPercent?: Prisma.IntFieldUpdateOperationsInput | number;
     cancellationFee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
@@ -1108,6 +1617,8 @@ export type BookingUpdateWithoutEventsInput = {
     guide?: Prisma.UserUpdateOneWithoutGuidedBookingsNestedInput;
     listing?: Prisma.ListingUpdateOneWithoutBookingsNestedInput;
     conversation?: Prisma.ConversationUpdateOneWithoutBookingNestedInput;
+    review?: Prisma.ReviewUpdateOneWithoutBookingNestedInput;
+    payment?: Prisma.PilotPaymentUpdateOneWithoutBookingNestedInput;
 };
 export type BookingUncheckedUpdateWithoutEventsInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -1118,6 +1629,13 @@ export type BookingUncheckedUpdateWithoutEventsInput = {
     endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     guests?: Prisma.IntFieldUpdateOperationsInput | number;
     amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    baseAmountMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    cleaningFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    serviceFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    taxMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    extraGuestFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    depositMinor?: Prisma.IntFieldUpdateOperationsInput | number;
     currency?: Prisma.StringFieldUpdateOperationsInput | string;
     status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus;
     note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -1127,11 +1645,14 @@ export type BookingUncheckedUpdateWithoutEventsInput = {
     lateCancellationPercent?: Prisma.IntFieldUpdateOperationsInput | number;
     noShowPercent?: Prisma.IntFieldUpdateOperationsInput | number;
     cancellationFee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     conversation?: Prisma.ConversationUncheckedUpdateOneWithoutBookingNestedInput;
+    review?: Prisma.ReviewUncheckedUpdateOneWithoutBookingNestedInput;
+    payment?: Prisma.PilotPaymentUncheckedUpdateOneWithoutBookingNestedInput;
 };
 export type BookingCreateWithoutConversationInput = {
     id?: string;
@@ -1139,6 +1660,13 @@ export type BookingCreateWithoutConversationInput = {
     endsAt: Date | string;
     guests?: number;
     amount: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor: number;
+    baseAmountMinor: number;
+    cleaningFeeMinor?: number;
+    serviceFeeMinor?: number;
+    taxMinor?: number;
+    extraGuestFeeMinor?: number;
+    depositMinor?: number;
     currency?: string;
     status?: $Enums.BookingStatus;
     note?: string | null;
@@ -1148,6 +1676,7 @@ export type BookingCreateWithoutConversationInput = {
     lateCancellationPercent?: number;
     noShowPercent?: number;
     cancellationFee?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: number;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     cancelledAt?: Date | string | null;
@@ -1156,6 +1685,8 @@ export type BookingCreateWithoutConversationInput = {
     guide?: Prisma.UserCreateNestedOneWithoutGuidedBookingsInput;
     listing?: Prisma.ListingCreateNestedOneWithoutBookingsInput;
     events?: Prisma.BookingEventCreateNestedManyWithoutBookingInput;
+    review?: Prisma.ReviewCreateNestedOneWithoutBookingInput;
+    payment?: Prisma.PilotPaymentCreateNestedOneWithoutBookingInput;
 };
 export type BookingUncheckedCreateWithoutConversationInput = {
     id?: string;
@@ -1166,6 +1697,13 @@ export type BookingUncheckedCreateWithoutConversationInput = {
     endsAt: Date | string;
     guests?: number;
     amount: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor: number;
+    baseAmountMinor: number;
+    cleaningFeeMinor?: number;
+    serviceFeeMinor?: number;
+    taxMinor?: number;
+    extraGuestFeeMinor?: number;
+    depositMinor?: number;
     currency?: string;
     status?: $Enums.BookingStatus;
     note?: string | null;
@@ -1175,11 +1713,14 @@ export type BookingUncheckedCreateWithoutConversationInput = {
     lateCancellationPercent?: number;
     noShowPercent?: number;
     cancellationFee?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: number;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     cancelledAt?: Date | string | null;
     deletedAt?: Date | string | null;
     events?: Prisma.BookingEventUncheckedCreateNestedManyWithoutBookingInput;
+    review?: Prisma.ReviewUncheckedCreateNestedOneWithoutBookingInput;
+    payment?: Prisma.PilotPaymentUncheckedCreateNestedOneWithoutBookingInput;
 };
 export type BookingCreateOrConnectWithoutConversationInput = {
     where: Prisma.BookingWhereUniqueInput;
@@ -1200,6 +1741,13 @@ export type BookingUpdateWithoutConversationInput = {
     endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     guests?: Prisma.IntFieldUpdateOperationsInput | number;
     amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    baseAmountMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    cleaningFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    serviceFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    taxMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    extraGuestFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    depositMinor?: Prisma.IntFieldUpdateOperationsInput | number;
     currency?: Prisma.StringFieldUpdateOperationsInput | string;
     status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus;
     note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -1209,6 +1757,7 @@ export type BookingUpdateWithoutConversationInput = {
     lateCancellationPercent?: Prisma.IntFieldUpdateOperationsInput | number;
     noShowPercent?: Prisma.IntFieldUpdateOperationsInput | number;
     cancellationFee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
@@ -1217,6 +1766,8 @@ export type BookingUpdateWithoutConversationInput = {
     guide?: Prisma.UserUpdateOneWithoutGuidedBookingsNestedInput;
     listing?: Prisma.ListingUpdateOneWithoutBookingsNestedInput;
     events?: Prisma.BookingEventUpdateManyWithoutBookingNestedInput;
+    review?: Prisma.ReviewUpdateOneWithoutBookingNestedInput;
+    payment?: Prisma.PilotPaymentUpdateOneWithoutBookingNestedInput;
 };
 export type BookingUncheckedUpdateWithoutConversationInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -1227,6 +1778,13 @@ export type BookingUncheckedUpdateWithoutConversationInput = {
     endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     guests?: Prisma.IntFieldUpdateOperationsInput | number;
     amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    baseAmountMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    cleaningFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    serviceFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    taxMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    extraGuestFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    depositMinor?: Prisma.IntFieldUpdateOperationsInput | number;
     currency?: Prisma.StringFieldUpdateOperationsInput | string;
     status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus;
     note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -1236,20 +1794,28 @@ export type BookingUncheckedUpdateWithoutConversationInput = {
     lateCancellationPercent?: Prisma.IntFieldUpdateOperationsInput | number;
     noShowPercent?: Prisma.IntFieldUpdateOperationsInput | number;
     cancellationFee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     events?: Prisma.BookingEventUncheckedUpdateManyWithoutBookingNestedInput;
+    review?: Prisma.ReviewUncheckedUpdateOneWithoutBookingNestedInput;
+    payment?: Prisma.PilotPaymentUncheckedUpdateOneWithoutBookingNestedInput;
 };
-export type BookingCreateManyTravelerInput = {
+export type BookingCreateWithoutReviewInput = {
     id?: string;
-    guideId?: string | null;
-    listingId?: string | null;
     startsAt: Date | string;
     endsAt: Date | string;
     guests?: number;
     amount: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor: number;
+    baseAmountMinor: number;
+    cleaningFeeMinor?: number;
+    serviceFeeMinor?: number;
+    taxMinor?: number;
+    extraGuestFeeMinor?: number;
+    depositMinor?: number;
     currency?: string;
     status?: $Enums.BookingStatus;
     note?: string | null;
@@ -1259,6 +1825,158 @@ export type BookingCreateManyTravelerInput = {
     lateCancellationPercent?: number;
     noShowPercent?: number;
     cancellationFee?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: number;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    cancelledAt?: Date | string | null;
+    deletedAt?: Date | string | null;
+    traveler: Prisma.UserCreateNestedOneWithoutBookingsInput;
+    guide?: Prisma.UserCreateNestedOneWithoutGuidedBookingsInput;
+    listing?: Prisma.ListingCreateNestedOneWithoutBookingsInput;
+    conversation?: Prisma.ConversationCreateNestedOneWithoutBookingInput;
+    events?: Prisma.BookingEventCreateNestedManyWithoutBookingInput;
+    payment?: Prisma.PilotPaymentCreateNestedOneWithoutBookingInput;
+};
+export type BookingUncheckedCreateWithoutReviewInput = {
+    id?: string;
+    travelerId: string;
+    guideId?: string | null;
+    listingId?: string | null;
+    startsAt: Date | string;
+    endsAt: Date | string;
+    guests?: number;
+    amount: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor: number;
+    baseAmountMinor: number;
+    cleaningFeeMinor?: number;
+    serviceFeeMinor?: number;
+    taxMinor?: number;
+    extraGuestFeeMinor?: number;
+    depositMinor?: number;
+    currency?: string;
+    status?: $Enums.BookingStatus;
+    note?: string | null;
+    expiresAt?: Date | string | null;
+    cancellationPolicy?: $Enums.CancellationPolicyType;
+    freeCancellationUntil?: Date | string | null;
+    lateCancellationPercent?: number;
+    noShowPercent?: number;
+    cancellationFee?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: number;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    cancelledAt?: Date | string | null;
+    deletedAt?: Date | string | null;
+    conversation?: Prisma.ConversationUncheckedCreateNestedOneWithoutBookingInput;
+    events?: Prisma.BookingEventUncheckedCreateNestedManyWithoutBookingInput;
+    payment?: Prisma.PilotPaymentUncheckedCreateNestedOneWithoutBookingInput;
+};
+export type BookingCreateOrConnectWithoutReviewInput = {
+    where: Prisma.BookingWhereUniqueInput;
+    create: Prisma.XOR<Prisma.BookingCreateWithoutReviewInput, Prisma.BookingUncheckedCreateWithoutReviewInput>;
+};
+export type BookingUpsertWithoutReviewInput = {
+    update: Prisma.XOR<Prisma.BookingUpdateWithoutReviewInput, Prisma.BookingUncheckedUpdateWithoutReviewInput>;
+    create: Prisma.XOR<Prisma.BookingCreateWithoutReviewInput, Prisma.BookingUncheckedCreateWithoutReviewInput>;
+    where?: Prisma.BookingWhereInput;
+};
+export type BookingUpdateToOneWithWhereWithoutReviewInput = {
+    where?: Prisma.BookingWhereInput;
+    data: Prisma.XOR<Prisma.BookingUpdateWithoutReviewInput, Prisma.BookingUncheckedUpdateWithoutReviewInput>;
+};
+export type BookingUpdateWithoutReviewInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    guests?: Prisma.IntFieldUpdateOperationsInput | number;
+    amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    baseAmountMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    cleaningFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    serviceFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    taxMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    extraGuestFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    depositMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    currency?: Prisma.StringFieldUpdateOperationsInput | string;
+    status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus;
+    note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    cancellationPolicy?: Prisma.EnumCancellationPolicyTypeFieldUpdateOperationsInput | $Enums.CancellationPolicyType;
+    freeCancellationUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    lateCancellationPercent?: Prisma.IntFieldUpdateOperationsInput | number;
+    noShowPercent?: Prisma.IntFieldUpdateOperationsInput | number;
+    cancellationFee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    traveler?: Prisma.UserUpdateOneRequiredWithoutBookingsNestedInput;
+    guide?: Prisma.UserUpdateOneWithoutGuidedBookingsNestedInput;
+    listing?: Prisma.ListingUpdateOneWithoutBookingsNestedInput;
+    conversation?: Prisma.ConversationUpdateOneWithoutBookingNestedInput;
+    events?: Prisma.BookingEventUpdateManyWithoutBookingNestedInput;
+    payment?: Prisma.PilotPaymentUpdateOneWithoutBookingNestedInput;
+};
+export type BookingUncheckedUpdateWithoutReviewInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    travelerId?: Prisma.StringFieldUpdateOperationsInput | string;
+    guideId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    listingId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    startsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    guests?: Prisma.IntFieldUpdateOperationsInput | number;
+    amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    baseAmountMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    cleaningFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    serviceFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    taxMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    extraGuestFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    depositMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    currency?: Prisma.StringFieldUpdateOperationsInput | string;
+    status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus;
+    note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    cancellationPolicy?: Prisma.EnumCancellationPolicyTypeFieldUpdateOperationsInput | $Enums.CancellationPolicyType;
+    freeCancellationUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    lateCancellationPercent?: Prisma.IntFieldUpdateOperationsInput | number;
+    noShowPercent?: Prisma.IntFieldUpdateOperationsInput | number;
+    cancellationFee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    conversation?: Prisma.ConversationUncheckedUpdateOneWithoutBookingNestedInput;
+    events?: Prisma.BookingEventUncheckedUpdateManyWithoutBookingNestedInput;
+    payment?: Prisma.PilotPaymentUncheckedUpdateOneWithoutBookingNestedInput;
+};
+export type BookingCreateManyTravelerInput = {
+    id?: string;
+    guideId?: string | null;
+    listingId?: string | null;
+    startsAt: Date | string;
+    endsAt: Date | string;
+    guests?: number;
+    amount: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor: number;
+    baseAmountMinor: number;
+    cleaningFeeMinor?: number;
+    serviceFeeMinor?: number;
+    taxMinor?: number;
+    extraGuestFeeMinor?: number;
+    depositMinor?: number;
+    currency?: string;
+    status?: $Enums.BookingStatus;
+    note?: string | null;
+    expiresAt?: Date | string | null;
+    cancellationPolicy?: $Enums.CancellationPolicyType;
+    freeCancellationUntil?: Date | string | null;
+    lateCancellationPercent?: number;
+    noShowPercent?: number;
+    cancellationFee?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: number;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     cancelledAt?: Date | string | null;
@@ -1272,6 +1990,13 @@ export type BookingCreateManyGuideInput = {
     endsAt: Date | string;
     guests?: number;
     amount: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor: number;
+    baseAmountMinor: number;
+    cleaningFeeMinor?: number;
+    serviceFeeMinor?: number;
+    taxMinor?: number;
+    extraGuestFeeMinor?: number;
+    depositMinor?: number;
     currency?: string;
     status?: $Enums.BookingStatus;
     note?: string | null;
@@ -1281,6 +2006,7 @@ export type BookingCreateManyGuideInput = {
     lateCancellationPercent?: number;
     noShowPercent?: number;
     cancellationFee?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: number;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     cancelledAt?: Date | string | null;
@@ -1292,6 +2018,13 @@ export type BookingUpdateWithoutTravelerInput = {
     endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     guests?: Prisma.IntFieldUpdateOperationsInput | number;
     amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    baseAmountMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    cleaningFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    serviceFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    taxMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    extraGuestFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    depositMinor?: Prisma.IntFieldUpdateOperationsInput | number;
     currency?: Prisma.StringFieldUpdateOperationsInput | string;
     status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus;
     note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -1301,6 +2034,7 @@ export type BookingUpdateWithoutTravelerInput = {
     lateCancellationPercent?: Prisma.IntFieldUpdateOperationsInput | number;
     noShowPercent?: Prisma.IntFieldUpdateOperationsInput | number;
     cancellationFee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
@@ -1309,6 +2043,8 @@ export type BookingUpdateWithoutTravelerInput = {
     listing?: Prisma.ListingUpdateOneWithoutBookingsNestedInput;
     conversation?: Prisma.ConversationUpdateOneWithoutBookingNestedInput;
     events?: Prisma.BookingEventUpdateManyWithoutBookingNestedInput;
+    review?: Prisma.ReviewUpdateOneWithoutBookingNestedInput;
+    payment?: Prisma.PilotPaymentUpdateOneWithoutBookingNestedInput;
 };
 export type BookingUncheckedUpdateWithoutTravelerInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -1318,6 +2054,13 @@ export type BookingUncheckedUpdateWithoutTravelerInput = {
     endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     guests?: Prisma.IntFieldUpdateOperationsInput | number;
     amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    baseAmountMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    cleaningFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    serviceFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    taxMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    extraGuestFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    depositMinor?: Prisma.IntFieldUpdateOperationsInput | number;
     currency?: Prisma.StringFieldUpdateOperationsInput | string;
     status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus;
     note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -1327,12 +2070,15 @@ export type BookingUncheckedUpdateWithoutTravelerInput = {
     lateCancellationPercent?: Prisma.IntFieldUpdateOperationsInput | number;
     noShowPercent?: Prisma.IntFieldUpdateOperationsInput | number;
     cancellationFee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     conversation?: Prisma.ConversationUncheckedUpdateOneWithoutBookingNestedInput;
     events?: Prisma.BookingEventUncheckedUpdateManyWithoutBookingNestedInput;
+    review?: Prisma.ReviewUncheckedUpdateOneWithoutBookingNestedInput;
+    payment?: Prisma.PilotPaymentUncheckedUpdateOneWithoutBookingNestedInput;
 };
 export type BookingUncheckedUpdateManyWithoutTravelerInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -1342,6 +2088,13 @@ export type BookingUncheckedUpdateManyWithoutTravelerInput = {
     endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     guests?: Prisma.IntFieldUpdateOperationsInput | number;
     amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    baseAmountMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    cleaningFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    serviceFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    taxMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    extraGuestFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    depositMinor?: Prisma.IntFieldUpdateOperationsInput | number;
     currency?: Prisma.StringFieldUpdateOperationsInput | string;
     status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus;
     note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -1351,6 +2104,7 @@ export type BookingUncheckedUpdateManyWithoutTravelerInput = {
     lateCancellationPercent?: Prisma.IntFieldUpdateOperationsInput | number;
     noShowPercent?: Prisma.IntFieldUpdateOperationsInput | number;
     cancellationFee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
@@ -1362,6 +2116,13 @@ export type BookingUpdateWithoutGuideInput = {
     endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     guests?: Prisma.IntFieldUpdateOperationsInput | number;
     amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    baseAmountMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    cleaningFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    serviceFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    taxMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    extraGuestFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    depositMinor?: Prisma.IntFieldUpdateOperationsInput | number;
     currency?: Prisma.StringFieldUpdateOperationsInput | string;
     status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus;
     note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -1371,6 +2132,7 @@ export type BookingUpdateWithoutGuideInput = {
     lateCancellationPercent?: Prisma.IntFieldUpdateOperationsInput | number;
     noShowPercent?: Prisma.IntFieldUpdateOperationsInput | number;
     cancellationFee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
@@ -1379,6 +2141,8 @@ export type BookingUpdateWithoutGuideInput = {
     listing?: Prisma.ListingUpdateOneWithoutBookingsNestedInput;
     conversation?: Prisma.ConversationUpdateOneWithoutBookingNestedInput;
     events?: Prisma.BookingEventUpdateManyWithoutBookingNestedInput;
+    review?: Prisma.ReviewUpdateOneWithoutBookingNestedInput;
+    payment?: Prisma.PilotPaymentUpdateOneWithoutBookingNestedInput;
 };
 export type BookingUncheckedUpdateWithoutGuideInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -1388,6 +2152,13 @@ export type BookingUncheckedUpdateWithoutGuideInput = {
     endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     guests?: Prisma.IntFieldUpdateOperationsInput | number;
     amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    baseAmountMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    cleaningFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    serviceFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    taxMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    extraGuestFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    depositMinor?: Prisma.IntFieldUpdateOperationsInput | number;
     currency?: Prisma.StringFieldUpdateOperationsInput | string;
     status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus;
     note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -1397,12 +2168,15 @@ export type BookingUncheckedUpdateWithoutGuideInput = {
     lateCancellationPercent?: Prisma.IntFieldUpdateOperationsInput | number;
     noShowPercent?: Prisma.IntFieldUpdateOperationsInput | number;
     cancellationFee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     conversation?: Prisma.ConversationUncheckedUpdateOneWithoutBookingNestedInput;
     events?: Prisma.BookingEventUncheckedUpdateManyWithoutBookingNestedInput;
+    review?: Prisma.ReviewUncheckedUpdateOneWithoutBookingNestedInput;
+    payment?: Prisma.PilotPaymentUncheckedUpdateOneWithoutBookingNestedInput;
 };
 export type BookingUncheckedUpdateManyWithoutGuideInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -1412,6 +2186,13 @@ export type BookingUncheckedUpdateManyWithoutGuideInput = {
     endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     guests?: Prisma.IntFieldUpdateOperationsInput | number;
     amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    baseAmountMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    cleaningFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    serviceFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    taxMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    extraGuestFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    depositMinor?: Prisma.IntFieldUpdateOperationsInput | number;
     currency?: Prisma.StringFieldUpdateOperationsInput | string;
     status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus;
     note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -1421,6 +2202,7 @@ export type BookingUncheckedUpdateManyWithoutGuideInput = {
     lateCancellationPercent?: Prisma.IntFieldUpdateOperationsInput | number;
     noShowPercent?: Prisma.IntFieldUpdateOperationsInput | number;
     cancellationFee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
@@ -1434,6 +2216,13 @@ export type BookingCreateManyListingInput = {
     endsAt: Date | string;
     guests?: number;
     amount: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor: number;
+    baseAmountMinor: number;
+    cleaningFeeMinor?: number;
+    serviceFeeMinor?: number;
+    taxMinor?: number;
+    extraGuestFeeMinor?: number;
+    depositMinor?: number;
     currency?: string;
     status?: $Enums.BookingStatus;
     note?: string | null;
@@ -1443,6 +2232,7 @@ export type BookingCreateManyListingInput = {
     lateCancellationPercent?: number;
     noShowPercent?: number;
     cancellationFee?: runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: number;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     cancelledAt?: Date | string | null;
@@ -1454,6 +2244,13 @@ export type BookingUpdateWithoutListingInput = {
     endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     guests?: Prisma.IntFieldUpdateOperationsInput | number;
     amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    baseAmountMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    cleaningFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    serviceFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    taxMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    extraGuestFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    depositMinor?: Prisma.IntFieldUpdateOperationsInput | number;
     currency?: Prisma.StringFieldUpdateOperationsInput | string;
     status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus;
     note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -1463,6 +2260,7 @@ export type BookingUpdateWithoutListingInput = {
     lateCancellationPercent?: Prisma.IntFieldUpdateOperationsInput | number;
     noShowPercent?: Prisma.IntFieldUpdateOperationsInput | number;
     cancellationFee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
@@ -1471,6 +2269,8 @@ export type BookingUpdateWithoutListingInput = {
     guide?: Prisma.UserUpdateOneWithoutGuidedBookingsNestedInput;
     conversation?: Prisma.ConversationUpdateOneWithoutBookingNestedInput;
     events?: Prisma.BookingEventUpdateManyWithoutBookingNestedInput;
+    review?: Prisma.ReviewUpdateOneWithoutBookingNestedInput;
+    payment?: Prisma.PilotPaymentUpdateOneWithoutBookingNestedInput;
 };
 export type BookingUncheckedUpdateWithoutListingInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -1480,6 +2280,13 @@ export type BookingUncheckedUpdateWithoutListingInput = {
     endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     guests?: Prisma.IntFieldUpdateOperationsInput | number;
     amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    baseAmountMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    cleaningFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    serviceFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    taxMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    extraGuestFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    depositMinor?: Prisma.IntFieldUpdateOperationsInput | number;
     currency?: Prisma.StringFieldUpdateOperationsInput | string;
     status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus;
     note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -1489,12 +2296,15 @@ export type BookingUncheckedUpdateWithoutListingInput = {
     lateCancellationPercent?: Prisma.IntFieldUpdateOperationsInput | number;
     noShowPercent?: Prisma.IntFieldUpdateOperationsInput | number;
     cancellationFee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     conversation?: Prisma.ConversationUncheckedUpdateOneWithoutBookingNestedInput;
     events?: Prisma.BookingEventUncheckedUpdateManyWithoutBookingNestedInput;
+    review?: Prisma.ReviewUncheckedUpdateOneWithoutBookingNestedInput;
+    payment?: Prisma.PilotPaymentUncheckedUpdateOneWithoutBookingNestedInput;
 };
 export type BookingUncheckedUpdateManyWithoutListingInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -1504,6 +2314,13 @@ export type BookingUncheckedUpdateManyWithoutListingInput = {
     endsAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     guests?: Prisma.IntFieldUpdateOperationsInput | number;
     amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    amountMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    baseAmountMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    cleaningFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    serviceFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    taxMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    extraGuestFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
+    depositMinor?: Prisma.IntFieldUpdateOperationsInput | number;
     currency?: Prisma.StringFieldUpdateOperationsInput | string;
     status?: Prisma.EnumBookingStatusFieldUpdateOperationsInput | $Enums.BookingStatus;
     note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
@@ -1513,6 +2330,7 @@ export type BookingUncheckedUpdateManyWithoutListingInput = {
     lateCancellationPercent?: Prisma.IntFieldUpdateOperationsInput | number;
     noShowPercent?: Prisma.IntFieldUpdateOperationsInput | number;
     cancellationFee?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string;
+    cancellationFeeMinor?: Prisma.IntFieldUpdateOperationsInput | number;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     cancelledAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
@@ -1539,6 +2357,13 @@ export type BookingSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     endsAt?: boolean;
     guests?: boolean;
     amount?: boolean;
+    amountMinor?: boolean;
+    baseAmountMinor?: boolean;
+    cleaningFeeMinor?: boolean;
+    serviceFeeMinor?: boolean;
+    taxMinor?: boolean;
+    extraGuestFeeMinor?: boolean;
+    depositMinor?: boolean;
     currency?: boolean;
     status?: boolean;
     note?: boolean;
@@ -1548,6 +2373,7 @@ export type BookingSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     lateCancellationPercent?: boolean;
     noShowPercent?: boolean;
     cancellationFee?: boolean;
+    cancellationFeeMinor?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
     cancelledAt?: boolean;
@@ -1557,6 +2383,8 @@ export type BookingSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     listing?: boolean | Prisma.Booking$listingArgs<ExtArgs>;
     conversation?: boolean | Prisma.Booking$conversationArgs<ExtArgs>;
     events?: boolean | Prisma.Booking$eventsArgs<ExtArgs>;
+    review?: boolean | Prisma.Booking$reviewArgs<ExtArgs>;
+    payment?: boolean | Prisma.Booking$paymentArgs<ExtArgs>;
     _count?: boolean | Prisma.BookingCountOutputTypeDefaultArgs<ExtArgs>;
 }, ExtArgs["result"]["booking"]>;
 export type BookingSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1568,6 +2396,13 @@ export type BookingSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
     endsAt?: boolean;
     guests?: boolean;
     amount?: boolean;
+    amountMinor?: boolean;
+    baseAmountMinor?: boolean;
+    cleaningFeeMinor?: boolean;
+    serviceFeeMinor?: boolean;
+    taxMinor?: boolean;
+    extraGuestFeeMinor?: boolean;
+    depositMinor?: boolean;
     currency?: boolean;
     status?: boolean;
     note?: boolean;
@@ -1577,6 +2412,7 @@ export type BookingSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
     lateCancellationPercent?: boolean;
     noShowPercent?: boolean;
     cancellationFee?: boolean;
+    cancellationFeeMinor?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
     cancelledAt?: boolean;
@@ -1594,6 +2430,13 @@ export type BookingSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
     endsAt?: boolean;
     guests?: boolean;
     amount?: boolean;
+    amountMinor?: boolean;
+    baseAmountMinor?: boolean;
+    cleaningFeeMinor?: boolean;
+    serviceFeeMinor?: boolean;
+    taxMinor?: boolean;
+    extraGuestFeeMinor?: boolean;
+    depositMinor?: boolean;
     currency?: boolean;
     status?: boolean;
     note?: boolean;
@@ -1603,6 +2446,7 @@ export type BookingSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
     lateCancellationPercent?: boolean;
     noShowPercent?: boolean;
     cancellationFee?: boolean;
+    cancellationFeeMinor?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
     cancelledAt?: boolean;
@@ -1620,6 +2464,13 @@ export type BookingSelectScalar = {
     endsAt?: boolean;
     guests?: boolean;
     amount?: boolean;
+    amountMinor?: boolean;
+    baseAmountMinor?: boolean;
+    cleaningFeeMinor?: boolean;
+    serviceFeeMinor?: boolean;
+    taxMinor?: boolean;
+    extraGuestFeeMinor?: boolean;
+    depositMinor?: boolean;
     currency?: boolean;
     status?: boolean;
     note?: boolean;
@@ -1629,18 +2480,21 @@ export type BookingSelectScalar = {
     lateCancellationPercent?: boolean;
     noShowPercent?: boolean;
     cancellationFee?: boolean;
+    cancellationFeeMinor?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
     cancelledAt?: boolean;
     deletedAt?: boolean;
 };
-export type BookingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "travelerId" | "guideId" | "listingId" | "startsAt" | "endsAt" | "guests" | "amount" | "currency" | "status" | "note" | "expiresAt" | "cancellationPolicy" | "freeCancellationUntil" | "lateCancellationPercent" | "noShowPercent" | "cancellationFee" | "createdAt" | "updatedAt" | "cancelledAt" | "deletedAt", ExtArgs["result"]["booking"]>;
+export type BookingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "travelerId" | "guideId" | "listingId" | "startsAt" | "endsAt" | "guests" | "amount" | "amountMinor" | "baseAmountMinor" | "cleaningFeeMinor" | "serviceFeeMinor" | "taxMinor" | "extraGuestFeeMinor" | "depositMinor" | "currency" | "status" | "note" | "expiresAt" | "cancellationPolicy" | "freeCancellationUntil" | "lateCancellationPercent" | "noShowPercent" | "cancellationFee" | "cancellationFeeMinor" | "createdAt" | "updatedAt" | "cancelledAt" | "deletedAt", ExtArgs["result"]["booking"]>;
 export type BookingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     traveler?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
     guide?: boolean | Prisma.Booking$guideArgs<ExtArgs>;
     listing?: boolean | Prisma.Booking$listingArgs<ExtArgs>;
     conversation?: boolean | Prisma.Booking$conversationArgs<ExtArgs>;
     events?: boolean | Prisma.Booking$eventsArgs<ExtArgs>;
+    review?: boolean | Prisma.Booking$reviewArgs<ExtArgs>;
+    payment?: boolean | Prisma.Booking$paymentArgs<ExtArgs>;
     _count?: boolean | Prisma.BookingCountOutputTypeDefaultArgs<ExtArgs>;
 };
 export type BookingIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1661,6 +2515,8 @@ export type $BookingPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
         listing: Prisma.$ListingPayload<ExtArgs> | null;
         conversation: Prisma.$ConversationPayload<ExtArgs> | null;
         events: Prisma.$BookingEventPayload<ExtArgs>[];
+        review: Prisma.$ReviewPayload<ExtArgs> | null;
+        payment: Prisma.$PilotPaymentPayload<ExtArgs> | null;
     };
     scalars: runtime.Types.Extensions.GetPayloadResult<{
         id: string;
@@ -1671,6 +2527,13 @@ export type $BookingPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
         endsAt: Date;
         guests: number;
         amount: runtime.Decimal;
+        amountMinor: number;
+        baseAmountMinor: number;
+        cleaningFeeMinor: number;
+        serviceFeeMinor: number;
+        taxMinor: number;
+        extraGuestFeeMinor: number;
+        depositMinor: number;
         currency: string;
         status: $Enums.BookingStatus;
         note: string | null;
@@ -1680,6 +2543,7 @@ export type $BookingPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
         lateCancellationPercent: number;
         noShowPercent: number;
         cancellationFee: runtime.Decimal;
+        cancellationFeeMinor: number;
         createdAt: Date;
         updatedAt: Date;
         cancelledAt: Date | null;
@@ -1741,6 +2605,8 @@ export interface Prisma__BookingClient<T, Null = never, ExtArgs extends runtime.
     listing<T extends Prisma.Booking$listingArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Booking$listingArgs<ExtArgs>>): Prisma.Prisma__ListingClient<runtime.Types.Result.GetResult<Prisma.$ListingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
     conversation<T extends Prisma.Booking$conversationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Booking$conversationArgs<ExtArgs>>): Prisma.Prisma__ConversationClient<runtime.Types.Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
     events<T extends Prisma.Booking$eventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Booking$eventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BookingEventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    review<T extends Prisma.Booking$reviewArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Booking$reviewArgs<ExtArgs>>): Prisma.Prisma__ReviewClient<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
+    payment<T extends Prisma.Booking$paymentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Booking$paymentArgs<ExtArgs>>): Prisma.Prisma__PilotPaymentClient<runtime.Types.Result.GetResult<Prisma.$PilotPaymentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>;
     then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
     catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): runtime.Types.Utils.JsPromise<T | TResult>;
     finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
@@ -1754,6 +2620,13 @@ export interface BookingFieldRefs {
     readonly endsAt: Prisma.FieldRef<"Booking", 'DateTime'>;
     readonly guests: Prisma.FieldRef<"Booking", 'Int'>;
     readonly amount: Prisma.FieldRef<"Booking", 'Decimal'>;
+    readonly amountMinor: Prisma.FieldRef<"Booking", 'Int'>;
+    readonly baseAmountMinor: Prisma.FieldRef<"Booking", 'Int'>;
+    readonly cleaningFeeMinor: Prisma.FieldRef<"Booking", 'Int'>;
+    readonly serviceFeeMinor: Prisma.FieldRef<"Booking", 'Int'>;
+    readonly taxMinor: Prisma.FieldRef<"Booking", 'Int'>;
+    readonly extraGuestFeeMinor: Prisma.FieldRef<"Booking", 'Int'>;
+    readonly depositMinor: Prisma.FieldRef<"Booking", 'Int'>;
     readonly currency: Prisma.FieldRef<"Booking", 'String'>;
     readonly status: Prisma.FieldRef<"Booking", 'BookingStatus'>;
     readonly note: Prisma.FieldRef<"Booking", 'String'>;
@@ -1763,6 +2636,7 @@ export interface BookingFieldRefs {
     readonly lateCancellationPercent: Prisma.FieldRef<"Booking", 'Int'>;
     readonly noShowPercent: Prisma.FieldRef<"Booking", 'Int'>;
     readonly cancellationFee: Prisma.FieldRef<"Booking", 'Decimal'>;
+    readonly cancellationFeeMinor: Prisma.FieldRef<"Booking", 'Int'>;
     readonly createdAt: Prisma.FieldRef<"Booking", 'DateTime'>;
     readonly updatedAt: Prisma.FieldRef<"Booking", 'DateTime'>;
     readonly cancelledAt: Prisma.FieldRef<"Booking", 'DateTime'>;
@@ -1896,6 +2770,18 @@ export type Booking$eventsArgs<ExtArgs extends runtime.Types.Extensions.Internal
     take?: number;
     skip?: number;
     distinct?: Prisma.BookingEventScalarFieldEnum | Prisma.BookingEventScalarFieldEnum[];
+};
+export type Booking$reviewArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    select?: Prisma.ReviewSelect<ExtArgs> | null;
+    omit?: Prisma.ReviewOmit<ExtArgs> | null;
+    include?: Prisma.ReviewInclude<ExtArgs> | null;
+    where?: Prisma.ReviewWhereInput;
+};
+export type Booking$paymentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    select?: Prisma.PilotPaymentSelect<ExtArgs> | null;
+    omit?: Prisma.PilotPaymentOmit<ExtArgs> | null;
+    include?: Prisma.PilotPaymentInclude<ExtArgs> | null;
+    where?: Prisma.PilotPaymentWhereInput;
 };
 export type BookingDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     select?: Prisma.BookingSelect<ExtArgs> | null;

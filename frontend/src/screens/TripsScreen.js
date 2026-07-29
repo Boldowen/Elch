@@ -128,6 +128,20 @@ export default function TripsScreen({ navigation }) {
                     <Text style={styles.cancelText}>{t('trips.cancel')}</Text>
                   </Pressable>
                 ) : null}
+                {item.status === 'COMPLETED' && !item.review ? (
+                  <Pressable
+                    accessibilityRole="button"
+                    onPress={() => navigation.navigate('CreateReview', { bookingId: item.id, title: item.listing?.title || item.guide?.name })}
+                    style={styles.cancel}
+                  >
+                    <Text style={styles.cancelText}>Write verified review</Text>
+                  </Pressable>
+                ) : null}
+                {['CONFIRMED', 'IN_PROGRESS'].includes(item.status) ? (
+                  <Pressable onPress={() => navigation.navigate('PaymentMethods', { booking: item, role: 'traveler' })} style={styles.cancel}>
+                    <Text style={styles.cancelText}>Payment policy {item.payment ? `· ${item.payment.status}` : ''}</Text>
+                  </Pressable>
+                ) : null}
               </View>
             );
           }}

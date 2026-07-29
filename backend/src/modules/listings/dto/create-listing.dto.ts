@@ -4,7 +4,7 @@ import {
   IsArray,
   IsEnum,
   IsInt,
-  IsNumber,
+  IsISO4217CurrencyCode,
   IsString,
   IsUrl,
   Max,
@@ -29,7 +29,13 @@ export class CreateListingDto {
   @IsString() @MinLength(2) @MaxLength(100) location!: string;
   @IsString() @MinLength(20) @MaxLength(5000) description!: string;
   @IsEnum(ListingCategory) category!: ListingCategory;
-  @IsNumber({ maxDecimalPlaces: 2 }) @Min(0.01) price!: number;
+  @IsInt() @Min(1) @Max(2_000_000_000) basePriceMinor!: number;
+  @IsInt() @Min(0) @Max(2_000_000_000) cleaningFeeMinor: number = 0;
+  @IsInt() @Min(0) @Max(2_000_000_000) serviceFeeMinor: number = 0;
+  @IsInt() @Min(0) @Max(2_000_000_000) taxMinor: number = 0;
+  @IsInt() @Min(0) @Max(2_000_000_000) extraGuestFeeMinor: number = 0;
+  @IsInt() @Min(0) @Max(2_000_000_000) depositMinor: number = 0;
+  @IsISO4217CurrencyCode() currency: string = 'USD';
   @IsEnum(PriceUnit) priceUnit!: PriceUnit;
   @IsString() @MaxLength(100) datesLabel: string = 'Flexible dates';
   @IsArray() @ArrayMaxSize(20) @IsString({ each: true }) tags: string[] = [];

@@ -18,6 +18,9 @@ import { LoginDto } from './dto/login.dto.js';
 import { RefreshDto } from './dto/refresh.dto.js';
 import { RegisterDto } from './dto/register.dto.js';
 import { CurrentUser } from '../common/decorators/current-user.decorator.js';
+import { Throttle } from '@nestjs/throttler';
+import { ResendVerificationDto, VerifyEmailDto } from './dto/verify-email.dto.js';
+import { ChangePasswordDto, ForgotPasswordDto, ResetPasswordDto } from './dto/password-recovery.dto.js';
 let AuthController = class AuthController {
     auth;
     constructor(auth) {
@@ -27,6 +30,13 @@ let AuthController = class AuthController {
     login(dto, ua, ip) { return this.auth.login(dto, { userAgent: ua, ip }); }
     refresh(dto, ua, ip) { return this.auth.refresh(dto.refreshToken, { userAgent: ua, ip }); }
     logout(dto) { return this.auth.logout(dto.refreshToken); }
+    verifyEmail(dto) { return this.auth.verifyEmail(dto.token); }
+    resendVerification(dto) { return this.auth.resendVerification(dto.email); }
+    forgotPassword(dto) { return this.auth.forgotPassword(dto.email); }
+    resetPassword(dto) { return this.auth.resetPassword(dto.token, dto.newPassword); }
+    changePassword(user, dto) {
+        return this.auth.changePassword(user.sub, dto.currentPassword, dto.newPassword);
+    }
     logoutAll(user) { return this.auth.logoutAll(user.sub); }
 };
 __decorate([
@@ -67,6 +77,50 @@ __decorate([
     __metadata("design:paramtypes", [RefreshDto]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "logout", null);
+__decorate([
+    Public(),
+    Throttle({ default: { limit: 10, ttl: 60_000 } }),
+    Post('verify-email'),
+    __param(0, Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [VerifyEmailDto]),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "verifyEmail", null);
+__decorate([
+    Public(),
+    Throttle({ default: { limit: 3, ttl: 60_000 } }),
+    Post('resend-verification'),
+    __param(0, Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [ResendVerificationDto]),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "resendVerification", null);
+__decorate([
+    Public(),
+    Throttle({ default: { limit: 3, ttl: 60_000 } }),
+    Post('forgot-password'),
+    __param(0, Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [ForgotPasswordDto]),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "forgotPassword", null);
+__decorate([
+    Public(),
+    Throttle({ default: { limit: 5, ttl: 60_000 } }),
+    Post('reset-password'),
+    __param(0, Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [ResetPasswordDto]),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "resetPassword", null);
+__decorate([
+    Post('change-password'),
+    __param(0, CurrentUser()),
+    __param(1, Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, ChangePasswordDto]),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "changePassword", null);
 __decorate([
     Post('logout-all'),
     __param(0, CurrentUser()),

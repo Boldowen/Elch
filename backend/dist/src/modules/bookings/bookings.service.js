@@ -9,9 +9,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 import { BadRequestException, ConflictException, ForbiddenException, Injectable, NotFoundException, } from '@nestjs/common';
 import { createHash, randomUUID } from 'node:crypto';
-import { BookingActorType, BookingStatus, CancellationPolicyType, GuideStatus, MessageType, Prisma, } from '../../generated/prisma/client.js';
+import { BookingActorType, BookingStatus, CancellationPolicyType, GuideStatus, MessageType, NotificationType, Prisma, } from '../../generated/prisma/client.js';
 import { PrismaService } from '../../prisma/prisma.service.js';
 import { BookingAction } from './dto/update-booking-status.dto.js';
+import { PricingService } from '../pricing/pricing.service.js';
 const ACTIVE_STATUSES = [
     BookingStatus.PENDING,
     BookingStatus.CONFIRMED,
@@ -21,11 +22,15 @@ const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-
 const includeBooking = {
     listing: { include: { images: { take: 1, orderBy: { sortOrder: 'asc' } } } },
     guide: { select: { id: true, name: true, avatarUrl: true } },
+    review: { select: { id: true, rating: true, createdAt: true } },
+    payment: true,
 };
 let BookingsService = class BookingsService {
     prisma;
-    constructor(prisma) {
+    pricing;
+    constructor(prisma, pricing) {
         this.prisma = prisma;
+        this.pricing = pricing;
     }
     listTraveler(userId) {
         return this.prisma.booking.findMany({
@@ -39,6 +44,50 @@ let BookingsService = class BookingsService {
             where: { deletedAt: null, OR: [{ guideId: userId }, { listing: { hostId: userId } }] },
             include: { ...includeBooking, traveler: { select: { id: true, name: true, avatarUrl: true } } },
             orderBy: { startsAt: 'asc' },
+        });
+    }
+    async quote(userId, dto) {
+        if (Boolean(dto.listingId) === Boolean(dto.guideId)) {
+            throw new BadRequestException('Choose exactly one listing or guide');
+        }
+        const startsAt = new Date(dto.startsAt);
+        const endsAt = new Date(dto.endsAt);
+        if (endsAt <= startsAt)
+            throw new BadRequestException('End time must be after start time');
+        if (dto.listingId) {
+            const listing = await this.prisma.listing.findFirst({
+                where: { id: dto.listingId, published: true, deletedAt: null },
+            });
+            if (!listing)
+                throw new NotFoundException('Listing not found');
+            if (listing.hostId === userId)
+                throw new ConflictException({ code: 'SELF_BOOKING_NOT_ALLOWED', message: 'You cannot book your own listing' });
+            const units = Math.max(1, Math.ceil((endsAt.getTime() - startsAt.getTime()) / 86_400_000));
+            return this.pricing.calculate({
+                basePriceMinor: listing.basePriceMinor,
+                units,
+                guests: dto.guests,
+                currency: listing.currency,
+                cleaningFeeMinor: listing.cleaningFeeMinor,
+                serviceFeeMinor: listing.serviceFeeMinor,
+                taxMinor: listing.taxMinor,
+                extraGuestFeeMinor: listing.extraGuestFeeMinor,
+                depositMinor: listing.depositMinor,
+            });
+        }
+        if (dto.guideId === userId)
+            throw new ConflictException({ code: 'SELF_BOOKING_NOT_ALLOWED', message: 'You cannot book yourself as a guide' });
+        const guide = await this.prisma.guideProfile.findFirst({
+            where: { userId: dto.guideId, status: GuideStatus.APPROVED, verified: true, deletedAt: null },
+        });
+        if (!guide?.price)
+            throw new NotFoundException('Bookable guide not found');
+        const units = Math.max(1, Math.ceil((endsAt.getTime() - startsAt.getTime()) / 3_600_000));
+        return this.pricing.calculate({
+            basePriceMinor: this.pricing.decimalToMinor(guide.price),
+            units,
+            guests: dto.guests,
+            currency: 'USD',
         });
     }
     async create(userId, dto, idempotencyKey) {
@@ -76,7 +125,7 @@ let BookingsService = class BookingsService {
                         expiresAt: new Date(Date.now() + 24 * 60 * 60_000),
                     },
                 });
-                let amount;
+                let price;
                 let providerId;
                 let title;
                 if (dto.listingId) {
@@ -89,7 +138,17 @@ let BookingsService = class BookingsService {
                         throw new ConflictException({ code: 'SELF_BOOKING_NOT_ALLOWED', message: 'You cannot book your own listing' });
                     }
                     const nights = Math.max(1, Math.ceil((endsAt.getTime() - startsAt.getTime()) / 86_400_000));
-                    amount = listing.price.mul(nights);
+                    price = this.pricing.calculate({
+                        basePriceMinor: listing.basePriceMinor,
+                        units: nights,
+                        guests: dto.guests,
+                        currency: listing.currency,
+                        cleaningFeeMinor: listing.cleaningFeeMinor,
+                        serviceFeeMinor: listing.serviceFeeMinor,
+                        taxMinor: listing.taxMinor,
+                        extraGuestFeeMinor: listing.extraGuestFeeMinor,
+                        depositMinor: listing.depositMinor,
+                    });
                     providerId = listing.hostId;
                     title = listing.title;
                     await this.reserveListingInventory(tx, listing.id, startsAt, endsAt, listing.defaultTotalUnits);
@@ -105,7 +164,12 @@ let BookingsService = class BookingsService {
                     if (!guide?.price)
                         throw new NotFoundException('Bookable guide not found');
                     const hours = Math.max(1, Math.ceil((endsAt.getTime() - startsAt.getTime()) / 3_600_000));
-                    amount = guide.price.mul(hours);
+                    price = this.pricing.calculate({
+                        basePriceMinor: this.pricing.decimalToMinor(guide.price),
+                        units: hours,
+                        guests: dto.guests,
+                        currency: 'USD',
+                    });
                     providerId = guide.userId;
                     title = `Guide: ${guide.user.name}`;
                 }
@@ -129,8 +193,15 @@ let BookingsService = class BookingsService {
                         startsAt,
                         endsAt,
                         guests: dto.guests,
-                        amount,
-                        currency: 'USD',
+                        amount: this.pricing.minorToDecimal(price.amountMinor),
+                        amountMinor: price.amountMinor,
+                        baseAmountMinor: price.baseAmountMinor,
+                        cleaningFeeMinor: price.cleaningFeeMinor,
+                        serviceFeeMinor: price.serviceFeeMinor,
+                        taxMinor: price.taxMinor,
+                        extraGuestFeeMinor: price.extraGuestFeeMinor,
+                        depositMinor: price.depositMinor,
+                        currency: price.currency,
                         note: dto.note?.trim() || null,
                         status: BookingStatus.PENDING,
                         expiresAt: new Date(Math.min(startsAt.getTime(), Date.now() + 24 * 60 * 60_000)),
@@ -157,6 +228,15 @@ let BookingsService = class BookingsService {
                         },
                     },
                     include: includeBooking,
+                });
+                await tx.notification.create({
+                    data: {
+                        userId: providerId,
+                        type: NotificationType.BOOKING_CREATED,
+                        title: 'New booking request',
+                        body: `${title} received a new booking request`,
+                        data: { bookingId: booking.id },
+                    },
                 });
                 await tx.idempotencyKey.update({
                     where: { userId_key: { userId, key: idempotencyKey } },
@@ -191,18 +271,19 @@ let BookingsService = class BookingsService {
             const isTraveler = booking.travelerId === userId;
             const isProvider = booking.guideId === userId || booking.listing?.hostId === userId;
             const transition = this.resolveTransition(booking, action, isTraveler, isProvider);
-            const cancellationFee = transition.to === BookingStatus.CANCELLED_BY_TRAVELER &&
+            const cancellationFeeMinor = transition.to === BookingStatus.CANCELLED_BY_TRAVELER &&
                 booking.status === BookingStatus.CONFIRMED &&
                 booking.freeCancellationUntil &&
                 booking.freeCancellationUntil <= new Date()
-                ? booking.amount.mul(booking.lateCancellationPercent).div(100)
-                : new Prisma.Decimal(0);
+                ? this.pricing.percentage(booking.amountMinor, booking.lateCancellationPercent)
+                : 0;
             const changed = await tx.booking.updateMany({
                 where: { id: bookingId, status: booking.status },
                 data: {
                     status: transition.to,
                     cancelledAt: transition.to === BookingStatus.CANCELLED_BY_TRAVELER || transition.to === BookingStatus.CANCELLED_BY_PROVIDER ? new Date() : undefined,
-                    cancellationFee,
+                    cancellationFeeMinor,
+                    cancellationFee: this.pricing.minorToDecimal(cancellationFeeMinor),
                 },
             });
             if (changed.count !== 1)
@@ -226,6 +307,21 @@ let BookingsService = class BookingsService {
             if (conversation) {
                 await tx.message.create({
                     data: { conversationId: conversation.id, senderId: userId, type: MessageType.SYSTEM, body: transition.message },
+                });
+            }
+            const recipientId = isProvider
+                ? booking.travelerId
+                : booking.guideId ?? booking.listing?.hostId;
+            if (recipientId) {
+                const notification = this.notificationForTransition(transition.to);
+                await tx.notification.create({
+                    data: {
+                        userId: recipientId,
+                        type: notification.type,
+                        title: notification.title,
+                        body: transition.message,
+                        data: { bookingId },
+                    },
                 });
             }
             return tx.booking.findUnique({ where: { id: bookingId }, include: includeBooking });
@@ -277,6 +373,20 @@ let BookingsService = class BookingsService {
     unavailable() {
         throw new ConflictException({ code: 'BOOKING_TIME_UNAVAILABLE', message: 'Selected time is no longer available' });
     }
+    notificationForTransition(status) {
+        switch (status) {
+            case BookingStatus.CONFIRMED:
+                return { type: NotificationType.BOOKING_ACCEPTED, title: 'Booking accepted' };
+            case BookingStatus.DECLINED:
+                return { type: NotificationType.BOOKING_DECLINED, title: 'Booking declined' };
+            case BookingStatus.IN_PROGRESS:
+                return { type: NotificationType.BOOKING_STARTED, title: 'Booking started' };
+            case BookingStatus.COMPLETED:
+                return { type: NotificationType.BOOKING_COMPLETED, title: 'Booking completed' };
+            default:
+                return { type: NotificationType.BOOKING_CANCELLED, title: 'Booking cancelled' };
+        }
+    }
     inventoryDates(startsAt, endsAt) {
         const dates = [];
         const cursor = new Date(Date.UTC(startsAt.getUTCFullYear(), startsAt.getUTCMonth(), startsAt.getUTCDate()));
@@ -313,7 +423,8 @@ let BookingsService = class BookingsService {
 };
 BookingsService = __decorate([
     Injectable(),
-    __metadata("design:paramtypes", [PrismaService])
+    __metadata("design:paramtypes", [PrismaService,
+        PricingService])
 ], BookingsService);
 export { BookingsService };
 //# sourceMappingURL=bookings.service.js.map

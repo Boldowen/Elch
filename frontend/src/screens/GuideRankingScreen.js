@@ -43,6 +43,12 @@ export default function GuideRankingScreen({ navigation }) {
                 <Text style={styles.meta}>
                   {item.location} · ★ {item.rating}
                 </Text>
+                <Text style={styles.metrics}>
+                  {item.completedTrips} trips · {item.responseRate}% response · {item.acceptanceRate}% acceptance
+                </Text>
+                {(item.providerCancellationCount || item.confirmedReportCount) ? (
+                  <Text style={styles.penalty}>{item.providerCancellationCount} provider cancellations · {item.confirmedReportCount} confirmed reports</Text>
+                ) : null}
               </View>
               <Text style={styles.points}>{item.rankPoints} pts</Text>
             </View>
@@ -73,5 +79,7 @@ const styles = StyleSheet.create({
   },
   name: { fontWeight: '700', color: colors.ink },
   meta: { color: colors.inkSoft, fontSize: 12 },
+  metrics: { color: colors.inkSoft, fontSize: 11, marginTop: 3 },
+  penalty: { color: '#B42318', fontSize: 11, marginTop: 3 },
   points: { fontWeight: '700', color: colors.ink },
 });

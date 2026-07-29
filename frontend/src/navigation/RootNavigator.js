@@ -21,6 +21,9 @@ import GuidesScreen from '../screens/GuidesScreen';
 import GuideDetailScreen from '../screens/GuideDetailScreen';
 import ChatScreen from '../screens/ChatScreen';
 import AccountSettingsScreen from '../screens/AccountSettingsScreen';
+import VerifyEmailScreen from '../screens/VerifyEmailScreen';
+import ForgotPasswordScreen from '../screens/ForgotPasswordScreen';
+import ResetPasswordScreen from '../screens/ResetPasswordScreen';
 import SavedTripsScreen from '../screens/SavedTripsScreen';
 import PaymentMethodsScreen from '../screens/PaymentMethodsScreen';
 import HelpCenterScreen from '../screens/HelpCenterScreen';
@@ -30,6 +33,8 @@ import GuideProfileEditScreen from '../screens/GuideProfileEditScreen';
 import GuideRankingScreen from '../screens/GuideRankingScreen';
 import SafetyScreen from '../screens/SafetyScreen';
 import AdminGuideApplicationsScreen from '../screens/AdminGuideApplicationsScreen';
+import AdminReportsScreen from '../screens/AdminReportsScreen';
+import CreateReviewScreen from '../screens/CreateReviewScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -104,7 +109,10 @@ export default function RootNavigator() {
   if (booting) return null;
 
   return (
-    <NavigationContainer theme={navTheme}>
+    <NavigationContainer
+      theme={navTheme}
+      linking={{ prefixes: ['ventour://'], config: { screens: { VerifyEmail: 'verify-email', ResetPassword: 'reset-password' } } }}
+    >
       <Stack.Navigator
         screenOptions={{ headerShown: false }}
         initialRouteName={session ? 'Main' : 'Welcome'}
@@ -116,6 +124,9 @@ export default function RootNavigator() {
           options={{ presentation: 'modal' }}
         />
         <Stack.Screen name="Main" component={MainTabs} />
+        <Stack.Screen name="VerifyEmail" component={VerifyEmailScreen} />
+        <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
+        <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />
         <Stack.Screen name="ListingDetail" component={ListingDetailScreen} />
         <Stack.Screen name="Booking" component={BookingScreen} />
         <Stack.Screen
@@ -150,6 +161,8 @@ export default function RootNavigator() {
         <Stack.Screen name="GuideRanking" component={GuideRankingScreen} />
         <Stack.Screen name="Safety" component={SafetyScreen} />
         <Stack.Screen name="AdminGuideApplications" component={AdminGuideApplicationsScreen} />
+        <Stack.Screen name="AdminReports" component={AdminReportsScreen} />
+        <Stack.Screen name="CreateReview" component={CreateReviewScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

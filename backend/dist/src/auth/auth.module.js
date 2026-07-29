@@ -10,10 +10,11 @@ import { PassportModule } from '@nestjs/passport';
 import { AuthController } from './auth.controller.js';
 import { AuthService } from './auth.service.js';
 import { JwtStrategy } from './strategies/jwt.strategy.js';
+import { EmailDeliveryService } from './email-delivery.service.js';
 let AuthModule = class AuthModule {
 };
 AuthModule = __decorate([
-    Module({ imports: [PassportModule, JwtModule.register({})], controllers: [AuthController], providers: [AuthService, JwtStrategy], exports: [AuthService] })
+    Module({ imports: [PassportModule, JwtModule.register({})], controllers: [AuthController], providers: [AuthService, EmailDeliveryService, JwtStrategy], exports: [AuthService] })
 ], AuthModule);
 export { AuthModule };
 //# sourceMappingURL=auth.module.js.map

@@ -2,9 +2,11 @@ import { BookingStatus, CancellationPolicyType, Prisma } from '../../generated/p
 import { PrismaService } from '../../prisma/prisma.service.js';
 import { CreateBookingDto } from './dto/create-booking.dto.js';
 import { BookingAction } from './dto/update-booking-status.dto.js';
+import { PriceBreakdown, PricingService } from '../pricing/pricing.service.js';
 export declare class BookingsService {
     private readonly prisma;
-    constructor(prisma: PrismaService);
+    private readonly pricing;
+    constructor(prisma: PrismaService, pricing: PricingService);
     listTraveler(userId: string): Prisma.PrismaPromise<({
         listing: ({
             images: {
@@ -28,6 +30,13 @@ export declare class BookingsService {
             location: string;
             description: string;
             category: import("../../generated/prisma/enums.js").ListingCategory;
+            basePriceMinor: number;
+            cleaningFeeMinor: number;
+            serviceFeeMinor: number;
+            taxMinor: number;
+            extraGuestFeeMinor: number;
+            depositMinor: number;
+            currency: string;
             priceUnit: import("../../generated/prisma/enums.js").PriceUnit;
             datesLabel: string;
             tags: string[];
@@ -36,10 +45,28 @@ export declare class BookingsService {
             defaultTotalUnits: number;
             hostId: string;
         }) | null;
+        review: {
+            id: string;
+            createdAt: Date;
+            rating: number;
+        } | null;
         guide: {
             id: string;
             name: string;
             avatarUrl: string | null;
+        } | null;
+        payment: {
+            id: string;
+            createdAt: Date;
+            updatedAt: Date;
+            status: import("../../generated/prisma/enums.js").PaymentStatus;
+            bookingId: string;
+            arrangement: import("../../generated/prisma/enums.js").PaymentArrangement;
+            instructions: string | null;
+            proposedById: string;
+            agreedByTravelerAt: Date | null;
+            agreedByProviderAt: Date | null;
+            paidAt: Date | null;
         } | null;
     } & {
         id: string;
@@ -48,6 +75,12 @@ export declare class BookingsService {
         deletedAt: Date | null;
         expiresAt: Date | null;
         status: BookingStatus;
+        cleaningFeeMinor: number;
+        serviceFeeMinor: number;
+        taxMinor: number;
+        extraGuestFeeMinor: number;
+        depositMinor: number;
+        currency: string;
         listingId: string | null;
         travelerId: string;
         guideId: string | null;
@@ -55,13 +88,15 @@ export declare class BookingsService {
         endsAt: Date;
         guests: number;
         amount: import("@prisma/client-runtime-utils").Decimal;
-        currency: string;
+        amountMinor: number;
+        baseAmountMinor: number;
         note: string | null;
         cancellationPolicy: CancellationPolicyType;
         freeCancellationUntil: Date | null;
         lateCancellationPercent: number;
         noShowPercent: number;
         cancellationFee: import("@prisma/client-runtime-utils").Decimal;
+        cancellationFeeMinor: number;
         cancelledAt: Date | null;
     })[]>;
     listProvider(userId: string): Prisma.PrismaPromise<({
@@ -87,6 +122,13 @@ export declare class BookingsService {
             location: string;
             description: string;
             category: import("../../generated/prisma/enums.js").ListingCategory;
+            basePriceMinor: number;
+            cleaningFeeMinor: number;
+            serviceFeeMinor: number;
+            taxMinor: number;
+            extraGuestFeeMinor: number;
+            depositMinor: number;
+            currency: string;
             priceUnit: import("../../generated/prisma/enums.js").PriceUnit;
             datesLabel: string;
             tags: string[];
@@ -95,6 +137,11 @@ export declare class BookingsService {
             defaultTotalUnits: number;
             hostId: string;
         }) | null;
+        review: {
+            id: string;
+            createdAt: Date;
+            rating: number;
+        } | null;
         traveler: {
             id: string;
             name: string;
@@ -105,6 +152,19 @@ export declare class BookingsService {
             name: string;
             avatarUrl: string | null;
         } | null;
+        payment: {
+            id: string;
+            createdAt: Date;
+            updatedAt: Date;
+            status: import("../../generated/prisma/enums.js").PaymentStatus;
+            bookingId: string;
+            arrangement: import("../../generated/prisma/enums.js").PaymentArrangement;
+            instructions: string | null;
+            proposedById: string;
+            agreedByTravelerAt: Date | null;
+            agreedByProviderAt: Date | null;
+            paidAt: Date | null;
+        } | null;
     } & {
         id: string;
         createdAt: Date;
@@ -112,6 +172,12 @@ export declare class BookingsService {
         deletedAt: Date | null;
         expiresAt: Date | null;
         status: BookingStatus;
+        cleaningFeeMinor: number;
+        serviceFeeMinor: number;
+        taxMinor: number;
+        extraGuestFeeMinor: number;
+        depositMinor: number;
+        currency: string;
         listingId: string | null;
         travelerId: string;
         guideId: string | null;
@@ -119,15 +185,18 @@ export declare class BookingsService {
         endsAt: Date;
         guests: number;
         amount: import("@prisma/client-runtime-utils").Decimal;
-        currency: string;
+        amountMinor: number;
+        baseAmountMinor: number;
         note: string | null;
         cancellationPolicy: CancellationPolicyType;
         freeCancellationUntil: Date | null;
         lateCancellationPercent: number;
         noShowPercent: number;
         cancellationFee: import("@prisma/client-runtime-utils").Decimal;
+        cancellationFeeMinor: number;
         cancelledAt: Date | null;
     })[]>;
+    quote(userId: string, dto: CreateBookingDto): Promise<PriceBreakdown>;
     create(userId: string, dto: CreateBookingDto, idempotencyKey?: string): Promise<string | number | true | import("@prisma/client/runtime/client").JsonObject | import("@prisma/client/runtime/client").JsonArray | ({
         listing: ({
             images: {
@@ -151,6 +220,13 @@ export declare class BookingsService {
             location: string;
             description: string;
             category: import("../../generated/prisma/enums.js").ListingCategory;
+            basePriceMinor: number;
+            cleaningFeeMinor: number;
+            serviceFeeMinor: number;
+            taxMinor: number;
+            extraGuestFeeMinor: number;
+            depositMinor: number;
+            currency: string;
             priceUnit: import("../../generated/prisma/enums.js").PriceUnit;
             datesLabel: string;
             tags: string[];
@@ -159,10 +235,28 @@ export declare class BookingsService {
             defaultTotalUnits: number;
             hostId: string;
         }) | null;
+        review: {
+            id: string;
+            createdAt: Date;
+            rating: number;
+        } | null;
         guide: {
             id: string;
             name: string;
             avatarUrl: string | null;
+        } | null;
+        payment: {
+            id: string;
+            createdAt: Date;
+            updatedAt: Date;
+            status: import("../../generated/prisma/enums.js").PaymentStatus;
+            bookingId: string;
+            arrangement: import("../../generated/prisma/enums.js").PaymentArrangement;
+            instructions: string | null;
+            proposedById: string;
+            agreedByTravelerAt: Date | null;
+            agreedByProviderAt: Date | null;
+            paidAt: Date | null;
         } | null;
     } & {
         id: string;
@@ -171,6 +265,12 @@ export declare class BookingsService {
         deletedAt: Date | null;
         expiresAt: Date | null;
         status: BookingStatus;
+        cleaningFeeMinor: number;
+        serviceFeeMinor: number;
+        taxMinor: number;
+        extraGuestFeeMinor: number;
+        depositMinor: number;
+        currency: string;
         listingId: string | null;
         travelerId: string;
         guideId: string | null;
@@ -178,13 +278,15 @@ export declare class BookingsService {
         endsAt: Date;
         guests: number;
         amount: import("@prisma/client-runtime-utils").Decimal;
-        currency: string;
+        amountMinor: number;
+        baseAmountMinor: number;
         note: string | null;
         cancellationPolicy: CancellationPolicyType;
         freeCancellationUntil: Date | null;
         lateCancellationPercent: number;
         noShowPercent: number;
         cancellationFee: import("@prisma/client-runtime-utils").Decimal;
+        cancellationFeeMinor: number;
         cancelledAt: Date | null;
     })>;
     updateStatus(userId: string, bookingId: string, action: BookingAction): Promise<({
@@ -210,6 +312,13 @@ export declare class BookingsService {
             location: string;
             description: string;
             category: import("../../generated/prisma/enums.js").ListingCategory;
+            basePriceMinor: number;
+            cleaningFeeMinor: number;
+            serviceFeeMinor: number;
+            taxMinor: number;
+            extraGuestFeeMinor: number;
+            depositMinor: number;
+            currency: string;
             priceUnit: import("../../generated/prisma/enums.js").PriceUnit;
             datesLabel: string;
             tags: string[];
@@ -218,10 +327,28 @@ export declare class BookingsService {
             defaultTotalUnits: number;
             hostId: string;
         }) | null;
+        review: {
+            id: string;
+            createdAt: Date;
+            rating: number;
+        } | null;
         guide: {
             id: string;
             name: string;
             avatarUrl: string | null;
+        } | null;
+        payment: {
+            id: string;
+            createdAt: Date;
+            updatedAt: Date;
+            status: import("../../generated/prisma/enums.js").PaymentStatus;
+            bookingId: string;
+            arrangement: import("../../generated/prisma/enums.js").PaymentArrangement;
+            instructions: string | null;
+            proposedById: string;
+            agreedByTravelerAt: Date | null;
+            agreedByProviderAt: Date | null;
+            paidAt: Date | null;
         } | null;
     } & {
         id: string;
@@ -230,6 +357,12 @@ export declare class BookingsService {
         deletedAt: Date | null;
         expiresAt: Date | null;
         status: BookingStatus;
+        cleaningFeeMinor: number;
+        serviceFeeMinor: number;
+        taxMinor: number;
+        extraGuestFeeMinor: number;
+        depositMinor: number;
+        currency: string;
         listingId: string | null;
         travelerId: string;
         guideId: string | null;
@@ -237,18 +370,21 @@ export declare class BookingsService {
         endsAt: Date;
         guests: number;
         amount: import("@prisma/client-runtime-utils").Decimal;
-        currency: string;
+        amountMinor: number;
+        baseAmountMinor: number;
         note: string | null;
         cancellationPolicy: CancellationPolicyType;
         freeCancellationUntil: Date | null;
         lateCancellationPercent: number;
         noShowPercent: number;
         cancellationFee: import("@prisma/client-runtime-utils").Decimal;
+        cancellationFeeMinor: number;
         cancelledAt: Date | null;
     }) | null>;
     private resolveTransition;
     private replay;
     private unavailable;
+    private notificationForTransition;
     private inventoryDates;
     private reserveListingInventory;
     private releaseListingInventory;

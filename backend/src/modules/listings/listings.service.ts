@@ -5,6 +5,7 @@ import { PrismaService } from '../../prisma/prisma.service.js';
 import { CreateListingDto } from './dto/create-listing.dto.js';
 import { SetInventoryDto } from './dto/set-inventory.dto.js';
 import { UpdateListingDto } from './dto/update-listing.dto.js';
+import { PricingService } from '../pricing/pricing.service.js';
 
 const includeListing = {
   images: { orderBy: { sortOrder: 'asc' as const } },
@@ -13,7 +14,10 @@ const includeListing = {
 
 @Injectable()
 export class ListingsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly pricing: PricingService,
+  ) {}
 
   findAll(query: { category?: ListingCategory; search?: string; page?: number; limit?: number }) {
     const page = Math.max(1, query.page ?? 1);
@@ -57,6 +61,8 @@ export class ListingsService {
     return this.prisma.listing.create({
       data: {
         ...data,
+        currency: dto.currency.toUpperCase(),
+        price: this.pricing.minorToDecimal(dto.basePriceMinor),
         title: dto.title.trim(),
         location: dto.location.trim(),
         description: dto.description.trim(),
@@ -78,6 +84,8 @@ export class ListingsService {
       where: { id },
       data: {
         ...data,
+        ...(dto.basePriceMinor !== undefined ? { price: this.pricing.minorToDecimal(dto.basePriceMinor) } : {}),
+        ...(dto.currency ? { currency: dto.currency.toUpperCase() } : {}),
         title: dto.title?.trim(),
         location: dto.location?.trim(),
         description: dto.description?.trim(),

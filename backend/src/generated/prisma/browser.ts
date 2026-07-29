@@ -28,10 +28,25 @@ export type User = Prisma.UserModel
  */
 export type RefreshToken = Prisma.RefreshTokenModel
 /**
+ * Model EmailVerificationToken
+ * 
+ */
+export type EmailVerificationToken = Prisma.EmailVerificationTokenModel
+/**
+ * Model PasswordResetToken
+ * 
+ */
+export type PasswordResetToken = Prisma.PasswordResetTokenModel
+/**
  * Model GuideProfile
  * 
  */
 export type GuideProfile = Prisma.GuideProfileModel
+/**
+ * Model GuideVerificationReview
+ * 
+ */
+export type GuideVerificationReview = Prisma.GuideVerificationReviewModel
 /**
  * Model Listing
  * 
@@ -52,6 +67,11 @@ export type ListingImage = Prisma.ListingImageModel
  * 
  */
 export type Booking = Prisma.BookingModel
+/**
+ * Model PilotPayment
+ * 
+ */
+export type PilotPayment = Prisma.PilotPaymentModel
 /**
  * Model BookingEvent
  * 
@@ -78,10 +98,30 @@ export type Conversation = Prisma.ConversationModel
  */
 export type ConversationParticipant = Prisma.ConversationParticipantModel
 /**
+ * Model UserBlock
+ * 
+ */
+export type UserBlock = Prisma.UserBlockModel
+/**
+ * Model Report
+ * 
+ */
+export type Report = Prisma.ReportModel
+/**
+ * Model ModerationAction
+ * 
+ */
+export type ModerationAction = Prisma.ModerationActionModel
+/**
  * Model Message
  * 
  */
 export type Message = Prisma.MessageModel
+/**
+ * Model Notification
+ * 
+ */
+export type Notification = Prisma.NotificationModel
 /**
  * Model PaymentMethod
  * 

@@ -11,14 +11,17 @@ import { ConflictException, ForbiddenException, Injectable, NotFoundException } 
 import { randomUUID } from 'node:crypto';
 import { ListingStatus } from '../../generated/prisma/client.js';
 import { PrismaService } from '../../prisma/prisma.service.js';
+import { PricingService } from '../pricing/pricing.service.js';
 const includeListing = {
     images: { orderBy: { sortOrder: 'asc' } },
     host: { select: { id: true, name: true, avatarUrl: true, isVerified: true } },
 };
 let ListingsService = class ListingsService {
     prisma;
-    constructor(prisma) {
+    pricing;
+    constructor(prisma, pricing) {
         this.prisma = prisma;
+        this.pricing = pricing;
     }
     findAll(query) {
         const page = Math.max(1, query.page ?? 1);
@@ -60,6 +63,8 @@ let ListingsService = class ListingsService {
         return this.prisma.listing.create({
             data: {
                 ...data,
+                currency: dto.currency.toUpperCase(),
+                price: this.pricing.minorToDecimal(dto.basePriceMinor),
                 title: dto.title.trim(),
                 location: dto.location.trim(),
                 description: dto.description.trim(),
@@ -81,6 +86,8 @@ let ListingsService = class ListingsService {
             where: { id },
             data: {
                 ...data,
+                ...(dto.basePriceMinor !== undefined ? { price: this.pricing.minorToDecimal(dto.basePriceMinor) } : {}),
+                ...(dto.currency ? { currency: dto.currency.toUpperCase() } : {}),
                 title: dto.title?.trim(),
                 location: dto.location?.trim(),
                 description: dto.description?.trim(),
@@ -156,7 +163,8 @@ let ListingsService = class ListingsService {
 };
 ListingsService = __decorate([
     Injectable(),
-    __metadata("design:paramtypes", [PrismaService])
+    __metadata("design:paramtypes", [PrismaService,
+        PricingService])
 ], ListingsService);
 export { ListingsService };
 //# sourceMappingURL=listings.service.js.map

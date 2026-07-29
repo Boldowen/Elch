@@ -16,10 +16,14 @@ import { CurrentUser } from '../../common/decorators/current-user.decorator.js';
 import { BookingsService } from './bookings.service.js';
 import { CreateBookingDto } from './dto/create-booking.dto.js';
 import { UpdateBookingStatusDto } from './dto/update-booking-status.dto.js';
+import { ProposePaymentArrangementDto } from './dto/payment-arrangement.dto.js';
+import { PaymentArrangementsService } from './payment-arrangements.service.js';
 let BookingsController = class BookingsController {
     bookings;
-    constructor(bookings) {
+    payments;
+    constructor(bookings, payments) {
         this.bookings = bookings;
+        this.payments = payments;
     }
     list(user) {
         return this.bookings.listTraveler(user.sub);
@@ -30,8 +34,20 @@ let BookingsController = class BookingsController {
     create(user, dto, key) {
         return this.bookings.create(user.sub, dto, key);
     }
+    quote(user, dto) {
+        return this.bookings.quote(user.sub, dto);
+    }
     updateStatus(user, id, dto) {
         return this.bookings.updateStatus(user.sub, id, dto.action);
+    }
+    proposePayment(user, id, dto) {
+        return this.payments.propose(user.sub, id, dto);
+    }
+    agreePayment(user, id) {
+        return this.payments.agree(user.sub, id);
+    }
+    markPaymentPaid(user, id) {
+        return this.payments.markPaid(user.sub, id);
     }
 };
 __decorate([
@@ -58,6 +74,14 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], BookingsController.prototype, "create", null);
 __decorate([
+    Post('quote'),
+    __param(0, CurrentUser()),
+    __param(1, Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, CreateBookingDto]),
+    __metadata("design:returntype", void 0)
+], BookingsController.prototype, "quote", null);
+__decorate([
     Patch(':id/status'),
     __param(0, CurrentUser()),
     __param(1, Param('id')),
@@ -66,11 +90,36 @@ __decorate([
     __metadata("design:paramtypes", [Object, String, UpdateBookingStatusDto]),
     __metadata("design:returntype", void 0)
 ], BookingsController.prototype, "updateStatus", null);
+__decorate([
+    Post(':id/payment'),
+    __param(0, CurrentUser()),
+    __param(1, Param('id')),
+    __param(2, Body()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, String, ProposePaymentArrangementDto]),
+    __metadata("design:returntype", void 0)
+], BookingsController.prototype, "proposePayment", null);
+__decorate([
+    Post(':id/payment/agree'),
+    __param(0, CurrentUser()),
+    __param(1, Param('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, String]),
+    __metadata("design:returntype", void 0)
+], BookingsController.prototype, "agreePayment", null);
+__decorate([
+    Post(':id/payment/paid'),
+    __param(0, CurrentUser()),
+    __param(1, Param('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, String]),
+    __metadata("design:returntype", void 0)
+], BookingsController.prototype, "markPaymentPaid", null);
 BookingsController = __decorate([
     ApiTags('bookings'),
     ApiBearerAuth(),
     Controller({ path: 'bookings', version: '1' }),
-    __metadata("design:paramtypes", [BookingsService])
+    __metadata("design:paramtypes", [BookingsService, PaymentArrangementsService])
 ], BookingsController);
 export { BookingsController };
 //# sourceMappingURL=bookings.controller.js.map
