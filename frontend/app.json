@@ -1,18 +1,19 @@
 {
   "expo": {
-    "name": "VenTour",
-    "slug": "ventour",
-    "scheme": "ventour",
+    "name": "ELCH",
+    "slug": "elch",
+    "scheme": "elch",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "mn.ventour.ventour"
+      "bundleIdentifier": "mn.elch.app",
+      "usesAppleSignIn": true
     },
     "android": {
-      "package": "mn.ventour.ventour",
+      "package": "mn.elch.app",
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/android-icon-foreground.png",
@@ -25,7 +26,9 @@
     },
     "plugins": [
       "expo-image",
-      "expo-secure-store"
+      "expo-secure-store",
+      "expo-web-browser",
+      "expo-apple-authentication"
     ]
   }
 }

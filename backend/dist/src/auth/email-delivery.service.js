@@ -33,8 +33,8 @@ let EmailDeliveryService = class EmailDeliveryService {
             body: JSON.stringify({
                 from,
                 to: [email],
-                subject: 'Verify your VenTour email',
-                html: `<p>Verify your VenTour email:</p><p><a href="${verificationUrl}?token=${encodeURIComponent(token)}">Verify email</a></p><p>This link expires in 30 minutes.</p>`,
+                subject: 'Verify your ELCH email',
+                html: `<p>Verify your ELCH email:</p><p><a href="${verificationUrl}?token=${encodeURIComponent(token)}">Verify email</a></p><p>This link expires in 30 minutes.</p>`,
             }),
         });
         if (!response.ok)
@@ -55,7 +55,7 @@ let EmailDeliveryService = class EmailDeliveryService {
         const resetUrl = this.config.get('PASSWORD_RESET_URL');
         if (!resetUrl)
             throw new ServiceUnavailableException('Email delivery is not configured');
-        await this.send(email, 'Reset your VenTour password', `<p>Reset your VenTour password:</p><p><a href="${resetUrl}?token=${encodeURIComponent(token)}">Reset password</a></p><p>This link expires in 30 minutes.</p>`);
+        await this.send(email, 'Reset your ELCH password', `<p>Reset your ELCH password:</p><p><a href="${resetUrl}?token=${encodeURIComponent(token)}">Reset password</a></p><p>This link expires in 30 minutes.</p>`);
     }
     takeTestPasswordResetToken(email) {
         if (this.config.get('NODE_ENV') !== 'test')

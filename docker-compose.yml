@@ -3,7 +3,7 @@ services:
     image: postgres:17-alpine
     restart: unless-stopped
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:-ventour}
+      POSTGRES_DB: ${POSTGRES_DB:-elch}
       POSTGRES_USER: ${POSTGRES_USER:-ventour}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ventour_change_me}
     volumes:
@@ -47,7 +47,7 @@ services:
       - .env
     environment:
       NODE_ENV: production
-      DATABASE_URL: postgresql://${POSTGRES_USER:-ventour}:${POSTGRES_PASSWORD:-ventour_change_me}@postgres:5432/${POSTGRES_DB:-ventour}?schema=public
+      DATABASE_URL: postgresql://${POSTGRES_USER:-ventour}:${POSTGRES_PASSWORD:-ventour_change_me}@postgres:5432/${POSTGRES_DB:-elch}?schema=public
       PORT: 3000
     ports:
       - "${BACKEND_PORT:-3000}:3000"

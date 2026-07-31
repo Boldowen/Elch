@@ -75,6 +75,12 @@ export function AuthProvider({ children }) {
     [runAuth, pendingRole],
   );
 
+  const socialLogin = useCallback(
+    (provider, identityToken, name) =>
+      runAuth(() => authRepository.socialLogin({ provider, identityToken, name })),
+    [runAuth],
+  );
+
   const logout = useCallback(async () => {
     await authRepository.logout();
     setSession(null);
@@ -126,6 +132,7 @@ export function AuthProvider({ children }) {
       selectRole,
       login,
       register,
+      socialLogin,
       logout,
       updateName,
       updateProfile,
@@ -143,6 +150,7 @@ export function AuthProvider({ children }) {
       selectRole,
       login,
       register,
+      socialLogin,
       logout,
       updateName,
       updateProfile,

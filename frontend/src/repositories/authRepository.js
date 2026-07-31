@@ -22,6 +22,17 @@ export const authRepository = {
     return session;
   },
 
+  async socialLogin({ provider, identityToken, name }) {
+    const { data } = await api.post('/auth/social', {
+      provider: provider.toUpperCase(),
+      identityToken,
+      ...(name ? { name } : {}),
+    });
+    const session = mapSession(data);
+    await storage.saveSession(session);
+    return session;
+  },
+
   async logout() {
     const session = storage.readSessionSync() || (await storage.readSession());
     if (session?.refreshToken) {

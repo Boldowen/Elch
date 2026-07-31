@@ -5,6 +5,7 @@ import { RegisterDto } from './dto/register.dto.js';
 import { RequestUser } from '../common/decorators/current-user.decorator.js';
 import { ResendVerificationDto, VerifyEmailDto } from './dto/verify-email.dto.js';
 import { ChangePasswordDto, ForgotPasswordDto, ResetPasswordDto } from './dto/password-recovery.dto.js';
+import { SocialLoginDto } from './dto/social-login.dto.js';
 export declare class AuthController {
     private readonly auth;
     constructor(auth: AuthService);
@@ -22,6 +23,18 @@ export declare class AuthController {
         };
     }>;
     login(dto: LoginDto, ua: string, ip: string): Promise<{
+        accessToken: string;
+        refreshToken: string;
+        user: {
+            id: string;
+            email: string;
+            name: string;
+            roles: string[];
+            avatarUrl: string | null;
+            emailVerifiedAt: Date | null;
+        };
+    }>;
+    socialLogin(dto: SocialLoginDto, ua: string, ip: string): Promise<{
         accessToken: string;
         refreshToken: string;
         user: {

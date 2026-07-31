@@ -15,11 +15,11 @@ const FAQ = [
   },
   {
     q: 'How do payments work?',
-    a: 'During the pilot, payment is made on arrival after the provider accepts the booking. VenTour does not collect card details in the app or chat.',
+    a: 'During the pilot, payment is made on arrival after the provider accepts the booking. ELCH does not collect card details in the app or chat.',
   },
   {
     q: 'What does verified mean?',
-    a: 'Verified means VenTour staff approved the guide application after a manual identity and quality review. It is not a guarantee that travel is risk-free.',
+    a: 'Verified means ELCH staff approved the guide application after a manual identity and quality review. It is not a guarantee that travel is risk-free.',
   },
   {
     q: 'What should I do in an emergency?',

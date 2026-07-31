@@ -1,4 +1,4 @@
-# VenTour сайжруулалтын тайлан
+# ELCH сайжруулалтын тайлан
 
 **Тайлангийн огноо:** 2026-07-28
 **Эх төлөвлөгөө:** `ventour_improvement_plan.txt`  
@@ -6,7 +6,7 @@
 
 ## 1. Товч дүгнэлт
 
-VenTour MVP-ийн booking урсгалыг pilot ашиглалтад ойртуулах эхний үндсэн ажлууд хийгдэв. Booking үүсгэлт одоо self-booking, давхар booking, давтан хүсэлт болон inventory race condition-оос сервер болон PostgreSQL түвшинд хамгаалагдсан.
+ELCH MVP-ийн booking урсгалыг pilot ашиглалтад ойртуулах эхний үндсэн ажлууд хийгдэв. Booking үүсгэлт одоо self-booking, давхар booking, давтан хүсэлт болон inventory race condition-оос сервер болон PostgreSQL түвшинд хамгаалагдсан.
 
 Booking-ийн бүрэн төлөв, audit history, cancellation policy, автомат эхлэх/дуусах lifecycle, booking-тэй холбоотой conversation нэмэгдсэн. Mobile application дээр refresh token-ийг secure storage-д шилжүүлж, session expiration урсгалыг сайжруулсан.
 
@@ -175,7 +175,7 @@ Refresh token хүчингүй эсвэл хугацаа дууссан үед:
 - Resend нь 60 секундийн database cooldown болон route rate limit-тэй.
 - Resend response нь email бүртгэлтэй эсэхийг задруулахгүй.
 - Production email delivery Resend API ашиглаж, token болон API key log-д ордоггүй.
-- Mobile app `ventour://verify-email` deep link болон resend action дэмжинэ.
+- Mobile app `elch://verify-email` deep link болон resend action дэмжинэ.
 
 ### 7.5 Password recovery
 
@@ -185,7 +185,7 @@ Refresh token хүчингүй эсвэл хугацаа дууссан үед:
 - `POST /auth/reset-password` болон authenticated `POST /auth/change-password` нэмэгдсэн.
 - Reset/change амжилттай үед бүх refresh token revoke хийгдэнэ.
 - Password 8–64 тэмдэгт, uppercase, lowercase болон number шаардлагатай.
-- Mobile app forgot-password screen, `ventour://reset-password` deep link болон change-password form дэмжинэ.
+- Mobile app forgot-password screen, `elch://reset-password` deep link болон change-password form дэмжинэ.
 
 ### 7.6 Guide verification audit
 

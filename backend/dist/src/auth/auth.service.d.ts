@@ -4,6 +4,7 @@ import { PrismaService } from '../prisma/prisma.service.js';
 import { RegisterDto } from './dto/register.dto.js';
 import { LoginDto } from './dto/login.dto.js';
 import { EmailDeliveryService } from './email-delivery.service.js';
+import { SocialLoginDto } from './dto/social-login.dto.js';
 export declare class AuthService {
     private readonly prisma;
     private readonly jwt;
@@ -57,6 +58,21 @@ export declare class AuthService {
             emailVerifiedAt: Date | null;
         };
     }>;
+    socialLogin(dto: SocialLoginDto, meta: {
+        userAgent?: string;
+        ip?: string;
+    }): Promise<{
+        accessToken: string;
+        refreshToken: string;
+        user: {
+            id: string;
+            email: string;
+            name: string;
+            roles: string[];
+            avatarUrl: string | null;
+            emailVerifiedAt: Date | null;
+        };
+    }>;
     refresh(refreshToken: string, meta: {
         userAgent?: string;
         ip?: string;
@@ -81,5 +97,8 @@ export declare class AuthService {
     private issueSession;
     private createAndSendVerification;
     private hashToken;
+    private verifySocialIdentity;
+    private identityFromPayload;
+    private csvConfig;
     private ensureAccountActive;
 }

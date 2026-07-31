@@ -23,8 +23,8 @@ async function bootstrap() {
   app.useGlobalFilters(new AllExceptionsFilter());
 
   const swaggerConfig = new DocumentBuilder()
-    .setTitle('VenTour API')
-    .setDescription('REST API for the VenTour traveler and local-guide marketplace')
+    .setTitle('ELCH API')
+    .setDescription('REST API for the ELCH traveler and local-guide marketplace')
     .setVersion('1.0')
     .addBearerAuth()
     .build();

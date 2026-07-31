@@ -4,10 +4,16 @@ import { JwtService } from '@nestjs/jwt';
 import bcrypt from 'bcrypt';
 import { createHash, randomBytes, randomUUID } from 'node:crypto';
 import { Role, UserModerationStatus } from '../generated/prisma/client.js';
+import { AuthProvider } from '../generated/prisma/client.js';
+import { createRemoteJWKSet, jwtVerify, JWTPayload } from 'jose';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { RegisterDto } from './dto/register.dto.js';
 import { LoginDto } from './dto/login.dto.js';
 import { EmailDeliveryService } from './email-delivery.service.js';
+import { SocialLoginDto, SocialProvider } from './dto/social-login.dto.js';
+
+const googleKeys = createRemoteJWKSet(new URL('https://www.googleapis.com/oauth2/v3/certs'));
+const appleKeys = createRemoteJWKSet(new URL('https://appleid.apple.com/auth/keys'));
 
 @Injectable()
 export class AuthService {
@@ -173,6 +179,49 @@ export class AuthService {
     return this.issueSession(user, meta);
   }
 
+  async socialLogin(dto: SocialLoginDto, meta: { userAgent?: string; ip?: string }) {
+    const identity = await this.verifySocialIdentity(dto);
+    const provider = dto.provider as AuthProvider;
+    let user = await this.prisma.user.findFirst({
+      where: { provider, providerSubject: identity.subject, deletedAt: null },
+    });
+
+    if (!user && identity.email) {
+      user = await this.prisma.user.findFirst({
+        where: { email: identity.email, deletedAt: null },
+      });
+      if (user && user.provider !== provider) {
+        throw new ConflictException('An account already exists with this email. Sign in using the original method.');
+      }
+    }
+
+    if (!user) {
+      if (!identity.email) throw new UnauthorizedException('The identity provider did not share an email address');
+      user = await this.prisma.user.create({
+        data: {
+          email: identity.email,
+          name: identity.name || dto.name?.trim() || identity.email.split('@')[0],
+          avatarUrl: identity.avatarUrl,
+          provider,
+          providerSubject: identity.subject,
+          roles: [Role.TRAVELER],
+          isVerified: identity.emailVerified,
+          emailVerifiedAt: identity.emailVerified ? new Date() : null,
+        },
+      });
+    } else if (!user.providerSubject) {
+      user = await this.prisma.user.update({
+        where: { id: user.id },
+        data: { providerSubject: identity.subject, lastLoginAt: new Date() },
+      });
+    } else {
+      await this.prisma.user.update({ where: { id: user.id }, data: { lastLoginAt: new Date() } });
+    }
+
+    await this.ensureAccountActive(user);
+    return this.issueSession(user, meta);
+  }
+
   async refresh(refreshToken: string, meta: { userAgent?: string; ip?: string }) {
     let payload: { sub: string; jti: string; family: string };
     try { payload = await this.jwt.verifyAsync(refreshToken, { secret: this.config.getOrThrow('JWT_REFRESH_SECRET') }); }
@@ -229,6 +278,50 @@ export class AuthService {
 
   private hashToken(token: string) {
     return createHash('sha256').update(token).digest('hex');
+  }
+
+  private async verifySocialIdentity(dto: SocialLoginDto) {
+    try {
+      if (dto.provider === SocialProvider.GOOGLE) {
+        const audiences = this.csvConfig('GOOGLE_CLIENT_IDS');
+        if (!audiences.length) throw new Error('Google authentication is not configured');
+        const { payload } = await jwtVerify(dto.identityToken, googleKeys, {
+          issuer: ['https://accounts.google.com', 'accounts.google.com'],
+          audience: audiences,
+        });
+        return this.identityFromPayload(payload);
+      }
+
+      const audiences = this.csvConfig('APPLE_CLIENT_IDS');
+      if (!audiences.length) throw new Error('Apple authentication is not configured');
+      const { payload } = await jwtVerify(dto.identityToken, appleKeys, {
+        issuer: 'https://appleid.apple.com',
+        audience: audiences,
+      });
+      return this.identityFromPayload(payload);
+    } catch (error) {
+      if (error instanceof Error && error.message.endsWith('is not configured')) {
+        throw new BadRequestException(error.message);
+      }
+      throw new UnauthorizedException('Invalid or expired identity token');
+    }
+  }
+
+  private identityFromPayload(payload: JWTPayload) {
+    if (!payload.sub) throw new Error('Identity token has no subject');
+    const email = typeof payload.email === 'string' ? payload.email.toLowerCase() : null;
+    const emailVerified = payload.email_verified === true || payload.email_verified === 'true';
+    return {
+      subject: payload.sub,
+      email,
+      emailVerified,
+      name: typeof payload.name === 'string' ? payload.name.trim() : null,
+      avatarUrl: typeof payload.picture === 'string' ? payload.picture : null,
+    };
+  }
+
+  private csvConfig(key: string) {
+    return (this.config.get<string>(key) || '').split(',').map((value) => value.trim()).filter(Boolean);
   }
 
   private async ensureAccountActive(user: { id: string; moderationStatus: UserModerationStatus; suspendedUntil: Date | null }) {

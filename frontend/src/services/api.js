@@ -4,7 +4,7 @@ import { storage } from './storage';
 
 export const api = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 18000,
+  timeout: 10000,
   headers: { Accept: 'application/json' },
 });
 
@@ -54,13 +54,23 @@ api.interceptors.response.use(
   async (error) => {
     const config = error.config || {};
     const status = error.response?.status;
+    const requestPath = String(config.url || '');
+    const isPublicAuthRequest = [
+      '/auth/login',
+      '/auth/register',
+      '/auth/refresh',
+      '/auth/forgot-password',
+      '/auth/reset-password',
+      '/auth/verify-email',
+      '/auth/resend-verification',
+    ].some((path) => requestPath.includes(path));
     const isNetwork =
       !error.response ||
       error.code === 'ECONNABORTED' ||
       error.message?.includes('Network');
 
     // Transient retry
-    if (isNetwork) {
+    if (isNetwork && !isPublicAuthRequest) {
       const retries = config.__networkRetries || 0;
       if (retries < 2) {
         config.__networkRetries = retries + 1;
@@ -69,7 +79,9 @@ api.interceptors.response.use(
       }
     }
 
-    if (status !== 401 || config.__retried) {
+    // A rejected login/register is not an expired session. Trying to refresh
+    // here can keep the login button spinning against an old stored token.
+    if (status !== 401 || config.__retried || isPublicAuthRequest) {
       return Promise.reject(error);
     }
 
@@ -108,5 +120,8 @@ export function apiErrorMessage(error) {
   if (typeof data?.message === 'string') return data.message;
   if (Array.isArray(data?.message)) return data.message.join(', ');
   if (data?.error) return String(data.error);
+  if (!error?.response && (error?.code === 'ECONNABORTED' || error?.message?.includes('Network'))) {
+    return `ELCH API-д холбогдож чадсангүй (${API_BASE_URL}). API хаяг болон Wi-Fi сүлжээг шалгана уу.`;
+  }
   return error?.message || 'Something went wrong';
 }

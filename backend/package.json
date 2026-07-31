@@ -1,5 +1,5 @@
 {
-  "name": "ventour-backend",
+  "name": "elch-backend",
   "version": "1.0.0",
   "private": true,
   "type": "module",
@@ -34,6 +34,7 @@
     "compression": "1.8.1",
     "helmet": "8.1.0",
     "joi": "^18.2.3",
+    "jose": "^6.2.5",
     "passport": "0.7.0",
     "passport-jwt": "4.0.1",
     "pg": "8.16.3",

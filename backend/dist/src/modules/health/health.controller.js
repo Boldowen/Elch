@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 import { Controller, Get } from '@nestjs/common';
 import { Public } from '../../common/decorators/public.decorator.js';
 let HealthController = class HealthController {
-    check() { return { status: 'ok', service: 'ventour-api', timestamp: new Date().toISOString() }; }
+    check() { return { status: 'ok', service: 'elch-api', timestamp: new Date().toISOString() }; }
 };
 __decorate([
     Get(),

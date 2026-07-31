@@ -21,6 +21,7 @@ import { CurrentUser } from '../common/decorators/current-user.decorator.js';
 import { Throttle } from '@nestjs/throttler';
 import { ResendVerificationDto, VerifyEmailDto } from './dto/verify-email.dto.js';
 import { ChangePasswordDto, ForgotPasswordDto, ResetPasswordDto } from './dto/password-recovery.dto.js';
+import { SocialLoginDto } from './dto/social-login.dto.js';
 let AuthController = class AuthController {
     auth;
     constructor(auth) {
@@ -28,6 +29,9 @@ let AuthController = class AuthController {
     }
     register(dto, ua, ip) { return this.auth.register(dto, { userAgent: ua, ip }); }
     login(dto, ua, ip) { return this.auth.login(dto, { userAgent: ua, ip }); }
+    socialLogin(dto, ua, ip) {
+        return this.auth.socialLogin(dto, { userAgent: ua, ip });
+    }
     refresh(dto, ua, ip) { return this.auth.refresh(dto.refreshToken, { userAgent: ua, ip }); }
     logout(dto) { return this.auth.logout(dto.refreshToken); }
     verifyEmail(dto) { return this.auth.verifyEmail(dto.token); }
@@ -59,6 +63,17 @@ __decorate([
     __metadata("design:paramtypes", [LoginDto, String, String]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "login", null);
+__decorate([
+    Public(),
+    Throttle({ default: { limit: 10, ttl: 60_000 } }),
+    Post('social'),
+    __param(0, Body()),
+    __param(1, Headers('user-agent')),
+    __param(2, Ip()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [SocialLoginDto, String, String]),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "socialLogin", null);
 __decorate([
     Public(),
     Post('refresh'),

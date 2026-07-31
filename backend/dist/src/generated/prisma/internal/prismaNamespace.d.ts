@@ -2312,6 +2312,7 @@ export declare const UserScalarFieldEnum: {
     readonly phone: "phone";
     readonly avatarUrl: "avatarUrl";
     readonly provider: "provider";
+    readonly providerSubject: "providerSubject";
     readonly roles: "roles";
     readonly isVerified: "isVerified";
     readonly emailVerifiedAt: "emailVerifiedAt";

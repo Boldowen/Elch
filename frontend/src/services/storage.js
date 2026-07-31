@@ -3,10 +3,10 @@ import * as SecureStore from 'expo-secure-store';
 import { Platform } from 'react-native';
 
 const KEYS = {
-  session: '@ventour/session',
-  refreshToken: 'ventour.refreshToken',
-  prefs: '@ventour/prefs',
-  cachePrefix: '@ventour/cache:',
+  session: '@elch/session',
+  refreshToken: 'elch.refreshToken',
+  prefs: '@elch/prefs',
+  cachePrefix: '@elch/cache:',
 };
 
 let memorySession = null;

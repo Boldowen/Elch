@@ -7,7 +7,7 @@ export default defineConfig({
         seed: 'tsx prisma/seed.ts',
     },
     datasource: {
-        url: process.env.DATABASE_URL ?? 'postgresql://ventour:ventour_change_me@localhost:5432/ventour?schema=public',
+        url: process.env.DATABASE_URL ?? 'postgresql://ventour:ventour_change_me@localhost:5432/elch?schema=public',
     },
 });
 //# sourceMappingURL=prisma.config.js.map

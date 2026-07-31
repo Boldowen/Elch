@@ -22,8 +22,8 @@ import { PrismaService } from '../src/prisma/prisma.service.js';
 import { GuideStatus, ListingCategory, MessageType, ModerationActionType, PaymentArrangement, PriceUnit, PricingType, ReportReason, ReportTargetType, Role, VerificationCheckStatus } from '../src/generated/prisma/client.js';
 
 const databaseUrl = process.env.DATABASE_URL ?? '';
-if (process.env.NODE_ENV !== 'test' || !databaseUrl.includes('ventour_test')) {
-  throw new Error('Integration tests require NODE_ENV=test and an isolated ventour_test database');
+if (process.env.NODE_ENV !== 'test' || !databaseUrl.includes('elch_test')) {
+  throw new Error('Integration tests require NODE_ENV=test and an isolated elch_test database');
 }
 
 describe('booking reliability', () => {

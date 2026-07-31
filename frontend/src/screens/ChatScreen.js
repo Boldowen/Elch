@@ -64,7 +64,7 @@ export default function ChatScreen({ navigation, route }) {
       <ScreenHeader title={title || 'Chat'} onBack={() => navigation.goBack()} />
       <View style={styles.safetyActions}>
         <Pressable onPress={async () => { const next = !muted; await conversationsRepository.mute(id, next); setMuted(next); }}><Text style={styles.safetyText}>{muted ? 'Unmute' : 'Mute'}</Text></Pressable>
-        {peerId ? <Pressable onPress={() => Alert.alert('Report user?', 'A safety report will be sent to VenTour.', [{ text: 'Cancel' }, { text: 'Report', style: 'destructive', onPress: async () => { await trustSafetyRepository.report({ reason: 'HARASSMENT', targetType: 'USER', targetId: peerId, details: 'Reported from conversation' }); Alert.alert('Report sent'); } }])}><Text style={styles.safetyText}>Report</Text></Pressable> : null}
+        {peerId ? <Pressable onPress={() => Alert.alert('Report user?', 'A safety report will be sent to ELCH.', [{ text: 'Cancel' }, { text: 'Report', style: 'destructive', onPress: async () => { await trustSafetyRepository.report({ reason: 'HARASSMENT', targetType: 'USER', targetId: peerId, details: 'Reported from conversation' }); Alert.alert('Report sent'); } }])}><Text style={styles.safetyText}>Report</Text></Pressable> : null}
         {peerId ? <Pressable onPress={() => Alert.alert('Block user?', 'Messaging and social interactions will stop.', [{ text: 'Cancel' }, { text: 'Block', style: 'destructive', onPress: async () => { await trustSafetyRepository.block(peerId); navigation.goBack(); } }])}><Text style={styles.dangerText}>Block</Text></Pressable> : null}
       </View>
       <KeyboardAvoidingView

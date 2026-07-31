@@ -185,6 +185,7 @@ model User {
   phone          String?
   avatarUrl      String?
   provider       AuthProvider @default(EMAIL)
+  providerSubject String?
   roles          Role[]       @default([TRAVELER])
   isVerified     Boolean      @default(false)
   emailVerifiedAt DateTime?
@@ -226,6 +227,7 @@ model User {
 
   @@index([deletedAt])
   @@index([createdAt])
+  @@unique([provider, providerSubject])
 }
 
 model RefreshToken {

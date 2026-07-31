@@ -21,7 +21,7 @@ export function BrandMark({ dark = false }) {
         ]}
       />
       <Text style={[styles.brandText, dark && { color: colors.white }]}>
-        VenTour
+        ELCH
       </Text>
     </View>
   );

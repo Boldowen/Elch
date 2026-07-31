@@ -64,7 +64,7 @@ const locales = { en: 'en-US', mn: 'mn-MN', ru: 'ru-RU', zh: 'zh-CN', ko: 'ko-KR
 export function useT() {
   const { language } = useAuth();
   const t = useCallback(
-    (key) => dictionaries[language]?.[key] || en[key] || key,
+    (key) => String(dictionaries[language]?.[key] || en[key] || key).replaceAll('VenTour', 'ELCH'),
     [language],
   );
   return { t, language, locale: locales[language] || locales.en };

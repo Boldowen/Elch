@@ -111,7 +111,7 @@ export default function RootNavigator() {
   return (
     <NavigationContainer
       theme={navTheme}
-      linking={{ prefixes: ['ventour://'], config: { screens: { VerifyEmail: 'verify-email', ResetPassword: 'reset-password' } } }}
+      linking={{ prefixes: ['elch://'], config: { screens: { VerifyEmail: 'verify-email', ResetPassword: 'reset-password' } } }}
     >
       <Stack.Navigator
         screenOptions={{ headerShown: false }}
