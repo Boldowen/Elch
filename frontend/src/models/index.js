@@ -96,6 +96,7 @@ export function mapSocialPost(json = {}) {
     name: String(authorRaw.name ?? 'Traveler'),
     avatarUrl: String(authorRaw.avatarUrl ?? ''),
     home: String(authorRaw.home ?? authorRaw.location ?? ''),
+    following: Boolean(authorRaw.following),
     followsYou: Boolean(authorRaw.followsYou),
   };
   return {

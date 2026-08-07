@@ -15,10 +15,12 @@ import { useAuth } from '../context/AuthContext';
 import { apiErrorMessage } from '../services/api';
 import { colors, radius, spacing } from '../theme';
 import { formatDateTime, formatMoney, useT } from '../localization';
+import { useHideTabBarOnScroll } from '../navigation/useHideTabBarOnScroll';
 
 const cancellable = new Set(['PENDING', 'CONFIRMED']);
 
 export default function TripsScreen({ navigation }) {
+  const onScroll = useHideTabBarOnScroll();
   const { session } = useAuth();
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -90,6 +92,8 @@ export default function TripsScreen({ navigation }) {
           data={items}
           keyExtractor={(item) => String(item.id)}
           contentContainerStyle={{ padding: spacing.lg, paddingBottom: 100 }}
+          onScroll={onScroll}
+          scrollEventThrottle={16}
           refreshControl={
             <RefreshControl
               refreshing={refreshing}

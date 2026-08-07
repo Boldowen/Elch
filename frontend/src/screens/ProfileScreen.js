@@ -6,6 +6,7 @@ import { AppButton } from '../components/ui';
 import { useAuth } from '../context/AuthContext';
 import { useT } from '../localization';
 import { colors, radius, spacing } from '../theme';
+import { useHideTabBarOnScroll } from '../navigation/useHideTabBarOnScroll';
 
 const LINKS = [
   { key: 'profile.account', route: 'AccountSettings' },
@@ -19,6 +20,7 @@ const LINKS = [
 ];
 
 export default function ProfileScreen({ navigation }) {
+  const onScroll = useHideTabBarOnScroll();
   const { session, logout, language, setLanguage } = useAuth();
   const { t } = useT();
 
@@ -41,7 +43,7 @@ export default function ProfileScreen({ navigation }) {
     : LINKS;
   return (
     <SafeAreaView style={styles.root} edges={['top']}>
-      <ScrollView contentContainerStyle={{ paddingBottom: 120 }}>
+      <ScrollView contentContainerStyle={{ paddingBottom: 120 }} onScroll={onScroll} scrollEventThrottle={16}>
         <Text style={styles.title}>{t('profile.title')}</Text>
         <View style={styles.hero}>
           <Image source={user.avatarUrl || undefined} style={styles.avatar} />

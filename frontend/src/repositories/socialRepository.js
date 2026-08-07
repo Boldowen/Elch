@@ -24,6 +24,7 @@ export const socialRepository = {
   },
 
   async toggleFollow(userId) {
-    await api.post(`/social/users/${userId}/follow`);
+    const { data } = await api.post(`/social/users/${userId}/follow`);
+    return data;
   },
 };

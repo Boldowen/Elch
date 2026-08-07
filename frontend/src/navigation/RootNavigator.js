@@ -1,11 +1,13 @@
-import React from 'react';
-import { Text } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { Animated, Easing, StyleSheet } from 'react-native';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { BottomTabBar, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from '../context/AuthContext';
 import { colors } from '../theme';
 import { useT } from '../localization';
+import { TabBarVisibilityProvider, useTabBarVisibility } from './TabBarVisibilityContext';
 
 import WelcomeScreen from '../screens/WelcomeScreen';
 import AuthScreen from '../screens/AuthScreen';
@@ -50,23 +52,52 @@ const navTheme = {
   },
 };
 
-function TabIcon({ label, focused }) {
+function TabIcon({ label, focused, color }) {
   const icons = {
-    Explore: '🧭',
-    Community: '💬',
-    Trips: '🧳',
-    Inbox: '✉️',
-    Profile: '👤',
+    Explore: focused ? 'compass' : 'compass-outline',
+    Community: focused ? 'people' : 'people-outline',
+    Trips: focused ? 'bag-handle' : 'bag-handle-outline',
+    Inbox: focused ? 'chatbubble' : 'chatbubble-outline',
+    Profile: focused ? 'person' : 'person-outline',
   };
+  return <Ionicons name={icons[label] || 'ellipse-outline'} size={22} color={color} />;
+}
+
+function AnimatedTabBar(props) {
+  const { visible } = useTabBarVisibility();
+  const translateY = useRef(new Animated.Value(0)).current;
+  const opacity = useRef(new Animated.Value(1)).current;
+
+  useEffect(() => {
+    Animated.parallel([
+      Animated.timing(translateY, {
+        toValue: visible ? 0 : 110,
+        duration: 280,
+        easing: Easing.out(Easing.cubic),
+        useNativeDriver: true,
+      }),
+      Animated.timing(opacity, {
+        toValue: visible ? 1 : 0,
+        duration: 220,
+        easing: Easing.out(Easing.cubic),
+        useNativeDriver: true,
+      }),
+    ]).start();
+  }, [opacity, translateY, visible]);
+
   return (
-    <Text style={{ fontSize: focused ? 20 : 18, opacity: focused ? 1 : 0.55 }}>
-      {icons[label] || '•'}
-    </Text>
+    <Animated.View
+      pointerEvents={visible ? 'auto' : 'none'}
+      style={[styles.animatedTabBar, { opacity, transform: [{ translateY }] }]}
+    >
+      <BottomTabBar {...props} />
+    </Animated.View>
   );
 }
 
-function MainTabs() {
+function Tabs() {
   const { t } = useT();
+  const { setVisible } = useTabBarVisibility();
   const labels = {
     Explore: t('nav.explore'),
     Community: t('nav.community'),
@@ -76,21 +107,24 @@ function MainTabs() {
   };
   return (
     <Tab.Navigator
+      tabBar={(props) => <AnimatedTabBar {...props} />}
+      screenListeners={{ tabPress: () => setVisible(true) }}
       screenOptions={({ route }) => ({
         headerShown: false,
-        tabBarActiveTintColor: colors.ink,
+        tabBarActiveTintColor: colors.brand,
         tabBarInactiveTintColor: colors.inkSoft,
         tabBarStyle: {
           borderTopColor: colors.border,
-          height: 60,
-          paddingBottom: 8,
-          paddingTop: 6,
+          height: 68,
+          paddingBottom: 10,
+          paddingTop: 8,
+          backgroundColor: 'rgba(255,255,255,0.97)',
         },
         tabBarLabelStyle: { fontSize: 11, fontWeight: '600' },
         tabBarLabel: labels[route.name],
         tabBarAccessibilityLabel: labels[route.name],
-        tabBarIcon: ({ focused }) => (
-          <TabIcon label={route.name} focused={focused} />
+        tabBarIcon: ({ focused, color }) => (
+          <TabIcon label={route.name} focused={focused} color={color} />
         ),
       })}
     >
@@ -102,6 +136,24 @@ function MainTabs() {
     </Tab.Navigator>
   );
 }
+
+function MainTabs() {
+  return (
+    <TabBarVisibilityProvider>
+      <Tabs />
+    </TabBarVisibilityProvider>
+  );
+}
+
+const styles = StyleSheet.create({
+  animatedTabBar: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: 50,
+  },
+});
 
 export default function RootNavigator() {
   const { session, booting } = useAuth();

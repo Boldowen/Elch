@@ -48,3 +48,42 @@ export const categoryKeyMap = {
   City: 'city',
   History: 'history',
 };
+
+export const categoryBlocks = [
+  {
+    key: 'trending',
+    title: 'Trending',
+    subtitle: 'Most-loved stays this season',
+    count: '128 places',
+    image: AppImages.hills,
+    side: 'right',
+    chips: ['Ger camps', 'Horse riding'],
+  },
+  {
+    key: 'hotel',
+    title: 'Hotel & Camp',
+    subtitle: 'Lodges, camps & boutique stays',
+    count: '212 places',
+    image: AppImages.lakeReflect,
+    side: 'left',
+    chips: ['Lake view', 'Sauna'],
+  },
+  {
+    key: 'foods',
+    title: 'Foods',
+    subtitle: 'Taste real Mongolian flavours',
+    count: '64 experiences',
+    image: AppImages.foodBowls,
+    side: 'right',
+    chips: ['Cooking', 'Food tours'],
+  },
+  {
+    key: 'guides',
+    title: 'Guides',
+    subtitle: 'Explore Mongolia with local experts',
+    count: 'Verified local guides',
+    image: AppImages.guide1,
+    side: 'left',
+    chips: ['Local experts', 'Verified'],
+  },
+];

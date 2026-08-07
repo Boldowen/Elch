@@ -14,8 +14,10 @@ import { conversationsRepository } from '../repositories/conversationsRepository
 import { useAuth } from '../context/AuthContext';
 import { apiErrorMessage } from '../services/api';
 import { colors, spacing } from '../theme';
+import { useHideTabBarOnScroll } from '../navigation/useHideTabBarOnScroll';
 
 export default function InboxScreen({ navigation }) {
+  const onScroll = useHideTabBarOnScroll();
   const { session } = useAuth();
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -72,6 +74,8 @@ export default function InboxScreen({ navigation }) {
           data={items}
           keyExtractor={(item) => item.id}
           contentContainerStyle={{ paddingBottom: 100 }}
+          onScroll={onScroll}
+          scrollEventThrottle={16}
           refreshControl={
             <RefreshControl
               refreshing={refreshing}

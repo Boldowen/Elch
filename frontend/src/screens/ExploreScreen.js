@@ -1,181 +1,214 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
-  FlatList,
   Pressable,
-  RefreshControl,
   ScrollView,
   StyleSheet,
   Text,
   TextInput,
   View,
 } from 'react-native';
+import { Image } from 'expo-image';
+import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Chip, ListingCard, StateBox } from '../components/ui';
-import { categoryKeyMap, categoryTabs } from '../data/images';
-import { listingsRepository } from '../repositories/listingsRepository';
-import { apiErrorMessage } from '../services/api';
+import { categoryBlocks } from '../data/images';
+import { useHideTabBarOnScroll } from '../navigation/useHideTabBarOnScroll';
 import { colors, radius, spacing } from '../theme';
 import { useT } from '../localization';
 
+function CategoryBlock({ category, onPress }) {
+  const arrowOnRight = category.side === 'right';
+
+  return (
+    <Pressable
+      onPress={onPress}
+      accessibilityRole="button"
+      accessibilityLabel={`${category.title}. ${category.subtitle}`}
+      style={({ pressed }) => [
+        styles.categoryBlock,
+        arrowOnRight ? styles.roundRight : styles.roundLeft,
+        pressed && styles.categoryPressed,
+      ]}
+    >
+      <Image source={category.image} style={StyleSheet.absoluteFill} contentFit="cover" />
+      <View style={styles.categoryShade} />
+      <View
+        style={[
+          styles.categoryCopy,
+          arrowOnRight ? styles.copyArrowRight : styles.copyArrowLeft,
+        ]}
+      >
+        <View style={styles.tagRow}>
+          {category.chips.map((chip) => (
+            <View key={chip} style={styles.categoryTag}>
+              <Text style={styles.categoryTagText}>{chip}</Text>
+            </View>
+          ))}
+        </View>
+        <Text style={styles.categoryTitle}>{category.title}</Text>
+        <Text style={styles.categorySubtitle}>{category.subtitle}</Text>
+        <Text style={styles.categoryCount}>{category.count}</Text>
+      </View>
+      <View
+        style={[
+          styles.categoryArrow,
+          arrowOnRight ? styles.arrowRight : styles.arrowLeft,
+        ]}
+      >
+        <Ionicons
+          name={arrowOnRight ? 'arrow-forward' : 'arrow-back'}
+          size={22}
+          color={colors.white}
+        />
+      </View>
+    </Pressable>
+  );
+}
+
 export default function ExploreScreen({ navigation }) {
   const { t } = useT();
-  const [tab, setTab] = useState(0);
+  const onScroll = useHideTabBarOnScroll();
   const [query, setQuery] = useState('');
-  const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [refreshing, setRefreshing] = useState(false);
-
-  const load = useCallback(async () => {
-    setError(null);
-    try {
-      const label = categoryTabs[tab];
-      if (label === 'Guides') {
-        setItems([]);
-        setLoading(false);
-        return;
-      }
-      const category = categoryKeyMap[label];
-      const data = await listingsRepository.fetch({
-        category: category === 'trending' ? undefined : category,
-        search: query.trim() || undefined,
-      });
-      setItems(data);
-    } catch (e) {
-      setError(apiErrorMessage(e));
-    } finally {
-      setLoading(false);
-      setRefreshing(false);
-    }
-  }, [tab, query]);
-
-  useEffect(() => {
-    setLoading(true);
-    load();
-  }, [load]);
-
-  const onRefresh = () => {
-    setRefreshing(true);
-    load();
-  };
 
   return (
     <SafeAreaView style={styles.root} edges={['top']}>
       <View style={styles.header}>
-        <Text style={styles.title}>Explore</Text>
-        <View style={styles.searchRow}>
+        <Text style={styles.title}>{t('nav.explore')}</Text>
+        <View style={styles.searchBar}>
+          <Ionicons name="search-outline" size={19} color={colors.inkSoft} />
           <TextInput
             value={query}
             onChangeText={setQuery}
             placeholder="Search places, camps, guides..."
             placeholderTextColor={colors.inkSoft}
-            style={styles.search}
-            onSubmitEditing={load}
+            style={styles.searchInput}
             returnKeyType="search"
           />
         </View>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ paddingVertical: 10 }}
-        >
-          {categoryTabs.map((label, i) => (
-            <Chip
-              key={label}
-              label={label}
-              active={tab === i}
-              onPress={() => setTab(i)}
-            />
-          ))}
-        </ScrollView>
       </View>
 
-      {categoryTabs[tab] === 'Guides' ? (
-        <View style={styles.guidesCta}>
-          <Text style={styles.ctaTitle}>Find local guides</Text>
-          <Text style={styles.ctaSub}>
-            Browse verified guides for horse rides, city walks, and more.
-          </Text>
-          <Pressable
-            style={styles.ctaBtn}
-            onPress={() => navigation.navigate('Guides')}
-          >
-            <Text style={styles.ctaBtnText}>Open guides</Text>
-          </Pressable>
+      <ScrollView
+        contentContainerStyle={styles.content}
+        showsVerticalScrollIndicator={false}
+        onScroll={onScroll}
+        scrollEventThrottle={16}
+      >
+        <View style={styles.categoryList}>
+          {categoryBlocks.map((category) => (
+            <CategoryBlock
+              key={category.key}
+              category={category}
+              onPress={() =>
+                category.key === 'guides'
+                  ? navigation.navigate('Guides')
+                  : navigation.navigate('CategoryListing', { key: category.key })
+              }
+            />
+          ))}
         </View>
-      ) : (
-        <StateBox loading={loading} error={error} empty={!items.length} emptyText="No listings found.">
-          <FlatList
-            data={items}
-            keyExtractor={(item) => item.id}
-            contentContainerStyle={{ padding: spacing.lg, paddingBottom: 100 }}
-            refreshControl={
-              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-            }
-            ListHeaderComponent={items.some((item) => item.isCached) ? (
-              <View
-                style={styles.cachedBanner}
-                accessibilityRole="alert"
-                accessibilityLiveRegion="polite"
-              >
-                <Text style={styles.cachedText}>{t('common.cached')}</Text>
-              </View>
-            ) : null}
-            renderItem={({ item }) => (
-              <ListingCard
-                item={item}
-                onPress={() =>
-                  navigation.navigate('ListingDetail', { id: item.id })
-                }
-              />
-            )}
-          />
-        </StateBox>
-      )}
+      </ScrollView>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: colors.white },
-  header: { paddingHorizontal: spacing.lg, paddingTop: spacing.sm },
+  header: {
+    paddingHorizontal: spacing.lg,
+    paddingTop: spacing.sm,
+    paddingBottom: spacing.md,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: colors.border,
+    backgroundColor: colors.white,
+  },
   title: {
-    fontSize: 28,
+    marginBottom: 10,
+    fontSize: 24,
     fontWeight: '600',
     color: colors.ink,
-    letterSpacing: -0.4,
+    letterSpacing: -0.48,
   },
-  searchRow: { marginTop: 10 },
-  search: {
+  searchBar: {
     height: 48,
-    borderRadius: radius.pill,
-    backgroundColor: colors.secondary,
-    paddingHorizontal: 18,
-    fontSize: 15,
-    color: colors.ink,
-  },
-  guidesCta: {
-    margin: spacing.lg,
-    padding: spacing.xl,
-    borderRadius: radius.lg,
-    backgroundColor: colors.secondary,
-  },
-  ctaTitle: { fontSize: 20, fontWeight: '700', color: colors.ink },
-  ctaSub: { color: colors.inkSoft, marginTop: 8, marginBottom: 16 },
-  ctaBtn: {
-    backgroundColor: colors.brand,
-    borderRadius: radius.md,
-    paddingVertical: 14,
+    flexDirection: 'row',
     alignItems: 'center',
-  },
-  ctaBtnText: { color: '#fff', fontWeight: '700' },
-  cachedBanner: {
+    gap: 10,
+    paddingHorizontal: 16,
+    borderRadius: radius.pill,
     borderWidth: 1,
     borderColor: colors.border,
-    backgroundColor: colors.secondary,
-    borderRadius: radius.md,
-    padding: 12,
-    marginBottom: 14,
+    backgroundColor: colors.white,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.07,
+    shadowRadius: 5,
+    elevation: 2,
   },
-  cachedText: { color: colors.ink, lineHeight: 19 },
+  searchInput: { flex: 1, height: '100%', fontSize: 14, color: colors.ink },
+  content: {
+    paddingHorizontal: spacing.lg,
+    paddingTop: spacing.lg,
+    paddingBottom: 116,
+  },
+  categoryList: { gap: spacing.lg },
+  categoryBlock: {
+    height: 144,
+    overflow: 'hidden',
+    backgroundColor: colors.ink,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.18,
+    shadowRadius: 8,
+    elevation: 5,
+  },
+  roundRight: {
+    borderTopLeftRadius: radius.lg,
+    borderBottomLeftRadius: radius.lg,
+    borderTopRightRadius: 72,
+    borderBottomRightRadius: 72,
+  },
+  roundLeft: {
+    borderTopLeftRadius: 72,
+    borderBottomLeftRadius: 72,
+    borderTopRightRadius: radius.lg,
+    borderBottomRightRadius: radius.lg,
+  },
+  categoryPressed: { opacity: 0.9, transform: [{ scale: 0.99 }] },
+  categoryShade: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0,0,0,0.42)',
+  },
+  categoryCopy: { flex: 1, justifyContent: 'flex-end', paddingVertical: 18 },
+  copyArrowRight: { paddingLeft: 20, paddingRight: 86 },
+  copyArrowLeft: { paddingLeft: 86, paddingRight: 20 },
+  tagRow: { flexDirection: 'row', gap: 6, marginBottom: 4 },
+  categoryTag: {
+    borderRadius: radius.pill,
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    paddingHorizontal: 10,
+    paddingVertical: 3,
+  },
+  categoryTagText: { color: colors.white, fontSize: 11 },
+  categoryTitle: { color: colors.white, fontSize: 22, fontWeight: '600' },
+  categorySubtitle: {
+    color: 'rgba(255,255,255,0.82)',
+    fontSize: 13,
+    marginTop: 1,
+  },
+  categoryCount: {
+    color: 'rgba(255,255,255,0.62)',
+    fontSize: 12,
+    marginTop: 2,
+  },
+  categoryArrow: {
+    position: 'absolute',
+    top: 48,
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.brand,
+  },
+  arrowRight: { right: 20 },
+  arrowLeft: { left: 20 },
 });
