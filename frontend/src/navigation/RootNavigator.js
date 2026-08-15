@@ -37,6 +37,10 @@ import SafetyScreen from '../screens/SafetyScreen';
 import AdminGuideApplicationsScreen from '../screens/AdminGuideApplicationsScreen';
 import AdminReportsScreen from '../screens/AdminReportsScreen';
 import CreateReviewScreen from '../screens/CreateReviewScreen';
+import ResearchRoutesScreen from '../screens/ResearchRoutesScreen';
+import GuideAssessmentDashboardScreen from '../screens/GuideAssessmentDashboardScreen';
+import AssessmentSessionScreen from '../screens/AssessmentSessionScreen';
+import ResearchDashboardScreen from '../screens/ResearchDashboardScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -215,6 +219,10 @@ export default function RootNavigator() {
         <Stack.Screen name="AdminGuideApplications" component={AdminGuideApplicationsScreen} />
         <Stack.Screen name="AdminReports" component={AdminReportsScreen} />
         <Stack.Screen name="CreateReview" component={CreateReviewScreen} />
+        <Stack.Screen name="ResearchRoutes" component={ResearchRoutesScreen} />
+        <Stack.Screen name="GuideAssessments" component={GuideAssessmentDashboardScreen} />
+        <Stack.Screen name="AssessmentSession" component={AssessmentSessionScreen} />
+        <Stack.Screen name="ResearchDashboard" component={ResearchDashboardScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

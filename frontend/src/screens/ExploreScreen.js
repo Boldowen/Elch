@@ -92,6 +92,19 @@ export default function ExploreScreen({ navigation }) {
         onScroll={onScroll}
         scrollEventThrottle={16}
       >
+        <Pressable
+          onPress={() => navigation.navigate('ResearchRoutes')}
+          style={styles.aiCard}
+          accessibilityRole="button"
+          accessibilityLabel="Open AI route planner"
+        >
+          <View style={styles.aiIcon}><Ionicons name="sparkles" size={22} color={colors.white} /></View>
+          <View style={{ flex: 1 }}>
+            <Text style={styles.aiTitle}>AI route planner</Text>
+            <Text style={styles.aiSubtitle}>RouteGraph · safety validator · guide requirements</Text>
+          </View>
+          <Ionicons name="chevron-forward" size={20} color={colors.inkSoft} />
+        </Pressable>
         <View style={styles.categoryList}>
           {categoryBlocks.map((category) => (
             <CategoryBlock
@@ -150,6 +163,10 @@ const styles = StyleSheet.create({
     paddingBottom: 116,
   },
   categoryList: { gap: spacing.lg },
+  aiCard: { flexDirection: 'row', alignItems: 'center', gap: 12, padding: 14, marginBottom: spacing.lg, borderRadius: radius.lg, backgroundColor: colors.secondary },
+  aiIcon: { width: 44, height: 44, borderRadius: 22, alignItems: 'center', justifyContent: 'center', backgroundColor: colors.brand },
+  aiTitle: { color: colors.ink, fontSize: 16, fontWeight: '700' },
+  aiSubtitle: { color: colors.inkSoft, fontSize: 11, marginTop: 2 },
   categoryBlock: {
     height: 144,
     overflow: 'hidden',

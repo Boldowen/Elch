@@ -7,7 +7,7 @@ import { bookingsRepository, listingsRepository } from '../repositories/listings
 import { useAuth } from '../context/AuthContext';
 import { apiErrorMessage } from '../services/api';
 import { colors, radius, spacing } from '../theme';
-import { formatDateTime, formatMoney } from '../localization';
+import { formatDateTime, formatMoney, useT } from '../localization';
 
 const STATUS_COPY = {
   PENDING: 'Identity and quality checks are in progress. Your profile is not public yet.',
@@ -18,6 +18,7 @@ const STATUS_COPY = {
 
 export default function GuideDashboardScreen({ navigation }) {
   const { session, language } = useAuth();
+  const { t } = useT();
   const [profile, setProfile] = useState(null);
   const [bookings, setBookings] = useState([]);
   const [listings, setListings] = useState([]);
@@ -117,9 +118,14 @@ export default function GuideDashboardScreen({ navigation }) {
               </View>
               <Text style={styles.bio}>{profile.bio}</Text>
               <AppButton
+                title={t('assessment.openDashboard')}
+                onPress={() => navigation.navigate('GuideAssessments')}
+              />
+              <AppButton
                 title="Edit application"
                 variant="secondary"
                 onPress={() => navigation.navigate('GuideProfileEdit')}
+                style={{ marginTop: 10 }}
               />
               {profile.status === 'REJECTED' ? (
                 <AppButton
