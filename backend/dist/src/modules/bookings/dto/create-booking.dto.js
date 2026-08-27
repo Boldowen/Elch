@@ -46,4 +46,51 @@ __decorate([
     MaxLength(1000),
     __metadata("design:type", String)
 ], CreateBookingDto.prototype, "note", void 0);
+export class UpdateBookingDraftDto {
+    listingId;
+    guideId;
+    startsAt;
+    endsAt;
+    guests;
+    note;
+    expectedUpdatedAt;
+}
+__decorate([
+    IsOptional(),
+    IsUUID(),
+    __metadata("design:type", String)
+], UpdateBookingDraftDto.prototype, "listingId", void 0);
+__decorate([
+    IsOptional(),
+    IsUUID(),
+    __metadata("design:type", String)
+], UpdateBookingDraftDto.prototype, "guideId", void 0);
+__decorate([
+    IsOptional(),
+    IsDateString(),
+    __metadata("design:type", String)
+], UpdateBookingDraftDto.prototype, "startsAt", void 0);
+__decorate([
+    IsOptional(),
+    IsDateString(),
+    __metadata("design:type", String)
+], UpdateBookingDraftDto.prototype, "endsAt", void 0);
+__decorate([
+    IsOptional(),
+    IsInt(),
+    Min(1),
+    Max(30),
+    __metadata("design:type", Number)
+], UpdateBookingDraftDto.prototype, "guests", void 0);
+__decorate([
+    IsOptional(),
+    IsString(),
+    MaxLength(1000),
+    __metadata("design:type", String)
+], UpdateBookingDraftDto.prototype, "note", void 0);
+__decorate([
+    IsOptional(),
+    IsDateString(),
+    __metadata("design:type", String)
+], UpdateBookingDraftDto.prototype, "expectedUpdatedAt", void 0);
 //# sourceMappingURL=create-booking.dto.js.map

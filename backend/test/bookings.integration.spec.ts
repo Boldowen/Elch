@@ -466,6 +466,62 @@ describe('booking reliability', () => {
       .rejects.toMatchObject({ response: { code: 'SELF_BOOKING_NOT_ALLOWED' } });
   });
 
+  it('keeps a booking draft inert until its owning traveler explicitly submits it', async () => {
+    const payload = { listingId, ...interval(60) };
+    const inventoryDate = new Date(`${payload.startsAt.slice(0, 10)}T00:00:00.000Z`);
+    const providerNotificationsBefore = await prisma.notification.count({ where: { userId: hostId } });
+    const key = randomUUID();
+    const draft = await service.createDraft(travelerId, payload, key) as { id: string; status: string; expiresAt: Date | null };
+    const replay = await service.createDraft(travelerId, payload, key) as { id: string };
+
+    expect(replay.id).toBe(draft.id);
+    expect(draft).toMatchObject({ status: 'DRAFT', expiresAt: null });
+    expect(await prisma.listingInventory.findUnique({
+      where: { listingId_date: { listingId, date: inventoryDate } },
+    })).toBeNull();
+    expect(await prisma.bookingEvent.count({ where: { bookingId: draft.id } })).toBe(0);
+    expect(await prisma.conversation.count({ where: { bookingId: draft.id } })).toBe(0);
+    expect(await prisma.pilotPayment.count({ where: { bookingId: draft.id } })).toBe(0);
+    expect(await prisma.notification.count({ where: { userId: hostId } })).toBe(providerNotificationsBefore);
+    expect((await service.listProvider(hostId)).some((booking) => booking.id === draft.id)).toBe(false);
+    await expect(service.updateStatus(hostId, draft.id, BookingAction.ACCEPT)).rejects.toBeInstanceOf(ConflictException);
+
+    const otherTraveler = await prisma.user.create({
+      data: { email: 'draft-owner-check@test.ventour.mn', name: 'Other Traveler', roles: [Role.TRAVELER] },
+    });
+    await expect(service.submitDraft(otherTraveler.id, draft.id)).rejects.toMatchObject({ status: 404 });
+
+    const submitted = await service.submitDraft(travelerId, draft.id);
+    expect(submitted).toMatchObject({ id: draft.id, status: 'PENDING', expiresAt: expect.any(Date) });
+    expect(await prisma.listingInventory.findUnique({
+      where: { listingId_date: { listingId, date: inventoryDate } },
+    })).toMatchObject({ reservedUnits: 1, availableUnits: 0 });
+    expect(await prisma.bookingEvent.findMany({ where: { bookingId: draft.id } })).toEqual([
+      expect.objectContaining({ fromStatus: 'DRAFT', toStatus: 'PENDING', eventType: 'DRAFT_SUBMITTED' }),
+    ]);
+    expect(await prisma.conversation.findUnique({ where: { bookingId: draft.id } })).toBeDefined();
+    expect(await prisma.notification.count({ where: { userId: hostId } })).toBe(providerNotificationsBefore + 1);
+    expect((await service.listProvider(hostId)).some((booking) => booking.id === draft.id)).toBe(true);
+    await expect(service.submitDraft(travelerId, draft.id)).rejects.toBeInstanceOf(ConflictException);
+  });
+
+  it('revalidates guide availability atomically when competing drafts are submitted', async () => {
+    const secondTraveler = await prisma.user.create({
+      data: { email: 'draft-race@test.ventour.mn', name: 'Draft Race Traveler', roles: [Role.TRAVELER] },
+    });
+    const payload = { guideId: hostId, ...interval(61) };
+    const first = await service.createDraft(travelerId, payload, randomUUID()) as { id: string };
+    const second = await service.createDraft(secondTraveler.id, payload, randomUUID()) as { id: string };
+
+    await expect(service.submitDraft(travelerId, first.id)).resolves.toMatchObject({ status: 'PENDING' });
+    await expect(service.submitDraft(secondTraveler.id, second.id)).rejects.toMatchObject({
+      response: { code: 'BOOKING_TIME_UNAVAILABLE' },
+    });
+    expect(await prisma.booking.findUnique({ where: { id: second.id } })).toMatchObject({ status: 'DRAFT' });
+    expect(await prisma.bookingEvent.count({ where: { bookingId: second.id } })).toBe(0);
+    expect(await prisma.conversation.count({ where: { bookingId: second.id } })).toBe(0);
+  });
+
   it('replays one response for the same idempotency key and rejects changed payload', async () => {
     const key = randomUUID();
     const payload = { listingId, ...interval(3) };

@@ -65,6 +65,8 @@ export type GuideProfileMinAggregateOutputType = {
   price: runtime.Decimal | null
   status: $Enums.GuideStatus | null
   verified: boolean | null
+  legalRole: $Enums.GuideLegalRole | null
+  firstAidVerified: boolean | null
   assessmentScore: number | null
   referenceContact: string | null
   codeOfConductAccepted: boolean | null
@@ -93,6 +95,8 @@ export type GuideProfileMaxAggregateOutputType = {
   price: runtime.Decimal | null
   status: $Enums.GuideStatus | null
   verified: boolean | null
+  legalRole: $Enums.GuideLegalRole | null
+  firstAidVerified: boolean | null
   assessmentScore: number | null
   referenceContact: string | null
   codeOfConductAccepted: boolean | null
@@ -124,6 +128,11 @@ export type GuideProfileCountAggregateOutputType = {
   price: number
   status: number
   verified: number
+  legalRole: number
+  routeBadges: number
+  specialtySkills: number
+  firstAidVerified: number
+  languageEstimate: number
   assessmentScore: number
   referenceContact: number
   codeOfConductAccepted: number
@@ -182,6 +191,8 @@ export type GuideProfileMinAggregateInputType = {
   price?: true
   status?: true
   verified?: true
+  legalRole?: true
+  firstAidVerified?: true
   assessmentScore?: true
   referenceContact?: true
   codeOfConductAccepted?: true
@@ -210,6 +221,8 @@ export type GuideProfileMaxAggregateInputType = {
   price?: true
   status?: true
   verified?: true
+  legalRole?: true
+  firstAidVerified?: true
   assessmentScore?: true
   referenceContact?: true
   codeOfConductAccepted?: true
@@ -241,6 +254,11 @@ export type GuideProfileCountAggregateInputType = {
   price?: true
   status?: true
   verified?: true
+  legalRole?: true
+  routeBadges?: true
+  specialtySkills?: true
+  firstAidVerified?: true
+  languageEstimate?: true
   assessmentScore?: true
   referenceContact?: true
   codeOfConductAccepted?: true
@@ -359,6 +377,11 @@ export type GuideProfileGroupByOutputType = {
   price: runtime.Decimal | null
   status: $Enums.GuideStatus
   verified: boolean
+  legalRole: $Enums.GuideLegalRole
+  routeBadges: string[]
+  specialtySkills: string[]
+  firstAidVerified: boolean
+  languageEstimate: runtime.JsonValue | null
   assessmentScore: number
   referenceContact: string | null
   codeOfConductAccepted: boolean
@@ -413,6 +436,11 @@ export type GuideProfileWhereInput = {
   price?: Prisma.DecimalNullableFilter<"GuideProfile"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   status?: Prisma.EnumGuideStatusFilter<"GuideProfile"> | $Enums.GuideStatus
   verified?: Prisma.BoolFilter<"GuideProfile"> | boolean
+  legalRole?: Prisma.EnumGuideLegalRoleFilter<"GuideProfile"> | $Enums.GuideLegalRole
+  routeBadges?: Prisma.StringNullableListFilter<"GuideProfile">
+  specialtySkills?: Prisma.StringNullableListFilter<"GuideProfile">
+  firstAidVerified?: Prisma.BoolFilter<"GuideProfile"> | boolean
+  languageEstimate?: Prisma.JsonNullableFilter<"GuideProfile">
   assessmentScore?: Prisma.IntFilter<"GuideProfile"> | number
   referenceContact?: Prisma.StringNullableFilter<"GuideProfile"> | string | null
   codeOfConductAccepted?: Prisma.BoolFilter<"GuideProfile"> | boolean
@@ -430,6 +458,17 @@ export type GuideProfileWhereInput = {
   deletedAt?: Prisma.DateTimeNullableFilter<"GuideProfile"> | Date | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   verificationReviews?: Prisma.GuideVerificationReviewListRelationFilter
+  evidence?: Prisma.GuideEvidenceListRelationFilter
+  competencyAttempts?: Prisma.CompetencyAttemptListRelationFilter
+  competencies?: Prisma.GuideCompetencyListRelationFilter
+  languageAssessments?: Prisma.GuideLanguageAssessmentListRelationFilter
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentListRelationFilter
+  skillAssessments?: Prisma.GuideSkillAssessmentListRelationFilter
+  routeCompetencies?: Prisma.GuideRouteCompetencyListRelationFilter
+  firstAidRecords?: Prisma.GuideFirstAidListRelationFilter
+  assessmentAttempts?: Prisma.AssessmentAttemptListRelationFilter
+  matchResults?: Prisma.GuideMatchResultListRelationFilter
+  safetyPlans?: Prisma.SafetyPlanListRelationFilter
 }
 
 export type GuideProfileOrderByWithRelationInput = {
@@ -446,6 +485,11 @@ export type GuideProfileOrderByWithRelationInput = {
   price?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   verified?: Prisma.SortOrder
+  legalRole?: Prisma.SortOrder
+  routeBadges?: Prisma.SortOrder
+  specialtySkills?: Prisma.SortOrder
+  firstAidVerified?: Prisma.SortOrder
+  languageEstimate?: Prisma.SortOrderInput | Prisma.SortOrder
   assessmentScore?: Prisma.SortOrder
   referenceContact?: Prisma.SortOrderInput | Prisma.SortOrder
   codeOfConductAccepted?: Prisma.SortOrder
@@ -463,6 +507,17 @@ export type GuideProfileOrderByWithRelationInput = {
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   verificationReviews?: Prisma.GuideVerificationReviewOrderByRelationAggregateInput
+  evidence?: Prisma.GuideEvidenceOrderByRelationAggregateInput
+  competencyAttempts?: Prisma.CompetencyAttemptOrderByRelationAggregateInput
+  competencies?: Prisma.GuideCompetencyOrderByRelationAggregateInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentOrderByRelationAggregateInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentOrderByRelationAggregateInput
+  skillAssessments?: Prisma.GuideSkillAssessmentOrderByRelationAggregateInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyOrderByRelationAggregateInput
+  firstAidRecords?: Prisma.GuideFirstAidOrderByRelationAggregateInput
+  assessmentAttempts?: Prisma.AssessmentAttemptOrderByRelationAggregateInput
+  matchResults?: Prisma.GuideMatchResultOrderByRelationAggregateInput
+  safetyPlans?: Prisma.SafetyPlanOrderByRelationAggregateInput
 }
 
 export type GuideProfileWhereUniqueInput = Prisma.AtLeast<{
@@ -482,6 +537,11 @@ export type GuideProfileWhereUniqueInput = Prisma.AtLeast<{
   price?: Prisma.DecimalNullableFilter<"GuideProfile"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   status?: Prisma.EnumGuideStatusFilter<"GuideProfile"> | $Enums.GuideStatus
   verified?: Prisma.BoolFilter<"GuideProfile"> | boolean
+  legalRole?: Prisma.EnumGuideLegalRoleFilter<"GuideProfile"> | $Enums.GuideLegalRole
+  routeBadges?: Prisma.StringNullableListFilter<"GuideProfile">
+  specialtySkills?: Prisma.StringNullableListFilter<"GuideProfile">
+  firstAidVerified?: Prisma.BoolFilter<"GuideProfile"> | boolean
+  languageEstimate?: Prisma.JsonNullableFilter<"GuideProfile">
   assessmentScore?: Prisma.IntFilter<"GuideProfile"> | number
   referenceContact?: Prisma.StringNullableFilter<"GuideProfile"> | string | null
   codeOfConductAccepted?: Prisma.BoolFilter<"GuideProfile"> | boolean
@@ -499,6 +559,17 @@ export type GuideProfileWhereUniqueInput = Prisma.AtLeast<{
   deletedAt?: Prisma.DateTimeNullableFilter<"GuideProfile"> | Date | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   verificationReviews?: Prisma.GuideVerificationReviewListRelationFilter
+  evidence?: Prisma.GuideEvidenceListRelationFilter
+  competencyAttempts?: Prisma.CompetencyAttemptListRelationFilter
+  competencies?: Prisma.GuideCompetencyListRelationFilter
+  languageAssessments?: Prisma.GuideLanguageAssessmentListRelationFilter
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentListRelationFilter
+  skillAssessments?: Prisma.GuideSkillAssessmentListRelationFilter
+  routeCompetencies?: Prisma.GuideRouteCompetencyListRelationFilter
+  firstAidRecords?: Prisma.GuideFirstAidListRelationFilter
+  assessmentAttempts?: Prisma.AssessmentAttemptListRelationFilter
+  matchResults?: Prisma.GuideMatchResultListRelationFilter
+  safetyPlans?: Prisma.SafetyPlanListRelationFilter
 }, "id" | "userId">
 
 export type GuideProfileOrderByWithAggregationInput = {
@@ -515,6 +586,11 @@ export type GuideProfileOrderByWithAggregationInput = {
   price?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   verified?: Prisma.SortOrder
+  legalRole?: Prisma.SortOrder
+  routeBadges?: Prisma.SortOrder
+  specialtySkills?: Prisma.SortOrder
+  firstAidVerified?: Prisma.SortOrder
+  languageEstimate?: Prisma.SortOrderInput | Prisma.SortOrder
   assessmentScore?: Prisma.SortOrder
   referenceContact?: Prisma.SortOrderInput | Prisma.SortOrder
   codeOfConductAccepted?: Prisma.SortOrder
@@ -554,6 +630,11 @@ export type GuideProfileScalarWhereWithAggregatesInput = {
   price?: Prisma.DecimalNullableWithAggregatesFilter<"GuideProfile"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   status?: Prisma.EnumGuideStatusWithAggregatesFilter<"GuideProfile"> | $Enums.GuideStatus
   verified?: Prisma.BoolWithAggregatesFilter<"GuideProfile"> | boolean
+  legalRole?: Prisma.EnumGuideLegalRoleWithAggregatesFilter<"GuideProfile"> | $Enums.GuideLegalRole
+  routeBadges?: Prisma.StringNullableListFilter<"GuideProfile">
+  specialtySkills?: Prisma.StringNullableListFilter<"GuideProfile">
+  firstAidVerified?: Prisma.BoolWithAggregatesFilter<"GuideProfile"> | boolean
+  languageEstimate?: Prisma.JsonNullableWithAggregatesFilter<"GuideProfile">
   assessmentScore?: Prisma.IntWithAggregatesFilter<"GuideProfile"> | number
   referenceContact?: Prisma.StringNullableWithAggregatesFilter<"GuideProfile"> | string | null
   codeOfConductAccepted?: Prisma.BoolWithAggregatesFilter<"GuideProfile"> | boolean
@@ -584,6 +665,11 @@ export type GuideProfileCreateInput = {
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   status?: $Enums.GuideStatus
   verified?: boolean
+  legalRole?: $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileCreaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileCreatespecialtySkillsInput | string[]
+  firstAidVerified?: boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   assessmentScore?: number
   referenceContact?: string | null
   codeOfConductAccepted?: boolean
@@ -601,6 +687,17 @@ export type GuideProfileCreateInput = {
   deletedAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutGuideProfileInput
   verificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutGuideProfileInput
+  evidence?: Prisma.GuideEvidenceCreateNestedManyWithoutGuideProfileInput
+  competencyAttempts?: Prisma.CompetencyAttemptCreateNestedManyWithoutGuideProfileInput
+  competencies?: Prisma.GuideCompetencyCreateNestedManyWithoutGuideProfileInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutGuideProfileInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentCreateNestedManyWithoutGuideProfileInput
+  skillAssessments?: Prisma.GuideSkillAssessmentCreateNestedManyWithoutGuideProfileInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyCreateNestedManyWithoutGuideProfileInput
+  firstAidRecords?: Prisma.GuideFirstAidCreateNestedManyWithoutGuideProfileInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutGuideProfileInput
+  matchResults?: Prisma.GuideMatchResultCreateNestedManyWithoutGuideProfileInput
+  safetyPlans?: Prisma.SafetyPlanCreateNestedManyWithoutGuideProfileInput
 }
 
 export type GuideProfileUncheckedCreateInput = {
@@ -617,6 +714,11 @@ export type GuideProfileUncheckedCreateInput = {
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   status?: $Enums.GuideStatus
   verified?: boolean
+  legalRole?: $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileCreaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileCreatespecialtySkillsInput | string[]
+  firstAidVerified?: boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   assessmentScore?: number
   referenceContact?: string | null
   codeOfConductAccepted?: boolean
@@ -633,6 +735,17 @@ export type GuideProfileUncheckedCreateInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   verificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutGuideProfileInput
+  evidence?: Prisma.GuideEvidenceUncheckedCreateNestedManyWithoutGuideProfileInput
+  competencyAttempts?: Prisma.CompetencyAttemptUncheckedCreateNestedManyWithoutGuideProfileInput
+  competencies?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutGuideProfileInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutGuideProfileInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentUncheckedCreateNestedManyWithoutGuideProfileInput
+  skillAssessments?: Prisma.GuideSkillAssessmentUncheckedCreateNestedManyWithoutGuideProfileInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyUncheckedCreateNestedManyWithoutGuideProfileInput
+  firstAidRecords?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutGuideProfileInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutGuideProfileInput
+  matchResults?: Prisma.GuideMatchResultUncheckedCreateNestedManyWithoutGuideProfileInput
+  safetyPlans?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutGuideProfileInput
 }
 
 export type GuideProfileUpdateInput = {
@@ -648,6 +761,11 @@ export type GuideProfileUpdateInput = {
   price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  legalRole?: Prisma.EnumGuideLegalRoleFieldUpdateOperationsInput | $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileUpdaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileUpdatespecialtySkillsInput | string[]
+  firstAidVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   assessmentScore?: Prisma.IntFieldUpdateOperationsInput | number
   referenceContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   codeOfConductAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -665,6 +783,17 @@ export type GuideProfileUpdateInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutGuideProfileNestedInput
   verificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutGuideProfileNestedInput
+  evidence?: Prisma.GuideEvidenceUpdateManyWithoutGuideProfileNestedInput
+  competencyAttempts?: Prisma.CompetencyAttemptUpdateManyWithoutGuideProfileNestedInput
+  competencies?: Prisma.GuideCompetencyUpdateManyWithoutGuideProfileNestedInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentUpdateManyWithoutGuideProfileNestedInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentUpdateManyWithoutGuideProfileNestedInput
+  skillAssessments?: Prisma.GuideSkillAssessmentUpdateManyWithoutGuideProfileNestedInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyUpdateManyWithoutGuideProfileNestedInput
+  firstAidRecords?: Prisma.GuideFirstAidUpdateManyWithoutGuideProfileNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutGuideProfileNestedInput
+  matchResults?: Prisma.GuideMatchResultUpdateManyWithoutGuideProfileNestedInput
+  safetyPlans?: Prisma.SafetyPlanUpdateManyWithoutGuideProfileNestedInput
 }
 
 export type GuideProfileUncheckedUpdateInput = {
@@ -681,6 +810,11 @@ export type GuideProfileUncheckedUpdateInput = {
   price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  legalRole?: Prisma.EnumGuideLegalRoleFieldUpdateOperationsInput | $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileUpdaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileUpdatespecialtySkillsInput | string[]
+  firstAidVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   assessmentScore?: Prisma.IntFieldUpdateOperationsInput | number
   referenceContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   codeOfConductAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -697,6 +831,17 @@ export type GuideProfileUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutGuideProfileNestedInput
+  evidence?: Prisma.GuideEvidenceUncheckedUpdateManyWithoutGuideProfileNestedInput
+  competencyAttempts?: Prisma.CompetencyAttemptUncheckedUpdateManyWithoutGuideProfileNestedInput
+  competencies?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutGuideProfileNestedInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutGuideProfileNestedInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentUncheckedUpdateManyWithoutGuideProfileNestedInput
+  skillAssessments?: Prisma.GuideSkillAssessmentUncheckedUpdateManyWithoutGuideProfileNestedInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyUncheckedUpdateManyWithoutGuideProfileNestedInput
+  firstAidRecords?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutGuideProfileNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutGuideProfileNestedInput
+  matchResults?: Prisma.GuideMatchResultUncheckedUpdateManyWithoutGuideProfileNestedInput
+  safetyPlans?: Prisma.SafetyPlanUncheckedUpdateManyWithoutGuideProfileNestedInput
 }
 
 export type GuideProfileCreateManyInput = {
@@ -713,6 +858,11 @@ export type GuideProfileCreateManyInput = {
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   status?: $Enums.GuideStatus
   verified?: boolean
+  legalRole?: $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileCreaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileCreatespecialtySkillsInput | string[]
+  firstAidVerified?: boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   assessmentScore?: number
   referenceContact?: string | null
   codeOfConductAccepted?: boolean
@@ -743,6 +893,11 @@ export type GuideProfileUpdateManyMutationInput = {
   price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  legalRole?: Prisma.EnumGuideLegalRoleFieldUpdateOperationsInput | $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileUpdaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileUpdatespecialtySkillsInput | string[]
+  firstAidVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   assessmentScore?: Prisma.IntFieldUpdateOperationsInput | number
   referenceContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   codeOfConductAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -774,6 +929,11 @@ export type GuideProfileUncheckedUpdateManyInput = {
   price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  legalRole?: Prisma.EnumGuideLegalRoleFieldUpdateOperationsInput | $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileUpdaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileUpdatespecialtySkillsInput | string[]
+  firstAidVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   assessmentScore?: Prisma.IntFieldUpdateOperationsInput | number
   referenceContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   codeOfConductAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -818,6 +978,11 @@ export type GuideProfileCountOrderByAggregateInput = {
   price?: Prisma.SortOrder
   status?: Prisma.SortOrder
   verified?: Prisma.SortOrder
+  legalRole?: Prisma.SortOrder
+  routeBadges?: Prisma.SortOrder
+  specialtySkills?: Prisma.SortOrder
+  firstAidVerified?: Prisma.SortOrder
+  languageEstimate?: Prisma.SortOrder
   assessmentScore?: Prisma.SortOrder
   referenceContact?: Prisma.SortOrder
   codeOfConductAccepted?: Prisma.SortOrder
@@ -860,6 +1025,8 @@ export type GuideProfileMaxOrderByAggregateInput = {
   price?: Prisma.SortOrder
   status?: Prisma.SortOrder
   verified?: Prisma.SortOrder
+  legalRole?: Prisma.SortOrder
+  firstAidVerified?: Prisma.SortOrder
   assessmentScore?: Prisma.SortOrder
   referenceContact?: Prisma.SortOrder
   codeOfConductAccepted?: Prisma.SortOrder
@@ -888,6 +1055,8 @@ export type GuideProfileMinOrderByAggregateInput = {
   price?: Prisma.SortOrder
   status?: Prisma.SortOrder
   verified?: Prisma.SortOrder
+  legalRole?: Prisma.SortOrder
+  firstAidVerified?: Prisma.SortOrder
   assessmentScore?: Prisma.SortOrder
   referenceContact?: Prisma.SortOrder
   codeOfConductAccepted?: Prisma.SortOrder
@@ -964,6 +1133,14 @@ export type GuideProfileCreateavailabilityInput = {
   set: string[]
 }
 
+export type GuideProfileCreaterouteBadgesInput = {
+  set: string[]
+}
+
+export type GuideProfileCreatespecialtySkillsInput = {
+  set: string[]
+}
+
 export type IntFieldUpdateOperationsInput = {
   set?: number
   increment?: number
@@ -998,12 +1175,180 @@ export type EnumGuideStatusFieldUpdateOperationsInput = {
   set?: $Enums.GuideStatus
 }
 
+export type EnumGuideLegalRoleFieldUpdateOperationsInput = {
+  set?: $Enums.GuideLegalRole
+}
+
+export type GuideProfileUpdaterouteBadgesInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
+export type GuideProfileUpdatespecialtySkillsInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
 export type DecimalFieldUpdateOperationsInput = {
   set?: runtime.Decimal | runtime.DecimalJsLike | number | string
   increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
   decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
   multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
   divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
+}
+
+export type GuideProfileCreateNestedOneWithoutEvidenceInput = {
+  create?: Prisma.XOR<Prisma.GuideProfileCreateWithoutEvidenceInput, Prisma.GuideProfileUncheckedCreateWithoutEvidenceInput>
+  connectOrCreate?: Prisma.GuideProfileCreateOrConnectWithoutEvidenceInput
+  connect?: Prisma.GuideProfileWhereUniqueInput
+}
+
+export type GuideProfileUpdateOneRequiredWithoutEvidenceNestedInput = {
+  create?: Prisma.XOR<Prisma.GuideProfileCreateWithoutEvidenceInput, Prisma.GuideProfileUncheckedCreateWithoutEvidenceInput>
+  connectOrCreate?: Prisma.GuideProfileCreateOrConnectWithoutEvidenceInput
+  upsert?: Prisma.GuideProfileUpsertWithoutEvidenceInput
+  connect?: Prisma.GuideProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.GuideProfileUpdateToOneWithWhereWithoutEvidenceInput, Prisma.GuideProfileUpdateWithoutEvidenceInput>, Prisma.GuideProfileUncheckedUpdateWithoutEvidenceInput>
+}
+
+export type GuideProfileCreateNestedOneWithoutCompetencyAttemptsInput = {
+  create?: Prisma.XOR<Prisma.GuideProfileCreateWithoutCompetencyAttemptsInput, Prisma.GuideProfileUncheckedCreateWithoutCompetencyAttemptsInput>
+  connectOrCreate?: Prisma.GuideProfileCreateOrConnectWithoutCompetencyAttemptsInput
+  connect?: Prisma.GuideProfileWhereUniqueInput
+}
+
+export type GuideProfileUpdateOneRequiredWithoutCompetencyAttemptsNestedInput = {
+  create?: Prisma.XOR<Prisma.GuideProfileCreateWithoutCompetencyAttemptsInput, Prisma.GuideProfileUncheckedCreateWithoutCompetencyAttemptsInput>
+  connectOrCreate?: Prisma.GuideProfileCreateOrConnectWithoutCompetencyAttemptsInput
+  upsert?: Prisma.GuideProfileUpsertWithoutCompetencyAttemptsInput
+  connect?: Prisma.GuideProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.GuideProfileUpdateToOneWithWhereWithoutCompetencyAttemptsInput, Prisma.GuideProfileUpdateWithoutCompetencyAttemptsInput>, Prisma.GuideProfileUncheckedUpdateWithoutCompetencyAttemptsInput>
+}
+
+export type GuideProfileCreateNestedOneWithoutSafetyPlansInput = {
+  create?: Prisma.XOR<Prisma.GuideProfileCreateWithoutSafetyPlansInput, Prisma.GuideProfileUncheckedCreateWithoutSafetyPlansInput>
+  connectOrCreate?: Prisma.GuideProfileCreateOrConnectWithoutSafetyPlansInput
+  connect?: Prisma.GuideProfileWhereUniqueInput
+}
+
+export type GuideProfileUpdateOneRequiredWithoutSafetyPlansNestedInput = {
+  create?: Prisma.XOR<Prisma.GuideProfileCreateWithoutSafetyPlansInput, Prisma.GuideProfileUncheckedCreateWithoutSafetyPlansInput>
+  connectOrCreate?: Prisma.GuideProfileCreateOrConnectWithoutSafetyPlansInput
+  upsert?: Prisma.GuideProfileUpsertWithoutSafetyPlansInput
+  connect?: Prisma.GuideProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.GuideProfileUpdateToOneWithWhereWithoutSafetyPlansInput, Prisma.GuideProfileUpdateWithoutSafetyPlansInput>, Prisma.GuideProfileUncheckedUpdateWithoutSafetyPlansInput>
+}
+
+export type GuideProfileCreateNestedOneWithoutCompetenciesInput = {
+  create?: Prisma.XOR<Prisma.GuideProfileCreateWithoutCompetenciesInput, Prisma.GuideProfileUncheckedCreateWithoutCompetenciesInput>
+  connectOrCreate?: Prisma.GuideProfileCreateOrConnectWithoutCompetenciesInput
+  connect?: Prisma.GuideProfileWhereUniqueInput
+}
+
+export type GuideProfileUpdateOneRequiredWithoutCompetenciesNestedInput = {
+  create?: Prisma.XOR<Prisma.GuideProfileCreateWithoutCompetenciesInput, Prisma.GuideProfileUncheckedCreateWithoutCompetenciesInput>
+  connectOrCreate?: Prisma.GuideProfileCreateOrConnectWithoutCompetenciesInput
+  upsert?: Prisma.GuideProfileUpsertWithoutCompetenciesInput
+  connect?: Prisma.GuideProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.GuideProfileUpdateToOneWithWhereWithoutCompetenciesInput, Prisma.GuideProfileUpdateWithoutCompetenciesInput>, Prisma.GuideProfileUncheckedUpdateWithoutCompetenciesInput>
+}
+
+export type GuideProfileCreateNestedOneWithoutLanguageAssessmentsInput = {
+  create?: Prisma.XOR<Prisma.GuideProfileCreateWithoutLanguageAssessmentsInput, Prisma.GuideProfileUncheckedCreateWithoutLanguageAssessmentsInput>
+  connectOrCreate?: Prisma.GuideProfileCreateOrConnectWithoutLanguageAssessmentsInput
+  connect?: Prisma.GuideProfileWhereUniqueInput
+}
+
+export type GuideProfileUpdateOneRequiredWithoutLanguageAssessmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.GuideProfileCreateWithoutLanguageAssessmentsInput, Prisma.GuideProfileUncheckedCreateWithoutLanguageAssessmentsInput>
+  connectOrCreate?: Prisma.GuideProfileCreateOrConnectWithoutLanguageAssessmentsInput
+  upsert?: Prisma.GuideProfileUpsertWithoutLanguageAssessmentsInput
+  connect?: Prisma.GuideProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.GuideProfileUpdateToOneWithWhereWithoutLanguageAssessmentsInput, Prisma.GuideProfileUpdateWithoutLanguageAssessmentsInput>, Prisma.GuideProfileUncheckedUpdateWithoutLanguageAssessmentsInput>
+}
+
+export type GuideProfileCreateNestedOneWithoutKnowledgeAssessmentsInput = {
+  create?: Prisma.XOR<Prisma.GuideProfileCreateWithoutKnowledgeAssessmentsInput, Prisma.GuideProfileUncheckedCreateWithoutKnowledgeAssessmentsInput>
+  connectOrCreate?: Prisma.GuideProfileCreateOrConnectWithoutKnowledgeAssessmentsInput
+  connect?: Prisma.GuideProfileWhereUniqueInput
+}
+
+export type GuideProfileUpdateOneRequiredWithoutKnowledgeAssessmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.GuideProfileCreateWithoutKnowledgeAssessmentsInput, Prisma.GuideProfileUncheckedCreateWithoutKnowledgeAssessmentsInput>
+  connectOrCreate?: Prisma.GuideProfileCreateOrConnectWithoutKnowledgeAssessmentsInput
+  upsert?: Prisma.GuideProfileUpsertWithoutKnowledgeAssessmentsInput
+  connect?: Prisma.GuideProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.GuideProfileUpdateToOneWithWhereWithoutKnowledgeAssessmentsInput, Prisma.GuideProfileUpdateWithoutKnowledgeAssessmentsInput>, Prisma.GuideProfileUncheckedUpdateWithoutKnowledgeAssessmentsInput>
+}
+
+export type GuideProfileCreateNestedOneWithoutSkillAssessmentsInput = {
+  create?: Prisma.XOR<Prisma.GuideProfileCreateWithoutSkillAssessmentsInput, Prisma.GuideProfileUncheckedCreateWithoutSkillAssessmentsInput>
+  connectOrCreate?: Prisma.GuideProfileCreateOrConnectWithoutSkillAssessmentsInput
+  connect?: Prisma.GuideProfileWhereUniqueInput
+}
+
+export type GuideProfileUpdateOneRequiredWithoutSkillAssessmentsNestedInput = {
+  create?: Prisma.XOR<Prisma.GuideProfileCreateWithoutSkillAssessmentsInput, Prisma.GuideProfileUncheckedCreateWithoutSkillAssessmentsInput>
+  connectOrCreate?: Prisma.GuideProfileCreateOrConnectWithoutSkillAssessmentsInput
+  upsert?: Prisma.GuideProfileUpsertWithoutSkillAssessmentsInput
+  connect?: Prisma.GuideProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.GuideProfileUpdateToOneWithWhereWithoutSkillAssessmentsInput, Prisma.GuideProfileUpdateWithoutSkillAssessmentsInput>, Prisma.GuideProfileUncheckedUpdateWithoutSkillAssessmentsInput>
+}
+
+export type GuideProfileCreateNestedOneWithoutRouteCompetenciesInput = {
+  create?: Prisma.XOR<Prisma.GuideProfileCreateWithoutRouteCompetenciesInput, Prisma.GuideProfileUncheckedCreateWithoutRouteCompetenciesInput>
+  connectOrCreate?: Prisma.GuideProfileCreateOrConnectWithoutRouteCompetenciesInput
+  connect?: Prisma.GuideProfileWhereUniqueInput
+}
+
+export type GuideProfileUpdateOneRequiredWithoutRouteCompetenciesNestedInput = {
+  create?: Prisma.XOR<Prisma.GuideProfileCreateWithoutRouteCompetenciesInput, Prisma.GuideProfileUncheckedCreateWithoutRouteCompetenciesInput>
+  connectOrCreate?: Prisma.GuideProfileCreateOrConnectWithoutRouteCompetenciesInput
+  upsert?: Prisma.GuideProfileUpsertWithoutRouteCompetenciesInput
+  connect?: Prisma.GuideProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.GuideProfileUpdateToOneWithWhereWithoutRouteCompetenciesInput, Prisma.GuideProfileUpdateWithoutRouteCompetenciesInput>, Prisma.GuideProfileUncheckedUpdateWithoutRouteCompetenciesInput>
+}
+
+export type GuideProfileCreateNestedOneWithoutFirstAidRecordsInput = {
+  create?: Prisma.XOR<Prisma.GuideProfileCreateWithoutFirstAidRecordsInput, Prisma.GuideProfileUncheckedCreateWithoutFirstAidRecordsInput>
+  connectOrCreate?: Prisma.GuideProfileCreateOrConnectWithoutFirstAidRecordsInput
+  connect?: Prisma.GuideProfileWhereUniqueInput
+}
+
+export type GuideProfileUpdateOneRequiredWithoutFirstAidRecordsNestedInput = {
+  create?: Prisma.XOR<Prisma.GuideProfileCreateWithoutFirstAidRecordsInput, Prisma.GuideProfileUncheckedCreateWithoutFirstAidRecordsInput>
+  connectOrCreate?: Prisma.GuideProfileCreateOrConnectWithoutFirstAidRecordsInput
+  upsert?: Prisma.GuideProfileUpsertWithoutFirstAidRecordsInput
+  connect?: Prisma.GuideProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.GuideProfileUpdateToOneWithWhereWithoutFirstAidRecordsInput, Prisma.GuideProfileUpdateWithoutFirstAidRecordsInput>, Prisma.GuideProfileUncheckedUpdateWithoutFirstAidRecordsInput>
+}
+
+export type GuideProfileCreateNestedOneWithoutAssessmentAttemptsInput = {
+  create?: Prisma.XOR<Prisma.GuideProfileCreateWithoutAssessmentAttemptsInput, Prisma.GuideProfileUncheckedCreateWithoutAssessmentAttemptsInput>
+  connectOrCreate?: Prisma.GuideProfileCreateOrConnectWithoutAssessmentAttemptsInput
+  connect?: Prisma.GuideProfileWhereUniqueInput
+}
+
+export type GuideProfileUpdateOneRequiredWithoutAssessmentAttemptsNestedInput = {
+  create?: Prisma.XOR<Prisma.GuideProfileCreateWithoutAssessmentAttemptsInput, Prisma.GuideProfileUncheckedCreateWithoutAssessmentAttemptsInput>
+  connectOrCreate?: Prisma.GuideProfileCreateOrConnectWithoutAssessmentAttemptsInput
+  upsert?: Prisma.GuideProfileUpsertWithoutAssessmentAttemptsInput
+  connect?: Prisma.GuideProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.GuideProfileUpdateToOneWithWhereWithoutAssessmentAttemptsInput, Prisma.GuideProfileUpdateWithoutAssessmentAttemptsInput>, Prisma.GuideProfileUncheckedUpdateWithoutAssessmentAttemptsInput>
+}
+
+export type GuideProfileCreateNestedOneWithoutMatchResultsInput = {
+  create?: Prisma.XOR<Prisma.GuideProfileCreateWithoutMatchResultsInput, Prisma.GuideProfileUncheckedCreateWithoutMatchResultsInput>
+  connectOrCreate?: Prisma.GuideProfileCreateOrConnectWithoutMatchResultsInput
+  connect?: Prisma.GuideProfileWhereUniqueInput
+}
+
+export type GuideProfileUpdateOneRequiredWithoutMatchResultsNestedInput = {
+  create?: Prisma.XOR<Prisma.GuideProfileCreateWithoutMatchResultsInput, Prisma.GuideProfileUncheckedCreateWithoutMatchResultsInput>
+  connectOrCreate?: Prisma.GuideProfileCreateOrConnectWithoutMatchResultsInput
+  upsert?: Prisma.GuideProfileUpsertWithoutMatchResultsInput
+  connect?: Prisma.GuideProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.GuideProfileUpdateToOneWithWhereWithoutMatchResultsInput, Prisma.GuideProfileUpdateWithoutMatchResultsInput>, Prisma.GuideProfileUncheckedUpdateWithoutMatchResultsInput>
 }
 
 export type GuideProfileCreateNestedOneWithoutVerificationReviewsInput = {
@@ -1033,6 +1378,11 @@ export type GuideProfileCreateWithoutUserInput = {
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   status?: $Enums.GuideStatus
   verified?: boolean
+  legalRole?: $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileCreaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileCreatespecialtySkillsInput | string[]
+  firstAidVerified?: boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   assessmentScore?: number
   referenceContact?: string | null
   codeOfConductAccepted?: boolean
@@ -1049,6 +1399,17 @@ export type GuideProfileCreateWithoutUserInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   verificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutGuideProfileInput
+  evidence?: Prisma.GuideEvidenceCreateNestedManyWithoutGuideProfileInput
+  competencyAttempts?: Prisma.CompetencyAttemptCreateNestedManyWithoutGuideProfileInput
+  competencies?: Prisma.GuideCompetencyCreateNestedManyWithoutGuideProfileInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutGuideProfileInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentCreateNestedManyWithoutGuideProfileInput
+  skillAssessments?: Prisma.GuideSkillAssessmentCreateNestedManyWithoutGuideProfileInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyCreateNestedManyWithoutGuideProfileInput
+  firstAidRecords?: Prisma.GuideFirstAidCreateNestedManyWithoutGuideProfileInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutGuideProfileInput
+  matchResults?: Prisma.GuideMatchResultCreateNestedManyWithoutGuideProfileInput
+  safetyPlans?: Prisma.SafetyPlanCreateNestedManyWithoutGuideProfileInput
 }
 
 export type GuideProfileUncheckedCreateWithoutUserInput = {
@@ -1064,6 +1425,11 @@ export type GuideProfileUncheckedCreateWithoutUserInput = {
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   status?: $Enums.GuideStatus
   verified?: boolean
+  legalRole?: $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileCreaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileCreatespecialtySkillsInput | string[]
+  firstAidVerified?: boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   assessmentScore?: number
   referenceContact?: string | null
   codeOfConductAccepted?: boolean
@@ -1080,6 +1446,17 @@ export type GuideProfileUncheckedCreateWithoutUserInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   verificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutGuideProfileInput
+  evidence?: Prisma.GuideEvidenceUncheckedCreateNestedManyWithoutGuideProfileInput
+  competencyAttempts?: Prisma.CompetencyAttemptUncheckedCreateNestedManyWithoutGuideProfileInput
+  competencies?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutGuideProfileInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutGuideProfileInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentUncheckedCreateNestedManyWithoutGuideProfileInput
+  skillAssessments?: Prisma.GuideSkillAssessmentUncheckedCreateNestedManyWithoutGuideProfileInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyUncheckedCreateNestedManyWithoutGuideProfileInput
+  firstAidRecords?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutGuideProfileInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutGuideProfileInput
+  matchResults?: Prisma.GuideMatchResultUncheckedCreateNestedManyWithoutGuideProfileInput
+  safetyPlans?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutGuideProfileInput
 }
 
 export type GuideProfileCreateOrConnectWithoutUserInput = {
@@ -1111,6 +1488,11 @@ export type GuideProfileUpdateWithoutUserInput = {
   price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  legalRole?: Prisma.EnumGuideLegalRoleFieldUpdateOperationsInput | $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileUpdaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileUpdatespecialtySkillsInput | string[]
+  firstAidVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   assessmentScore?: Prisma.IntFieldUpdateOperationsInput | number
   referenceContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   codeOfConductAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1127,6 +1509,17 @@ export type GuideProfileUpdateWithoutUserInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutGuideProfileNestedInput
+  evidence?: Prisma.GuideEvidenceUpdateManyWithoutGuideProfileNestedInput
+  competencyAttempts?: Prisma.CompetencyAttemptUpdateManyWithoutGuideProfileNestedInput
+  competencies?: Prisma.GuideCompetencyUpdateManyWithoutGuideProfileNestedInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentUpdateManyWithoutGuideProfileNestedInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentUpdateManyWithoutGuideProfileNestedInput
+  skillAssessments?: Prisma.GuideSkillAssessmentUpdateManyWithoutGuideProfileNestedInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyUpdateManyWithoutGuideProfileNestedInput
+  firstAidRecords?: Prisma.GuideFirstAidUpdateManyWithoutGuideProfileNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutGuideProfileNestedInput
+  matchResults?: Prisma.GuideMatchResultUpdateManyWithoutGuideProfileNestedInput
+  safetyPlans?: Prisma.SafetyPlanUpdateManyWithoutGuideProfileNestedInput
 }
 
 export type GuideProfileUncheckedUpdateWithoutUserInput = {
@@ -1142,6 +1535,11 @@ export type GuideProfileUncheckedUpdateWithoutUserInput = {
   price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  legalRole?: Prisma.EnumGuideLegalRoleFieldUpdateOperationsInput | $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileUpdaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileUpdatespecialtySkillsInput | string[]
+  firstAidVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   assessmentScore?: Prisma.IntFieldUpdateOperationsInput | number
   referenceContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   codeOfConductAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1158,9 +1556,20 @@ export type GuideProfileUncheckedUpdateWithoutUserInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   verificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutGuideProfileNestedInput
+  evidence?: Prisma.GuideEvidenceUncheckedUpdateManyWithoutGuideProfileNestedInput
+  competencyAttempts?: Prisma.CompetencyAttemptUncheckedUpdateManyWithoutGuideProfileNestedInput
+  competencies?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutGuideProfileNestedInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutGuideProfileNestedInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentUncheckedUpdateManyWithoutGuideProfileNestedInput
+  skillAssessments?: Prisma.GuideSkillAssessmentUncheckedUpdateManyWithoutGuideProfileNestedInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyUncheckedUpdateManyWithoutGuideProfileNestedInput
+  firstAidRecords?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutGuideProfileNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutGuideProfileNestedInput
+  matchResults?: Prisma.GuideMatchResultUncheckedUpdateManyWithoutGuideProfileNestedInput
+  safetyPlans?: Prisma.SafetyPlanUncheckedUpdateManyWithoutGuideProfileNestedInput
 }
 
-export type GuideProfileCreateWithoutVerificationReviewsInput = {
+export type GuideProfileCreateWithoutEvidenceInput = {
   id?: string
   country: string
   city: string
@@ -1173,6 +1582,11 @@ export type GuideProfileCreateWithoutVerificationReviewsInput = {
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   status?: $Enums.GuideStatus
   verified?: boolean
+  legalRole?: $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileCreaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileCreatespecialtySkillsInput | string[]
+  firstAidVerified?: boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   assessmentScore?: number
   referenceContact?: string | null
   codeOfConductAccepted?: boolean
@@ -1189,6 +1603,2261 @@ export type GuideProfileCreateWithoutVerificationReviewsInput = {
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   user: Prisma.UserCreateNestedOneWithoutGuideProfileInput
+  verificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutGuideProfileInput
+  competencyAttempts?: Prisma.CompetencyAttemptCreateNestedManyWithoutGuideProfileInput
+  competencies?: Prisma.GuideCompetencyCreateNestedManyWithoutGuideProfileInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutGuideProfileInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentCreateNestedManyWithoutGuideProfileInput
+  skillAssessments?: Prisma.GuideSkillAssessmentCreateNestedManyWithoutGuideProfileInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyCreateNestedManyWithoutGuideProfileInput
+  firstAidRecords?: Prisma.GuideFirstAidCreateNestedManyWithoutGuideProfileInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutGuideProfileInput
+  matchResults?: Prisma.GuideMatchResultCreateNestedManyWithoutGuideProfileInput
+  safetyPlans?: Prisma.SafetyPlanCreateNestedManyWithoutGuideProfileInput
+}
+
+export type GuideProfileUncheckedCreateWithoutEvidenceInput = {
+  id?: string
+  userId: string
+  country: string
+  city: string
+  bio: string
+  experienceYears?: number
+  languages: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileCreateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileCreateavailabilityInput | string[]
+  pricingType?: $Enums.PricingType
+  price?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: $Enums.GuideStatus
+  verified?: boolean
+  legalRole?: $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileCreaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileCreatespecialtySkillsInput | string[]
+  firstAidVerified?: boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: number
+  referenceContact?: string | null
+  codeOfConductAccepted?: boolean
+  rankPoints?: number
+  completedTrips?: number
+  responseRate?: number
+  acceptanceRate?: number
+  providerCancellationCount?: number
+  confirmedReportCount?: number
+  rankingUpdatedAt?: Date | string | null
+  rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  verificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutGuideProfileInput
+  competencyAttempts?: Prisma.CompetencyAttemptUncheckedCreateNestedManyWithoutGuideProfileInput
+  competencies?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutGuideProfileInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutGuideProfileInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentUncheckedCreateNestedManyWithoutGuideProfileInput
+  skillAssessments?: Prisma.GuideSkillAssessmentUncheckedCreateNestedManyWithoutGuideProfileInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyUncheckedCreateNestedManyWithoutGuideProfileInput
+  firstAidRecords?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutGuideProfileInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutGuideProfileInput
+  matchResults?: Prisma.GuideMatchResultUncheckedCreateNestedManyWithoutGuideProfileInput
+  safetyPlans?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutGuideProfileInput
+}
+
+export type GuideProfileCreateOrConnectWithoutEvidenceInput = {
+  where: Prisma.GuideProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.GuideProfileCreateWithoutEvidenceInput, Prisma.GuideProfileUncheckedCreateWithoutEvidenceInput>
+}
+
+export type GuideProfileUpsertWithoutEvidenceInput = {
+  update: Prisma.XOR<Prisma.GuideProfileUpdateWithoutEvidenceInput, Prisma.GuideProfileUncheckedUpdateWithoutEvidenceInput>
+  create: Prisma.XOR<Prisma.GuideProfileCreateWithoutEvidenceInput, Prisma.GuideProfileUncheckedCreateWithoutEvidenceInput>
+  where?: Prisma.GuideProfileWhereInput
+}
+
+export type GuideProfileUpdateToOneWithWhereWithoutEvidenceInput = {
+  where?: Prisma.GuideProfileWhereInput
+  data: Prisma.XOR<Prisma.GuideProfileUpdateWithoutEvidenceInput, Prisma.GuideProfileUncheckedUpdateWithoutEvidenceInput>
+}
+
+export type GuideProfileUpdateWithoutEvidenceInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  experienceYears?: Prisma.IntFieldUpdateOperationsInput | number
+  languages?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileUpdateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileUpdateavailabilityInput | string[]
+  pricingType?: Prisma.EnumPricingTypeFieldUpdateOperationsInput | $Enums.PricingType
+  price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  legalRole?: Prisma.EnumGuideLegalRoleFieldUpdateOperationsInput | $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileUpdaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileUpdatespecialtySkillsInput | string[]
+  firstAidVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: Prisma.IntFieldUpdateOperationsInput | number
+  referenceContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rankPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  completedTrips?: Prisma.IntFieldUpdateOperationsInput | number
+  responseRate?: Prisma.IntFieldUpdateOperationsInput | number
+  acceptanceRate?: Prisma.IntFieldUpdateOperationsInput | number
+  providerCancellationCount?: Prisma.IntFieldUpdateOperationsInput | number
+  confirmedReportCount?: Prisma.IntFieldUpdateOperationsInput | number
+  rankingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user?: Prisma.UserUpdateOneRequiredWithoutGuideProfileNestedInput
+  verificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutGuideProfileNestedInput
+  competencyAttempts?: Prisma.CompetencyAttemptUpdateManyWithoutGuideProfileNestedInput
+  competencies?: Prisma.GuideCompetencyUpdateManyWithoutGuideProfileNestedInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentUpdateManyWithoutGuideProfileNestedInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentUpdateManyWithoutGuideProfileNestedInput
+  skillAssessments?: Prisma.GuideSkillAssessmentUpdateManyWithoutGuideProfileNestedInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyUpdateManyWithoutGuideProfileNestedInput
+  firstAidRecords?: Prisma.GuideFirstAidUpdateManyWithoutGuideProfileNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutGuideProfileNestedInput
+  matchResults?: Prisma.GuideMatchResultUpdateManyWithoutGuideProfileNestedInput
+  safetyPlans?: Prisma.SafetyPlanUpdateManyWithoutGuideProfileNestedInput
+}
+
+export type GuideProfileUncheckedUpdateWithoutEvidenceInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  experienceYears?: Prisma.IntFieldUpdateOperationsInput | number
+  languages?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileUpdateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileUpdateavailabilityInput | string[]
+  pricingType?: Prisma.EnumPricingTypeFieldUpdateOperationsInput | $Enums.PricingType
+  price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  legalRole?: Prisma.EnumGuideLegalRoleFieldUpdateOperationsInput | $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileUpdaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileUpdatespecialtySkillsInput | string[]
+  firstAidVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: Prisma.IntFieldUpdateOperationsInput | number
+  referenceContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rankPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  completedTrips?: Prisma.IntFieldUpdateOperationsInput | number
+  responseRate?: Prisma.IntFieldUpdateOperationsInput | number
+  acceptanceRate?: Prisma.IntFieldUpdateOperationsInput | number
+  providerCancellationCount?: Prisma.IntFieldUpdateOperationsInput | number
+  confirmedReportCount?: Prisma.IntFieldUpdateOperationsInput | number
+  rankingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutGuideProfileNestedInput
+  competencyAttempts?: Prisma.CompetencyAttemptUncheckedUpdateManyWithoutGuideProfileNestedInput
+  competencies?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutGuideProfileNestedInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutGuideProfileNestedInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentUncheckedUpdateManyWithoutGuideProfileNestedInput
+  skillAssessments?: Prisma.GuideSkillAssessmentUncheckedUpdateManyWithoutGuideProfileNestedInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyUncheckedUpdateManyWithoutGuideProfileNestedInput
+  firstAidRecords?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutGuideProfileNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutGuideProfileNestedInput
+  matchResults?: Prisma.GuideMatchResultUncheckedUpdateManyWithoutGuideProfileNestedInput
+  safetyPlans?: Prisma.SafetyPlanUncheckedUpdateManyWithoutGuideProfileNestedInput
+}
+
+export type GuideProfileCreateWithoutCompetencyAttemptsInput = {
+  id?: string
+  country: string
+  city: string
+  bio: string
+  experienceYears?: number
+  languages: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileCreateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileCreateavailabilityInput | string[]
+  pricingType?: $Enums.PricingType
+  price?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: $Enums.GuideStatus
+  verified?: boolean
+  legalRole?: $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileCreaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileCreatespecialtySkillsInput | string[]
+  firstAidVerified?: boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: number
+  referenceContact?: string | null
+  codeOfConductAccepted?: boolean
+  rankPoints?: number
+  completedTrips?: number
+  responseRate?: number
+  acceptanceRate?: number
+  providerCancellationCount?: number
+  confirmedReportCount?: number
+  rankingUpdatedAt?: Date | string | null
+  rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  user: Prisma.UserCreateNestedOneWithoutGuideProfileInput
+  verificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutGuideProfileInput
+  evidence?: Prisma.GuideEvidenceCreateNestedManyWithoutGuideProfileInput
+  competencies?: Prisma.GuideCompetencyCreateNestedManyWithoutGuideProfileInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutGuideProfileInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentCreateNestedManyWithoutGuideProfileInput
+  skillAssessments?: Prisma.GuideSkillAssessmentCreateNestedManyWithoutGuideProfileInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyCreateNestedManyWithoutGuideProfileInput
+  firstAidRecords?: Prisma.GuideFirstAidCreateNestedManyWithoutGuideProfileInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutGuideProfileInput
+  matchResults?: Prisma.GuideMatchResultCreateNestedManyWithoutGuideProfileInput
+  safetyPlans?: Prisma.SafetyPlanCreateNestedManyWithoutGuideProfileInput
+}
+
+export type GuideProfileUncheckedCreateWithoutCompetencyAttemptsInput = {
+  id?: string
+  userId: string
+  country: string
+  city: string
+  bio: string
+  experienceYears?: number
+  languages: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileCreateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileCreateavailabilityInput | string[]
+  pricingType?: $Enums.PricingType
+  price?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: $Enums.GuideStatus
+  verified?: boolean
+  legalRole?: $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileCreaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileCreatespecialtySkillsInput | string[]
+  firstAidVerified?: boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: number
+  referenceContact?: string | null
+  codeOfConductAccepted?: boolean
+  rankPoints?: number
+  completedTrips?: number
+  responseRate?: number
+  acceptanceRate?: number
+  providerCancellationCount?: number
+  confirmedReportCount?: number
+  rankingUpdatedAt?: Date | string | null
+  rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  verificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutGuideProfileInput
+  evidence?: Prisma.GuideEvidenceUncheckedCreateNestedManyWithoutGuideProfileInput
+  competencies?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutGuideProfileInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutGuideProfileInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentUncheckedCreateNestedManyWithoutGuideProfileInput
+  skillAssessments?: Prisma.GuideSkillAssessmentUncheckedCreateNestedManyWithoutGuideProfileInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyUncheckedCreateNestedManyWithoutGuideProfileInput
+  firstAidRecords?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutGuideProfileInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutGuideProfileInput
+  matchResults?: Prisma.GuideMatchResultUncheckedCreateNestedManyWithoutGuideProfileInput
+  safetyPlans?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutGuideProfileInput
+}
+
+export type GuideProfileCreateOrConnectWithoutCompetencyAttemptsInput = {
+  where: Prisma.GuideProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.GuideProfileCreateWithoutCompetencyAttemptsInput, Prisma.GuideProfileUncheckedCreateWithoutCompetencyAttemptsInput>
+}
+
+export type GuideProfileUpsertWithoutCompetencyAttemptsInput = {
+  update: Prisma.XOR<Prisma.GuideProfileUpdateWithoutCompetencyAttemptsInput, Prisma.GuideProfileUncheckedUpdateWithoutCompetencyAttemptsInput>
+  create: Prisma.XOR<Prisma.GuideProfileCreateWithoutCompetencyAttemptsInput, Prisma.GuideProfileUncheckedCreateWithoutCompetencyAttemptsInput>
+  where?: Prisma.GuideProfileWhereInput
+}
+
+export type GuideProfileUpdateToOneWithWhereWithoutCompetencyAttemptsInput = {
+  where?: Prisma.GuideProfileWhereInput
+  data: Prisma.XOR<Prisma.GuideProfileUpdateWithoutCompetencyAttemptsInput, Prisma.GuideProfileUncheckedUpdateWithoutCompetencyAttemptsInput>
+}
+
+export type GuideProfileUpdateWithoutCompetencyAttemptsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  experienceYears?: Prisma.IntFieldUpdateOperationsInput | number
+  languages?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileUpdateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileUpdateavailabilityInput | string[]
+  pricingType?: Prisma.EnumPricingTypeFieldUpdateOperationsInput | $Enums.PricingType
+  price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  legalRole?: Prisma.EnumGuideLegalRoleFieldUpdateOperationsInput | $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileUpdaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileUpdatespecialtySkillsInput | string[]
+  firstAidVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: Prisma.IntFieldUpdateOperationsInput | number
+  referenceContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rankPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  completedTrips?: Prisma.IntFieldUpdateOperationsInput | number
+  responseRate?: Prisma.IntFieldUpdateOperationsInput | number
+  acceptanceRate?: Prisma.IntFieldUpdateOperationsInput | number
+  providerCancellationCount?: Prisma.IntFieldUpdateOperationsInput | number
+  confirmedReportCount?: Prisma.IntFieldUpdateOperationsInput | number
+  rankingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user?: Prisma.UserUpdateOneRequiredWithoutGuideProfileNestedInput
+  verificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutGuideProfileNestedInput
+  evidence?: Prisma.GuideEvidenceUpdateManyWithoutGuideProfileNestedInput
+  competencies?: Prisma.GuideCompetencyUpdateManyWithoutGuideProfileNestedInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentUpdateManyWithoutGuideProfileNestedInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentUpdateManyWithoutGuideProfileNestedInput
+  skillAssessments?: Prisma.GuideSkillAssessmentUpdateManyWithoutGuideProfileNestedInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyUpdateManyWithoutGuideProfileNestedInput
+  firstAidRecords?: Prisma.GuideFirstAidUpdateManyWithoutGuideProfileNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutGuideProfileNestedInput
+  matchResults?: Prisma.GuideMatchResultUpdateManyWithoutGuideProfileNestedInput
+  safetyPlans?: Prisma.SafetyPlanUpdateManyWithoutGuideProfileNestedInput
+}
+
+export type GuideProfileUncheckedUpdateWithoutCompetencyAttemptsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  experienceYears?: Prisma.IntFieldUpdateOperationsInput | number
+  languages?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileUpdateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileUpdateavailabilityInput | string[]
+  pricingType?: Prisma.EnumPricingTypeFieldUpdateOperationsInput | $Enums.PricingType
+  price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  legalRole?: Prisma.EnumGuideLegalRoleFieldUpdateOperationsInput | $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileUpdaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileUpdatespecialtySkillsInput | string[]
+  firstAidVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: Prisma.IntFieldUpdateOperationsInput | number
+  referenceContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rankPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  completedTrips?: Prisma.IntFieldUpdateOperationsInput | number
+  responseRate?: Prisma.IntFieldUpdateOperationsInput | number
+  acceptanceRate?: Prisma.IntFieldUpdateOperationsInput | number
+  providerCancellationCount?: Prisma.IntFieldUpdateOperationsInput | number
+  confirmedReportCount?: Prisma.IntFieldUpdateOperationsInput | number
+  rankingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutGuideProfileNestedInput
+  evidence?: Prisma.GuideEvidenceUncheckedUpdateManyWithoutGuideProfileNestedInput
+  competencies?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutGuideProfileNestedInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutGuideProfileNestedInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentUncheckedUpdateManyWithoutGuideProfileNestedInput
+  skillAssessments?: Prisma.GuideSkillAssessmentUncheckedUpdateManyWithoutGuideProfileNestedInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyUncheckedUpdateManyWithoutGuideProfileNestedInput
+  firstAidRecords?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutGuideProfileNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutGuideProfileNestedInput
+  matchResults?: Prisma.GuideMatchResultUncheckedUpdateManyWithoutGuideProfileNestedInput
+  safetyPlans?: Prisma.SafetyPlanUncheckedUpdateManyWithoutGuideProfileNestedInput
+}
+
+export type GuideProfileCreateWithoutSafetyPlansInput = {
+  id?: string
+  country: string
+  city: string
+  bio: string
+  experienceYears?: number
+  languages: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileCreateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileCreateavailabilityInput | string[]
+  pricingType?: $Enums.PricingType
+  price?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: $Enums.GuideStatus
+  verified?: boolean
+  legalRole?: $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileCreaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileCreatespecialtySkillsInput | string[]
+  firstAidVerified?: boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: number
+  referenceContact?: string | null
+  codeOfConductAccepted?: boolean
+  rankPoints?: number
+  completedTrips?: number
+  responseRate?: number
+  acceptanceRate?: number
+  providerCancellationCount?: number
+  confirmedReportCount?: number
+  rankingUpdatedAt?: Date | string | null
+  rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  user: Prisma.UserCreateNestedOneWithoutGuideProfileInput
+  verificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutGuideProfileInput
+  evidence?: Prisma.GuideEvidenceCreateNestedManyWithoutGuideProfileInput
+  competencyAttempts?: Prisma.CompetencyAttemptCreateNestedManyWithoutGuideProfileInput
+  competencies?: Prisma.GuideCompetencyCreateNestedManyWithoutGuideProfileInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutGuideProfileInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentCreateNestedManyWithoutGuideProfileInput
+  skillAssessments?: Prisma.GuideSkillAssessmentCreateNestedManyWithoutGuideProfileInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyCreateNestedManyWithoutGuideProfileInput
+  firstAidRecords?: Prisma.GuideFirstAidCreateNestedManyWithoutGuideProfileInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutGuideProfileInput
+  matchResults?: Prisma.GuideMatchResultCreateNestedManyWithoutGuideProfileInput
+}
+
+export type GuideProfileUncheckedCreateWithoutSafetyPlansInput = {
+  id?: string
+  userId: string
+  country: string
+  city: string
+  bio: string
+  experienceYears?: number
+  languages: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileCreateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileCreateavailabilityInput | string[]
+  pricingType?: $Enums.PricingType
+  price?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: $Enums.GuideStatus
+  verified?: boolean
+  legalRole?: $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileCreaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileCreatespecialtySkillsInput | string[]
+  firstAidVerified?: boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: number
+  referenceContact?: string | null
+  codeOfConductAccepted?: boolean
+  rankPoints?: number
+  completedTrips?: number
+  responseRate?: number
+  acceptanceRate?: number
+  providerCancellationCount?: number
+  confirmedReportCount?: number
+  rankingUpdatedAt?: Date | string | null
+  rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  verificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutGuideProfileInput
+  evidence?: Prisma.GuideEvidenceUncheckedCreateNestedManyWithoutGuideProfileInput
+  competencyAttempts?: Prisma.CompetencyAttemptUncheckedCreateNestedManyWithoutGuideProfileInput
+  competencies?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutGuideProfileInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutGuideProfileInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentUncheckedCreateNestedManyWithoutGuideProfileInput
+  skillAssessments?: Prisma.GuideSkillAssessmentUncheckedCreateNestedManyWithoutGuideProfileInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyUncheckedCreateNestedManyWithoutGuideProfileInput
+  firstAidRecords?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutGuideProfileInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutGuideProfileInput
+  matchResults?: Prisma.GuideMatchResultUncheckedCreateNestedManyWithoutGuideProfileInput
+}
+
+export type GuideProfileCreateOrConnectWithoutSafetyPlansInput = {
+  where: Prisma.GuideProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.GuideProfileCreateWithoutSafetyPlansInput, Prisma.GuideProfileUncheckedCreateWithoutSafetyPlansInput>
+}
+
+export type GuideProfileUpsertWithoutSafetyPlansInput = {
+  update: Prisma.XOR<Prisma.GuideProfileUpdateWithoutSafetyPlansInput, Prisma.GuideProfileUncheckedUpdateWithoutSafetyPlansInput>
+  create: Prisma.XOR<Prisma.GuideProfileCreateWithoutSafetyPlansInput, Prisma.GuideProfileUncheckedCreateWithoutSafetyPlansInput>
+  where?: Prisma.GuideProfileWhereInput
+}
+
+export type GuideProfileUpdateToOneWithWhereWithoutSafetyPlansInput = {
+  where?: Prisma.GuideProfileWhereInput
+  data: Prisma.XOR<Prisma.GuideProfileUpdateWithoutSafetyPlansInput, Prisma.GuideProfileUncheckedUpdateWithoutSafetyPlansInput>
+}
+
+export type GuideProfileUpdateWithoutSafetyPlansInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  experienceYears?: Prisma.IntFieldUpdateOperationsInput | number
+  languages?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileUpdateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileUpdateavailabilityInput | string[]
+  pricingType?: Prisma.EnumPricingTypeFieldUpdateOperationsInput | $Enums.PricingType
+  price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  legalRole?: Prisma.EnumGuideLegalRoleFieldUpdateOperationsInput | $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileUpdaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileUpdatespecialtySkillsInput | string[]
+  firstAidVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: Prisma.IntFieldUpdateOperationsInput | number
+  referenceContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rankPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  completedTrips?: Prisma.IntFieldUpdateOperationsInput | number
+  responseRate?: Prisma.IntFieldUpdateOperationsInput | number
+  acceptanceRate?: Prisma.IntFieldUpdateOperationsInput | number
+  providerCancellationCount?: Prisma.IntFieldUpdateOperationsInput | number
+  confirmedReportCount?: Prisma.IntFieldUpdateOperationsInput | number
+  rankingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user?: Prisma.UserUpdateOneRequiredWithoutGuideProfileNestedInput
+  verificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutGuideProfileNestedInput
+  evidence?: Prisma.GuideEvidenceUpdateManyWithoutGuideProfileNestedInput
+  competencyAttempts?: Prisma.CompetencyAttemptUpdateManyWithoutGuideProfileNestedInput
+  competencies?: Prisma.GuideCompetencyUpdateManyWithoutGuideProfileNestedInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentUpdateManyWithoutGuideProfileNestedInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentUpdateManyWithoutGuideProfileNestedInput
+  skillAssessments?: Prisma.GuideSkillAssessmentUpdateManyWithoutGuideProfileNestedInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyUpdateManyWithoutGuideProfileNestedInput
+  firstAidRecords?: Prisma.GuideFirstAidUpdateManyWithoutGuideProfileNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutGuideProfileNestedInput
+  matchResults?: Prisma.GuideMatchResultUpdateManyWithoutGuideProfileNestedInput
+}
+
+export type GuideProfileUncheckedUpdateWithoutSafetyPlansInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  experienceYears?: Prisma.IntFieldUpdateOperationsInput | number
+  languages?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileUpdateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileUpdateavailabilityInput | string[]
+  pricingType?: Prisma.EnumPricingTypeFieldUpdateOperationsInput | $Enums.PricingType
+  price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  legalRole?: Prisma.EnumGuideLegalRoleFieldUpdateOperationsInput | $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileUpdaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileUpdatespecialtySkillsInput | string[]
+  firstAidVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: Prisma.IntFieldUpdateOperationsInput | number
+  referenceContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rankPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  completedTrips?: Prisma.IntFieldUpdateOperationsInput | number
+  responseRate?: Prisma.IntFieldUpdateOperationsInput | number
+  acceptanceRate?: Prisma.IntFieldUpdateOperationsInput | number
+  providerCancellationCount?: Prisma.IntFieldUpdateOperationsInput | number
+  confirmedReportCount?: Prisma.IntFieldUpdateOperationsInput | number
+  rankingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutGuideProfileNestedInput
+  evidence?: Prisma.GuideEvidenceUncheckedUpdateManyWithoutGuideProfileNestedInput
+  competencyAttempts?: Prisma.CompetencyAttemptUncheckedUpdateManyWithoutGuideProfileNestedInput
+  competencies?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutGuideProfileNestedInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutGuideProfileNestedInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentUncheckedUpdateManyWithoutGuideProfileNestedInput
+  skillAssessments?: Prisma.GuideSkillAssessmentUncheckedUpdateManyWithoutGuideProfileNestedInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyUncheckedUpdateManyWithoutGuideProfileNestedInput
+  firstAidRecords?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutGuideProfileNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutGuideProfileNestedInput
+  matchResults?: Prisma.GuideMatchResultUncheckedUpdateManyWithoutGuideProfileNestedInput
+}
+
+export type GuideProfileCreateWithoutCompetenciesInput = {
+  id?: string
+  country: string
+  city: string
+  bio: string
+  experienceYears?: number
+  languages: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileCreateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileCreateavailabilityInput | string[]
+  pricingType?: $Enums.PricingType
+  price?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: $Enums.GuideStatus
+  verified?: boolean
+  legalRole?: $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileCreaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileCreatespecialtySkillsInput | string[]
+  firstAidVerified?: boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: number
+  referenceContact?: string | null
+  codeOfConductAccepted?: boolean
+  rankPoints?: number
+  completedTrips?: number
+  responseRate?: number
+  acceptanceRate?: number
+  providerCancellationCount?: number
+  confirmedReportCount?: number
+  rankingUpdatedAt?: Date | string | null
+  rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  user: Prisma.UserCreateNestedOneWithoutGuideProfileInput
+  verificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutGuideProfileInput
+  evidence?: Prisma.GuideEvidenceCreateNestedManyWithoutGuideProfileInput
+  competencyAttempts?: Prisma.CompetencyAttemptCreateNestedManyWithoutGuideProfileInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutGuideProfileInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentCreateNestedManyWithoutGuideProfileInput
+  skillAssessments?: Prisma.GuideSkillAssessmentCreateNestedManyWithoutGuideProfileInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyCreateNestedManyWithoutGuideProfileInput
+  firstAidRecords?: Prisma.GuideFirstAidCreateNestedManyWithoutGuideProfileInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutGuideProfileInput
+  matchResults?: Prisma.GuideMatchResultCreateNestedManyWithoutGuideProfileInput
+  safetyPlans?: Prisma.SafetyPlanCreateNestedManyWithoutGuideProfileInput
+}
+
+export type GuideProfileUncheckedCreateWithoutCompetenciesInput = {
+  id?: string
+  userId: string
+  country: string
+  city: string
+  bio: string
+  experienceYears?: number
+  languages: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileCreateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileCreateavailabilityInput | string[]
+  pricingType?: $Enums.PricingType
+  price?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: $Enums.GuideStatus
+  verified?: boolean
+  legalRole?: $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileCreaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileCreatespecialtySkillsInput | string[]
+  firstAidVerified?: boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: number
+  referenceContact?: string | null
+  codeOfConductAccepted?: boolean
+  rankPoints?: number
+  completedTrips?: number
+  responseRate?: number
+  acceptanceRate?: number
+  providerCancellationCount?: number
+  confirmedReportCount?: number
+  rankingUpdatedAt?: Date | string | null
+  rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  verificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutGuideProfileInput
+  evidence?: Prisma.GuideEvidenceUncheckedCreateNestedManyWithoutGuideProfileInput
+  competencyAttempts?: Prisma.CompetencyAttemptUncheckedCreateNestedManyWithoutGuideProfileInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutGuideProfileInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentUncheckedCreateNestedManyWithoutGuideProfileInput
+  skillAssessments?: Prisma.GuideSkillAssessmentUncheckedCreateNestedManyWithoutGuideProfileInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyUncheckedCreateNestedManyWithoutGuideProfileInput
+  firstAidRecords?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutGuideProfileInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutGuideProfileInput
+  matchResults?: Prisma.GuideMatchResultUncheckedCreateNestedManyWithoutGuideProfileInput
+  safetyPlans?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutGuideProfileInput
+}
+
+export type GuideProfileCreateOrConnectWithoutCompetenciesInput = {
+  where: Prisma.GuideProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.GuideProfileCreateWithoutCompetenciesInput, Prisma.GuideProfileUncheckedCreateWithoutCompetenciesInput>
+}
+
+export type GuideProfileUpsertWithoutCompetenciesInput = {
+  update: Prisma.XOR<Prisma.GuideProfileUpdateWithoutCompetenciesInput, Prisma.GuideProfileUncheckedUpdateWithoutCompetenciesInput>
+  create: Prisma.XOR<Prisma.GuideProfileCreateWithoutCompetenciesInput, Prisma.GuideProfileUncheckedCreateWithoutCompetenciesInput>
+  where?: Prisma.GuideProfileWhereInput
+}
+
+export type GuideProfileUpdateToOneWithWhereWithoutCompetenciesInput = {
+  where?: Prisma.GuideProfileWhereInput
+  data: Prisma.XOR<Prisma.GuideProfileUpdateWithoutCompetenciesInput, Prisma.GuideProfileUncheckedUpdateWithoutCompetenciesInput>
+}
+
+export type GuideProfileUpdateWithoutCompetenciesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  experienceYears?: Prisma.IntFieldUpdateOperationsInput | number
+  languages?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileUpdateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileUpdateavailabilityInput | string[]
+  pricingType?: Prisma.EnumPricingTypeFieldUpdateOperationsInput | $Enums.PricingType
+  price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  legalRole?: Prisma.EnumGuideLegalRoleFieldUpdateOperationsInput | $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileUpdaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileUpdatespecialtySkillsInput | string[]
+  firstAidVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: Prisma.IntFieldUpdateOperationsInput | number
+  referenceContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rankPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  completedTrips?: Prisma.IntFieldUpdateOperationsInput | number
+  responseRate?: Prisma.IntFieldUpdateOperationsInput | number
+  acceptanceRate?: Prisma.IntFieldUpdateOperationsInput | number
+  providerCancellationCount?: Prisma.IntFieldUpdateOperationsInput | number
+  confirmedReportCount?: Prisma.IntFieldUpdateOperationsInput | number
+  rankingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user?: Prisma.UserUpdateOneRequiredWithoutGuideProfileNestedInput
+  verificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutGuideProfileNestedInput
+  evidence?: Prisma.GuideEvidenceUpdateManyWithoutGuideProfileNestedInput
+  competencyAttempts?: Prisma.CompetencyAttemptUpdateManyWithoutGuideProfileNestedInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentUpdateManyWithoutGuideProfileNestedInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentUpdateManyWithoutGuideProfileNestedInput
+  skillAssessments?: Prisma.GuideSkillAssessmentUpdateManyWithoutGuideProfileNestedInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyUpdateManyWithoutGuideProfileNestedInput
+  firstAidRecords?: Prisma.GuideFirstAidUpdateManyWithoutGuideProfileNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutGuideProfileNestedInput
+  matchResults?: Prisma.GuideMatchResultUpdateManyWithoutGuideProfileNestedInput
+  safetyPlans?: Prisma.SafetyPlanUpdateManyWithoutGuideProfileNestedInput
+}
+
+export type GuideProfileUncheckedUpdateWithoutCompetenciesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  experienceYears?: Prisma.IntFieldUpdateOperationsInput | number
+  languages?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileUpdateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileUpdateavailabilityInput | string[]
+  pricingType?: Prisma.EnumPricingTypeFieldUpdateOperationsInput | $Enums.PricingType
+  price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  legalRole?: Prisma.EnumGuideLegalRoleFieldUpdateOperationsInput | $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileUpdaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileUpdatespecialtySkillsInput | string[]
+  firstAidVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: Prisma.IntFieldUpdateOperationsInput | number
+  referenceContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rankPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  completedTrips?: Prisma.IntFieldUpdateOperationsInput | number
+  responseRate?: Prisma.IntFieldUpdateOperationsInput | number
+  acceptanceRate?: Prisma.IntFieldUpdateOperationsInput | number
+  providerCancellationCount?: Prisma.IntFieldUpdateOperationsInput | number
+  confirmedReportCount?: Prisma.IntFieldUpdateOperationsInput | number
+  rankingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutGuideProfileNestedInput
+  evidence?: Prisma.GuideEvidenceUncheckedUpdateManyWithoutGuideProfileNestedInput
+  competencyAttempts?: Prisma.CompetencyAttemptUncheckedUpdateManyWithoutGuideProfileNestedInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutGuideProfileNestedInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentUncheckedUpdateManyWithoutGuideProfileNestedInput
+  skillAssessments?: Prisma.GuideSkillAssessmentUncheckedUpdateManyWithoutGuideProfileNestedInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyUncheckedUpdateManyWithoutGuideProfileNestedInput
+  firstAidRecords?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutGuideProfileNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutGuideProfileNestedInput
+  matchResults?: Prisma.GuideMatchResultUncheckedUpdateManyWithoutGuideProfileNestedInput
+  safetyPlans?: Prisma.SafetyPlanUncheckedUpdateManyWithoutGuideProfileNestedInput
+}
+
+export type GuideProfileCreateWithoutLanguageAssessmentsInput = {
+  id?: string
+  country: string
+  city: string
+  bio: string
+  experienceYears?: number
+  languages: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileCreateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileCreateavailabilityInput | string[]
+  pricingType?: $Enums.PricingType
+  price?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: $Enums.GuideStatus
+  verified?: boolean
+  legalRole?: $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileCreaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileCreatespecialtySkillsInput | string[]
+  firstAidVerified?: boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: number
+  referenceContact?: string | null
+  codeOfConductAccepted?: boolean
+  rankPoints?: number
+  completedTrips?: number
+  responseRate?: number
+  acceptanceRate?: number
+  providerCancellationCount?: number
+  confirmedReportCount?: number
+  rankingUpdatedAt?: Date | string | null
+  rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  user: Prisma.UserCreateNestedOneWithoutGuideProfileInput
+  verificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutGuideProfileInput
+  evidence?: Prisma.GuideEvidenceCreateNestedManyWithoutGuideProfileInput
+  competencyAttempts?: Prisma.CompetencyAttemptCreateNestedManyWithoutGuideProfileInput
+  competencies?: Prisma.GuideCompetencyCreateNestedManyWithoutGuideProfileInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentCreateNestedManyWithoutGuideProfileInput
+  skillAssessments?: Prisma.GuideSkillAssessmentCreateNestedManyWithoutGuideProfileInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyCreateNestedManyWithoutGuideProfileInput
+  firstAidRecords?: Prisma.GuideFirstAidCreateNestedManyWithoutGuideProfileInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutGuideProfileInput
+  matchResults?: Prisma.GuideMatchResultCreateNestedManyWithoutGuideProfileInput
+  safetyPlans?: Prisma.SafetyPlanCreateNestedManyWithoutGuideProfileInput
+}
+
+export type GuideProfileUncheckedCreateWithoutLanguageAssessmentsInput = {
+  id?: string
+  userId: string
+  country: string
+  city: string
+  bio: string
+  experienceYears?: number
+  languages: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileCreateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileCreateavailabilityInput | string[]
+  pricingType?: $Enums.PricingType
+  price?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: $Enums.GuideStatus
+  verified?: boolean
+  legalRole?: $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileCreaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileCreatespecialtySkillsInput | string[]
+  firstAidVerified?: boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: number
+  referenceContact?: string | null
+  codeOfConductAccepted?: boolean
+  rankPoints?: number
+  completedTrips?: number
+  responseRate?: number
+  acceptanceRate?: number
+  providerCancellationCount?: number
+  confirmedReportCount?: number
+  rankingUpdatedAt?: Date | string | null
+  rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  verificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutGuideProfileInput
+  evidence?: Prisma.GuideEvidenceUncheckedCreateNestedManyWithoutGuideProfileInput
+  competencyAttempts?: Prisma.CompetencyAttemptUncheckedCreateNestedManyWithoutGuideProfileInput
+  competencies?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutGuideProfileInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentUncheckedCreateNestedManyWithoutGuideProfileInput
+  skillAssessments?: Prisma.GuideSkillAssessmentUncheckedCreateNestedManyWithoutGuideProfileInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyUncheckedCreateNestedManyWithoutGuideProfileInput
+  firstAidRecords?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutGuideProfileInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutGuideProfileInput
+  matchResults?: Prisma.GuideMatchResultUncheckedCreateNestedManyWithoutGuideProfileInput
+  safetyPlans?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutGuideProfileInput
+}
+
+export type GuideProfileCreateOrConnectWithoutLanguageAssessmentsInput = {
+  where: Prisma.GuideProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.GuideProfileCreateWithoutLanguageAssessmentsInput, Prisma.GuideProfileUncheckedCreateWithoutLanguageAssessmentsInput>
+}
+
+export type GuideProfileUpsertWithoutLanguageAssessmentsInput = {
+  update: Prisma.XOR<Prisma.GuideProfileUpdateWithoutLanguageAssessmentsInput, Prisma.GuideProfileUncheckedUpdateWithoutLanguageAssessmentsInput>
+  create: Prisma.XOR<Prisma.GuideProfileCreateWithoutLanguageAssessmentsInput, Prisma.GuideProfileUncheckedCreateWithoutLanguageAssessmentsInput>
+  where?: Prisma.GuideProfileWhereInput
+}
+
+export type GuideProfileUpdateToOneWithWhereWithoutLanguageAssessmentsInput = {
+  where?: Prisma.GuideProfileWhereInput
+  data: Prisma.XOR<Prisma.GuideProfileUpdateWithoutLanguageAssessmentsInput, Prisma.GuideProfileUncheckedUpdateWithoutLanguageAssessmentsInput>
+}
+
+export type GuideProfileUpdateWithoutLanguageAssessmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  experienceYears?: Prisma.IntFieldUpdateOperationsInput | number
+  languages?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileUpdateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileUpdateavailabilityInput | string[]
+  pricingType?: Prisma.EnumPricingTypeFieldUpdateOperationsInput | $Enums.PricingType
+  price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  legalRole?: Prisma.EnumGuideLegalRoleFieldUpdateOperationsInput | $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileUpdaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileUpdatespecialtySkillsInput | string[]
+  firstAidVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: Prisma.IntFieldUpdateOperationsInput | number
+  referenceContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rankPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  completedTrips?: Prisma.IntFieldUpdateOperationsInput | number
+  responseRate?: Prisma.IntFieldUpdateOperationsInput | number
+  acceptanceRate?: Prisma.IntFieldUpdateOperationsInput | number
+  providerCancellationCount?: Prisma.IntFieldUpdateOperationsInput | number
+  confirmedReportCount?: Prisma.IntFieldUpdateOperationsInput | number
+  rankingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user?: Prisma.UserUpdateOneRequiredWithoutGuideProfileNestedInput
+  verificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutGuideProfileNestedInput
+  evidence?: Prisma.GuideEvidenceUpdateManyWithoutGuideProfileNestedInput
+  competencyAttempts?: Prisma.CompetencyAttemptUpdateManyWithoutGuideProfileNestedInput
+  competencies?: Prisma.GuideCompetencyUpdateManyWithoutGuideProfileNestedInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentUpdateManyWithoutGuideProfileNestedInput
+  skillAssessments?: Prisma.GuideSkillAssessmentUpdateManyWithoutGuideProfileNestedInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyUpdateManyWithoutGuideProfileNestedInput
+  firstAidRecords?: Prisma.GuideFirstAidUpdateManyWithoutGuideProfileNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutGuideProfileNestedInput
+  matchResults?: Prisma.GuideMatchResultUpdateManyWithoutGuideProfileNestedInput
+  safetyPlans?: Prisma.SafetyPlanUpdateManyWithoutGuideProfileNestedInput
+}
+
+export type GuideProfileUncheckedUpdateWithoutLanguageAssessmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  experienceYears?: Prisma.IntFieldUpdateOperationsInput | number
+  languages?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileUpdateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileUpdateavailabilityInput | string[]
+  pricingType?: Prisma.EnumPricingTypeFieldUpdateOperationsInput | $Enums.PricingType
+  price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  legalRole?: Prisma.EnumGuideLegalRoleFieldUpdateOperationsInput | $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileUpdaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileUpdatespecialtySkillsInput | string[]
+  firstAidVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: Prisma.IntFieldUpdateOperationsInput | number
+  referenceContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rankPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  completedTrips?: Prisma.IntFieldUpdateOperationsInput | number
+  responseRate?: Prisma.IntFieldUpdateOperationsInput | number
+  acceptanceRate?: Prisma.IntFieldUpdateOperationsInput | number
+  providerCancellationCount?: Prisma.IntFieldUpdateOperationsInput | number
+  confirmedReportCount?: Prisma.IntFieldUpdateOperationsInput | number
+  rankingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutGuideProfileNestedInput
+  evidence?: Prisma.GuideEvidenceUncheckedUpdateManyWithoutGuideProfileNestedInput
+  competencyAttempts?: Prisma.CompetencyAttemptUncheckedUpdateManyWithoutGuideProfileNestedInput
+  competencies?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutGuideProfileNestedInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentUncheckedUpdateManyWithoutGuideProfileNestedInput
+  skillAssessments?: Prisma.GuideSkillAssessmentUncheckedUpdateManyWithoutGuideProfileNestedInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyUncheckedUpdateManyWithoutGuideProfileNestedInput
+  firstAidRecords?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutGuideProfileNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutGuideProfileNestedInput
+  matchResults?: Prisma.GuideMatchResultUncheckedUpdateManyWithoutGuideProfileNestedInput
+  safetyPlans?: Prisma.SafetyPlanUncheckedUpdateManyWithoutGuideProfileNestedInput
+}
+
+export type GuideProfileCreateWithoutKnowledgeAssessmentsInput = {
+  id?: string
+  country: string
+  city: string
+  bio: string
+  experienceYears?: number
+  languages: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileCreateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileCreateavailabilityInput | string[]
+  pricingType?: $Enums.PricingType
+  price?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: $Enums.GuideStatus
+  verified?: boolean
+  legalRole?: $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileCreaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileCreatespecialtySkillsInput | string[]
+  firstAidVerified?: boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: number
+  referenceContact?: string | null
+  codeOfConductAccepted?: boolean
+  rankPoints?: number
+  completedTrips?: number
+  responseRate?: number
+  acceptanceRate?: number
+  providerCancellationCount?: number
+  confirmedReportCount?: number
+  rankingUpdatedAt?: Date | string | null
+  rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  user: Prisma.UserCreateNestedOneWithoutGuideProfileInput
+  verificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutGuideProfileInput
+  evidence?: Prisma.GuideEvidenceCreateNestedManyWithoutGuideProfileInput
+  competencyAttempts?: Prisma.CompetencyAttemptCreateNestedManyWithoutGuideProfileInput
+  competencies?: Prisma.GuideCompetencyCreateNestedManyWithoutGuideProfileInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutGuideProfileInput
+  skillAssessments?: Prisma.GuideSkillAssessmentCreateNestedManyWithoutGuideProfileInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyCreateNestedManyWithoutGuideProfileInput
+  firstAidRecords?: Prisma.GuideFirstAidCreateNestedManyWithoutGuideProfileInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutGuideProfileInput
+  matchResults?: Prisma.GuideMatchResultCreateNestedManyWithoutGuideProfileInput
+  safetyPlans?: Prisma.SafetyPlanCreateNestedManyWithoutGuideProfileInput
+}
+
+export type GuideProfileUncheckedCreateWithoutKnowledgeAssessmentsInput = {
+  id?: string
+  userId: string
+  country: string
+  city: string
+  bio: string
+  experienceYears?: number
+  languages: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileCreateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileCreateavailabilityInput | string[]
+  pricingType?: $Enums.PricingType
+  price?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: $Enums.GuideStatus
+  verified?: boolean
+  legalRole?: $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileCreaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileCreatespecialtySkillsInput | string[]
+  firstAidVerified?: boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: number
+  referenceContact?: string | null
+  codeOfConductAccepted?: boolean
+  rankPoints?: number
+  completedTrips?: number
+  responseRate?: number
+  acceptanceRate?: number
+  providerCancellationCount?: number
+  confirmedReportCount?: number
+  rankingUpdatedAt?: Date | string | null
+  rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  verificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutGuideProfileInput
+  evidence?: Prisma.GuideEvidenceUncheckedCreateNestedManyWithoutGuideProfileInput
+  competencyAttempts?: Prisma.CompetencyAttemptUncheckedCreateNestedManyWithoutGuideProfileInput
+  competencies?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutGuideProfileInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutGuideProfileInput
+  skillAssessments?: Prisma.GuideSkillAssessmentUncheckedCreateNestedManyWithoutGuideProfileInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyUncheckedCreateNestedManyWithoutGuideProfileInput
+  firstAidRecords?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutGuideProfileInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutGuideProfileInput
+  matchResults?: Prisma.GuideMatchResultUncheckedCreateNestedManyWithoutGuideProfileInput
+  safetyPlans?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutGuideProfileInput
+}
+
+export type GuideProfileCreateOrConnectWithoutKnowledgeAssessmentsInput = {
+  where: Prisma.GuideProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.GuideProfileCreateWithoutKnowledgeAssessmentsInput, Prisma.GuideProfileUncheckedCreateWithoutKnowledgeAssessmentsInput>
+}
+
+export type GuideProfileUpsertWithoutKnowledgeAssessmentsInput = {
+  update: Prisma.XOR<Prisma.GuideProfileUpdateWithoutKnowledgeAssessmentsInput, Prisma.GuideProfileUncheckedUpdateWithoutKnowledgeAssessmentsInput>
+  create: Prisma.XOR<Prisma.GuideProfileCreateWithoutKnowledgeAssessmentsInput, Prisma.GuideProfileUncheckedCreateWithoutKnowledgeAssessmentsInput>
+  where?: Prisma.GuideProfileWhereInput
+}
+
+export type GuideProfileUpdateToOneWithWhereWithoutKnowledgeAssessmentsInput = {
+  where?: Prisma.GuideProfileWhereInput
+  data: Prisma.XOR<Prisma.GuideProfileUpdateWithoutKnowledgeAssessmentsInput, Prisma.GuideProfileUncheckedUpdateWithoutKnowledgeAssessmentsInput>
+}
+
+export type GuideProfileUpdateWithoutKnowledgeAssessmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  experienceYears?: Prisma.IntFieldUpdateOperationsInput | number
+  languages?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileUpdateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileUpdateavailabilityInput | string[]
+  pricingType?: Prisma.EnumPricingTypeFieldUpdateOperationsInput | $Enums.PricingType
+  price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  legalRole?: Prisma.EnumGuideLegalRoleFieldUpdateOperationsInput | $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileUpdaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileUpdatespecialtySkillsInput | string[]
+  firstAidVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: Prisma.IntFieldUpdateOperationsInput | number
+  referenceContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rankPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  completedTrips?: Prisma.IntFieldUpdateOperationsInput | number
+  responseRate?: Prisma.IntFieldUpdateOperationsInput | number
+  acceptanceRate?: Prisma.IntFieldUpdateOperationsInput | number
+  providerCancellationCount?: Prisma.IntFieldUpdateOperationsInput | number
+  confirmedReportCount?: Prisma.IntFieldUpdateOperationsInput | number
+  rankingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user?: Prisma.UserUpdateOneRequiredWithoutGuideProfileNestedInput
+  verificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutGuideProfileNestedInput
+  evidence?: Prisma.GuideEvidenceUpdateManyWithoutGuideProfileNestedInput
+  competencyAttempts?: Prisma.CompetencyAttemptUpdateManyWithoutGuideProfileNestedInput
+  competencies?: Prisma.GuideCompetencyUpdateManyWithoutGuideProfileNestedInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentUpdateManyWithoutGuideProfileNestedInput
+  skillAssessments?: Prisma.GuideSkillAssessmentUpdateManyWithoutGuideProfileNestedInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyUpdateManyWithoutGuideProfileNestedInput
+  firstAidRecords?: Prisma.GuideFirstAidUpdateManyWithoutGuideProfileNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutGuideProfileNestedInput
+  matchResults?: Prisma.GuideMatchResultUpdateManyWithoutGuideProfileNestedInput
+  safetyPlans?: Prisma.SafetyPlanUpdateManyWithoutGuideProfileNestedInput
+}
+
+export type GuideProfileUncheckedUpdateWithoutKnowledgeAssessmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  experienceYears?: Prisma.IntFieldUpdateOperationsInput | number
+  languages?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileUpdateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileUpdateavailabilityInput | string[]
+  pricingType?: Prisma.EnumPricingTypeFieldUpdateOperationsInput | $Enums.PricingType
+  price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  legalRole?: Prisma.EnumGuideLegalRoleFieldUpdateOperationsInput | $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileUpdaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileUpdatespecialtySkillsInput | string[]
+  firstAidVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: Prisma.IntFieldUpdateOperationsInput | number
+  referenceContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rankPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  completedTrips?: Prisma.IntFieldUpdateOperationsInput | number
+  responseRate?: Prisma.IntFieldUpdateOperationsInput | number
+  acceptanceRate?: Prisma.IntFieldUpdateOperationsInput | number
+  providerCancellationCount?: Prisma.IntFieldUpdateOperationsInput | number
+  confirmedReportCount?: Prisma.IntFieldUpdateOperationsInput | number
+  rankingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutGuideProfileNestedInput
+  evidence?: Prisma.GuideEvidenceUncheckedUpdateManyWithoutGuideProfileNestedInput
+  competencyAttempts?: Prisma.CompetencyAttemptUncheckedUpdateManyWithoutGuideProfileNestedInput
+  competencies?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutGuideProfileNestedInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutGuideProfileNestedInput
+  skillAssessments?: Prisma.GuideSkillAssessmentUncheckedUpdateManyWithoutGuideProfileNestedInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyUncheckedUpdateManyWithoutGuideProfileNestedInput
+  firstAidRecords?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutGuideProfileNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutGuideProfileNestedInput
+  matchResults?: Prisma.GuideMatchResultUncheckedUpdateManyWithoutGuideProfileNestedInput
+  safetyPlans?: Prisma.SafetyPlanUncheckedUpdateManyWithoutGuideProfileNestedInput
+}
+
+export type GuideProfileCreateWithoutSkillAssessmentsInput = {
+  id?: string
+  country: string
+  city: string
+  bio: string
+  experienceYears?: number
+  languages: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileCreateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileCreateavailabilityInput | string[]
+  pricingType?: $Enums.PricingType
+  price?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: $Enums.GuideStatus
+  verified?: boolean
+  legalRole?: $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileCreaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileCreatespecialtySkillsInput | string[]
+  firstAidVerified?: boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: number
+  referenceContact?: string | null
+  codeOfConductAccepted?: boolean
+  rankPoints?: number
+  completedTrips?: number
+  responseRate?: number
+  acceptanceRate?: number
+  providerCancellationCount?: number
+  confirmedReportCount?: number
+  rankingUpdatedAt?: Date | string | null
+  rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  user: Prisma.UserCreateNestedOneWithoutGuideProfileInput
+  verificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutGuideProfileInput
+  evidence?: Prisma.GuideEvidenceCreateNestedManyWithoutGuideProfileInput
+  competencyAttempts?: Prisma.CompetencyAttemptCreateNestedManyWithoutGuideProfileInput
+  competencies?: Prisma.GuideCompetencyCreateNestedManyWithoutGuideProfileInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutGuideProfileInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentCreateNestedManyWithoutGuideProfileInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyCreateNestedManyWithoutGuideProfileInput
+  firstAidRecords?: Prisma.GuideFirstAidCreateNestedManyWithoutGuideProfileInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutGuideProfileInput
+  matchResults?: Prisma.GuideMatchResultCreateNestedManyWithoutGuideProfileInput
+  safetyPlans?: Prisma.SafetyPlanCreateNestedManyWithoutGuideProfileInput
+}
+
+export type GuideProfileUncheckedCreateWithoutSkillAssessmentsInput = {
+  id?: string
+  userId: string
+  country: string
+  city: string
+  bio: string
+  experienceYears?: number
+  languages: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileCreateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileCreateavailabilityInput | string[]
+  pricingType?: $Enums.PricingType
+  price?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: $Enums.GuideStatus
+  verified?: boolean
+  legalRole?: $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileCreaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileCreatespecialtySkillsInput | string[]
+  firstAidVerified?: boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: number
+  referenceContact?: string | null
+  codeOfConductAccepted?: boolean
+  rankPoints?: number
+  completedTrips?: number
+  responseRate?: number
+  acceptanceRate?: number
+  providerCancellationCount?: number
+  confirmedReportCount?: number
+  rankingUpdatedAt?: Date | string | null
+  rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  verificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutGuideProfileInput
+  evidence?: Prisma.GuideEvidenceUncheckedCreateNestedManyWithoutGuideProfileInput
+  competencyAttempts?: Prisma.CompetencyAttemptUncheckedCreateNestedManyWithoutGuideProfileInput
+  competencies?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutGuideProfileInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutGuideProfileInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentUncheckedCreateNestedManyWithoutGuideProfileInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyUncheckedCreateNestedManyWithoutGuideProfileInput
+  firstAidRecords?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutGuideProfileInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutGuideProfileInput
+  matchResults?: Prisma.GuideMatchResultUncheckedCreateNestedManyWithoutGuideProfileInput
+  safetyPlans?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutGuideProfileInput
+}
+
+export type GuideProfileCreateOrConnectWithoutSkillAssessmentsInput = {
+  where: Prisma.GuideProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.GuideProfileCreateWithoutSkillAssessmentsInput, Prisma.GuideProfileUncheckedCreateWithoutSkillAssessmentsInput>
+}
+
+export type GuideProfileUpsertWithoutSkillAssessmentsInput = {
+  update: Prisma.XOR<Prisma.GuideProfileUpdateWithoutSkillAssessmentsInput, Prisma.GuideProfileUncheckedUpdateWithoutSkillAssessmentsInput>
+  create: Prisma.XOR<Prisma.GuideProfileCreateWithoutSkillAssessmentsInput, Prisma.GuideProfileUncheckedCreateWithoutSkillAssessmentsInput>
+  where?: Prisma.GuideProfileWhereInput
+}
+
+export type GuideProfileUpdateToOneWithWhereWithoutSkillAssessmentsInput = {
+  where?: Prisma.GuideProfileWhereInput
+  data: Prisma.XOR<Prisma.GuideProfileUpdateWithoutSkillAssessmentsInput, Prisma.GuideProfileUncheckedUpdateWithoutSkillAssessmentsInput>
+}
+
+export type GuideProfileUpdateWithoutSkillAssessmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  experienceYears?: Prisma.IntFieldUpdateOperationsInput | number
+  languages?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileUpdateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileUpdateavailabilityInput | string[]
+  pricingType?: Prisma.EnumPricingTypeFieldUpdateOperationsInput | $Enums.PricingType
+  price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  legalRole?: Prisma.EnumGuideLegalRoleFieldUpdateOperationsInput | $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileUpdaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileUpdatespecialtySkillsInput | string[]
+  firstAidVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: Prisma.IntFieldUpdateOperationsInput | number
+  referenceContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rankPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  completedTrips?: Prisma.IntFieldUpdateOperationsInput | number
+  responseRate?: Prisma.IntFieldUpdateOperationsInput | number
+  acceptanceRate?: Prisma.IntFieldUpdateOperationsInput | number
+  providerCancellationCount?: Prisma.IntFieldUpdateOperationsInput | number
+  confirmedReportCount?: Prisma.IntFieldUpdateOperationsInput | number
+  rankingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user?: Prisma.UserUpdateOneRequiredWithoutGuideProfileNestedInput
+  verificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutGuideProfileNestedInput
+  evidence?: Prisma.GuideEvidenceUpdateManyWithoutGuideProfileNestedInput
+  competencyAttempts?: Prisma.CompetencyAttemptUpdateManyWithoutGuideProfileNestedInput
+  competencies?: Prisma.GuideCompetencyUpdateManyWithoutGuideProfileNestedInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentUpdateManyWithoutGuideProfileNestedInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentUpdateManyWithoutGuideProfileNestedInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyUpdateManyWithoutGuideProfileNestedInput
+  firstAidRecords?: Prisma.GuideFirstAidUpdateManyWithoutGuideProfileNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutGuideProfileNestedInput
+  matchResults?: Prisma.GuideMatchResultUpdateManyWithoutGuideProfileNestedInput
+  safetyPlans?: Prisma.SafetyPlanUpdateManyWithoutGuideProfileNestedInput
+}
+
+export type GuideProfileUncheckedUpdateWithoutSkillAssessmentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  experienceYears?: Prisma.IntFieldUpdateOperationsInput | number
+  languages?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileUpdateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileUpdateavailabilityInput | string[]
+  pricingType?: Prisma.EnumPricingTypeFieldUpdateOperationsInput | $Enums.PricingType
+  price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  legalRole?: Prisma.EnumGuideLegalRoleFieldUpdateOperationsInput | $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileUpdaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileUpdatespecialtySkillsInput | string[]
+  firstAidVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: Prisma.IntFieldUpdateOperationsInput | number
+  referenceContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rankPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  completedTrips?: Prisma.IntFieldUpdateOperationsInput | number
+  responseRate?: Prisma.IntFieldUpdateOperationsInput | number
+  acceptanceRate?: Prisma.IntFieldUpdateOperationsInput | number
+  providerCancellationCount?: Prisma.IntFieldUpdateOperationsInput | number
+  confirmedReportCount?: Prisma.IntFieldUpdateOperationsInput | number
+  rankingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutGuideProfileNestedInput
+  evidence?: Prisma.GuideEvidenceUncheckedUpdateManyWithoutGuideProfileNestedInput
+  competencyAttempts?: Prisma.CompetencyAttemptUncheckedUpdateManyWithoutGuideProfileNestedInput
+  competencies?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutGuideProfileNestedInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutGuideProfileNestedInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentUncheckedUpdateManyWithoutGuideProfileNestedInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyUncheckedUpdateManyWithoutGuideProfileNestedInput
+  firstAidRecords?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutGuideProfileNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutGuideProfileNestedInput
+  matchResults?: Prisma.GuideMatchResultUncheckedUpdateManyWithoutGuideProfileNestedInput
+  safetyPlans?: Prisma.SafetyPlanUncheckedUpdateManyWithoutGuideProfileNestedInput
+}
+
+export type GuideProfileCreateWithoutRouteCompetenciesInput = {
+  id?: string
+  country: string
+  city: string
+  bio: string
+  experienceYears?: number
+  languages: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileCreateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileCreateavailabilityInput | string[]
+  pricingType?: $Enums.PricingType
+  price?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: $Enums.GuideStatus
+  verified?: boolean
+  legalRole?: $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileCreaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileCreatespecialtySkillsInput | string[]
+  firstAidVerified?: boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: number
+  referenceContact?: string | null
+  codeOfConductAccepted?: boolean
+  rankPoints?: number
+  completedTrips?: number
+  responseRate?: number
+  acceptanceRate?: number
+  providerCancellationCount?: number
+  confirmedReportCount?: number
+  rankingUpdatedAt?: Date | string | null
+  rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  user: Prisma.UserCreateNestedOneWithoutGuideProfileInput
+  verificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutGuideProfileInput
+  evidence?: Prisma.GuideEvidenceCreateNestedManyWithoutGuideProfileInput
+  competencyAttempts?: Prisma.CompetencyAttemptCreateNestedManyWithoutGuideProfileInput
+  competencies?: Prisma.GuideCompetencyCreateNestedManyWithoutGuideProfileInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutGuideProfileInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentCreateNestedManyWithoutGuideProfileInput
+  skillAssessments?: Prisma.GuideSkillAssessmentCreateNestedManyWithoutGuideProfileInput
+  firstAidRecords?: Prisma.GuideFirstAidCreateNestedManyWithoutGuideProfileInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutGuideProfileInput
+  matchResults?: Prisma.GuideMatchResultCreateNestedManyWithoutGuideProfileInput
+  safetyPlans?: Prisma.SafetyPlanCreateNestedManyWithoutGuideProfileInput
+}
+
+export type GuideProfileUncheckedCreateWithoutRouteCompetenciesInput = {
+  id?: string
+  userId: string
+  country: string
+  city: string
+  bio: string
+  experienceYears?: number
+  languages: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileCreateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileCreateavailabilityInput | string[]
+  pricingType?: $Enums.PricingType
+  price?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: $Enums.GuideStatus
+  verified?: boolean
+  legalRole?: $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileCreaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileCreatespecialtySkillsInput | string[]
+  firstAidVerified?: boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: number
+  referenceContact?: string | null
+  codeOfConductAccepted?: boolean
+  rankPoints?: number
+  completedTrips?: number
+  responseRate?: number
+  acceptanceRate?: number
+  providerCancellationCount?: number
+  confirmedReportCount?: number
+  rankingUpdatedAt?: Date | string | null
+  rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  verificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutGuideProfileInput
+  evidence?: Prisma.GuideEvidenceUncheckedCreateNestedManyWithoutGuideProfileInput
+  competencyAttempts?: Prisma.CompetencyAttemptUncheckedCreateNestedManyWithoutGuideProfileInput
+  competencies?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutGuideProfileInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutGuideProfileInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentUncheckedCreateNestedManyWithoutGuideProfileInput
+  skillAssessments?: Prisma.GuideSkillAssessmentUncheckedCreateNestedManyWithoutGuideProfileInput
+  firstAidRecords?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutGuideProfileInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutGuideProfileInput
+  matchResults?: Prisma.GuideMatchResultUncheckedCreateNestedManyWithoutGuideProfileInput
+  safetyPlans?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutGuideProfileInput
+}
+
+export type GuideProfileCreateOrConnectWithoutRouteCompetenciesInput = {
+  where: Prisma.GuideProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.GuideProfileCreateWithoutRouteCompetenciesInput, Prisma.GuideProfileUncheckedCreateWithoutRouteCompetenciesInput>
+}
+
+export type GuideProfileUpsertWithoutRouteCompetenciesInput = {
+  update: Prisma.XOR<Prisma.GuideProfileUpdateWithoutRouteCompetenciesInput, Prisma.GuideProfileUncheckedUpdateWithoutRouteCompetenciesInput>
+  create: Prisma.XOR<Prisma.GuideProfileCreateWithoutRouteCompetenciesInput, Prisma.GuideProfileUncheckedCreateWithoutRouteCompetenciesInput>
+  where?: Prisma.GuideProfileWhereInput
+}
+
+export type GuideProfileUpdateToOneWithWhereWithoutRouteCompetenciesInput = {
+  where?: Prisma.GuideProfileWhereInput
+  data: Prisma.XOR<Prisma.GuideProfileUpdateWithoutRouteCompetenciesInput, Prisma.GuideProfileUncheckedUpdateWithoutRouteCompetenciesInput>
+}
+
+export type GuideProfileUpdateWithoutRouteCompetenciesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  experienceYears?: Prisma.IntFieldUpdateOperationsInput | number
+  languages?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileUpdateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileUpdateavailabilityInput | string[]
+  pricingType?: Prisma.EnumPricingTypeFieldUpdateOperationsInput | $Enums.PricingType
+  price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  legalRole?: Prisma.EnumGuideLegalRoleFieldUpdateOperationsInput | $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileUpdaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileUpdatespecialtySkillsInput | string[]
+  firstAidVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: Prisma.IntFieldUpdateOperationsInput | number
+  referenceContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rankPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  completedTrips?: Prisma.IntFieldUpdateOperationsInput | number
+  responseRate?: Prisma.IntFieldUpdateOperationsInput | number
+  acceptanceRate?: Prisma.IntFieldUpdateOperationsInput | number
+  providerCancellationCount?: Prisma.IntFieldUpdateOperationsInput | number
+  confirmedReportCount?: Prisma.IntFieldUpdateOperationsInput | number
+  rankingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user?: Prisma.UserUpdateOneRequiredWithoutGuideProfileNestedInput
+  verificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutGuideProfileNestedInput
+  evidence?: Prisma.GuideEvidenceUpdateManyWithoutGuideProfileNestedInput
+  competencyAttempts?: Prisma.CompetencyAttemptUpdateManyWithoutGuideProfileNestedInput
+  competencies?: Prisma.GuideCompetencyUpdateManyWithoutGuideProfileNestedInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentUpdateManyWithoutGuideProfileNestedInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentUpdateManyWithoutGuideProfileNestedInput
+  skillAssessments?: Prisma.GuideSkillAssessmentUpdateManyWithoutGuideProfileNestedInput
+  firstAidRecords?: Prisma.GuideFirstAidUpdateManyWithoutGuideProfileNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutGuideProfileNestedInput
+  matchResults?: Prisma.GuideMatchResultUpdateManyWithoutGuideProfileNestedInput
+  safetyPlans?: Prisma.SafetyPlanUpdateManyWithoutGuideProfileNestedInput
+}
+
+export type GuideProfileUncheckedUpdateWithoutRouteCompetenciesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  experienceYears?: Prisma.IntFieldUpdateOperationsInput | number
+  languages?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileUpdateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileUpdateavailabilityInput | string[]
+  pricingType?: Prisma.EnumPricingTypeFieldUpdateOperationsInput | $Enums.PricingType
+  price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  legalRole?: Prisma.EnumGuideLegalRoleFieldUpdateOperationsInput | $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileUpdaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileUpdatespecialtySkillsInput | string[]
+  firstAidVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: Prisma.IntFieldUpdateOperationsInput | number
+  referenceContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rankPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  completedTrips?: Prisma.IntFieldUpdateOperationsInput | number
+  responseRate?: Prisma.IntFieldUpdateOperationsInput | number
+  acceptanceRate?: Prisma.IntFieldUpdateOperationsInput | number
+  providerCancellationCount?: Prisma.IntFieldUpdateOperationsInput | number
+  confirmedReportCount?: Prisma.IntFieldUpdateOperationsInput | number
+  rankingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutGuideProfileNestedInput
+  evidence?: Prisma.GuideEvidenceUncheckedUpdateManyWithoutGuideProfileNestedInput
+  competencyAttempts?: Prisma.CompetencyAttemptUncheckedUpdateManyWithoutGuideProfileNestedInput
+  competencies?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutGuideProfileNestedInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutGuideProfileNestedInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentUncheckedUpdateManyWithoutGuideProfileNestedInput
+  skillAssessments?: Prisma.GuideSkillAssessmentUncheckedUpdateManyWithoutGuideProfileNestedInput
+  firstAidRecords?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutGuideProfileNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutGuideProfileNestedInput
+  matchResults?: Prisma.GuideMatchResultUncheckedUpdateManyWithoutGuideProfileNestedInput
+  safetyPlans?: Prisma.SafetyPlanUncheckedUpdateManyWithoutGuideProfileNestedInput
+}
+
+export type GuideProfileCreateWithoutFirstAidRecordsInput = {
+  id?: string
+  country: string
+  city: string
+  bio: string
+  experienceYears?: number
+  languages: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileCreateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileCreateavailabilityInput | string[]
+  pricingType?: $Enums.PricingType
+  price?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: $Enums.GuideStatus
+  verified?: boolean
+  legalRole?: $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileCreaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileCreatespecialtySkillsInput | string[]
+  firstAidVerified?: boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: number
+  referenceContact?: string | null
+  codeOfConductAccepted?: boolean
+  rankPoints?: number
+  completedTrips?: number
+  responseRate?: number
+  acceptanceRate?: number
+  providerCancellationCount?: number
+  confirmedReportCount?: number
+  rankingUpdatedAt?: Date | string | null
+  rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  user: Prisma.UserCreateNestedOneWithoutGuideProfileInput
+  verificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutGuideProfileInput
+  evidence?: Prisma.GuideEvidenceCreateNestedManyWithoutGuideProfileInput
+  competencyAttempts?: Prisma.CompetencyAttemptCreateNestedManyWithoutGuideProfileInput
+  competencies?: Prisma.GuideCompetencyCreateNestedManyWithoutGuideProfileInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutGuideProfileInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentCreateNestedManyWithoutGuideProfileInput
+  skillAssessments?: Prisma.GuideSkillAssessmentCreateNestedManyWithoutGuideProfileInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyCreateNestedManyWithoutGuideProfileInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutGuideProfileInput
+  matchResults?: Prisma.GuideMatchResultCreateNestedManyWithoutGuideProfileInput
+  safetyPlans?: Prisma.SafetyPlanCreateNestedManyWithoutGuideProfileInput
+}
+
+export type GuideProfileUncheckedCreateWithoutFirstAidRecordsInput = {
+  id?: string
+  userId: string
+  country: string
+  city: string
+  bio: string
+  experienceYears?: number
+  languages: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileCreateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileCreateavailabilityInput | string[]
+  pricingType?: $Enums.PricingType
+  price?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: $Enums.GuideStatus
+  verified?: boolean
+  legalRole?: $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileCreaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileCreatespecialtySkillsInput | string[]
+  firstAidVerified?: boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: number
+  referenceContact?: string | null
+  codeOfConductAccepted?: boolean
+  rankPoints?: number
+  completedTrips?: number
+  responseRate?: number
+  acceptanceRate?: number
+  providerCancellationCount?: number
+  confirmedReportCount?: number
+  rankingUpdatedAt?: Date | string | null
+  rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  verificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutGuideProfileInput
+  evidence?: Prisma.GuideEvidenceUncheckedCreateNestedManyWithoutGuideProfileInput
+  competencyAttempts?: Prisma.CompetencyAttemptUncheckedCreateNestedManyWithoutGuideProfileInput
+  competencies?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutGuideProfileInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutGuideProfileInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentUncheckedCreateNestedManyWithoutGuideProfileInput
+  skillAssessments?: Prisma.GuideSkillAssessmentUncheckedCreateNestedManyWithoutGuideProfileInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyUncheckedCreateNestedManyWithoutGuideProfileInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutGuideProfileInput
+  matchResults?: Prisma.GuideMatchResultUncheckedCreateNestedManyWithoutGuideProfileInput
+  safetyPlans?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutGuideProfileInput
+}
+
+export type GuideProfileCreateOrConnectWithoutFirstAidRecordsInput = {
+  where: Prisma.GuideProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.GuideProfileCreateWithoutFirstAidRecordsInput, Prisma.GuideProfileUncheckedCreateWithoutFirstAidRecordsInput>
+}
+
+export type GuideProfileUpsertWithoutFirstAidRecordsInput = {
+  update: Prisma.XOR<Prisma.GuideProfileUpdateWithoutFirstAidRecordsInput, Prisma.GuideProfileUncheckedUpdateWithoutFirstAidRecordsInput>
+  create: Prisma.XOR<Prisma.GuideProfileCreateWithoutFirstAidRecordsInput, Prisma.GuideProfileUncheckedCreateWithoutFirstAidRecordsInput>
+  where?: Prisma.GuideProfileWhereInput
+}
+
+export type GuideProfileUpdateToOneWithWhereWithoutFirstAidRecordsInput = {
+  where?: Prisma.GuideProfileWhereInput
+  data: Prisma.XOR<Prisma.GuideProfileUpdateWithoutFirstAidRecordsInput, Prisma.GuideProfileUncheckedUpdateWithoutFirstAidRecordsInput>
+}
+
+export type GuideProfileUpdateWithoutFirstAidRecordsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  experienceYears?: Prisma.IntFieldUpdateOperationsInput | number
+  languages?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileUpdateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileUpdateavailabilityInput | string[]
+  pricingType?: Prisma.EnumPricingTypeFieldUpdateOperationsInput | $Enums.PricingType
+  price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  legalRole?: Prisma.EnumGuideLegalRoleFieldUpdateOperationsInput | $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileUpdaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileUpdatespecialtySkillsInput | string[]
+  firstAidVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: Prisma.IntFieldUpdateOperationsInput | number
+  referenceContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rankPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  completedTrips?: Prisma.IntFieldUpdateOperationsInput | number
+  responseRate?: Prisma.IntFieldUpdateOperationsInput | number
+  acceptanceRate?: Prisma.IntFieldUpdateOperationsInput | number
+  providerCancellationCount?: Prisma.IntFieldUpdateOperationsInput | number
+  confirmedReportCount?: Prisma.IntFieldUpdateOperationsInput | number
+  rankingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user?: Prisma.UserUpdateOneRequiredWithoutGuideProfileNestedInput
+  verificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutGuideProfileNestedInput
+  evidence?: Prisma.GuideEvidenceUpdateManyWithoutGuideProfileNestedInput
+  competencyAttempts?: Prisma.CompetencyAttemptUpdateManyWithoutGuideProfileNestedInput
+  competencies?: Prisma.GuideCompetencyUpdateManyWithoutGuideProfileNestedInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentUpdateManyWithoutGuideProfileNestedInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentUpdateManyWithoutGuideProfileNestedInput
+  skillAssessments?: Prisma.GuideSkillAssessmentUpdateManyWithoutGuideProfileNestedInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyUpdateManyWithoutGuideProfileNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutGuideProfileNestedInput
+  matchResults?: Prisma.GuideMatchResultUpdateManyWithoutGuideProfileNestedInput
+  safetyPlans?: Prisma.SafetyPlanUpdateManyWithoutGuideProfileNestedInput
+}
+
+export type GuideProfileUncheckedUpdateWithoutFirstAidRecordsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  experienceYears?: Prisma.IntFieldUpdateOperationsInput | number
+  languages?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileUpdateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileUpdateavailabilityInput | string[]
+  pricingType?: Prisma.EnumPricingTypeFieldUpdateOperationsInput | $Enums.PricingType
+  price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  legalRole?: Prisma.EnumGuideLegalRoleFieldUpdateOperationsInput | $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileUpdaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileUpdatespecialtySkillsInput | string[]
+  firstAidVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: Prisma.IntFieldUpdateOperationsInput | number
+  referenceContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rankPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  completedTrips?: Prisma.IntFieldUpdateOperationsInput | number
+  responseRate?: Prisma.IntFieldUpdateOperationsInput | number
+  acceptanceRate?: Prisma.IntFieldUpdateOperationsInput | number
+  providerCancellationCount?: Prisma.IntFieldUpdateOperationsInput | number
+  confirmedReportCount?: Prisma.IntFieldUpdateOperationsInput | number
+  rankingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutGuideProfileNestedInput
+  evidence?: Prisma.GuideEvidenceUncheckedUpdateManyWithoutGuideProfileNestedInput
+  competencyAttempts?: Prisma.CompetencyAttemptUncheckedUpdateManyWithoutGuideProfileNestedInput
+  competencies?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutGuideProfileNestedInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutGuideProfileNestedInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentUncheckedUpdateManyWithoutGuideProfileNestedInput
+  skillAssessments?: Prisma.GuideSkillAssessmentUncheckedUpdateManyWithoutGuideProfileNestedInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyUncheckedUpdateManyWithoutGuideProfileNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutGuideProfileNestedInput
+  matchResults?: Prisma.GuideMatchResultUncheckedUpdateManyWithoutGuideProfileNestedInput
+  safetyPlans?: Prisma.SafetyPlanUncheckedUpdateManyWithoutGuideProfileNestedInput
+}
+
+export type GuideProfileCreateWithoutAssessmentAttemptsInput = {
+  id?: string
+  country: string
+  city: string
+  bio: string
+  experienceYears?: number
+  languages: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileCreateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileCreateavailabilityInput | string[]
+  pricingType?: $Enums.PricingType
+  price?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: $Enums.GuideStatus
+  verified?: boolean
+  legalRole?: $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileCreaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileCreatespecialtySkillsInput | string[]
+  firstAidVerified?: boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: number
+  referenceContact?: string | null
+  codeOfConductAccepted?: boolean
+  rankPoints?: number
+  completedTrips?: number
+  responseRate?: number
+  acceptanceRate?: number
+  providerCancellationCount?: number
+  confirmedReportCount?: number
+  rankingUpdatedAt?: Date | string | null
+  rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  user: Prisma.UserCreateNestedOneWithoutGuideProfileInput
+  verificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutGuideProfileInput
+  evidence?: Prisma.GuideEvidenceCreateNestedManyWithoutGuideProfileInput
+  competencyAttempts?: Prisma.CompetencyAttemptCreateNestedManyWithoutGuideProfileInput
+  competencies?: Prisma.GuideCompetencyCreateNestedManyWithoutGuideProfileInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutGuideProfileInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentCreateNestedManyWithoutGuideProfileInput
+  skillAssessments?: Prisma.GuideSkillAssessmentCreateNestedManyWithoutGuideProfileInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyCreateNestedManyWithoutGuideProfileInput
+  firstAidRecords?: Prisma.GuideFirstAidCreateNestedManyWithoutGuideProfileInput
+  matchResults?: Prisma.GuideMatchResultCreateNestedManyWithoutGuideProfileInput
+  safetyPlans?: Prisma.SafetyPlanCreateNestedManyWithoutGuideProfileInput
+}
+
+export type GuideProfileUncheckedCreateWithoutAssessmentAttemptsInput = {
+  id?: string
+  userId: string
+  country: string
+  city: string
+  bio: string
+  experienceYears?: number
+  languages: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileCreateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileCreateavailabilityInput | string[]
+  pricingType?: $Enums.PricingType
+  price?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: $Enums.GuideStatus
+  verified?: boolean
+  legalRole?: $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileCreaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileCreatespecialtySkillsInput | string[]
+  firstAidVerified?: boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: number
+  referenceContact?: string | null
+  codeOfConductAccepted?: boolean
+  rankPoints?: number
+  completedTrips?: number
+  responseRate?: number
+  acceptanceRate?: number
+  providerCancellationCount?: number
+  confirmedReportCount?: number
+  rankingUpdatedAt?: Date | string | null
+  rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  verificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutGuideProfileInput
+  evidence?: Prisma.GuideEvidenceUncheckedCreateNestedManyWithoutGuideProfileInput
+  competencyAttempts?: Prisma.CompetencyAttemptUncheckedCreateNestedManyWithoutGuideProfileInput
+  competencies?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutGuideProfileInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutGuideProfileInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentUncheckedCreateNestedManyWithoutGuideProfileInput
+  skillAssessments?: Prisma.GuideSkillAssessmentUncheckedCreateNestedManyWithoutGuideProfileInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyUncheckedCreateNestedManyWithoutGuideProfileInput
+  firstAidRecords?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutGuideProfileInput
+  matchResults?: Prisma.GuideMatchResultUncheckedCreateNestedManyWithoutGuideProfileInput
+  safetyPlans?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutGuideProfileInput
+}
+
+export type GuideProfileCreateOrConnectWithoutAssessmentAttemptsInput = {
+  where: Prisma.GuideProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.GuideProfileCreateWithoutAssessmentAttemptsInput, Prisma.GuideProfileUncheckedCreateWithoutAssessmentAttemptsInput>
+}
+
+export type GuideProfileUpsertWithoutAssessmentAttemptsInput = {
+  update: Prisma.XOR<Prisma.GuideProfileUpdateWithoutAssessmentAttemptsInput, Prisma.GuideProfileUncheckedUpdateWithoutAssessmentAttemptsInput>
+  create: Prisma.XOR<Prisma.GuideProfileCreateWithoutAssessmentAttemptsInput, Prisma.GuideProfileUncheckedCreateWithoutAssessmentAttemptsInput>
+  where?: Prisma.GuideProfileWhereInput
+}
+
+export type GuideProfileUpdateToOneWithWhereWithoutAssessmentAttemptsInput = {
+  where?: Prisma.GuideProfileWhereInput
+  data: Prisma.XOR<Prisma.GuideProfileUpdateWithoutAssessmentAttemptsInput, Prisma.GuideProfileUncheckedUpdateWithoutAssessmentAttemptsInput>
+}
+
+export type GuideProfileUpdateWithoutAssessmentAttemptsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  experienceYears?: Prisma.IntFieldUpdateOperationsInput | number
+  languages?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileUpdateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileUpdateavailabilityInput | string[]
+  pricingType?: Prisma.EnumPricingTypeFieldUpdateOperationsInput | $Enums.PricingType
+  price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  legalRole?: Prisma.EnumGuideLegalRoleFieldUpdateOperationsInput | $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileUpdaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileUpdatespecialtySkillsInput | string[]
+  firstAidVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: Prisma.IntFieldUpdateOperationsInput | number
+  referenceContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rankPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  completedTrips?: Prisma.IntFieldUpdateOperationsInput | number
+  responseRate?: Prisma.IntFieldUpdateOperationsInput | number
+  acceptanceRate?: Prisma.IntFieldUpdateOperationsInput | number
+  providerCancellationCount?: Prisma.IntFieldUpdateOperationsInput | number
+  confirmedReportCount?: Prisma.IntFieldUpdateOperationsInput | number
+  rankingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user?: Prisma.UserUpdateOneRequiredWithoutGuideProfileNestedInput
+  verificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutGuideProfileNestedInput
+  evidence?: Prisma.GuideEvidenceUpdateManyWithoutGuideProfileNestedInput
+  competencyAttempts?: Prisma.CompetencyAttemptUpdateManyWithoutGuideProfileNestedInput
+  competencies?: Prisma.GuideCompetencyUpdateManyWithoutGuideProfileNestedInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentUpdateManyWithoutGuideProfileNestedInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentUpdateManyWithoutGuideProfileNestedInput
+  skillAssessments?: Prisma.GuideSkillAssessmentUpdateManyWithoutGuideProfileNestedInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyUpdateManyWithoutGuideProfileNestedInput
+  firstAidRecords?: Prisma.GuideFirstAidUpdateManyWithoutGuideProfileNestedInput
+  matchResults?: Prisma.GuideMatchResultUpdateManyWithoutGuideProfileNestedInput
+  safetyPlans?: Prisma.SafetyPlanUpdateManyWithoutGuideProfileNestedInput
+}
+
+export type GuideProfileUncheckedUpdateWithoutAssessmentAttemptsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  experienceYears?: Prisma.IntFieldUpdateOperationsInput | number
+  languages?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileUpdateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileUpdateavailabilityInput | string[]
+  pricingType?: Prisma.EnumPricingTypeFieldUpdateOperationsInput | $Enums.PricingType
+  price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  legalRole?: Prisma.EnumGuideLegalRoleFieldUpdateOperationsInput | $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileUpdaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileUpdatespecialtySkillsInput | string[]
+  firstAidVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: Prisma.IntFieldUpdateOperationsInput | number
+  referenceContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rankPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  completedTrips?: Prisma.IntFieldUpdateOperationsInput | number
+  responseRate?: Prisma.IntFieldUpdateOperationsInput | number
+  acceptanceRate?: Prisma.IntFieldUpdateOperationsInput | number
+  providerCancellationCount?: Prisma.IntFieldUpdateOperationsInput | number
+  confirmedReportCount?: Prisma.IntFieldUpdateOperationsInput | number
+  rankingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutGuideProfileNestedInput
+  evidence?: Prisma.GuideEvidenceUncheckedUpdateManyWithoutGuideProfileNestedInput
+  competencyAttempts?: Prisma.CompetencyAttemptUncheckedUpdateManyWithoutGuideProfileNestedInput
+  competencies?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutGuideProfileNestedInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutGuideProfileNestedInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentUncheckedUpdateManyWithoutGuideProfileNestedInput
+  skillAssessments?: Prisma.GuideSkillAssessmentUncheckedUpdateManyWithoutGuideProfileNestedInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyUncheckedUpdateManyWithoutGuideProfileNestedInput
+  firstAidRecords?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutGuideProfileNestedInput
+  matchResults?: Prisma.GuideMatchResultUncheckedUpdateManyWithoutGuideProfileNestedInput
+  safetyPlans?: Prisma.SafetyPlanUncheckedUpdateManyWithoutGuideProfileNestedInput
+}
+
+export type GuideProfileCreateWithoutMatchResultsInput = {
+  id?: string
+  country: string
+  city: string
+  bio: string
+  experienceYears?: number
+  languages: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileCreateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileCreateavailabilityInput | string[]
+  pricingType?: $Enums.PricingType
+  price?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: $Enums.GuideStatus
+  verified?: boolean
+  legalRole?: $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileCreaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileCreatespecialtySkillsInput | string[]
+  firstAidVerified?: boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: number
+  referenceContact?: string | null
+  codeOfConductAccepted?: boolean
+  rankPoints?: number
+  completedTrips?: number
+  responseRate?: number
+  acceptanceRate?: number
+  providerCancellationCount?: number
+  confirmedReportCount?: number
+  rankingUpdatedAt?: Date | string | null
+  rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  user: Prisma.UserCreateNestedOneWithoutGuideProfileInput
+  verificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutGuideProfileInput
+  evidence?: Prisma.GuideEvidenceCreateNestedManyWithoutGuideProfileInput
+  competencyAttempts?: Prisma.CompetencyAttemptCreateNestedManyWithoutGuideProfileInput
+  competencies?: Prisma.GuideCompetencyCreateNestedManyWithoutGuideProfileInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutGuideProfileInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentCreateNestedManyWithoutGuideProfileInput
+  skillAssessments?: Prisma.GuideSkillAssessmentCreateNestedManyWithoutGuideProfileInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyCreateNestedManyWithoutGuideProfileInput
+  firstAidRecords?: Prisma.GuideFirstAidCreateNestedManyWithoutGuideProfileInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutGuideProfileInput
+  safetyPlans?: Prisma.SafetyPlanCreateNestedManyWithoutGuideProfileInput
+}
+
+export type GuideProfileUncheckedCreateWithoutMatchResultsInput = {
+  id?: string
+  userId: string
+  country: string
+  city: string
+  bio: string
+  experienceYears?: number
+  languages: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileCreateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileCreateavailabilityInput | string[]
+  pricingType?: $Enums.PricingType
+  price?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: $Enums.GuideStatus
+  verified?: boolean
+  legalRole?: $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileCreaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileCreatespecialtySkillsInput | string[]
+  firstAidVerified?: boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: number
+  referenceContact?: string | null
+  codeOfConductAccepted?: boolean
+  rankPoints?: number
+  completedTrips?: number
+  responseRate?: number
+  acceptanceRate?: number
+  providerCancellationCount?: number
+  confirmedReportCount?: number
+  rankingUpdatedAt?: Date | string | null
+  rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  verificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutGuideProfileInput
+  evidence?: Prisma.GuideEvidenceUncheckedCreateNestedManyWithoutGuideProfileInput
+  competencyAttempts?: Prisma.CompetencyAttemptUncheckedCreateNestedManyWithoutGuideProfileInput
+  competencies?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutGuideProfileInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutGuideProfileInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentUncheckedCreateNestedManyWithoutGuideProfileInput
+  skillAssessments?: Prisma.GuideSkillAssessmentUncheckedCreateNestedManyWithoutGuideProfileInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyUncheckedCreateNestedManyWithoutGuideProfileInput
+  firstAidRecords?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutGuideProfileInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutGuideProfileInput
+  safetyPlans?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutGuideProfileInput
+}
+
+export type GuideProfileCreateOrConnectWithoutMatchResultsInput = {
+  where: Prisma.GuideProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.GuideProfileCreateWithoutMatchResultsInput, Prisma.GuideProfileUncheckedCreateWithoutMatchResultsInput>
+}
+
+export type GuideProfileUpsertWithoutMatchResultsInput = {
+  update: Prisma.XOR<Prisma.GuideProfileUpdateWithoutMatchResultsInput, Prisma.GuideProfileUncheckedUpdateWithoutMatchResultsInput>
+  create: Prisma.XOR<Prisma.GuideProfileCreateWithoutMatchResultsInput, Prisma.GuideProfileUncheckedCreateWithoutMatchResultsInput>
+  where?: Prisma.GuideProfileWhereInput
+}
+
+export type GuideProfileUpdateToOneWithWhereWithoutMatchResultsInput = {
+  where?: Prisma.GuideProfileWhereInput
+  data: Prisma.XOR<Prisma.GuideProfileUpdateWithoutMatchResultsInput, Prisma.GuideProfileUncheckedUpdateWithoutMatchResultsInput>
+}
+
+export type GuideProfileUpdateWithoutMatchResultsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  experienceYears?: Prisma.IntFieldUpdateOperationsInput | number
+  languages?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileUpdateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileUpdateavailabilityInput | string[]
+  pricingType?: Prisma.EnumPricingTypeFieldUpdateOperationsInput | $Enums.PricingType
+  price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  legalRole?: Prisma.EnumGuideLegalRoleFieldUpdateOperationsInput | $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileUpdaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileUpdatespecialtySkillsInput | string[]
+  firstAidVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: Prisma.IntFieldUpdateOperationsInput | number
+  referenceContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rankPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  completedTrips?: Prisma.IntFieldUpdateOperationsInput | number
+  responseRate?: Prisma.IntFieldUpdateOperationsInput | number
+  acceptanceRate?: Prisma.IntFieldUpdateOperationsInput | number
+  providerCancellationCount?: Prisma.IntFieldUpdateOperationsInput | number
+  confirmedReportCount?: Prisma.IntFieldUpdateOperationsInput | number
+  rankingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user?: Prisma.UserUpdateOneRequiredWithoutGuideProfileNestedInput
+  verificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutGuideProfileNestedInput
+  evidence?: Prisma.GuideEvidenceUpdateManyWithoutGuideProfileNestedInput
+  competencyAttempts?: Prisma.CompetencyAttemptUpdateManyWithoutGuideProfileNestedInput
+  competencies?: Prisma.GuideCompetencyUpdateManyWithoutGuideProfileNestedInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentUpdateManyWithoutGuideProfileNestedInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentUpdateManyWithoutGuideProfileNestedInput
+  skillAssessments?: Prisma.GuideSkillAssessmentUpdateManyWithoutGuideProfileNestedInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyUpdateManyWithoutGuideProfileNestedInput
+  firstAidRecords?: Prisma.GuideFirstAidUpdateManyWithoutGuideProfileNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutGuideProfileNestedInput
+  safetyPlans?: Prisma.SafetyPlanUpdateManyWithoutGuideProfileNestedInput
+}
+
+export type GuideProfileUncheckedUpdateWithoutMatchResultsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  experienceYears?: Prisma.IntFieldUpdateOperationsInput | number
+  languages?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileUpdateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileUpdateavailabilityInput | string[]
+  pricingType?: Prisma.EnumPricingTypeFieldUpdateOperationsInput | $Enums.PricingType
+  price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  legalRole?: Prisma.EnumGuideLegalRoleFieldUpdateOperationsInput | $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileUpdaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileUpdatespecialtySkillsInput | string[]
+  firstAidVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: Prisma.IntFieldUpdateOperationsInput | number
+  referenceContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rankPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  completedTrips?: Prisma.IntFieldUpdateOperationsInput | number
+  responseRate?: Prisma.IntFieldUpdateOperationsInput | number
+  acceptanceRate?: Prisma.IntFieldUpdateOperationsInput | number
+  providerCancellationCount?: Prisma.IntFieldUpdateOperationsInput | number
+  confirmedReportCount?: Prisma.IntFieldUpdateOperationsInput | number
+  rankingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutGuideProfileNestedInput
+  evidence?: Prisma.GuideEvidenceUncheckedUpdateManyWithoutGuideProfileNestedInput
+  competencyAttempts?: Prisma.CompetencyAttemptUncheckedUpdateManyWithoutGuideProfileNestedInput
+  competencies?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutGuideProfileNestedInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutGuideProfileNestedInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentUncheckedUpdateManyWithoutGuideProfileNestedInput
+  skillAssessments?: Prisma.GuideSkillAssessmentUncheckedUpdateManyWithoutGuideProfileNestedInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyUncheckedUpdateManyWithoutGuideProfileNestedInput
+  firstAidRecords?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutGuideProfileNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutGuideProfileNestedInput
+  safetyPlans?: Prisma.SafetyPlanUncheckedUpdateManyWithoutGuideProfileNestedInput
+}
+
+export type GuideProfileCreateWithoutVerificationReviewsInput = {
+  id?: string
+  country: string
+  city: string
+  bio: string
+  experienceYears?: number
+  languages: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileCreateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileCreateavailabilityInput | string[]
+  pricingType?: $Enums.PricingType
+  price?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: $Enums.GuideStatus
+  verified?: boolean
+  legalRole?: $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileCreaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileCreatespecialtySkillsInput | string[]
+  firstAidVerified?: boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: number
+  referenceContact?: string | null
+  codeOfConductAccepted?: boolean
+  rankPoints?: number
+  completedTrips?: number
+  responseRate?: number
+  acceptanceRate?: number
+  providerCancellationCount?: number
+  confirmedReportCount?: number
+  rankingUpdatedAt?: Date | string | null
+  rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  user: Prisma.UserCreateNestedOneWithoutGuideProfileInput
+  evidence?: Prisma.GuideEvidenceCreateNestedManyWithoutGuideProfileInput
+  competencyAttempts?: Prisma.CompetencyAttemptCreateNestedManyWithoutGuideProfileInput
+  competencies?: Prisma.GuideCompetencyCreateNestedManyWithoutGuideProfileInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutGuideProfileInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentCreateNestedManyWithoutGuideProfileInput
+  skillAssessments?: Prisma.GuideSkillAssessmentCreateNestedManyWithoutGuideProfileInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyCreateNestedManyWithoutGuideProfileInput
+  firstAidRecords?: Prisma.GuideFirstAidCreateNestedManyWithoutGuideProfileInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutGuideProfileInput
+  matchResults?: Prisma.GuideMatchResultCreateNestedManyWithoutGuideProfileInput
+  safetyPlans?: Prisma.SafetyPlanCreateNestedManyWithoutGuideProfileInput
 }
 
 export type GuideProfileUncheckedCreateWithoutVerificationReviewsInput = {
@@ -1205,6 +3874,11 @@ export type GuideProfileUncheckedCreateWithoutVerificationReviewsInput = {
   price?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   status?: $Enums.GuideStatus
   verified?: boolean
+  legalRole?: $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileCreaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileCreatespecialtySkillsInput | string[]
+  firstAidVerified?: boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   assessmentScore?: number
   referenceContact?: string | null
   codeOfConductAccepted?: boolean
@@ -1220,6 +3894,17 @@ export type GuideProfileUncheckedCreateWithoutVerificationReviewsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
+  evidence?: Prisma.GuideEvidenceUncheckedCreateNestedManyWithoutGuideProfileInput
+  competencyAttempts?: Prisma.CompetencyAttemptUncheckedCreateNestedManyWithoutGuideProfileInput
+  competencies?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutGuideProfileInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutGuideProfileInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentUncheckedCreateNestedManyWithoutGuideProfileInput
+  skillAssessments?: Prisma.GuideSkillAssessmentUncheckedCreateNestedManyWithoutGuideProfileInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyUncheckedCreateNestedManyWithoutGuideProfileInput
+  firstAidRecords?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutGuideProfileInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutGuideProfileInput
+  matchResults?: Prisma.GuideMatchResultUncheckedCreateNestedManyWithoutGuideProfileInput
+  safetyPlans?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutGuideProfileInput
 }
 
 export type GuideProfileCreateOrConnectWithoutVerificationReviewsInput = {
@@ -1251,6 +3936,11 @@ export type GuideProfileUpdateWithoutVerificationReviewsInput = {
   price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  legalRole?: Prisma.EnumGuideLegalRoleFieldUpdateOperationsInput | $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileUpdaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileUpdatespecialtySkillsInput | string[]
+  firstAidVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   assessmentScore?: Prisma.IntFieldUpdateOperationsInput | number
   referenceContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   codeOfConductAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1267,6 +3957,17 @@ export type GuideProfileUpdateWithoutVerificationReviewsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutGuideProfileNestedInput
+  evidence?: Prisma.GuideEvidenceUpdateManyWithoutGuideProfileNestedInput
+  competencyAttempts?: Prisma.CompetencyAttemptUpdateManyWithoutGuideProfileNestedInput
+  competencies?: Prisma.GuideCompetencyUpdateManyWithoutGuideProfileNestedInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentUpdateManyWithoutGuideProfileNestedInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentUpdateManyWithoutGuideProfileNestedInput
+  skillAssessments?: Prisma.GuideSkillAssessmentUpdateManyWithoutGuideProfileNestedInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyUpdateManyWithoutGuideProfileNestedInput
+  firstAidRecords?: Prisma.GuideFirstAidUpdateManyWithoutGuideProfileNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutGuideProfileNestedInput
+  matchResults?: Prisma.GuideMatchResultUpdateManyWithoutGuideProfileNestedInput
+  safetyPlans?: Prisma.SafetyPlanUpdateManyWithoutGuideProfileNestedInput
 }
 
 export type GuideProfileUncheckedUpdateWithoutVerificationReviewsInput = {
@@ -1283,6 +3984,11 @@ export type GuideProfileUncheckedUpdateWithoutVerificationReviewsInput = {
   price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
   verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  legalRole?: Prisma.EnumGuideLegalRoleFieldUpdateOperationsInput | $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileUpdaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileUpdatespecialtySkillsInput | string[]
+  firstAidVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   assessmentScore?: Prisma.IntFieldUpdateOperationsInput | number
   referenceContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   codeOfConductAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1298,6 +4004,17 @@ export type GuideProfileUncheckedUpdateWithoutVerificationReviewsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  evidence?: Prisma.GuideEvidenceUncheckedUpdateManyWithoutGuideProfileNestedInput
+  competencyAttempts?: Prisma.CompetencyAttemptUncheckedUpdateManyWithoutGuideProfileNestedInput
+  competencies?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutGuideProfileNestedInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutGuideProfileNestedInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentUncheckedUpdateManyWithoutGuideProfileNestedInput
+  skillAssessments?: Prisma.GuideSkillAssessmentUncheckedUpdateManyWithoutGuideProfileNestedInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyUncheckedUpdateManyWithoutGuideProfileNestedInput
+  firstAidRecords?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutGuideProfileNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutGuideProfileNestedInput
+  matchResults?: Prisma.GuideMatchResultUncheckedUpdateManyWithoutGuideProfileNestedInput
+  safetyPlans?: Prisma.SafetyPlanUncheckedUpdateManyWithoutGuideProfileNestedInput
 }
 
 
@@ -1307,10 +4024,32 @@ export type GuideProfileUncheckedUpdateWithoutVerificationReviewsInput = {
 
 export type GuideProfileCountOutputType = {
   verificationReviews: number
+  evidence: number
+  competencyAttempts: number
+  competencies: number
+  languageAssessments: number
+  knowledgeAssessments: number
+  skillAssessments: number
+  routeCompetencies: number
+  firstAidRecords: number
+  assessmentAttempts: number
+  matchResults: number
+  safetyPlans: number
 }
 
 export type GuideProfileCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   verificationReviews?: boolean | GuideProfileCountOutputTypeCountVerificationReviewsArgs
+  evidence?: boolean | GuideProfileCountOutputTypeCountEvidenceArgs
+  competencyAttempts?: boolean | GuideProfileCountOutputTypeCountCompetencyAttemptsArgs
+  competencies?: boolean | GuideProfileCountOutputTypeCountCompetenciesArgs
+  languageAssessments?: boolean | GuideProfileCountOutputTypeCountLanguageAssessmentsArgs
+  knowledgeAssessments?: boolean | GuideProfileCountOutputTypeCountKnowledgeAssessmentsArgs
+  skillAssessments?: boolean | GuideProfileCountOutputTypeCountSkillAssessmentsArgs
+  routeCompetencies?: boolean | GuideProfileCountOutputTypeCountRouteCompetenciesArgs
+  firstAidRecords?: boolean | GuideProfileCountOutputTypeCountFirstAidRecordsArgs
+  assessmentAttempts?: boolean | GuideProfileCountOutputTypeCountAssessmentAttemptsArgs
+  matchResults?: boolean | GuideProfileCountOutputTypeCountMatchResultsArgs
+  safetyPlans?: boolean | GuideProfileCountOutputTypeCountSafetyPlansArgs
 }
 
 /**
@@ -1330,6 +4069,83 @@ export type GuideProfileCountOutputTypeCountVerificationReviewsArgs<ExtArgs exte
   where?: Prisma.GuideVerificationReviewWhereInput
 }
 
+/**
+ * GuideProfileCountOutputType without action
+ */
+export type GuideProfileCountOutputTypeCountEvidenceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.GuideEvidenceWhereInput
+}
+
+/**
+ * GuideProfileCountOutputType without action
+ */
+export type GuideProfileCountOutputTypeCountCompetencyAttemptsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CompetencyAttemptWhereInput
+}
+
+/**
+ * GuideProfileCountOutputType without action
+ */
+export type GuideProfileCountOutputTypeCountCompetenciesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.GuideCompetencyWhereInput
+}
+
+/**
+ * GuideProfileCountOutputType without action
+ */
+export type GuideProfileCountOutputTypeCountLanguageAssessmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.GuideLanguageAssessmentWhereInput
+}
+
+/**
+ * GuideProfileCountOutputType without action
+ */
+export type GuideProfileCountOutputTypeCountKnowledgeAssessmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.GuideKnowledgeAssessmentWhereInput
+}
+
+/**
+ * GuideProfileCountOutputType without action
+ */
+export type GuideProfileCountOutputTypeCountSkillAssessmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.GuideSkillAssessmentWhereInput
+}
+
+/**
+ * GuideProfileCountOutputType without action
+ */
+export type GuideProfileCountOutputTypeCountRouteCompetenciesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.GuideRouteCompetencyWhereInput
+}
+
+/**
+ * GuideProfileCountOutputType without action
+ */
+export type GuideProfileCountOutputTypeCountFirstAidRecordsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.GuideFirstAidWhereInput
+}
+
+/**
+ * GuideProfileCountOutputType without action
+ */
+export type GuideProfileCountOutputTypeCountAssessmentAttemptsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AssessmentAttemptWhereInput
+}
+
+/**
+ * GuideProfileCountOutputType without action
+ */
+export type GuideProfileCountOutputTypeCountMatchResultsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.GuideMatchResultWhereInput
+}
+
+/**
+ * GuideProfileCountOutputType without action
+ */
+export type GuideProfileCountOutputTypeCountSafetyPlansArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SafetyPlanWhereInput
+}
+
 
 export type GuideProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1345,6 +4161,11 @@ export type GuideProfileSelect<ExtArgs extends runtime.Types.Extensions.Internal
   price?: boolean
   status?: boolean
   verified?: boolean
+  legalRole?: boolean
+  routeBadges?: boolean
+  specialtySkills?: boolean
+  firstAidVerified?: boolean
+  languageEstimate?: boolean
   assessmentScore?: boolean
   referenceContact?: boolean
   codeOfConductAccepted?: boolean
@@ -1362,6 +4183,17 @@ export type GuideProfileSelect<ExtArgs extends runtime.Types.Extensions.Internal
   deletedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   verificationReviews?: boolean | Prisma.GuideProfile$verificationReviewsArgs<ExtArgs>
+  evidence?: boolean | Prisma.GuideProfile$evidenceArgs<ExtArgs>
+  competencyAttempts?: boolean | Prisma.GuideProfile$competencyAttemptsArgs<ExtArgs>
+  competencies?: boolean | Prisma.GuideProfile$competenciesArgs<ExtArgs>
+  languageAssessments?: boolean | Prisma.GuideProfile$languageAssessmentsArgs<ExtArgs>
+  knowledgeAssessments?: boolean | Prisma.GuideProfile$knowledgeAssessmentsArgs<ExtArgs>
+  skillAssessments?: boolean | Prisma.GuideProfile$skillAssessmentsArgs<ExtArgs>
+  routeCompetencies?: boolean | Prisma.GuideProfile$routeCompetenciesArgs<ExtArgs>
+  firstAidRecords?: boolean | Prisma.GuideProfile$firstAidRecordsArgs<ExtArgs>
+  assessmentAttempts?: boolean | Prisma.GuideProfile$assessmentAttemptsArgs<ExtArgs>
+  matchResults?: boolean | Prisma.GuideProfile$matchResultsArgs<ExtArgs>
+  safetyPlans?: boolean | Prisma.GuideProfile$safetyPlansArgs<ExtArgs>
   _count?: boolean | Prisma.GuideProfileCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["guideProfile"]>
 
@@ -1379,6 +4211,11 @@ export type GuideProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   price?: boolean
   status?: boolean
   verified?: boolean
+  legalRole?: boolean
+  routeBadges?: boolean
+  specialtySkills?: boolean
+  firstAidVerified?: boolean
+  languageEstimate?: boolean
   assessmentScore?: boolean
   referenceContact?: boolean
   codeOfConductAccepted?: boolean
@@ -1411,6 +4248,11 @@ export type GuideProfileSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   price?: boolean
   status?: boolean
   verified?: boolean
+  legalRole?: boolean
+  routeBadges?: boolean
+  specialtySkills?: boolean
+  firstAidVerified?: boolean
+  languageEstimate?: boolean
   assessmentScore?: boolean
   referenceContact?: boolean
   codeOfConductAccepted?: boolean
@@ -1443,6 +4285,11 @@ export type GuideProfileSelectScalar = {
   price?: boolean
   status?: boolean
   verified?: boolean
+  legalRole?: boolean
+  routeBadges?: boolean
+  specialtySkills?: boolean
+  firstAidVerified?: boolean
+  languageEstimate?: boolean
   assessmentScore?: boolean
   referenceContact?: boolean
   codeOfConductAccepted?: boolean
@@ -1460,10 +4307,21 @@ export type GuideProfileSelectScalar = {
   deletedAt?: boolean
 }
 
-export type GuideProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "country" | "city" | "bio" | "experienceYears" | "languages" | "expertise" | "availability" | "pricingType" | "price" | "status" | "verified" | "assessmentScore" | "referenceContact" | "codeOfConductAccepted" | "rankPoints" | "completedTrips" | "responseRate" | "acceptanceRate" | "providerCancellationCount" | "confirmedReportCount" | "rankingUpdatedAt" | "rating" | "reviewCount" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["guideProfile"]>
+export type GuideProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "country" | "city" | "bio" | "experienceYears" | "languages" | "expertise" | "availability" | "pricingType" | "price" | "status" | "verified" | "legalRole" | "routeBadges" | "specialtySkills" | "firstAidVerified" | "languageEstimate" | "assessmentScore" | "referenceContact" | "codeOfConductAccepted" | "rankPoints" | "completedTrips" | "responseRate" | "acceptanceRate" | "providerCancellationCount" | "confirmedReportCount" | "rankingUpdatedAt" | "rating" | "reviewCount" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["guideProfile"]>
 export type GuideProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   verificationReviews?: boolean | Prisma.GuideProfile$verificationReviewsArgs<ExtArgs>
+  evidence?: boolean | Prisma.GuideProfile$evidenceArgs<ExtArgs>
+  competencyAttempts?: boolean | Prisma.GuideProfile$competencyAttemptsArgs<ExtArgs>
+  competencies?: boolean | Prisma.GuideProfile$competenciesArgs<ExtArgs>
+  languageAssessments?: boolean | Prisma.GuideProfile$languageAssessmentsArgs<ExtArgs>
+  knowledgeAssessments?: boolean | Prisma.GuideProfile$knowledgeAssessmentsArgs<ExtArgs>
+  skillAssessments?: boolean | Prisma.GuideProfile$skillAssessmentsArgs<ExtArgs>
+  routeCompetencies?: boolean | Prisma.GuideProfile$routeCompetenciesArgs<ExtArgs>
+  firstAidRecords?: boolean | Prisma.GuideProfile$firstAidRecordsArgs<ExtArgs>
+  assessmentAttempts?: boolean | Prisma.GuideProfile$assessmentAttemptsArgs<ExtArgs>
+  matchResults?: boolean | Prisma.GuideProfile$matchResultsArgs<ExtArgs>
+  safetyPlans?: boolean | Prisma.GuideProfile$safetyPlansArgs<ExtArgs>
   _count?: boolean | Prisma.GuideProfileCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type GuideProfileIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1478,6 +4336,17 @@ export type $GuideProfilePayload<ExtArgs extends runtime.Types.Extensions.Intern
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
     verificationReviews: Prisma.$GuideVerificationReviewPayload<ExtArgs>[]
+    evidence: Prisma.$GuideEvidencePayload<ExtArgs>[]
+    competencyAttempts: Prisma.$CompetencyAttemptPayload<ExtArgs>[]
+    competencies: Prisma.$GuideCompetencyPayload<ExtArgs>[]
+    languageAssessments: Prisma.$GuideLanguageAssessmentPayload<ExtArgs>[]
+    knowledgeAssessments: Prisma.$GuideKnowledgeAssessmentPayload<ExtArgs>[]
+    skillAssessments: Prisma.$GuideSkillAssessmentPayload<ExtArgs>[]
+    routeCompetencies: Prisma.$GuideRouteCompetencyPayload<ExtArgs>[]
+    firstAidRecords: Prisma.$GuideFirstAidPayload<ExtArgs>[]
+    assessmentAttempts: Prisma.$AssessmentAttemptPayload<ExtArgs>[]
+    matchResults: Prisma.$GuideMatchResultPayload<ExtArgs>[]
+    safetyPlans: Prisma.$SafetyPlanPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1493,6 +4362,11 @@ export type $GuideProfilePayload<ExtArgs extends runtime.Types.Extensions.Intern
     price: runtime.Decimal | null
     status: $Enums.GuideStatus
     verified: boolean
+    legalRole: $Enums.GuideLegalRole
+    routeBadges: string[]
+    specialtySkills: string[]
+    firstAidVerified: boolean
+    languageEstimate: runtime.JsonValue | null
     assessmentScore: number
     referenceContact: string | null
     codeOfConductAccepted: boolean
@@ -1904,6 +4778,17 @@ export interface Prisma__GuideProfileClient<T, Null = never, ExtArgs extends run
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   verificationReviews<T extends Prisma.GuideProfile$verificationReviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GuideProfile$verificationReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GuideVerificationReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  evidence<T extends Prisma.GuideProfile$evidenceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GuideProfile$evidenceArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GuideEvidencePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  competencyAttempts<T extends Prisma.GuideProfile$competencyAttemptsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GuideProfile$competencyAttemptsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CompetencyAttemptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  competencies<T extends Prisma.GuideProfile$competenciesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GuideProfile$competenciesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GuideCompetencyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  languageAssessments<T extends Prisma.GuideProfile$languageAssessmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GuideProfile$languageAssessmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GuideLanguageAssessmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  knowledgeAssessments<T extends Prisma.GuideProfile$knowledgeAssessmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GuideProfile$knowledgeAssessmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GuideKnowledgeAssessmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  skillAssessments<T extends Prisma.GuideProfile$skillAssessmentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GuideProfile$skillAssessmentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GuideSkillAssessmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  routeCompetencies<T extends Prisma.GuideProfile$routeCompetenciesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GuideProfile$routeCompetenciesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GuideRouteCompetencyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  firstAidRecords<T extends Prisma.GuideProfile$firstAidRecordsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GuideProfile$firstAidRecordsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GuideFirstAidPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  assessmentAttempts<T extends Prisma.GuideProfile$assessmentAttemptsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GuideProfile$assessmentAttemptsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AssessmentAttemptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  matchResults<T extends Prisma.GuideProfile$matchResultsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GuideProfile$matchResultsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GuideMatchResultPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  safetyPlans<T extends Prisma.GuideProfile$safetyPlansArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GuideProfile$safetyPlansArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SafetyPlanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1946,6 +4831,11 @@ export interface GuideProfileFieldRefs {
   readonly price: Prisma.FieldRef<"GuideProfile", 'Decimal'>
   readonly status: Prisma.FieldRef<"GuideProfile", 'GuideStatus'>
   readonly verified: Prisma.FieldRef<"GuideProfile", 'Boolean'>
+  readonly legalRole: Prisma.FieldRef<"GuideProfile", 'GuideLegalRole'>
+  readonly routeBadges: Prisma.FieldRef<"GuideProfile", 'String[]'>
+  readonly specialtySkills: Prisma.FieldRef<"GuideProfile", 'String[]'>
+  readonly firstAidVerified: Prisma.FieldRef<"GuideProfile", 'Boolean'>
+  readonly languageEstimate: Prisma.FieldRef<"GuideProfile", 'Json'>
   readonly assessmentScore: Prisma.FieldRef<"GuideProfile", 'Int'>
   readonly referenceContact: Prisma.FieldRef<"GuideProfile", 'String'>
   readonly codeOfConductAccepted: Prisma.FieldRef<"GuideProfile", 'Boolean'>
@@ -2383,6 +5273,270 @@ export type GuideProfile$verificationReviewsArgs<ExtArgs extends runtime.Types.E
   take?: number
   skip?: number
   distinct?: Prisma.GuideVerificationReviewScalarFieldEnum | Prisma.GuideVerificationReviewScalarFieldEnum[]
+}
+
+/**
+ * GuideProfile.evidence
+ */
+export type GuideProfile$evidenceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GuideEvidence
+   */
+  select?: Prisma.GuideEvidenceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the GuideEvidence
+   */
+  omit?: Prisma.GuideEvidenceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GuideEvidenceInclude<ExtArgs> | null
+  where?: Prisma.GuideEvidenceWhereInput
+  orderBy?: Prisma.GuideEvidenceOrderByWithRelationInput | Prisma.GuideEvidenceOrderByWithRelationInput[]
+  cursor?: Prisma.GuideEvidenceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.GuideEvidenceScalarFieldEnum | Prisma.GuideEvidenceScalarFieldEnum[]
+}
+
+/**
+ * GuideProfile.competencyAttempts
+ */
+export type GuideProfile$competencyAttemptsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CompetencyAttempt
+   */
+  select?: Prisma.CompetencyAttemptSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CompetencyAttempt
+   */
+  omit?: Prisma.CompetencyAttemptOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CompetencyAttemptInclude<ExtArgs> | null
+  where?: Prisma.CompetencyAttemptWhereInput
+  orderBy?: Prisma.CompetencyAttemptOrderByWithRelationInput | Prisma.CompetencyAttemptOrderByWithRelationInput[]
+  cursor?: Prisma.CompetencyAttemptWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CompetencyAttemptScalarFieldEnum | Prisma.CompetencyAttemptScalarFieldEnum[]
+}
+
+/**
+ * GuideProfile.competencies
+ */
+export type GuideProfile$competenciesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GuideCompetency
+   */
+  select?: Prisma.GuideCompetencySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the GuideCompetency
+   */
+  omit?: Prisma.GuideCompetencyOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GuideCompetencyInclude<ExtArgs> | null
+  where?: Prisma.GuideCompetencyWhereInput
+  orderBy?: Prisma.GuideCompetencyOrderByWithRelationInput | Prisma.GuideCompetencyOrderByWithRelationInput[]
+  cursor?: Prisma.GuideCompetencyWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.GuideCompetencyScalarFieldEnum | Prisma.GuideCompetencyScalarFieldEnum[]
+}
+
+/**
+ * GuideProfile.languageAssessments
+ */
+export type GuideProfile$languageAssessmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GuideLanguageAssessment
+   */
+  select?: Prisma.GuideLanguageAssessmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the GuideLanguageAssessment
+   */
+  omit?: Prisma.GuideLanguageAssessmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GuideLanguageAssessmentInclude<ExtArgs> | null
+  where?: Prisma.GuideLanguageAssessmentWhereInput
+  orderBy?: Prisma.GuideLanguageAssessmentOrderByWithRelationInput | Prisma.GuideLanguageAssessmentOrderByWithRelationInput[]
+  cursor?: Prisma.GuideLanguageAssessmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.GuideLanguageAssessmentScalarFieldEnum | Prisma.GuideLanguageAssessmentScalarFieldEnum[]
+}
+
+/**
+ * GuideProfile.knowledgeAssessments
+ */
+export type GuideProfile$knowledgeAssessmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GuideKnowledgeAssessment
+   */
+  select?: Prisma.GuideKnowledgeAssessmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the GuideKnowledgeAssessment
+   */
+  omit?: Prisma.GuideKnowledgeAssessmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GuideKnowledgeAssessmentInclude<ExtArgs> | null
+  where?: Prisma.GuideKnowledgeAssessmentWhereInput
+  orderBy?: Prisma.GuideKnowledgeAssessmentOrderByWithRelationInput | Prisma.GuideKnowledgeAssessmentOrderByWithRelationInput[]
+  cursor?: Prisma.GuideKnowledgeAssessmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.GuideKnowledgeAssessmentScalarFieldEnum | Prisma.GuideKnowledgeAssessmentScalarFieldEnum[]
+}
+
+/**
+ * GuideProfile.skillAssessments
+ */
+export type GuideProfile$skillAssessmentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GuideSkillAssessment
+   */
+  select?: Prisma.GuideSkillAssessmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the GuideSkillAssessment
+   */
+  omit?: Prisma.GuideSkillAssessmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GuideSkillAssessmentInclude<ExtArgs> | null
+  where?: Prisma.GuideSkillAssessmentWhereInput
+  orderBy?: Prisma.GuideSkillAssessmentOrderByWithRelationInput | Prisma.GuideSkillAssessmentOrderByWithRelationInput[]
+  cursor?: Prisma.GuideSkillAssessmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.GuideSkillAssessmentScalarFieldEnum | Prisma.GuideSkillAssessmentScalarFieldEnum[]
+}
+
+/**
+ * GuideProfile.routeCompetencies
+ */
+export type GuideProfile$routeCompetenciesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GuideRouteCompetency
+   */
+  select?: Prisma.GuideRouteCompetencySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the GuideRouteCompetency
+   */
+  omit?: Prisma.GuideRouteCompetencyOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GuideRouteCompetencyInclude<ExtArgs> | null
+  where?: Prisma.GuideRouteCompetencyWhereInput
+  orderBy?: Prisma.GuideRouteCompetencyOrderByWithRelationInput | Prisma.GuideRouteCompetencyOrderByWithRelationInput[]
+  cursor?: Prisma.GuideRouteCompetencyWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.GuideRouteCompetencyScalarFieldEnum | Prisma.GuideRouteCompetencyScalarFieldEnum[]
+}
+
+/**
+ * GuideProfile.firstAidRecords
+ */
+export type GuideProfile$firstAidRecordsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GuideFirstAid
+   */
+  select?: Prisma.GuideFirstAidSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the GuideFirstAid
+   */
+  omit?: Prisma.GuideFirstAidOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GuideFirstAidInclude<ExtArgs> | null
+  where?: Prisma.GuideFirstAidWhereInput
+  orderBy?: Prisma.GuideFirstAidOrderByWithRelationInput | Prisma.GuideFirstAidOrderByWithRelationInput[]
+  cursor?: Prisma.GuideFirstAidWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.GuideFirstAidScalarFieldEnum | Prisma.GuideFirstAidScalarFieldEnum[]
+}
+
+/**
+ * GuideProfile.assessmentAttempts
+ */
+export type GuideProfile$assessmentAttemptsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AssessmentAttempt
+   */
+  select?: Prisma.AssessmentAttemptSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AssessmentAttempt
+   */
+  omit?: Prisma.AssessmentAttemptOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AssessmentAttemptInclude<ExtArgs> | null
+  where?: Prisma.AssessmentAttemptWhereInput
+  orderBy?: Prisma.AssessmentAttemptOrderByWithRelationInput | Prisma.AssessmentAttemptOrderByWithRelationInput[]
+  cursor?: Prisma.AssessmentAttemptWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AssessmentAttemptScalarFieldEnum | Prisma.AssessmentAttemptScalarFieldEnum[]
+}
+
+/**
+ * GuideProfile.matchResults
+ */
+export type GuideProfile$matchResultsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GuideMatchResult
+   */
+  select?: Prisma.GuideMatchResultSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the GuideMatchResult
+   */
+  omit?: Prisma.GuideMatchResultOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GuideMatchResultInclude<ExtArgs> | null
+  where?: Prisma.GuideMatchResultWhereInput
+  orderBy?: Prisma.GuideMatchResultOrderByWithRelationInput | Prisma.GuideMatchResultOrderByWithRelationInput[]
+  cursor?: Prisma.GuideMatchResultWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.GuideMatchResultScalarFieldEnum | Prisma.GuideMatchResultScalarFieldEnum[]
+}
+
+/**
+ * GuideProfile.safetyPlans
+ */
+export type GuideProfile$safetyPlansArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SafetyPlan
+   */
+  select?: Prisma.SafetyPlanSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SafetyPlan
+   */
+  omit?: Prisma.SafetyPlanOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SafetyPlanInclude<ExtArgs> | null
+  where?: Prisma.SafetyPlanWhereInput
+  orderBy?: Prisma.SafetyPlanOrderByWithRelationInput | Prisma.SafetyPlanOrderByWithRelationInput[]
+  cursor?: Prisma.SafetyPlanWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SafetyPlanScalarFieldEnum | Prisma.SafetyPlanScalarFieldEnum[]
 }
 
 /**

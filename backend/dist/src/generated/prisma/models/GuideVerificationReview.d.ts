@@ -466,9 +466,6 @@ export type GuideVerificationReviewUncheckedUpdateManyWithoutGuideProfileNestedI
 export type EnumGuideVerificationDecisionFieldUpdateOperationsInput = {
     set?: $Enums.GuideVerificationDecision;
 };
-export type EnumVerificationCheckStatusFieldUpdateOperationsInput = {
-    set?: $Enums.VerificationCheckStatus;
-};
 export type GuideVerificationReviewCreateWithoutReviewerInput = {
     id?: string;
     decision: $Enums.GuideVerificationDecision;

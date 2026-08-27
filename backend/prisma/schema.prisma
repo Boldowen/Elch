@@ -36,6 +36,7 @@ enum VerificationCheckStatus {
   VERIFIED
   FAILED
   NOT_PROVIDED
+  EXPIRED
 }
 
 enum UserModerationStatus {
@@ -177,6 +178,272 @@ enum PricingType {
   NONE
 }
 
+enum GuideLegalRole {
+  UNVERIFIED
+  LICENSED_PROFESSIONAL
+  LICENSED_PROFESSIONAL_GUIDE
+  LOCAL_HOST
+  SPECIALIST_INSTRUCTOR
+}
+
+enum GuideEvidenceType {
+  IDENTITY
+  PROFESSIONAL_LICENSE
+  LANGUAGE
+  FIRST_AID
+  INSURANCE
+  SPECIALTY
+}
+
+enum CompetencyTaskType {
+  PERFORMANCE
+  GENERAL_KNOWLEDGE
+  ROUTE_KNOWLEDGE
+  LANGUAGE
+  FIRST_AID_THEORY
+  SAFETY_SCENARIO
+}
+
+enum TourismSourceType {
+  WEBSITE
+  LAW
+  REGULATION
+  REPORT
+  DATASET
+  MAP
+  ARTICLE
+  BOOK
+  OTHER
+}
+
+enum TourismAuthorityLevel {
+  GOVERNMENT
+  LEGAL
+  OFFICIAL_TOURISM
+  UNESCO
+  LOCAL_AUTHORITY
+  MUSEUM
+  PROTECTED_AREA
+  VERIFIED_OPERATOR
+  OTHER
+}
+
+enum TourismKnowledgeCategory {
+  HISTORY
+  CULTURE
+  GEOGRAPHY
+  NATURE
+  LAW
+  SAFETY
+  FIRST_AID_REFERENCE
+  ROUTE_INFORMATION
+  DESTINATION_INFORMATION
+  TOURISM_GUIDANCE
+}
+
+enum RouteFamily {
+  CENTRAL_HERITAGE
+  GOBI
+  KHUVSGUL
+  WESTERN_ALTAI
+}
+
+enum RouteRiskLevel {
+  R0
+  R1
+  R2
+  R3
+  R4
+}
+
+enum RouteNodeType {
+  CITY
+  DESTINATION
+  HERITAGE
+  MUSEUM
+  NATURE
+  TRAILHEAD
+  TRANSPORT_HUB
+  ACCOMMODATION
+  OTHER
+}
+
+enum RouteTransportMode {
+  ROAD
+  OFF_ROAD
+  TREK
+  BOAT
+  AIR
+  RAIL
+  HORSE
+  OTHER
+}
+
+enum SafetyPlanStatus {
+  DRAFT
+  SUBMITTED
+  APPROVED
+  REJECTED
+  REVOKED
+  EXPIRED
+}
+
+enum SafetyPlanAuditAction {
+  CREATED
+  UPDATED
+  SUBMITTED
+  APPROVED
+  REJECTED
+  REVOKED
+  EXPIRED
+}
+
+enum GuideCompetencyType {
+  GENERAL_KNOWLEDGE
+  GUIDE_SKILL
+  LANGUAGE
+  ROUTE_SPECIFIC
+  FIRST_AID_THEORY
+  SAFETY
+  SPECIALTY
+}
+
+enum GuideCompetencyStatus {
+  NOT_ASSESSED
+  AI_PRE_SCREENED
+  HUMAN_VERIFIED
+  DOCUMENT_VERIFIED
+  EXPIRED
+  REJECTED
+}
+
+enum CefrLevel {
+  A1
+  A2
+  B1
+  B2
+  C1
+  C2
+}
+
+enum FirstAidCertificateStatus {
+  NOT_PROVIDED
+  PENDING
+  DOCUMENT_VERIFIED
+  EXPIRED
+  REJECTED
+}
+
+enum PracticalVerificationStatus {
+  NOT_ASSESSED
+  PENDING
+  VERIFIED
+  REJECTED
+  EXPIRED
+}
+
+enum AssessmentCategory {
+  HISTORY_ARCHAEOLOGY
+  RELIGION_CULTURE
+  GEOGRAPHY_NATURE
+  LAW_ETHICS
+  SOCIETY_ECONOMY
+  ROUTE_SPECIFIC
+  SAFETY
+  FIRST_AID_THEORY
+  LANGUAGE
+  GUIDE_SKILL
+}
+
+enum AssessmentQuestionType {
+  MULTIPLE_CHOICE
+  SHORT_ANSWER
+  OPEN_EXPLANATION
+  SCENARIO
+  SPEAKING_TASK
+}
+
+enum AssessmentDifficulty {
+  BASIC
+  INTERMEDIATE
+  ADVANCED
+}
+
+enum AssessmentType {
+  LANGUAGE
+  GENERAL_KNOWLEDGE
+  GUIDE_SKILL
+  ROUTE_COMPETENCY
+  FIRST_AID_THEORY
+  SAFETY_SCENARIO
+}
+
+enum AssessmentAttemptStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  SUBMITTED
+  AI_SCORED
+  HUMAN_REVIEWED
+  COMPLETED
+  CANCELLED
+}
+
+enum EvaluatorType {
+  AI
+  HUMAN
+  HYBRID
+}
+
+enum HumanReviewStatus {
+  NOT_REQUESTED
+  PENDING
+  BLIND_REVIEW_IN_PROGRESS
+  VERIFIED
+  REJECTED
+  REASSESSMENT_REQUIRED
+}
+
+enum AssessmentReviewDecision {
+  VERIFIED
+  REJECTED
+  REASSESSMENT_REQUIRED
+}
+
+enum AiExperimentMode {
+  A
+  B
+  C
+  D
+  E
+}
+
+enum AiRequestType {
+  GENERAL_TRAVEL
+  DESTINATION_QA
+  ITINERARY
+  ROUTE_PLANNING
+  GUIDE_SEARCH
+  GUIDE_MATCHING
+  TOUR_SEARCH
+  TOUR_COMPARISON
+  TRANSLATION
+  SAFETY_INFORMATION
+  BOOKING_HELP
+  OTHER
+}
+
+enum AiConversationStatus {
+  ACTIVE
+  ARCHIVED
+}
+
+enum AiMessageRole {
+  SYSTEM
+  USER
+  ASSISTANT
+  TOOL
+}
+
 model User {
   id             String       @id @default(uuid()) @db.Uuid
   email          String       @unique
@@ -224,6 +491,18 @@ model User {
   reportsCreated Report[] @relation("ReportReporter")
   moderationActions ModerationAction[] @relation("ModerationAdmin")
   paymentArrangementsProposed PilotPayment[] @relation("PaymentProposer")
+  assessmentAttempts AssessmentAttempt[] @relation("AssessmentUser")
+  assessmentReviews AssessmentReview[] @relation("AssessmentReviewer")
+  guideCompetenciesVerified GuideCompetency[] @relation("GuideCompetencyVerifier")
+  guideLanguageAssessmentsVerified GuideLanguageAssessment[] @relation("GuideLanguageAssessmentVerifier")
+  guideFirstAidRecordsVerified GuideFirstAid[] @relation("GuideFirstAidVerifier")
+  aiConversations AiConversation[]
+  aiExperimentRuns AiExperimentRun[]
+  aiEvaluationReviews AiEvaluationResult[] @relation("AiEvaluationReviewer")
+  guideMatchRuns GuideMatchRun[]
+  safetyPlansCreated SafetyPlan[] @relation("SafetyPlanCreator")
+  safetyPlansReviewed SafetyPlan[] @relation("SafetyPlanReviewer")
+  safetyPlanAuditEntries SafetyPlanAudit[] @relation("SafetyPlanAuditActor")
 
   @@index([deletedAt])
   @@index([createdAt])
@@ -288,6 +567,11 @@ model GuideProfile {
   price           Decimal?     @db.Decimal(10, 2)
   status          GuideStatus  @default(DRAFT)
   verified        Boolean      @default(false)
+  legalRole       GuideLegalRole @default(UNVERIFIED)
+  routeBadges     String[]     @default([])
+  specialtySkills String[]     @default([])
+  firstAidVerified Boolean     @default(false)
+  languageEstimate Json?
   assessmentScore Int          @default(0)
   referenceContact String?
   codeOfConductAccepted Boolean @default(false)
@@ -305,10 +589,665 @@ model GuideProfile {
   deletedAt       DateTime?
   user            User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   verificationReviews GuideVerificationReview[]
+  evidence        GuideEvidence[]
+  competencyAttempts CompetencyAttempt[]
+  competencies    GuideCompetency[]
+  languageAssessments GuideLanguageAssessment[]
+  knowledgeAssessments GuideKnowledgeAssessment[]
+  skillAssessments GuideSkillAssessment[]
+  routeCompetencies GuideRouteCompetency[]
+  firstAidRecords GuideFirstAid[]
+  assessmentAttempts AssessmentAttempt[]
+  matchResults GuideMatchResult[]
+  safetyPlans SafetyPlan[]
 
   @@index([status, deletedAt])
   @@index([city])
   @@index([rankPoints, rating])
+}
+
+model GuideEvidence {
+  id             String                  @id @default(uuid()) @db.Uuid
+  guideProfileId String                  @db.Uuid
+  type           GuideEvidenceType
+  issuer         String
+  reference      String?
+  verifiedAt     DateTime?
+  expiresAt      DateTime?
+  status         VerificationCheckStatus @default(PENDING)
+  metadata       Json?
+  createdAt      DateTime                @default(now())
+  updatedAt      DateTime                @updatedAt
+  guideProfile   GuideProfile            @relation(fields: [guideProfileId], references: [id], onDelete: Cascade)
+
+  @@index([guideProfileId, type, status])
+  @@index([expiresAt])
+}
+
+model CompetencyAttempt {
+  id             String             @id @default(uuid()) @db.Uuid
+  guideProfileId String             @db.Uuid
+  taskType       CompetencyTaskType
+  routeId        String?
+  rubricVersion  String
+  aiScore        Decimal            @db.Decimal(5, 2)
+  humanScores    Json?
+  confidence     Decimal            @db.Decimal(4, 3)
+  breakdown      Json
+  passed         Boolean
+  reviewedAt     DateTime?
+  createdAt      DateTime           @default(now())
+  guideProfile   GuideProfile       @relation(fields: [guideProfileId], references: [id], onDelete: Cascade)
+
+  @@index([guideProfileId, taskType, createdAt])
+  @@index([routeId, passed])
+}
+
+/// A provenance record for knowledge, route, and assessment content. Authority is
+/// platform metadata and must not be presented as an endorsement by the source.
+model TourismSource {
+  id                  String                    @id @default(uuid()) @db.Uuid
+  title               String
+  organization        String
+  sourceType          TourismSourceType
+  authorityLevel      TourismAuthorityLevel
+  url                 String
+  language            String                    @db.VarChar(16)
+  publishedAt         DateTime?
+  validFrom           DateTime?
+  validTo             DateTime?
+  lastVerifiedAt      DateTime
+  createdAt           DateTime                  @default(now())
+  updatedAt           DateTime                  @updatedAt
+  knowledge           TourismKnowledge[]
+  routes              ResearchRoute[]
+  routeNodes          RouteNode[]
+  routeEdges          RouteEdge[]
+  assessmentQuestions AssessmentQuestion[]
+
+  @@index([authorityLevel, lastVerifiedAt])
+  @@index([organization])
+  @@index([validTo])
+}
+
+model TourismKnowledge {
+  id                 String                     @id @default(uuid()) @db.Uuid
+  sourceId           String                     @db.Uuid
+  title              String
+  content            String
+  contentHash        String                     @db.VarChar(64)
+  chunkIndex         Int                        @default(0)
+  region             String?
+  routeFamily        RouteFamily?
+  category           TourismKnowledgeCategory
+  language           String                     @db.VarChar(16)
+  embedding          Json?
+  embeddingReference String?
+  embeddingModel     String?
+  tokenCount         Int?
+  metadata           Json?
+  active             Boolean                    @default(true)
+  lastVerifiedAt     DateTime
+  createdAt          DateTime                   @default(now())
+  updatedAt          DateTime                   @updatedAt
+  source             TourismSource              @relation(fields: [sourceId], references: [id], onDelete: Restrict)
+
+  @@unique([sourceId, contentHash, language])
+  @@index([routeFamily, category, language, active])
+  @@index([region, language, active])
+  @@index([lastVerifiedAt])
+}
+
+model ResearchRoute {
+  id                 String                   @id @default(uuid()) @db.Uuid
+  sourceId           String?                  @db.Uuid
+  code               String                   @unique
+  name               String
+  routeFamily        RouteFamily
+  description        String
+  minimumDays        Int
+  recommendedDays    Int
+  riskLevel          RouteRiskLevel
+  minimumLanguageLevel CefrLevel               @default(B2)
+  routeBadge         String
+  firstAidRequired   Boolean                    @default(true)
+  requiredGuideLegalRole GuideLegalRole         @default(LICENSED_PROFESSIONAL_GUIDE)
+  requiredSpecialtySkills String[]              @default([])
+  active             Boolean                  @default(true)
+  createdAt          DateTime                 @default(now())
+  updatedAt          DateTime                 @updatedAt
+  source             TourismSource?           @relation(fields: [sourceId], references: [id], onDelete: SetNull)
+  nodes              RouteNode[]
+  edges              RouteEdge[]
+  guideCompetencies  GuideCompetency[]
+  routeCompetencies  GuideRouteCompetency[]
+  assessmentAttempts AssessmentAttempt[]
+  experimentRuns     AiExperimentRun[]
+  guideMatchRuns     GuideMatchRun[]
+  safetyPlans        SafetyPlan[]
+
+  @@index([routeFamily, active])
+  @@index([riskLevel, active])
+}
+
+model RouteNode {
+  id                  String          @id @default(uuid()) @db.Uuid
+  routeId             String          @db.Uuid
+  sourceId            String?         @db.Uuid
+  destinationId       String?
+  code                String
+  name                String
+  nameMn              String
+  nameEn              String
+  region              String
+  latitude            Decimal         @db.Decimal(9, 6)
+  longitude           Decimal         @db.Decimal(9, 6)
+  altitude            Int?
+  nodeType            RouteNodeType
+  sequenceHint        Int?
+  minimumVisitMinutes Int             @default(0)
+  seasonalityMetadata Json?
+  accessMetadata      Json?
+  safetyMetadata      Json?
+  active              Boolean         @default(true)
+  createdAt           DateTime        @default(now())
+  updatedAt           DateTime        @updatedAt
+  route               ResearchRoute   @relation(fields: [routeId], references: [id], onDelete: Cascade)
+  source              TourismSource?  @relation(fields: [sourceId], references: [id], onDelete: SetNull)
+  outgoingEdges       RouteEdge[]      @relation("RouteEdgeFromNode")
+  incomingEdges       RouteEdge[]      @relation("RouteEdgeToNode")
+
+  @@unique([routeId, code])
+  @@index([routeId, sequenceHint])
+  @@index([destinationId])
+}
+
+model RouteEdge {
+  id                         String             @id @default(uuid()) @db.Uuid
+  routeId                    String             @db.Uuid
+  fromNodeId                 String             @db.Uuid
+  toNodeId                   String             @db.Uuid
+  sourceId                   String             @db.Uuid
+  code                       String
+  transportMode              RouteTransportMode
+  distanceKm                 Decimal            @db.Decimal(9, 2)
+  estimatedTravelMinutes     Int
+  estimatedCostMinor         Int?
+  estimatedCostCurrency      String?            @db.VarChar(3)
+  terrain                    String?
+  riskLevel                  RouteRiskLevel
+  seasonality                Json?
+  bidirectional              Boolean            @default(false)
+  requiresRoadCheck          Boolean            @default(false)
+  requiresWeatherCheck       Boolean            @default(false)
+  requiresPermitCheck        Boolean            @default(false)
+  requiresGuide              Boolean            @default(false)
+  requiredGuideCompetencies  String[]           @default([])
+  emergencyPlanRequired      Boolean            @default(false)
+  active                     Boolean            @default(true)
+  lastVerifiedAt             DateTime
+  createdAt                  DateTime           @default(now())
+  updatedAt                  DateTime           @updatedAt
+  route                      ResearchRoute      @relation(fields: [routeId], references: [id], onDelete: Cascade)
+  fromNode                   RouteNode          @relation("RouteEdgeFromNode", fields: [fromNodeId], references: [id], onDelete: Restrict)
+  toNode                     RouteNode          @relation("RouteEdgeToNode", fields: [toNodeId], references: [id], onDelete: Restrict)
+  source                     TourismSource      @relation(fields: [sourceId], references: [id], onDelete: Restrict)
+
+  @@unique([routeId, fromNodeId, toNodeId, transportMode])
+  @@unique([routeId, code])
+  @@index([routeId, active])
+  @@index([fromNodeId, toNodeId])
+  @@index([riskLevel, active])
+  @@index([lastVerifiedAt])
+}
+
+/// Human-reviewed operational plan required before R3/R4 travel validation can
+/// pass. Decisions are append-only in SafetyPlanAudit and never inferred from
+/// client-provided booleans.
+model SafetyPlan {
+  id                    String                 @id @default(uuid()) @db.Uuid
+  routeId               String                 @db.Uuid
+  createdById           String                 @db.Uuid
+  guideProfileId        String                 @db.Uuid
+  reviewedById          String?                @db.Uuid
+  title                 String
+  tripStartAt           DateTime
+  tripEndAt             DateTime
+  riskLevelSnapshot     RouteRiskLevel
+  itinerary             Json
+  emergencyContacts     Json
+  communicationsPlan    String
+  evacuationPlan        String
+  medicalPlan           String
+  riskMitigations       Json
+  equipmentChecklist    Json
+  permitReferences      Json?
+  status                SafetyPlanStatus       @default(DRAFT)
+  version               Int                    @default(1)
+  submittedAt           DateTime?
+  approvedAt            DateTime?
+  rejectedAt            DateTime?
+  revokedAt             DateTime?
+  expiresAt             DateTime?
+  reviewNotes           String?
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
+  route                 ResearchRoute          @relation(fields: [routeId], references: [id], onDelete: Restrict)
+  createdBy             User                   @relation("SafetyPlanCreator", fields: [createdById], references: [id], onDelete: Restrict)
+  guideProfile          GuideProfile           @relation(fields: [guideProfileId], references: [id], onDelete: Restrict)
+  reviewedBy            User?                  @relation("SafetyPlanReviewer", fields: [reviewedById], references: [id], onDelete: Restrict)
+  auditEntries          SafetyPlanAudit[]
+
+  @@index([createdById, status, createdAt])
+  @@index([routeId, status, tripStartAt])
+  @@index([guideProfileId, status])
+  @@index([status, expiresAt])
+}
+
+/// Append-only decision log. The migration installs a database trigger that
+/// rejects UPDATE and DELETE so audit history remains immutable outside NestJS.
+model SafetyPlanAudit {
+  id             String                  @id @default(uuid()) @db.Uuid
+  safetyPlanId   String                  @db.Uuid
+  actorId        String?                 @db.Uuid
+  action         SafetyPlanAuditAction
+  fromStatus     SafetyPlanStatus?
+  toStatus       SafetyPlanStatus
+  planVersion    Int
+  snapshot       Json
+  reason         String?
+  createdAt      DateTime                @default(now())
+  safetyPlan     SafetyPlan              @relation(fields: [safetyPlanId], references: [id], onDelete: Restrict)
+  actor          User?                   @relation("SafetyPlanAuditActor", fields: [actorId], references: [id], onDelete: Restrict)
+
+  @@index([safetyPlanId, createdAt])
+  @@index([actorId, createdAt])
+}
+
+model GuideCompetency {
+  id                 String                  @id @default(uuid()) @db.Uuid
+  guideProfileId     String                  @db.Uuid
+  routeId            String?                 @db.Uuid
+  assessmentAttemptId String?                @db.Uuid
+  competencyType     GuideCompetencyType
+  competencyCode     String
+  score              Decimal                 @db.Decimal(5, 2)
+  status             GuideCompetencyStatus   @default(NOT_ASSESSED)
+  verifiedById       String?                 @db.Uuid
+  verificationMethod String?
+  validFrom          DateTime?
+  validTo            DateTime?
+  metadata           Json?
+  createdAt          DateTime                @default(now())
+  updatedAt          DateTime                @updatedAt
+  guideProfile       GuideProfile            @relation(fields: [guideProfileId], references: [id], onDelete: Cascade)
+  route              ResearchRoute?          @relation(fields: [routeId], references: [id], onDelete: SetNull)
+  assessmentAttempt  AssessmentAttempt?      @relation(fields: [assessmentAttemptId], references: [id], onDelete: SetNull)
+  verifiedBy         User?                   @relation("GuideCompetencyVerifier", fields: [verifiedById], references: [id], onDelete: SetNull)
+
+  @@index([guideProfileId, competencyType, status])
+  @@index([competencyCode, status, validTo])
+  @@index([routeId, status])
+}
+
+model GuideLanguageAssessment {
+  id                   String                  @id @default(uuid()) @db.Uuid
+  guideProfileId       String                  @db.Uuid
+  assessmentAttemptId  String?                 @unique @db.Uuid
+  language             String                  @db.VarChar(32)
+  officialEvidenceType String?
+  officialEvidenceValue String?
+  aiEstimatedCefr      CefrLevel?
+  aiConfidence         Decimal?                @db.Decimal(4, 3)
+  fluencyScore         Decimal?                @db.Decimal(5, 2)
+  grammarScore         Decimal?                @db.Decimal(5, 2)
+  vocabularyScore      Decimal?                @db.Decimal(5, 2)
+  interactionScore     Decimal?                @db.Decimal(5, 2)
+  clarityScore         Decimal?                @db.Decimal(5, 2)
+  humanVerifiedCefr    CefrLevel?
+  assessmentStatus     GuideCompetencyStatus   @default(NOT_ASSESSED)
+  verifiedById         String?                 @db.Uuid
+  createdAt            DateTime                @default(now())
+  updatedAt            DateTime                @updatedAt
+  guideProfile         GuideProfile            @relation(fields: [guideProfileId], references: [id], onDelete: Cascade)
+  assessmentAttempt    AssessmentAttempt?      @relation(fields: [assessmentAttemptId], references: [id], onDelete: SetNull)
+  verifiedBy           User?                   @relation("GuideLanguageAssessmentVerifier", fields: [verifiedById], references: [id], onDelete: SetNull)
+
+  @@index([guideProfileId, language, assessmentStatus])
+  @@index([language, humanVerifiedCefr, assessmentStatus])
+}
+
+model GuideKnowledgeAssessment {
+  id                   String             @id @default(uuid()) @db.Uuid
+  guideProfileId       String             @db.Uuid
+  assessmentAttemptId  String?            @unique @db.Uuid
+  historyScore         Decimal            @db.Decimal(5, 2)
+  cultureScore         Decimal            @db.Decimal(5, 2)
+  geographyNatureScore Decimal            @db.Decimal(5, 2)
+  lawEthicsScore       Decimal            @db.Decimal(5, 2)
+  societyEconomyScore  Decimal            @db.Decimal(5, 2)
+  totalScore           Decimal            @db.Decimal(5, 2)
+  pass                 Boolean
+  evaluatorType        EvaluatorType
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @updatedAt
+  guideProfile         GuideProfile       @relation(fields: [guideProfileId], references: [id], onDelete: Cascade)
+  assessmentAttempt    AssessmentAttempt? @relation(fields: [assessmentAttemptId], references: [id], onDelete: SetNull)
+
+  @@index([guideProfileId, createdAt])
+  @@index([pass, evaluatorType])
+}
+
+model GuideSkillAssessment {
+  id                        String             @id @default(uuid()) @db.Uuid
+  guideProfileId            String             @db.Uuid
+  assessmentAttemptId       String?            @unique @db.Uuid
+  communicationScore        Decimal            @db.Decimal(5, 2)
+  guidingTechniqueScore     Decimal            @db.Decimal(5, 2)
+  explanationStructureScore Decimal            @db.Decimal(5, 2)
+  factualPresentationScore  Decimal            @db.Decimal(5, 2)
+  groupCareScore            Decimal            @db.Decimal(5, 2)
+  questionHandlingScore     Decimal            @db.Decimal(5, 2)
+  professionalismScore      Decimal            @db.Decimal(5, 2)
+  totalScore                Decimal            @db.Decimal(5, 2)
+  aiConfidence              Decimal?           @db.Decimal(4, 3)
+  humanReviewStatus         HumanReviewStatus  @default(NOT_REQUESTED)
+  createdAt                 DateTime            @default(now())
+  updatedAt                 DateTime            @updatedAt
+  guideProfile              GuideProfile        @relation(fields: [guideProfileId], references: [id], onDelete: Cascade)
+  assessmentAttempt         AssessmentAttempt?  @relation(fields: [assessmentAttemptId], references: [id], onDelete: SetNull)
+
+  @@index([guideProfileId, createdAt])
+  @@index([humanReviewStatus, createdAt])
+}
+
+model GuideRouteCompetency {
+  id                   String                  @id @default(uuid()) @db.Uuid
+  guideProfileId       String                  @db.Uuid
+  routeId              String?                 @db.Uuid
+  assessmentAttemptId  String?                 @unique @db.Uuid
+  routeFamily          RouteFamily
+  score                Decimal                 @db.Decimal(5, 2)
+  status               GuideCompetencyStatus   @default(NOT_ASSESSED)
+  passedAt             DateTime?
+  expiresAt            DateTime?
+  evaluatorType        EvaluatorType
+  createdAt            DateTime                @default(now())
+  updatedAt            DateTime                @updatedAt
+  guideProfile         GuideProfile            @relation(fields: [guideProfileId], references: [id], onDelete: Cascade)
+  route                ResearchRoute?          @relation(fields: [routeId], references: [id], onDelete: SetNull)
+  assessmentAttempt    AssessmentAttempt?      @relation(fields: [assessmentAttemptId], references: [id], onDelete: SetNull)
+
+  @@index([guideProfileId, routeFamily, status])
+  @@index([routeId, status, expiresAt])
+}
+
+model GuideFirstAid {
+  id                          String                      @id @default(uuid()) @db.Uuid
+  guideProfileId              String                      @db.Uuid
+  assessmentAttemptId         String?                     @unique @db.Uuid
+  certificateProvider         String?
+  certificateReference        String?
+  issuedAt                    DateTime?
+  expiresAt                   DateTime?
+  certificateStatus           FirstAidCertificateStatus  @default(NOT_PROVIDED)
+  theoryScore                 Decimal?                    @db.Decimal(5, 2)
+  practicalVerificationStatus PracticalVerificationStatus @default(NOT_ASSESSED)
+  verifiedAt                  DateTime?
+  verifiedById                String?                     @db.Uuid
+  createdAt                   DateTime                    @default(now())
+  updatedAt                   DateTime                    @updatedAt
+  guideProfile                GuideProfile                @relation(fields: [guideProfileId], references: [id], onDelete: Cascade)
+  assessmentAttempt           AssessmentAttempt?         @relation(fields: [assessmentAttemptId], references: [id], onDelete: SetNull)
+  verifiedBy                  User?                       @relation("GuideFirstAidVerifier", fields: [verifiedById], references: [id], onDelete: SetNull)
+
+  @@index([guideProfileId, certificateStatus, expiresAt])
+  @@index([practicalVerificationStatus])
+}
+
+model AssessmentQuestion {
+  id            String                 @id @default(uuid()) @db.Uuid
+  category      AssessmentCategory
+  routeFamily   RouteFamily?
+  difficulty    AssessmentDifficulty
+  language      String                 @db.VarChar(16)
+  questionType  AssessmentQuestionType
+  prompt        String
+  responseOptions Json?
+  answerKey     Json
+  scoringRubric Json
+  active        Boolean                @default(true)
+  sourceId      String                 @db.Uuid
+  createdAt     DateTime               @default(now())
+  updatedAt     DateTime               @updatedAt
+  source        TourismSource          @relation(fields: [sourceId], references: [id], onDelete: Restrict)
+  responses     AssessmentResponse[]
+
+  @@index([category, routeFamily, difficulty, language, active])
+  @@index([sourceId, active])
+}
+
+model AssessmentAttempt {
+  id                  String                  @id @default(uuid()) @db.Uuid
+  userId              String                  @db.Uuid
+  guideProfileId      String                  @db.Uuid
+  routeId             String?                 @db.Uuid
+  routeFamily         RouteFamily?
+  assessmentType      AssessmentType
+  language            String?                 @db.VarChar(16)
+  status              AssessmentAttemptStatus @default(NOT_STARTED)
+  rubricVersion       String
+  startedAt           DateTime?
+  submittedAt         DateTime?
+  completedAt         DateTime?
+  score               Decimal?                @db.Decimal(5, 2)
+  aiScore             Decimal?                @db.Decimal(5, 2)
+  humanScore          Decimal?                @db.Decimal(5, 2)
+  passed              Boolean?
+  humanPassed         Boolean?
+  aiEstimatedCefr     CefrLevel?
+  humanCefr           CefrLevel?
+  aiConfidence        Decimal?                @db.Decimal(4, 3)
+  metadata            Json?
+  createdAt           DateTime                @default(now())
+  updatedAt           DateTime                @updatedAt
+  user                User                    @relation("AssessmentUser", fields: [userId], references: [id], onDelete: Cascade)
+  guideProfile        GuideProfile            @relation(fields: [guideProfileId], references: [id], onDelete: Cascade)
+  route               ResearchRoute?          @relation(fields: [routeId], references: [id], onDelete: SetNull)
+  responses           AssessmentResponse[]
+  reviews             AssessmentReview[]
+  competencies        GuideCompetency[]
+  languageAssessment  GuideLanguageAssessment?
+  knowledgeAssessment GuideKnowledgeAssessment?
+  skillAssessment     GuideSkillAssessment?
+  routeCompetency     GuideRouteCompetency?
+  firstAidRecord      GuideFirstAid?
+
+  @@index([userId, status, createdAt])
+  @@index([guideProfileId, assessmentType, status, createdAt])
+  @@index([routeId, status])
+}
+
+model AssessmentResponse {
+  id                   String              @id @default(uuid()) @db.Uuid
+  assessmentAttemptId  String              @db.Uuid
+  questionId           String              @db.Uuid
+  responseText         String?
+  responsePayload      Json?
+  audioReference       String?
+  aiScore              Decimal?            @db.Decimal(5, 2)
+  humanScore           Decimal?            @db.Decimal(5, 2)
+  aiFeedback           Json?
+  humanFeedback        Json?
+  unsafeActionDetected Boolean?
+  createdAt            DateTime            @default(now())
+  updatedAt            DateTime            @updatedAt
+  assessmentAttempt    AssessmentAttempt   @relation(fields: [assessmentAttemptId], references: [id], onDelete: Cascade)
+  question             AssessmentQuestion  @relation(fields: [questionId], references: [id], onDelete: Restrict)
+
+  @@unique([assessmentAttemptId, questionId])
+  @@index([questionId])
+}
+
+model AssessmentReview {
+  id                   String                    @id @default(uuid()) @db.Uuid
+  assessmentAttemptId  String                    @db.Uuid
+  reviewerId           String                    @db.Uuid
+  blindEvaluation      Boolean                   @default(true)
+  decision             AssessmentReviewDecision
+  humanScore           Decimal?                  @db.Decimal(5, 2)
+  humanPassed          Boolean?
+  humanCefr            CefrLevel?
+  notes                String?
+  createdAt            DateTime                  @default(now())
+  updatedAt            DateTime                  @updatedAt
+  assessmentAttempt    AssessmentAttempt         @relation(fields: [assessmentAttemptId], references: [id], onDelete: Cascade)
+  reviewer             User                      @relation("AssessmentReviewer", fields: [reviewerId], references: [id], onDelete: Restrict)
+
+  @@unique([assessmentAttemptId, reviewerId])
+  @@index([reviewerId, createdAt])
+}
+
+model AiConversation {
+  id             String               @id @default(uuid()) @db.Uuid
+  userId         String               @db.Uuid
+  title          String?
+  experimentMode AiExperimentMode
+  status         AiConversationStatus @default(ACTIVE)
+  createdAt      DateTime             @default(now())
+  updatedAt      DateTime             @updatedAt
+  deletedAt      DateTime?
+  user           User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  messages       AiMessage[]
+  experimentRuns AiExperimentRun[]
+
+  @@index([userId, status, updatedAt])
+  @@index([deletedAt])
+}
+
+model AiMessage {
+  id                String         @id @default(uuid()) @db.Uuid
+  conversationId    String         @db.Uuid
+  role              AiMessageRole
+  content           String
+  structuredContent Json?
+  sources           Json?
+  toolName          String?
+  model             String?
+  tokenCount        Int?
+  createdAt         DateTime       @default(now())
+  conversation      AiConversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  @@index([conversationId, createdAt])
+}
+
+model AiExperimentRun {
+  id                String               @id @default(uuid()) @db.Uuid
+  userId            String?              @db.Uuid
+  conversationId    String?              @db.Uuid
+  routeId           String?              @db.Uuid
+  experimentMode    AiExperimentMode
+  requestType       AiRequestType
+  provider          String
+  model             String
+  promptVersion     String
+  routeFamily       RouteFamily?
+  inputTokens       Int                  @default(0)
+  outputTokens      Int                  @default(0)
+  latencyMs         Int
+  estimatedCost     Decimal              @default(0) @db.Decimal(14, 8)
+  toolCalls         Json
+  validatorResult   Json?
+  finalValidity     Boolean?
+  failureReason     String?
+  metadata          Json?
+  createdAt         DateTime             @default(now())
+  user              User?                @relation(fields: [userId], references: [id], onDelete: SetNull)
+  conversation      AiConversation?      @relation(fields: [conversationId], references: [id], onDelete: SetNull)
+  route             ResearchRoute?       @relation(fields: [routeId], references: [id], onDelete: SetNull)
+  evaluationResults AiEvaluationResult[]
+  guideMatchRuns    GuideMatchRun[]
+
+  @@index([experimentMode, requestType, createdAt])
+  @@index([userId, createdAt])
+  @@index([routeFamily, createdAt])
+  @@index([conversationId, createdAt])
+}
+
+model AiEvaluationResult {
+  id                    String          @id @default(uuid()) @db.Uuid
+  experimentRunId       String          @db.Uuid
+  reviewerId            String?         @db.Uuid
+  evaluatorType         EvaluatorType
+  blindEvaluation       Boolean         @default(false)
+  factualAccuracy       Decimal?        @db.Decimal(5, 2)
+  hallucinationDetected Boolean?
+  poiValidity           Decimal?        @db.Decimal(5, 2)
+  spatialFeasibility    Decimal?        @db.Decimal(5, 2)
+  temporalFeasibility   Decimal?        @db.Decimal(5, 2)
+  budgetCompliance      Decimal?        @db.Decimal(5, 2)
+  seasonCompliance      Decimal?        @db.Decimal(5, 2)
+  safetyViolation       Boolean?
+  personalizationScore  Decimal?        @db.Decimal(5, 2)
+  aiScore               Decimal?        @db.Decimal(5, 2)
+  humanScore            Decimal?        @db.Decimal(5, 2)
+  aiPass                Boolean?
+  humanPass             Boolean?
+  aiCefr                CefrLevel?
+  humanCefr             CefrLevel?
+  safetyFalseNegative   Boolean?
+  safetyFalsePositive   Boolean?
+  notes                 String?
+  createdAt             DateTime        @default(now())
+  updatedAt             DateTime        @updatedAt
+  experimentRun         AiExperimentRun @relation(fields: [experimentRunId], references: [id], onDelete: Cascade)
+  reviewer              User?           @relation("AiEvaluationReviewer", fields: [reviewerId], references: [id], onDelete: SetNull)
+
+  @@index([experimentRunId, evaluatorType])
+  @@index([reviewerId, createdAt])
+  @@unique([experimentRunId, reviewerId, evaluatorType])
+}
+
+model GuideMatchRun {
+  id                 String                @id @default(uuid()) @db.Uuid
+  userId             String?               @db.Uuid
+  routeId            String?               @db.Uuid
+  experimentRunId    String?               @db.Uuid
+  routeFamily        RouteFamily?
+  requestedStartAt   DateTime?
+  requestedEndAt     DateTime?
+  language           String                @db.VarChar(32)
+  minimumCefr        CefrLevel?
+  requirements       Json
+  weights            Json
+  createdAt          DateTime              @default(now())
+  user               User?                 @relation(fields: [userId], references: [id], onDelete: SetNull)
+  route              ResearchRoute?        @relation(fields: [routeId], references: [id], onDelete: SetNull)
+  experimentRun      AiExperimentRun?      @relation(fields: [experimentRunId], references: [id], onDelete: SetNull)
+  results            GuideMatchResult[]
+
+  @@index([userId, createdAt])
+  @@index([routeId, createdAt])
+  @@index([experimentRunId])
+}
+
+model GuideMatchResult {
+  id                 String          @id @default(uuid()) @db.Uuid
+  guideMatchRunId    String          @db.Uuid
+  guideProfileId     String          @db.Uuid
+  eligible           Boolean
+  score              Decimal         @db.Decimal(6, 3)
+  rank               Int?
+  hardGateFailures   Json
+  factors            Json
+  reasons            Json
+  createdAt          DateTime        @default(now())
+  guideMatchRun      GuideMatchRun   @relation(fields: [guideMatchRunId], references: [id], onDelete: Cascade)
+  guideProfile       GuideProfile    @relation(fields: [guideProfileId], references: [id], onDelete: Cascade)
+
+  @@unique([guideMatchRunId, guideProfileId])
+  @@index([guideProfileId, createdAt])
+  @@index([guideMatchRunId, eligible, rank])
 }
 
 model GuideVerificationReview {

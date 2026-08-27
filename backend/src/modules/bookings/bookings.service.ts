@@ -16,7 +16,7 @@ import {
   Prisma,
 } from '../../generated/prisma/client.js';
 import { PrismaService } from '../../prisma/prisma.service.js';
-import { CreateBookingDto } from './dto/create-booking.dto.js';
+import { CreateBookingDto, UpdateBookingDraftDto } from './dto/create-booking.dto.js';
 import { BookingAction } from './dto/update-booking-status.dto.js';
 import { PriceBreakdown, PricingService } from '../pricing/pricing.service.js';
 
@@ -54,10 +54,31 @@ export class BookingsService {
 
   listProvider(userId: string) {
     return this.prisma.booking.findMany({
-      where: { deletedAt: null, OR: [{ guideId: userId }, { listing: { hostId: userId } }] },
+      where: {
+        deletedAt: null,
+        status: { not: BookingStatus.DRAFT },
+        OR: [{ guideId: userId }, { listing: { hostId: userId } }],
+      },
       include: { ...includeBooking, traveler: { select: { id: true, name: true, avatarUrl: true } } },
       orderBy: { startsAt: 'asc' },
     });
+  }
+
+  listDrafts(userId: string) {
+    return this.prisma.booking.findMany({
+      where: { travelerId: userId, status: BookingStatus.DRAFT, deletedAt: null },
+      include: includeBooking,
+      orderBy: { updatedAt: 'desc' },
+    });
+  }
+
+  async getOwned(userId: string, bookingId: string) {
+    const booking = await this.prisma.booking.findFirst({
+      where: { id: bookingId, travelerId: userId, deletedAt: null },
+      include: includeBooking,
+    });
+    if (!booking) throw new NotFoundException('Booking not found');
+    return booking;
   }
 
   async quote(userId: string, dto: CreateBookingDto) {
@@ -270,6 +291,288 @@ export class BookingsService {
     }
   }
 
+  async createDraft(userId: string, dto: CreateBookingDto, idempotencyKey?: string) {
+    if (!idempotencyKey || !UUID.test(idempotencyKey)) {
+      throw new BadRequestException({
+        code: 'IDEMPOTENCY_KEY_REQUIRED',
+        message: 'A valid UUID Idempotency-Key header is required',
+      });
+    }
+    this.assertProviderSelection(dto);
+    const { startsAt, endsAt } = this.parseFutureDates(dto.startsAt, dto.endsAt);
+    const requestHash = createHash('sha256')
+      .update(JSON.stringify({ operation: 'CREATE_BOOKING_DRAFT', ...dto, note: dto.note?.trim() || null }))
+      .digest('hex');
+    const prior = await this.prisma.idempotencyKey.findUnique({
+      where: { userId_key: { userId, key: idempotencyKey } },
+    });
+    if (prior) return this.replay(prior.requestHash, requestHash, prior.responseBody);
+
+    try {
+      return await this.prisma.$transaction(async (tx) => {
+        await tx.idempotencyKey.create({
+          data: {
+            key: idempotencyKey,
+            userId,
+            requestHash,
+            expiresAt: new Date(Date.now() + 24 * 60 * 60_000),
+          },
+        });
+
+        const price = await this.priceDraft(tx, userId, dto, startsAt, endsAt);
+        const draft = await tx.booking.create({
+          data: {
+            travelerId: userId,
+            listingId: dto.listingId,
+            guideId: dto.guideId,
+            startsAt,
+            endsAt,
+            guests: dto.guests,
+            amount: this.pricing.minorToDecimal(price.amountMinor),
+            amountMinor: price.amountMinor,
+            baseAmountMinor: price.baseAmountMinor,
+            cleaningFeeMinor: price.cleaningFeeMinor,
+            serviceFeeMinor: price.serviceFeeMinor,
+            taxMinor: price.taxMinor,
+            extraGuestFeeMinor: price.extraGuestFeeMinor,
+            depositMinor: price.depositMinor,
+            currency: price.currency,
+            note: dto.note?.trim() || null,
+            status: BookingStatus.DRAFT,
+            expiresAt: null,
+            cancellationPolicy: CancellationPolicyType.FLEXIBLE,
+            freeCancellationUntil: null,
+            lateCancellationPercent: 0,
+            noShowPercent: 0,
+          },
+          include: includeBooking,
+        });
+        await tx.idempotencyKey.update({
+          where: { userId_key: { userId, key: idempotencyKey } },
+          data: { responseBody: JSON.parse(JSON.stringify(draft)), statusCode: 201 },
+        });
+        return draft;
+      }, { isolationLevel: Prisma.TransactionIsolationLevel.ReadCommitted });
+    } catch (error) {
+      if (error instanceof BadRequestException || error instanceof ConflictException || error instanceof NotFoundException) throw error;
+      const raced = await this.prisma.idempotencyKey.findUnique({
+        where: { userId_key: { userId, key: idempotencyKey } },
+      });
+      if (raced?.responseBody) return this.replay(raced.requestHash, requestHash, raced.responseBody);
+      throw error;
+    }
+  }
+
+  async submitDraft(userId: string, bookingId: string) {
+    try {
+      return await this.prisma.$transaction(async (tx) => {
+        const draft = await tx.booking.findFirst({
+          where: { id: bookingId, travelerId: userId, deletedAt: null },
+        });
+        if (!draft) throw new NotFoundException('Booking draft not found');
+        if (draft.status !== BookingStatus.DRAFT) {
+          throw new ConflictException({
+            code: 'BOOKING_DRAFT_ALREADY_SUBMITTED',
+            message: 'Only a draft booking can be submitted',
+          });
+        }
+        const { startsAt, endsAt } = this.parseFutureDates(draft.startsAt, draft.endsAt);
+
+        let price: PriceBreakdown;
+        let providerId: string;
+        let title: string;
+        if (draft.listingId) {
+          const listing = await tx.listing.findFirst({
+            where: { id: draft.listingId, published: true, deletedAt: null },
+          });
+          if (!listing) throw new NotFoundException('Listing is no longer bookable');
+          if (listing.hostId === userId) {
+            throw new ConflictException({ code: 'SELF_BOOKING_NOT_ALLOWED', message: 'You cannot book your own listing' });
+          }
+          const nights = Math.max(1, Math.ceil((endsAt.getTime() - startsAt.getTime()) / 86_400_000));
+          price = this.pricing.calculate({
+            basePriceMinor: listing.basePriceMinor,
+            units: nights,
+            guests: draft.guests,
+            currency: listing.currency,
+            cleaningFeeMinor: listing.cleaningFeeMinor,
+            serviceFeeMinor: listing.serviceFeeMinor,
+            taxMinor: listing.taxMinor,
+            extraGuestFeeMinor: listing.extraGuestFeeMinor,
+            depositMinor: listing.depositMinor,
+          });
+          providerId = listing.hostId;
+          title = listing.title;
+          await this.reserveListingInventory(tx, listing.id, startsAt, endsAt, listing.defaultTotalUnits);
+        } else if (draft.guideId) {
+          if (draft.guideId === userId) {
+            throw new ConflictException({ code: 'SELF_BOOKING_NOT_ALLOWED', message: 'You cannot book yourself as a guide' });
+          }
+          const guide = await tx.guideProfile.findFirst({
+            where: { userId: draft.guideId, status: GuideStatus.APPROVED, verified: true, deletedAt: null },
+            include: { user: { select: { name: true } } },
+          });
+          if (!guide?.price) throw new NotFoundException('Guide is no longer bookable');
+          const hours = Math.max(1, Math.ceil((endsAt.getTime() - startsAt.getTime()) / 3_600_000));
+          price = this.pricing.calculate({
+            basePriceMinor: this.pricing.decimalToMinor(guide.price),
+            units: hours,
+            guests: draft.guests,
+            currency: 'USD',
+          });
+          providerId = guide.userId;
+          title = `Guide: ${guide.user.name}`;
+          const overlap = await tx.booking.findFirst({
+            where: {
+              id: { not: draft.id },
+              deletedAt: null,
+              status: { in: ACTIVE_STATUSES },
+              startsAt: { lt: endsAt },
+              endsAt: { gt: startsAt },
+              guideId: draft.guideId,
+            },
+            select: { id: true },
+          });
+          if (overlap) this.unavailable();
+        } else {
+          throw new BadRequestException('Booking draft has no provider');
+        }
+
+        const changed = await tx.booking.updateMany({
+          where: { id: draft.id, travelerId: userId, status: BookingStatus.DRAFT, deletedAt: null },
+          data: {
+            status: BookingStatus.PENDING,
+            amount: this.pricing.minorToDecimal(price.amountMinor),
+            amountMinor: price.amountMinor,
+            baseAmountMinor: price.baseAmountMinor,
+            cleaningFeeMinor: price.cleaningFeeMinor,
+            serviceFeeMinor: price.serviceFeeMinor,
+            taxMinor: price.taxMinor,
+            extraGuestFeeMinor: price.extraGuestFeeMinor,
+            depositMinor: price.depositMinor,
+            currency: price.currency,
+            expiresAt: new Date(Math.min(startsAt.getTime(), Date.now() + 24 * 60 * 60_000)),
+            cancellationPolicy: CancellationPolicyType.FLEXIBLE,
+            freeCancellationUntil: new Date(startsAt.getTime() - 24 * 60 * 60_000),
+            lateCancellationPercent: 20,
+            noShowPercent: 100,
+          },
+        });
+        if (changed.count !== 1) {
+          throw new ConflictException({
+            code: 'BOOKING_DRAFT_ALREADY_SUBMITTED',
+            message: 'Booking draft changed; refresh before submitting again',
+          });
+        }
+
+        await tx.bookingEvent.create({
+          data: {
+            bookingId: draft.id,
+            actorId: userId,
+            actorType: BookingActorType.TRAVELER,
+            fromStatus: BookingStatus.DRAFT,
+            toStatus: BookingStatus.PENDING,
+            eventType: 'DRAFT_SUBMITTED',
+          },
+        });
+        await tx.conversation.create({
+          data: {
+            bookingId: draft.id,
+            title,
+            participants: { create: [{ userId }, { userId: providerId }] },
+            messages: {
+              create: { senderId: userId, type: MessageType.SYSTEM, body: 'Booking request sent' },
+            },
+          },
+        });
+        await tx.notification.create({
+          data: {
+            userId: providerId,
+            type: NotificationType.BOOKING_CREATED,
+            title: 'New booking request',
+            body: `${title} received a new booking request`,
+            data: { bookingId: draft.id },
+          },
+        });
+        return tx.booking.findUnique({ where: { id: draft.id }, include: includeBooking });
+      }, { isolationLevel: Prisma.TransactionIsolationLevel.Serializable });
+    } catch (error) {
+      if (error instanceof BadRequestException || error instanceof ConflictException || error instanceof NotFoundException) throw error;
+      const message = error instanceof Error ? error.message : '';
+      if (message.includes('no_overlap') || message.includes('exclusion') || message.includes('Transaction failed')) {
+        this.unavailable();
+      }
+      throw error;
+    }
+  }
+
+  async updateDraft(userId: string, bookingId: string, dto: UpdateBookingDraftDto) {
+    return this.prisma.$transaction(async (tx) => {
+      const draft = await tx.booking.findFirst({
+        where: { id: bookingId, travelerId: userId, status: BookingStatus.DRAFT, deletedAt: null },
+      });
+      if (!draft) throw new NotFoundException('Booking draft not found');
+
+      let listingId = dto.listingId === undefined ? draft.listingId ?? undefined : dto.listingId;
+      let guideId = dto.guideId === undefined ? draft.guideId ?? undefined : dto.guideId;
+      if (dto.listingId !== undefined && dto.guideId === undefined) guideId = undefined;
+      if (dto.guideId !== undefined && dto.listingId === undefined) listingId = undefined;
+      const merged: CreateBookingDto = {
+        listingId,
+        guideId,
+        startsAt: dto.startsAt ?? draft.startsAt.toISOString(),
+        endsAt: dto.endsAt ?? draft.endsAt.toISOString(),
+        guests: dto.guests ?? draft.guests,
+        note: dto.note === undefined ? draft.note ?? undefined : dto.note,
+      };
+      this.assertProviderSelection(merged);
+      const { startsAt, endsAt } = this.parseFutureDates(merged.startsAt, merged.endsAt);
+      const price = await this.priceDraft(tx, userId, merged, startsAt, endsAt);
+      const expectedUpdatedAt = dto.expectedUpdatedAt ? new Date(dto.expectedUpdatedAt) : draft.updatedAt;
+      const changed = await tx.booking.updateMany({
+        where: {
+          id: draft.id,
+          travelerId: userId,
+          status: BookingStatus.DRAFT,
+          deletedAt: null,
+          updatedAt: expectedUpdatedAt,
+        },
+        data: {
+          listingId: merged.listingId ?? null,
+          guideId: merged.guideId ?? null,
+          startsAt,
+          endsAt,
+          guests: merged.guests,
+          note: merged.note?.trim() || null,
+          amount: this.pricing.minorToDecimal(price.amountMinor),
+          amountMinor: price.amountMinor,
+          baseAmountMinor: price.baseAmountMinor,
+          cleaningFeeMinor: price.cleaningFeeMinor,
+          serviceFeeMinor: price.serviceFeeMinor,
+          taxMinor: price.taxMinor,
+          extraGuestFeeMinor: price.extraGuestFeeMinor,
+          depositMinor: price.depositMinor,
+          currency: price.currency,
+        },
+      });
+      if (changed.count !== 1) {
+        throw new ConflictException({
+          code: 'BOOKING_DRAFT_CHANGED',
+          message: 'Booking draft changed; refresh before saving again',
+        });
+      }
+      return tx.booking.findUnique({ where: { id: draft.id }, include: includeBooking });
+    }, { isolationLevel: Prisma.TransactionIsolationLevel.ReadCommitted });
+  }
+
+  async deleteDraft(userId: string, bookingId: string) {
+    const changed = await this.prisma.booking.updateMany({
+      where: { id: bookingId, travelerId: userId, status: BookingStatus.DRAFT, deletedAt: null },
+      data: { deletedAt: new Date() },
+    });
+    if (changed.count !== 1) throw new NotFoundException('Booking draft not found');
+  }
+
   async updateStatus(userId: string, bookingId: string, action: BookingAction) {
     return this.prisma.$transaction(async (tx) => {
       const booking = await tx.booking.findFirst({
@@ -378,6 +681,68 @@ export class BookingsService {
     }
     if (!responseBody) throw new ConflictException({ code: 'IDEMPOTENCY_REQUEST_IN_PROGRESS', message: 'The original request is still processing' });
     return responseBody;
+  }
+
+  private assertProviderSelection(dto: Pick<CreateBookingDto, 'listingId' | 'guideId'>) {
+    if (Boolean(dto.listingId) === Boolean(dto.guideId)) {
+      throw new BadRequestException('Choose exactly one listing or guide');
+    }
+  }
+
+  private parseFutureDates(startsAtValue: string | Date, endsAtValue: string | Date) {
+    const startsAt = new Date(startsAtValue);
+    const endsAt = new Date(endsAtValue);
+    if (Number.isNaN(startsAt.getTime()) || Number.isNaN(endsAt.getTime())) {
+      throw new BadRequestException('Booking dates are invalid');
+    }
+    if (endsAt <= startsAt) throw new BadRequestException('End time must be after start time');
+    if (startsAt <= new Date()) throw new BadRequestException('Booking start time must be in the future');
+    return { startsAt, endsAt };
+  }
+
+  private async priceDraft(
+    tx: Prisma.TransactionClient,
+    userId: string,
+    dto: CreateBookingDto,
+    startsAt: Date,
+    endsAt: Date,
+  ): Promise<PriceBreakdown> {
+    if (dto.listingId) {
+      const listing = await tx.listing.findFirst({
+        where: { id: dto.listingId, published: true, deletedAt: null },
+      });
+      if (!listing) throw new NotFoundException('Listing not found');
+      if (listing.hostId === userId) {
+        throw new ConflictException({ code: 'SELF_BOOKING_NOT_ALLOWED', message: 'You cannot book your own listing' });
+      }
+      const nights = Math.max(1, Math.ceil((endsAt.getTime() - startsAt.getTime()) / 86_400_000));
+      return this.pricing.calculate({
+        basePriceMinor: listing.basePriceMinor,
+        units: nights,
+        guests: dto.guests,
+        currency: listing.currency,
+        cleaningFeeMinor: listing.cleaningFeeMinor,
+        serviceFeeMinor: listing.serviceFeeMinor,
+        taxMinor: listing.taxMinor,
+        extraGuestFeeMinor: listing.extraGuestFeeMinor,
+        depositMinor: listing.depositMinor,
+      });
+    }
+
+    if (dto.guideId === userId) {
+      throw new ConflictException({ code: 'SELF_BOOKING_NOT_ALLOWED', message: 'You cannot book yourself as a guide' });
+    }
+    const guide = await tx.guideProfile.findFirst({
+      where: { userId: dto.guideId, status: GuideStatus.APPROVED, verified: true, deletedAt: null },
+    });
+    if (!guide?.price) throw new NotFoundException('Bookable guide not found');
+    const hours = Math.max(1, Math.ceil((endsAt.getTime() - startsAt.getTime()) / 3_600_000));
+    return this.pricing.calculate({
+      basePriceMinor: this.pricing.decimalToMinor(guide.price),
+      units: hours,
+      guests: dto.guests,
+      currency: 'USD',
+    });
   }
 
   private unavailable(): never {

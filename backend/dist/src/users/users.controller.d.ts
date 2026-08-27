@@ -31,6 +31,11 @@ export declare class UsersController {
             price: import("@prisma/client-runtime-utils").Decimal | null;
             status: import("../generated/prisma/enums.js").GuideStatus;
             verified: boolean;
+            legalRole: import("../generated/prisma/enums.js").GuideLegalRole;
+            routeBadges: string[];
+            specialtySkills: string[];
+            firstAidVerified: boolean;
+            languageEstimate: import("@prisma/client/runtime/client").JsonValue | null;
             assessmentScore: number;
             referenceContact: string | null;
             codeOfConductAccepted: boolean;
@@ -72,6 +77,11 @@ export declare class UsersController {
             price: import("@prisma/client-runtime-utils").Decimal | null;
             status: import("../generated/prisma/enums.js").GuideStatus;
             verified: boolean;
+            legalRole: import("../generated/prisma/enums.js").GuideLegalRole;
+            routeBadges: string[];
+            specialtySkills: string[];
+            firstAidVerified: boolean;
+            languageEstimate: import("@prisma/client/runtime/client").JsonValue | null;
             assessmentScore: number;
             referenceContact: string | null;
             codeOfConductAccepted: boolean;

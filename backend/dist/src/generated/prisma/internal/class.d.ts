@@ -43,6 +43,81 @@ export interface PrismaClient<in LogOpts extends Prisma.LogLevel = never, in out
     get guideProfile(): Prisma.GuideProfileDelegate<ExtArgs, {
         omit: OmitOpts;
     }>;
+    get guideEvidence(): Prisma.GuideEvidenceDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    get competencyAttempt(): Prisma.CompetencyAttemptDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    get tourismSource(): Prisma.TourismSourceDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    get tourismKnowledge(): Prisma.TourismKnowledgeDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    get researchRoute(): Prisma.ResearchRouteDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    get routeNode(): Prisma.RouteNodeDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    get routeEdge(): Prisma.RouteEdgeDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    get safetyPlan(): Prisma.SafetyPlanDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    get safetyPlanAudit(): Prisma.SafetyPlanAuditDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    get guideCompetency(): Prisma.GuideCompetencyDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    get guideLanguageAssessment(): Prisma.GuideLanguageAssessmentDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    get guideKnowledgeAssessment(): Prisma.GuideKnowledgeAssessmentDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    get guideSkillAssessment(): Prisma.GuideSkillAssessmentDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    get guideRouteCompetency(): Prisma.GuideRouteCompetencyDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    get guideFirstAid(): Prisma.GuideFirstAidDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    get assessmentQuestion(): Prisma.AssessmentQuestionDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    get assessmentAttempt(): Prisma.AssessmentAttemptDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    get assessmentResponse(): Prisma.AssessmentResponseDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    get assessmentReview(): Prisma.AssessmentReviewDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    get aiConversation(): Prisma.AiConversationDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    get aiMessage(): Prisma.AiMessageDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    get aiExperimentRun(): Prisma.AiExperimentRunDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    get aiEvaluationResult(): Prisma.AiEvaluationResultDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    get guideMatchRun(): Prisma.GuideMatchRunDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    get guideMatchResult(): Prisma.GuideMatchResultDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
     get guideVerificationReview(): Prisma.GuideVerificationReviewDelegate<ExtArgs, {
         omit: OmitOpts;
     }>;

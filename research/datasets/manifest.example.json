@@ -1,0 +1,19 @@
+{
+  "version": "0.1.0",
+  "status": "collection_required",
+  "datasets": [
+    { "id": "tourism_knowledge", "target": "2000-5000 chunks", "current": 0, "splitUnit": "source_and_poi" },
+    { "id": "route_graph", "target": "100-250 POIs/segments", "current": 24, "splitUnit": "route_segment" },
+    { "id": "travel_qa", "target": "1000-2000 verified QA", "current": 0, "splitUnit": "underlying_fact" },
+    { "id": "instruction_tuning", "target": "3000-10000 examples", "current": 0, "splitUnit": "intent_and_poi" },
+    { "id": "guide_competency", "target": "500 general + 200 route + 100 safety", "current": 0, "splitUnit": "concept" },
+    { "id": "guide_speech", "target": "20-50 candidates", "current": 0, "splitUnit": "speaker" },
+    { "id": "travel_evaluation", "target": "200-500 tasks", "current": 0, "splitUnit": "route_and_constraint" }
+  ],
+  "privacy": {
+    "rawIdentityDocumentsAllowed": false,
+    "rawMedicalDataAllowed": false,
+    "speechConsentRequired": true,
+    "anonymizationRequired": true
+  }
+}

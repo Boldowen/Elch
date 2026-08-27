@@ -19,3 +19,7 @@ verification tokens are never stored or logged.
 Password recovery uses the same delivery provider. Configure
 `PASSWORD_RESET_URL=elch://reset-password`; reset and password-change actions
 revoke every active refresh session.
+
+The research architecture, environment variables, ingestion, migration, export,
+training, testing, and deployment instructions are documented in the repository root
+[`README.md`](../README.md) and [`research/README.md`](../research/README.md).

@@ -11,7 +11,61 @@ import { BadRequestException, ConflictException, Injectable, NotFoundException, 
 import { GuideStatus, GuideVerificationDecision, NotificationType, PricingType, Role, VerificationCheckStatus, } from '../../generated/prisma/client.js';
 import { PrismaService } from '../../prisma/prisma.service.js';
 import { GuideReviewDecision, } from './dto/review-guide-application.dto.js';
-const publicGuideInclude = {
+const publicGuideSelect = () => ({
+    id: true,
+    userId: true,
+    country: true,
+    city: true,
+    bio: true,
+    experienceYears: true,
+    languages: true,
+    expertise: true,
+    availability: true,
+    pricingType: true,
+    price: true,
+    status: true,
+    verified: true,
+    legalRole: true,
+    specialtySkills: true,
+    rating: true,
+    reviewCount: true,
+    completedTrips: true,
+    user: {
+        select: { id: true, name: true, avatarUrl: true, isVerified: true },
+    },
+    evidence: {
+        where: {
+            status: VerificationCheckStatus.VERIFIED,
+            OR: [{ expiresAt: null }, { expiresAt: { gt: new Date() } }],
+        },
+        select: { type: true, issuer: true, verifiedAt: true, expiresAt: true, status: true },
+    },
+    languageAssessments: {
+        orderBy: { createdAt: 'desc' },
+        take: 10,
+        select: { language: true, aiEstimatedCefr: true, aiConfidence: true, humanVerifiedCefr: true, assessmentStatus: true, createdAt: true },
+    },
+    knowledgeAssessments: {
+        orderBy: { createdAt: 'desc' },
+        take: 1,
+        select: { totalScore: true, pass: true, evaluatorType: true, createdAt: true },
+    },
+    skillAssessments: {
+        orderBy: { createdAt: 'desc' },
+        take: 1,
+        select: { totalScore: true, humanReviewStatus: true, createdAt: true },
+    },
+    routeCompetencies: {
+        orderBy: { createdAt: 'desc' },
+        select: { routeFamily: true, score: true, status: true, passedAt: true, expiresAt: true },
+    },
+    firstAidRecords: {
+        orderBy: { createdAt: 'desc' },
+        take: 1,
+        select: { certificateStatus: true, theoryScore: true, practicalVerificationStatus: true, expiresAt: true },
+    },
+});
+const ownerGuideInclude = {
     user: {
         select: { id: true, name: true, avatarUrl: true, isVerified: true },
     },
@@ -28,7 +82,7 @@ let GuidesService = class GuidesService {
                 verified: true,
                 deletedAt: null,
             },
-            include: publicGuideInclude,
+            select: publicGuideSelect(),
             orderBy: [{ rating: 'desc' }, { experienceYears: 'desc' }],
         });
     }
@@ -39,7 +93,13 @@ let GuidesService = class GuidesService {
                 verified: true,
                 deletedAt: null,
             },
-            include: publicGuideInclude,
+            select: {
+                ...publicGuideSelect(),
+                rankPoints: true,
+                responseRate: true,
+                acceptanceRate: true,
+                rankingUpdatedAt: true,
+            },
             orderBy: [{ rankPoints: 'desc' }, { rating: 'desc' }],
             take: 100,
         });
@@ -47,7 +107,7 @@ let GuidesService = class GuidesService {
     async findMine(userId) {
         const guide = await this.prisma.guideProfile.findUnique({
             where: { userId },
-            include: publicGuideInclude,
+            include: ownerGuideInclude,
         });
         if (!guide)
             throw new NotFoundException('Guide profile not found');
@@ -84,7 +144,7 @@ let GuidesService = class GuidesService {
                 verified: true,
                 deletedAt: null,
             },
-            include: publicGuideInclude,
+            select: publicGuideSelect(),
         });
         if (!guide)
             throw new NotFoundException('Guide not found');
@@ -147,7 +207,7 @@ let GuidesService = class GuidesService {
                 assessmentScore: 0,
                 rankPoints: 100 + dto.experienceYears * 10,
             },
-            include: publicGuideInclude,
+            include: ownerGuideInclude,
         });
     }
     listApplications() {
@@ -265,7 +325,7 @@ let GuidesService = class GuidesService {
                     data: { guideProfileId: id },
                 },
             });
-            return transaction.guideProfile.findUnique({ where: { id }, include: publicGuideInclude });
+            return transaction.guideProfile.findUnique({ where: { id }, include: ownerGuideInclude });
         });
     }
 };

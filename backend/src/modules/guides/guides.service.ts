@@ -20,7 +20,62 @@ import {
 } from './dto/review-guide-application.dto.js';
 import { UpdateGuideProfileDto } from './dto/update-guide-profile.dto.js';
 
-const publicGuideInclude = {
+const publicGuideSelect = () => ({
+  id: true,
+  userId: true,
+  country: true,
+  city: true,
+  bio: true,
+  experienceYears: true,
+  languages: true,
+  expertise: true,
+  availability: true,
+  pricingType: true,
+  price: true,
+  status: true,
+  verified: true,
+  legalRole: true,
+  specialtySkills: true,
+  rating: true,
+  reviewCount: true,
+  completedTrips: true,
+  user: {
+    select: { id: true, name: true, avatarUrl: true, isVerified: true },
+  },
+  evidence: {
+    where: {
+      status: VerificationCheckStatus.VERIFIED,
+      OR: [{ expiresAt: null }, { expiresAt: { gt: new Date() } }],
+    },
+    select: { type: true, issuer: true, verifiedAt: true, expiresAt: true, status: true },
+  },
+  languageAssessments: {
+    orderBy: { createdAt: 'desc' as const },
+    take: 10,
+    select: { language: true, aiEstimatedCefr: true, aiConfidence: true, humanVerifiedCefr: true, assessmentStatus: true, createdAt: true },
+  },
+  knowledgeAssessments: {
+    orderBy: { createdAt: 'desc' as const },
+    take: 1,
+    select: { totalScore: true, pass: true, evaluatorType: true, createdAt: true },
+  },
+  skillAssessments: {
+    orderBy: { createdAt: 'desc' as const },
+    take: 1,
+    select: { totalScore: true, humanReviewStatus: true, createdAt: true },
+  },
+  routeCompetencies: {
+    orderBy: { createdAt: 'desc' as const },
+    select: { routeFamily: true, score: true, status: true, passedAt: true, expiresAt: true },
+  },
+  firstAidRecords: {
+    orderBy: { createdAt: 'desc' as const },
+    take: 1,
+    select: { certificateStatus: true, theoryScore: true, practicalVerificationStatus: true, expiresAt: true },
+  },
+});
+
+const ownerGuideInclude = {
   user: {
     select: { id: true, name: true, avatarUrl: true, isVerified: true },
   },
@@ -37,7 +92,7 @@ export class GuidesService {
         verified: true,
         deletedAt: null,
       },
-      include: publicGuideInclude,
+      select: publicGuideSelect(),
       orderBy: [{ rating: 'desc' }, { experienceYears: 'desc' }],
     });
   }
@@ -49,7 +104,13 @@ export class GuidesService {
         verified: true,
         deletedAt: null,
       },
-      include: publicGuideInclude,
+      select: {
+        ...publicGuideSelect(),
+        rankPoints: true,
+        responseRate: true,
+        acceptanceRate: true,
+        rankingUpdatedAt: true,
+      },
       orderBy: [{ rankPoints: 'desc' }, { rating: 'desc' }],
       take: 100,
     });
@@ -58,7 +119,7 @@ export class GuidesService {
   async findMine(userId: string) {
     const guide = await this.prisma.guideProfile.findUnique({
       where: { userId },
-      include: publicGuideInclude,
+      include: ownerGuideInclude,
     });
     if (!guide) throw new NotFoundException('Guide profile not found');
     return guide;
@@ -97,7 +158,7 @@ export class GuidesService {
         verified: true,
         deletedAt: null,
       },
-      include: publicGuideInclude,
+      select: publicGuideSelect(),
     });
     if (!guide) throw new NotFoundException('Guide not found');
     return guide;
@@ -166,7 +227,7 @@ export class GuidesService {
         assessmentScore: 0,
         rankPoints: 100 + dto.experienceYears * 10,
       },
-      include: publicGuideInclude,
+      include: ownerGuideInclude,
     });
   }
 
@@ -291,7 +352,7 @@ export class GuidesService {
           data: { guideProfileId: id },
         },
       });
-      return transaction.guideProfile.findUnique({ where: { id }, include: publicGuideInclude });
+      return transaction.guideProfile.findUnique({ where: { id }, include: ownerGuideInclude });
     });
   }
 }

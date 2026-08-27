@@ -469,14 +469,6 @@ export type IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.IdempotencyKeyScalarWhereInput | Prisma.IdempotencyKeyScalarWhereInput[]
 }
 
-export type NullableIntFieldUpdateOperationsInput = {
-  set?: number | null
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type IdempotencyKeyCreateWithoutUserInput = {
   id?: string
   key: string

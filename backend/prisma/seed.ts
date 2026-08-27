@@ -2,6 +2,7 @@ import 'dotenv/config';
 import bcrypt from 'bcrypt';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { AuthProvider, GuideStatus, ListingCategory, PriceUnit, PricingType, PrismaClient, Role } from '../src/generated/prisma/client.js';
+import { seedResearchData } from './research-seed.js';
 const prisma = new PrismaClient({ adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL! }) });
 const img = {
   gerYellow: 'https://images.unsplash.com/photo-1695554477492-303aacd40561?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
@@ -36,6 +37,7 @@ async function main() {
   post ??= await prisma.post.create({ data: { authorId: friend.id, text: 'Sunrise over Khuvsgul was worth the 5am start. Looking for two travel buddies to share a northbound ride next week.', location: 'Lake Khuvsgul, Mongolia', images: { create: [{ url: img.lake, sortOrder: 0 }] } } });
   await prisma.follow.upsert({ where: { followerId_followingId: { followerId: friend.id, followingId: traveler.id } }, update: {}, create: { followerId: friend.id, followingId: traveler.id } });
   await prisma.postLike.upsert({ where: { postId_userId: { postId: post.id, userId: traveler.id } }, update: {}, create: { postId: post.id, userId: traveler.id } });
-  console.log({ traveler: traveler.email, guide: host.email, admin: admin.email, password: 'Password123!' });
+  const research = await seedResearchData(prisma);
+  console.log({ traveler: traveler.email, guide: host.email, admin: admin.email, password: 'Password123!', research });
 }
 main().finally(() => prisma.$disconnect());

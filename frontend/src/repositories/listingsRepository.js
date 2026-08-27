@@ -2,6 +2,7 @@ import { api } from '../services/api';
 import * as Crypto from 'expo-crypto';
 import { storage } from '../services/storage';
 import { mapListing } from '../models';
+import { mapBooking } from '../models/bookings';
 
 export const listingsRepository = {
   async fetch({ category, search, page = 1, limit = 50 } = {}) {
@@ -95,6 +96,46 @@ export const bookingsRepository = {
       headers: { 'Idempotency-Key': Crypto.randomUUID() },
     });
     return data;
+  },
+
+  async drafts(options = {}) {
+    const { data } = await api.get('/bookings/drafts', options);
+    return (Array.isArray(data) ? data : []).map(mapBooking);
+  },
+
+  async draft(id, options = {}) {
+    const { data } = await api.get(`/bookings/drafts/${encodeURIComponent(id)}`, options);
+    return mapBooking(data);
+  },
+
+  async createDraft(payload, idempotencyKey = Crypto.randomUUID(), options = {}) {
+    const { data } = await api.post('/bookings/drafts', payload, {
+      ...options,
+      headers: { ...(options.headers || {}), 'Idempotency-Key': idempotencyKey },
+    });
+    return mapBooking(data);
+  },
+
+  async updateDraft(id, payload, options = {}) {
+    const { data } = await api.patch(
+      `/bookings/drafts/${encodeURIComponent(id)}`,
+      payload,
+      options,
+    );
+    return mapBooking(data);
+  },
+
+  async submitDraft(id, options = {}) {
+    const { data } = await api.post(
+      `/bookings/drafts/${encodeURIComponent(id)}/submit`,
+      {},
+      options,
+    );
+    return mapBooking(data);
+  },
+
+  async deleteDraft(id, options = {}) {
+    await api.delete(`/bookings/drafts/${encodeURIComponent(id)}`, options);
   },
 
   async quote(payload) {

@@ -1,0 +1,6 @@
+attempt_id,experiment_mode,data_status,ai_score,human_score,ai_pass,human_pass,ai_cefr,human_cefr,ai_safety_flag,human_safety_flag,reviewer_pass_1,reviewer_pass_2,reviewer_pass_3
+demo-guide-001,C,DEMO_RESEARCH_GENERATED,68,72,false,true,B1,B2,true,true,false,true,true
+demo-guide-002,D,DEMO_RESEARCH_GENERATED,81,79,true,true,B2,B2,false,false,true,true,true
+demo-guide-003,E,DEMO_RESEARCH_GENERATED,91,88,true,true,C1,B2,true,true,true,true,true
+demo-guide-004,E,DEMO_RESEARCH_GENERATED,57,61,false,false,B1,B1,false,true,false,false,true
+demo-guide-005,B,DEMO_RESEARCH_GENERATED,74,70,true,true,B2,B2,true,false,true,true,false

@@ -1,0 +1,12 @@
+{
+  "version": "2026-08-15",
+  "tracks": [
+    { "id": "E0", "model": "BASE_MODEL_TBD", "lora": false, "rag": false, "routeGraph": false, "tools": false, "validator": false },
+    { "id": "E1", "model": "BASE_MODEL_TBD", "lora": false, "rag": true, "routeGraph": false, "tools": false, "validator": false },
+    { "id": "E2", "model": "BASE_MODEL_TBD", "adapter": "LORA_ADAPTER_TBD", "lora": true, "rag": false, "routeGraph": false, "tools": false, "validator": false },
+    { "id": "E3", "model": "BASE_MODEL_TBD", "adapter": "LORA_ADAPTER_TBD", "lora": true, "rag": true, "routeGraph": false, "tools": false, "validator": false },
+    { "id": "E4", "model": "BASE_MODEL_TBD", "adapter": "LORA_ADAPTER_TBD", "lora": true, "rag": true, "routeGraph": true, "tools": true, "validator": true }
+  ],
+  "primaryMetrics": ["factual_accuracy", "hallucination_rate", "route_feasibility", "temporal_feasibility", "budget_compliance", "season_access_compliance", "safety_violation_rate"],
+  "guideMetrics": ["pearson", "spearman", "icc", "precision", "recall", "f1", "kappa", "safety_false_negative_rate", "ndcg"]
+}

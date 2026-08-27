@@ -52,11 +52,11 @@ export declare class TrustSafetyService {
             id: string;
             createdAt: Date;
             expiresAt: Date | null;
-            reason: string;
             metadata: import("@prisma/client/runtime/client").JsonValue | null;
+            action: ModerationActionType;
+            reason: string;
             reportId: string;
             adminId: string;
-            action: ModerationActionType;
         })[];
     } & {
         id: string;

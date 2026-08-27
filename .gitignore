@@ -1,0 +1,29 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+
+# JavaScript dependencies and build output
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+.expo/
+**/.expo/
+
+# Test and tooling caches
+coverage/
+**/coverage/
+*.tsbuildinfo
+__pycache__/
+**/__pycache__/
+*.py[cod]
+.DS_Store
+
+# Research outputs containing generated or potentially sensitive data
+research/datasets/generated/
+research/outputs/
+research/training/output/
+research/training/checkpoints/
+research/training/config.local.json
+.venv-research/

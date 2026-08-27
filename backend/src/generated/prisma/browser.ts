@@ -43,6 +43,135 @@ export type PasswordResetToken = Prisma.PasswordResetTokenModel
  */
 export type GuideProfile = Prisma.GuideProfileModel
 /**
+ * Model GuideEvidence
+ * 
+ */
+export type GuideEvidence = Prisma.GuideEvidenceModel
+/**
+ * Model CompetencyAttempt
+ * 
+ */
+export type CompetencyAttempt = Prisma.CompetencyAttemptModel
+/**
+ * Model TourismSource
+ * A provenance record for knowledge, route, and assessment content. Authority is
+ * platform metadata and must not be presented as an endorsement by the source.
+ */
+export type TourismSource = Prisma.TourismSourceModel
+/**
+ * Model TourismKnowledge
+ * 
+ */
+export type TourismKnowledge = Prisma.TourismKnowledgeModel
+/**
+ * Model ResearchRoute
+ * 
+ */
+export type ResearchRoute = Prisma.ResearchRouteModel
+/**
+ * Model RouteNode
+ * 
+ */
+export type RouteNode = Prisma.RouteNodeModel
+/**
+ * Model RouteEdge
+ * 
+ */
+export type RouteEdge = Prisma.RouteEdgeModel
+/**
+ * Model SafetyPlan
+ * Human-reviewed operational plan required before R3/R4 travel validation can
+ * pass. Decisions are append-only in SafetyPlanAudit and never inferred from
+ * client-provided booleans.
+ */
+export type SafetyPlan = Prisma.SafetyPlanModel
+/**
+ * Model SafetyPlanAudit
+ * Append-only decision log. The migration installs a database trigger that
+ * rejects UPDATE and DELETE so audit history remains immutable outside NestJS.
+ */
+export type SafetyPlanAudit = Prisma.SafetyPlanAuditModel
+/**
+ * Model GuideCompetency
+ * 
+ */
+export type GuideCompetency = Prisma.GuideCompetencyModel
+/**
+ * Model GuideLanguageAssessment
+ * 
+ */
+export type GuideLanguageAssessment = Prisma.GuideLanguageAssessmentModel
+/**
+ * Model GuideKnowledgeAssessment
+ * 
+ */
+export type GuideKnowledgeAssessment = Prisma.GuideKnowledgeAssessmentModel
+/**
+ * Model GuideSkillAssessment
+ * 
+ */
+export type GuideSkillAssessment = Prisma.GuideSkillAssessmentModel
+/**
+ * Model GuideRouteCompetency
+ * 
+ */
+export type GuideRouteCompetency = Prisma.GuideRouteCompetencyModel
+/**
+ * Model GuideFirstAid
+ * 
+ */
+export type GuideFirstAid = Prisma.GuideFirstAidModel
+/**
+ * Model AssessmentQuestion
+ * 
+ */
+export type AssessmentQuestion = Prisma.AssessmentQuestionModel
+/**
+ * Model AssessmentAttempt
+ * 
+ */
+export type AssessmentAttempt = Prisma.AssessmentAttemptModel
+/**
+ * Model AssessmentResponse
+ * 
+ */
+export type AssessmentResponse = Prisma.AssessmentResponseModel
+/**
+ * Model AssessmentReview
+ * 
+ */
+export type AssessmentReview = Prisma.AssessmentReviewModel
+/**
+ * Model AiConversation
+ * 
+ */
+export type AiConversation = Prisma.AiConversationModel
+/**
+ * Model AiMessage
+ * 
+ */
+export type AiMessage = Prisma.AiMessageModel
+/**
+ * Model AiExperimentRun
+ * 
+ */
+export type AiExperimentRun = Prisma.AiExperimentRunModel
+/**
+ * Model AiEvaluationResult
+ * 
+ */
+export type AiEvaluationResult = Prisma.AiEvaluationResultModel
+/**
+ * Model GuideMatchRun
+ * 
+ */
+export type GuideMatchRun = Prisma.GuideMatchRunModel
+/**
+ * Model GuideMatchResult
+ * 
+ */
+export type GuideMatchResult = Prisma.GuideMatchResultModel
+/**
  * Model GuideVerificationReview
  * 
  */

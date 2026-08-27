@@ -309,6 +309,18 @@ export type UserWhereInput = {
   reportsCreated?: Prisma.ReportListRelationFilter
   moderationActions?: Prisma.ModerationActionListRelationFilter
   paymentArrangementsProposed?: Prisma.PilotPaymentListRelationFilter
+  assessmentAttempts?: Prisma.AssessmentAttemptListRelationFilter
+  assessmentReviews?: Prisma.AssessmentReviewListRelationFilter
+  guideCompetenciesVerified?: Prisma.GuideCompetencyListRelationFilter
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentListRelationFilter
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidListRelationFilter
+  aiConversations?: Prisma.AiConversationListRelationFilter
+  aiExperimentRuns?: Prisma.AiExperimentRunListRelationFilter
+  aiEvaluationReviews?: Prisma.AiEvaluationResultListRelationFilter
+  guideMatchRuns?: Prisma.GuideMatchRunListRelationFilter
+  safetyPlansCreated?: Prisma.SafetyPlanListRelationFilter
+  safetyPlansReviewed?: Prisma.SafetyPlanListRelationFilter
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -357,6 +369,18 @@ export type UserOrderByWithRelationInput = {
   reportsCreated?: Prisma.ReportOrderByRelationAggregateInput
   moderationActions?: Prisma.ModerationActionOrderByRelationAggregateInput
   paymentArrangementsProposed?: Prisma.PilotPaymentOrderByRelationAggregateInput
+  assessmentAttempts?: Prisma.AssessmentAttemptOrderByRelationAggregateInput
+  assessmentReviews?: Prisma.AssessmentReviewOrderByRelationAggregateInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyOrderByRelationAggregateInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentOrderByRelationAggregateInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidOrderByRelationAggregateInput
+  aiConversations?: Prisma.AiConversationOrderByRelationAggregateInput
+  aiExperimentRuns?: Prisma.AiExperimentRunOrderByRelationAggregateInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultOrderByRelationAggregateInput
+  guideMatchRuns?: Prisma.GuideMatchRunOrderByRelationAggregateInput
+  safetyPlansCreated?: Prisma.SafetyPlanOrderByRelationAggregateInput
+  safetyPlansReviewed?: Prisma.SafetyPlanOrderByRelationAggregateInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -409,6 +433,18 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   reportsCreated?: Prisma.ReportListRelationFilter
   moderationActions?: Prisma.ModerationActionListRelationFilter
   paymentArrangementsProposed?: Prisma.PilotPaymentListRelationFilter
+  assessmentAttempts?: Prisma.AssessmentAttemptListRelationFilter
+  assessmentReviews?: Prisma.AssessmentReviewListRelationFilter
+  guideCompetenciesVerified?: Prisma.GuideCompetencyListRelationFilter
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentListRelationFilter
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidListRelationFilter
+  aiConversations?: Prisma.AiConversationListRelationFilter
+  aiExperimentRuns?: Prisma.AiExperimentRunListRelationFilter
+  aiEvaluationReviews?: Prisma.AiEvaluationResultListRelationFilter
+  guideMatchRuns?: Prisma.GuideMatchRunListRelationFilter
+  safetyPlansCreated?: Prisma.SafetyPlanListRelationFilter
+  safetyPlansReviewed?: Prisma.SafetyPlanListRelationFilter
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditListRelationFilter
 }, "id" | "email" | "provider_providerSubject">
 
 export type UserOrderByWithAggregationInput = {
@@ -505,6 +541,18 @@ export type UserCreateInput = {
   reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -553,6 +601,18 @@ export type UserUncheckedCreateInput = {
   reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserUpdateInput = {
@@ -601,6 +661,18 @@ export type UserUpdateInput = {
   reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -649,6 +721,18 @@ export type UserUncheckedUpdateInput = {
   reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -889,6 +973,190 @@ export type UserUpdateOneRequiredWithoutGuideProfileNestedInput = {
   upsert?: Prisma.UserUpsertWithoutGuideProfileInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutGuideProfileInput, Prisma.UserUpdateWithoutGuideProfileInput>, Prisma.UserUncheckedUpdateWithoutGuideProfileInput>
+}
+
+export type UserCreateNestedOneWithoutSafetyPlansCreatedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSafetyPlansCreatedInput, Prisma.UserUncheckedCreateWithoutSafetyPlansCreatedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSafetyPlansCreatedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutSafetyPlansReviewedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSafetyPlansReviewedInput, Prisma.UserUncheckedCreateWithoutSafetyPlansReviewedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSafetyPlansReviewedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutSafetyPlansCreatedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSafetyPlansCreatedInput, Prisma.UserUncheckedCreateWithoutSafetyPlansCreatedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSafetyPlansCreatedInput
+  upsert?: Prisma.UserUpsertWithoutSafetyPlansCreatedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSafetyPlansCreatedInput, Prisma.UserUpdateWithoutSafetyPlansCreatedInput>, Prisma.UserUncheckedUpdateWithoutSafetyPlansCreatedInput>
+}
+
+export type UserUpdateOneWithoutSafetyPlansReviewedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSafetyPlansReviewedInput, Prisma.UserUncheckedCreateWithoutSafetyPlansReviewedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSafetyPlansReviewedInput
+  upsert?: Prisma.UserUpsertWithoutSafetyPlansReviewedInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSafetyPlansReviewedInput, Prisma.UserUpdateWithoutSafetyPlansReviewedInput>, Prisma.UserUncheckedUpdateWithoutSafetyPlansReviewedInput>
+}
+
+export type UserCreateNestedOneWithoutSafetyPlanAuditEntriesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSafetyPlanAuditEntriesInput, Prisma.UserUncheckedCreateWithoutSafetyPlanAuditEntriesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSafetyPlanAuditEntriesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutSafetyPlanAuditEntriesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSafetyPlanAuditEntriesInput, Prisma.UserUncheckedCreateWithoutSafetyPlanAuditEntriesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSafetyPlanAuditEntriesInput
+  upsert?: Prisma.UserUpsertWithoutSafetyPlanAuditEntriesInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSafetyPlanAuditEntriesInput, Prisma.UserUpdateWithoutSafetyPlanAuditEntriesInput>, Prisma.UserUncheckedUpdateWithoutSafetyPlanAuditEntriesInput>
+}
+
+export type UserCreateNestedOneWithoutGuideCompetenciesVerifiedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutGuideCompetenciesVerifiedInput, Prisma.UserUncheckedCreateWithoutGuideCompetenciesVerifiedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutGuideCompetenciesVerifiedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutGuideCompetenciesVerifiedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutGuideCompetenciesVerifiedInput, Prisma.UserUncheckedCreateWithoutGuideCompetenciesVerifiedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutGuideCompetenciesVerifiedInput
+  upsert?: Prisma.UserUpsertWithoutGuideCompetenciesVerifiedInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutGuideCompetenciesVerifiedInput, Prisma.UserUpdateWithoutGuideCompetenciesVerifiedInput>, Prisma.UserUncheckedUpdateWithoutGuideCompetenciesVerifiedInput>
+}
+
+export type UserCreateNestedOneWithoutGuideLanguageAssessmentsVerifiedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutGuideLanguageAssessmentsVerifiedInput, Prisma.UserUncheckedCreateWithoutGuideLanguageAssessmentsVerifiedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutGuideLanguageAssessmentsVerifiedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutGuideLanguageAssessmentsVerifiedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutGuideLanguageAssessmentsVerifiedInput, Prisma.UserUncheckedCreateWithoutGuideLanguageAssessmentsVerifiedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutGuideLanguageAssessmentsVerifiedInput
+  upsert?: Prisma.UserUpsertWithoutGuideLanguageAssessmentsVerifiedInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutGuideLanguageAssessmentsVerifiedInput, Prisma.UserUpdateWithoutGuideLanguageAssessmentsVerifiedInput>, Prisma.UserUncheckedUpdateWithoutGuideLanguageAssessmentsVerifiedInput>
+}
+
+export type UserCreateNestedOneWithoutGuideFirstAidRecordsVerifiedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutGuideFirstAidRecordsVerifiedInput, Prisma.UserUncheckedCreateWithoutGuideFirstAidRecordsVerifiedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutGuideFirstAidRecordsVerifiedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutGuideFirstAidRecordsVerifiedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutGuideFirstAidRecordsVerifiedInput, Prisma.UserUncheckedCreateWithoutGuideFirstAidRecordsVerifiedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutGuideFirstAidRecordsVerifiedInput
+  upsert?: Prisma.UserUpsertWithoutGuideFirstAidRecordsVerifiedInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutGuideFirstAidRecordsVerifiedInput, Prisma.UserUpdateWithoutGuideFirstAidRecordsVerifiedInput>, Prisma.UserUncheckedUpdateWithoutGuideFirstAidRecordsVerifiedInput>
+}
+
+export type UserCreateNestedOneWithoutAssessmentAttemptsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAssessmentAttemptsInput, Prisma.UserUncheckedCreateWithoutAssessmentAttemptsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssessmentAttemptsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutAssessmentAttemptsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAssessmentAttemptsInput, Prisma.UserUncheckedCreateWithoutAssessmentAttemptsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssessmentAttemptsInput
+  upsert?: Prisma.UserUpsertWithoutAssessmentAttemptsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAssessmentAttemptsInput, Prisma.UserUpdateWithoutAssessmentAttemptsInput>, Prisma.UserUncheckedUpdateWithoutAssessmentAttemptsInput>
+}
+
+export type UserCreateNestedOneWithoutAssessmentReviewsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAssessmentReviewsInput, Prisma.UserUncheckedCreateWithoutAssessmentReviewsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssessmentReviewsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutAssessmentReviewsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAssessmentReviewsInput, Prisma.UserUncheckedCreateWithoutAssessmentReviewsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssessmentReviewsInput
+  upsert?: Prisma.UserUpsertWithoutAssessmentReviewsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAssessmentReviewsInput, Prisma.UserUpdateWithoutAssessmentReviewsInput>, Prisma.UserUncheckedUpdateWithoutAssessmentReviewsInput>
+}
+
+export type UserCreateNestedOneWithoutAiConversationsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAiConversationsInput, Prisma.UserUncheckedCreateWithoutAiConversationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAiConversationsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutAiConversationsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAiConversationsInput, Prisma.UserUncheckedCreateWithoutAiConversationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAiConversationsInput
+  upsert?: Prisma.UserUpsertWithoutAiConversationsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAiConversationsInput, Prisma.UserUpdateWithoutAiConversationsInput>, Prisma.UserUncheckedUpdateWithoutAiConversationsInput>
+}
+
+export type UserCreateNestedOneWithoutAiExperimentRunsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAiExperimentRunsInput, Prisma.UserUncheckedCreateWithoutAiExperimentRunsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAiExperimentRunsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutAiExperimentRunsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAiExperimentRunsInput, Prisma.UserUncheckedCreateWithoutAiExperimentRunsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAiExperimentRunsInput
+  upsert?: Prisma.UserUpsertWithoutAiExperimentRunsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAiExperimentRunsInput, Prisma.UserUpdateWithoutAiExperimentRunsInput>, Prisma.UserUncheckedUpdateWithoutAiExperimentRunsInput>
+}
+
+export type UserCreateNestedOneWithoutAiEvaluationReviewsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAiEvaluationReviewsInput, Prisma.UserUncheckedCreateWithoutAiEvaluationReviewsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAiEvaluationReviewsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutAiEvaluationReviewsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAiEvaluationReviewsInput, Prisma.UserUncheckedCreateWithoutAiEvaluationReviewsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAiEvaluationReviewsInput
+  upsert?: Prisma.UserUpsertWithoutAiEvaluationReviewsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAiEvaluationReviewsInput, Prisma.UserUpdateWithoutAiEvaluationReviewsInput>, Prisma.UserUncheckedUpdateWithoutAiEvaluationReviewsInput>
+}
+
+export type UserCreateNestedOneWithoutGuideMatchRunsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutGuideMatchRunsInput, Prisma.UserUncheckedCreateWithoutGuideMatchRunsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutGuideMatchRunsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutGuideMatchRunsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutGuideMatchRunsInput, Prisma.UserUncheckedCreateWithoutGuideMatchRunsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutGuideMatchRunsInput
+  upsert?: Prisma.UserUpsertWithoutGuideMatchRunsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutGuideMatchRunsInput, Prisma.UserUpdateWithoutGuideMatchRunsInput>, Prisma.UserUncheckedUpdateWithoutGuideMatchRunsInput>
 }
 
 export type UserCreateNestedOneWithoutGuideVerificationReviewsInput = {
@@ -1264,6 +1532,18 @@ export type UserCreateWithoutRefreshTokensInput = {
   reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutRefreshTokensInput = {
@@ -1311,6 +1591,18 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutRefreshTokensInput = {
@@ -1374,6 +1666,18 @@ export type UserUpdateWithoutRefreshTokensInput = {
   reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRefreshTokensInput = {
@@ -1421,6 +1725,18 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutEmailVerificationTokensInput = {
@@ -1468,6 +1784,18 @@ export type UserCreateWithoutEmailVerificationTokensInput = {
   reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutEmailVerificationTokensInput = {
@@ -1515,6 +1843,18 @@ export type UserUncheckedCreateWithoutEmailVerificationTokensInput = {
   reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutEmailVerificationTokensInput = {
@@ -1578,6 +1918,18 @@ export type UserUpdateWithoutEmailVerificationTokensInput = {
   reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEmailVerificationTokensInput = {
@@ -1625,6 +1977,18 @@ export type UserUncheckedUpdateWithoutEmailVerificationTokensInput = {
   reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutPasswordResetTokensInput = {
@@ -1672,6 +2036,18 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
@@ -1719,6 +2095,18 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutPasswordResetTokensInput = {
@@ -1782,6 +2170,18 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
@@ -1829,6 +2229,18 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutGuideProfileInput = {
@@ -1876,6 +2288,18 @@ export type UserCreateWithoutGuideProfileInput = {
   reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutGuideProfileInput = {
@@ -1923,6 +2347,18 @@ export type UserUncheckedCreateWithoutGuideProfileInput = {
   reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutGuideProfileInput = {
@@ -1986,6 +2422,18 @@ export type UserUpdateWithoutGuideProfileInput = {
   reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGuideProfileInput = {
@@ -2033,6 +2481,3042 @@ export type UserUncheckedUpdateWithoutGuideProfileInput = {
   reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput
+}
+
+export type UserCreateWithoutSafetyPlansCreatedInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  name: string
+  phone?: string | null
+  avatarUrl?: string | null
+  provider?: $Enums.AuthProvider
+  providerSubject?: string | null
+  roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
+  isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  guideProfile?: Prisma.GuideProfileCreateNestedOneWithoutUserInput
+  listings?: Prisma.ListingCreateNestedManyWithoutHostInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutTravelerInput
+  guidedBookings?: Prisma.BookingCreateNestedManyWithoutGuideInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutUserInput
+  participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
+  reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutGuideInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  bookingEvents?: Prisma.BookingEventCreateNestedManyWithoutActorInput
+  idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunCreateNestedManyWithoutUserInput
+  safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput
+}
+
+export type UserUncheckedCreateWithoutSafetyPlansCreatedInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  name: string
+  phone?: string | null
+  avatarUrl?: string | null
+  provider?: $Enums.AuthProvider
+  providerSubject?: string | null
+  roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
+  isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  guideProfile?: Prisma.GuideProfileUncheckedCreateNestedOneWithoutUserInput
+  listings?: Prisma.ListingUncheckedCreateNestedManyWithoutHostInput
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutTravelerInput
+  guidedBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutGuideInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutUserInput
+  participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
+  reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutGuideInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  bookingEvents?: Prisma.BookingEventUncheckedCreateNestedManyWithoutActorInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedCreateNestedManyWithoutUserInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput
+}
+
+export type UserCreateOrConnectWithoutSafetyPlansCreatedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSafetyPlansCreatedInput, Prisma.UserUncheckedCreateWithoutSafetyPlansCreatedInput>
+}
+
+export type UserCreateWithoutSafetyPlansReviewedInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  name: string
+  phone?: string | null
+  avatarUrl?: string | null
+  provider?: $Enums.AuthProvider
+  providerSubject?: string | null
+  roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
+  isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  guideProfile?: Prisma.GuideProfileCreateNestedOneWithoutUserInput
+  listings?: Prisma.ListingCreateNestedManyWithoutHostInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutTravelerInput
+  guidedBookings?: Prisma.BookingCreateNestedManyWithoutGuideInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutUserInput
+  participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
+  reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutGuideInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  bookingEvents?: Prisma.BookingEventCreateNestedManyWithoutActorInput
+  idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput
+}
+
+export type UserUncheckedCreateWithoutSafetyPlansReviewedInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  name: string
+  phone?: string | null
+  avatarUrl?: string | null
+  provider?: $Enums.AuthProvider
+  providerSubject?: string | null
+  roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
+  isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  guideProfile?: Prisma.GuideProfileUncheckedCreateNestedOneWithoutUserInput
+  listings?: Prisma.ListingUncheckedCreateNestedManyWithoutHostInput
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutTravelerInput
+  guidedBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutGuideInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutUserInput
+  participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
+  reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutGuideInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  bookingEvents?: Prisma.BookingEventUncheckedCreateNestedManyWithoutActorInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput
+}
+
+export type UserCreateOrConnectWithoutSafetyPlansReviewedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSafetyPlansReviewedInput, Prisma.UserUncheckedCreateWithoutSafetyPlansReviewedInput>
+}
+
+export type UserUpsertWithoutSafetyPlansCreatedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSafetyPlansCreatedInput, Prisma.UserUncheckedUpdateWithoutSafetyPlansCreatedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSafetyPlansCreatedInput, Prisma.UserUncheckedCreateWithoutSafetyPlansCreatedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSafetyPlansCreatedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSafetyPlansCreatedInput, Prisma.UserUncheckedUpdateWithoutSafetyPlansCreatedInput>
+}
+
+export type UserUpdateWithoutSafetyPlansCreatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  providerSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  guideProfile?: Prisma.GuideProfileUpdateOneWithoutUserNestedInput
+  listings?: Prisma.ListingUpdateManyWithoutHostNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutTravelerNestedInput
+  guidedBookings?: Prisma.BookingUpdateManyWithoutGuideNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutUserNestedInput
+  participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
+  reviewsWritten?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutGuideNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  bookingEvents?: Prisma.BookingEventUpdateManyWithoutActorNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUpdateManyWithoutUserNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSafetyPlansCreatedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  providerSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideProfile?: Prisma.GuideProfileUncheckedUpdateOneWithoutUserNestedInput
+  listings?: Prisma.ListingUncheckedUpdateManyWithoutHostNestedInput
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutTravelerNestedInput
+  guidedBookings?: Prisma.BookingUncheckedUpdateManyWithoutGuideNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutUserNestedInput
+  participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
+  reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutGuideNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  bookingEvents?: Prisma.BookingEventUncheckedUpdateManyWithoutActorNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedUpdateManyWithoutUserNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput
+}
+
+export type UserUpsertWithoutSafetyPlansReviewedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSafetyPlansReviewedInput, Prisma.UserUncheckedUpdateWithoutSafetyPlansReviewedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSafetyPlansReviewedInput, Prisma.UserUncheckedCreateWithoutSafetyPlansReviewedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSafetyPlansReviewedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSafetyPlansReviewedInput, Prisma.UserUncheckedUpdateWithoutSafetyPlansReviewedInput>
+}
+
+export type UserUpdateWithoutSafetyPlansReviewedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  providerSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  guideProfile?: Prisma.GuideProfileUpdateOneWithoutUserNestedInput
+  listings?: Prisma.ListingUpdateManyWithoutHostNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutTravelerNestedInput
+  guidedBookings?: Prisma.BookingUpdateManyWithoutGuideNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutUserNestedInput
+  participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
+  reviewsWritten?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutGuideNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  bookingEvents?: Prisma.BookingEventUpdateManyWithoutActorNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSafetyPlansReviewedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  providerSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideProfile?: Prisma.GuideProfileUncheckedUpdateOneWithoutUserNestedInput
+  listings?: Prisma.ListingUncheckedUpdateManyWithoutHostNestedInput
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutTravelerNestedInput
+  guidedBookings?: Prisma.BookingUncheckedUpdateManyWithoutGuideNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutUserNestedInput
+  participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
+  reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutGuideNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  bookingEvents?: Prisma.BookingEventUncheckedUpdateManyWithoutActorNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput
+}
+
+export type UserCreateWithoutSafetyPlanAuditEntriesInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  name: string
+  phone?: string | null
+  avatarUrl?: string | null
+  provider?: $Enums.AuthProvider
+  providerSubject?: string | null
+  roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
+  isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  guideProfile?: Prisma.GuideProfileCreateNestedOneWithoutUserInput
+  listings?: Prisma.ListingCreateNestedManyWithoutHostInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutTravelerInput
+  guidedBookings?: Prisma.BookingCreateNestedManyWithoutGuideInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutUserInput
+  participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
+  reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutGuideInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  bookingEvents?: Prisma.BookingEventCreateNestedManyWithoutActorInput
+  idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserUncheckedCreateWithoutSafetyPlanAuditEntriesInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  name: string
+  phone?: string | null
+  avatarUrl?: string | null
+  provider?: $Enums.AuthProvider
+  providerSubject?: string | null
+  roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
+  isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  guideProfile?: Prisma.GuideProfileUncheckedCreateNestedOneWithoutUserInput
+  listings?: Prisma.ListingUncheckedCreateNestedManyWithoutHostInput
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutTravelerInput
+  guidedBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutGuideInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutUserInput
+  participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
+  reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutGuideInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  bookingEvents?: Prisma.BookingEventUncheckedCreateNestedManyWithoutActorInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserCreateOrConnectWithoutSafetyPlanAuditEntriesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSafetyPlanAuditEntriesInput, Prisma.UserUncheckedCreateWithoutSafetyPlanAuditEntriesInput>
+}
+
+export type UserUpsertWithoutSafetyPlanAuditEntriesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSafetyPlanAuditEntriesInput, Prisma.UserUncheckedUpdateWithoutSafetyPlanAuditEntriesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSafetyPlanAuditEntriesInput, Prisma.UserUncheckedCreateWithoutSafetyPlanAuditEntriesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSafetyPlanAuditEntriesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSafetyPlanAuditEntriesInput, Prisma.UserUncheckedUpdateWithoutSafetyPlanAuditEntriesInput>
+}
+
+export type UserUpdateWithoutSafetyPlanAuditEntriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  providerSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  guideProfile?: Prisma.GuideProfileUpdateOneWithoutUserNestedInput
+  listings?: Prisma.ListingUpdateManyWithoutHostNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutTravelerNestedInput
+  guidedBookings?: Prisma.BookingUpdateManyWithoutGuideNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutUserNestedInput
+  participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
+  reviewsWritten?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutGuideNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  bookingEvents?: Prisma.BookingEventUpdateManyWithoutActorNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSafetyPlanAuditEntriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  providerSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideProfile?: Prisma.GuideProfileUncheckedUpdateOneWithoutUserNestedInput
+  listings?: Prisma.ListingUncheckedUpdateManyWithoutHostNestedInput
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutTravelerNestedInput
+  guidedBookings?: Prisma.BookingUncheckedUpdateManyWithoutGuideNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutUserNestedInput
+  participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
+  reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutGuideNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  bookingEvents?: Prisma.BookingEventUncheckedUpdateManyWithoutActorNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserCreateWithoutGuideCompetenciesVerifiedInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  name: string
+  phone?: string | null
+  avatarUrl?: string | null
+  provider?: $Enums.AuthProvider
+  providerSubject?: string | null
+  roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
+  isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  guideProfile?: Prisma.GuideProfileCreateNestedOneWithoutUserInput
+  listings?: Prisma.ListingCreateNestedManyWithoutHostInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutTravelerInput
+  guidedBookings?: Prisma.BookingCreateNestedManyWithoutGuideInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutUserInput
+  participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
+  reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutGuideInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  bookingEvents?: Prisma.BookingEventCreateNestedManyWithoutActorInput
+  idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewCreateNestedManyWithoutReviewerInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput
+}
+
+export type UserUncheckedCreateWithoutGuideCompetenciesVerifiedInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  name: string
+  phone?: string | null
+  avatarUrl?: string | null
+  provider?: $Enums.AuthProvider
+  providerSubject?: string | null
+  roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
+  isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  guideProfile?: Prisma.GuideProfileUncheckedCreateNestedOneWithoutUserInput
+  listings?: Prisma.ListingUncheckedCreateNestedManyWithoutHostInput
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutTravelerInput
+  guidedBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutGuideInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutUserInput
+  participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
+  reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutGuideInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  bookingEvents?: Prisma.BookingEventUncheckedCreateNestedManyWithoutActorInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedCreateNestedManyWithoutReviewerInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput
+}
+
+export type UserCreateOrConnectWithoutGuideCompetenciesVerifiedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutGuideCompetenciesVerifiedInput, Prisma.UserUncheckedCreateWithoutGuideCompetenciesVerifiedInput>
+}
+
+export type UserUpsertWithoutGuideCompetenciesVerifiedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutGuideCompetenciesVerifiedInput, Prisma.UserUncheckedUpdateWithoutGuideCompetenciesVerifiedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutGuideCompetenciesVerifiedInput, Prisma.UserUncheckedCreateWithoutGuideCompetenciesVerifiedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutGuideCompetenciesVerifiedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutGuideCompetenciesVerifiedInput, Prisma.UserUncheckedUpdateWithoutGuideCompetenciesVerifiedInput>
+}
+
+export type UserUpdateWithoutGuideCompetenciesVerifiedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  providerSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  guideProfile?: Prisma.GuideProfileUpdateOneWithoutUserNestedInput
+  listings?: Prisma.ListingUpdateManyWithoutHostNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutTravelerNestedInput
+  guidedBookings?: Prisma.BookingUpdateManyWithoutGuideNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutUserNestedInput
+  participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
+  reviewsWritten?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutGuideNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  bookingEvents?: Prisma.BookingEventUpdateManyWithoutActorNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUpdateManyWithoutReviewerNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutGuideCompetenciesVerifiedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  providerSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideProfile?: Prisma.GuideProfileUncheckedUpdateOneWithoutUserNestedInput
+  listings?: Prisma.ListingUncheckedUpdateManyWithoutHostNestedInput
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutTravelerNestedInput
+  guidedBookings?: Prisma.BookingUncheckedUpdateManyWithoutGuideNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutUserNestedInput
+  participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
+  reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutGuideNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  bookingEvents?: Prisma.BookingEventUncheckedUpdateManyWithoutActorNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput
+}
+
+export type UserCreateWithoutGuideLanguageAssessmentsVerifiedInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  name: string
+  phone?: string | null
+  avatarUrl?: string | null
+  provider?: $Enums.AuthProvider
+  providerSubject?: string | null
+  roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
+  isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  guideProfile?: Prisma.GuideProfileCreateNestedOneWithoutUserInput
+  listings?: Prisma.ListingCreateNestedManyWithoutHostInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutTravelerInput
+  guidedBookings?: Prisma.BookingCreateNestedManyWithoutGuideInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutUserInput
+  participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
+  reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutGuideInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  bookingEvents?: Prisma.BookingEventCreateNestedManyWithoutActorInput
+  idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput
+}
+
+export type UserUncheckedCreateWithoutGuideLanguageAssessmentsVerifiedInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  name: string
+  phone?: string | null
+  avatarUrl?: string | null
+  provider?: $Enums.AuthProvider
+  providerSubject?: string | null
+  roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
+  isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  guideProfile?: Prisma.GuideProfileUncheckedCreateNestedOneWithoutUserInput
+  listings?: Prisma.ListingUncheckedCreateNestedManyWithoutHostInput
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutTravelerInput
+  guidedBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutGuideInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutUserInput
+  participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
+  reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutGuideInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  bookingEvents?: Prisma.BookingEventUncheckedCreateNestedManyWithoutActorInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput
+}
+
+export type UserCreateOrConnectWithoutGuideLanguageAssessmentsVerifiedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutGuideLanguageAssessmentsVerifiedInput, Prisma.UserUncheckedCreateWithoutGuideLanguageAssessmentsVerifiedInput>
+}
+
+export type UserUpsertWithoutGuideLanguageAssessmentsVerifiedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutGuideLanguageAssessmentsVerifiedInput, Prisma.UserUncheckedUpdateWithoutGuideLanguageAssessmentsVerifiedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutGuideLanguageAssessmentsVerifiedInput, Prisma.UserUncheckedCreateWithoutGuideLanguageAssessmentsVerifiedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutGuideLanguageAssessmentsVerifiedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutGuideLanguageAssessmentsVerifiedInput, Prisma.UserUncheckedUpdateWithoutGuideLanguageAssessmentsVerifiedInput>
+}
+
+export type UserUpdateWithoutGuideLanguageAssessmentsVerifiedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  providerSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  guideProfile?: Prisma.GuideProfileUpdateOneWithoutUserNestedInput
+  listings?: Prisma.ListingUpdateManyWithoutHostNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutTravelerNestedInput
+  guidedBookings?: Prisma.BookingUpdateManyWithoutGuideNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutUserNestedInput
+  participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
+  reviewsWritten?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutGuideNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  bookingEvents?: Prisma.BookingEventUpdateManyWithoutActorNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutGuideLanguageAssessmentsVerifiedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  providerSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideProfile?: Prisma.GuideProfileUncheckedUpdateOneWithoutUserNestedInput
+  listings?: Prisma.ListingUncheckedUpdateManyWithoutHostNestedInput
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutTravelerNestedInput
+  guidedBookings?: Prisma.BookingUncheckedUpdateManyWithoutGuideNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutUserNestedInput
+  participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
+  reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutGuideNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  bookingEvents?: Prisma.BookingEventUncheckedUpdateManyWithoutActorNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput
+}
+
+export type UserCreateWithoutGuideFirstAidRecordsVerifiedInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  name: string
+  phone?: string | null
+  avatarUrl?: string | null
+  provider?: $Enums.AuthProvider
+  providerSubject?: string | null
+  roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
+  isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  guideProfile?: Prisma.GuideProfileCreateNestedOneWithoutUserInput
+  listings?: Prisma.ListingCreateNestedManyWithoutHostInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutTravelerInput
+  guidedBookings?: Prisma.BookingCreateNestedManyWithoutGuideInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutUserInput
+  participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
+  reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutGuideInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  bookingEvents?: Prisma.BookingEventCreateNestedManyWithoutActorInput
+  idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput
+}
+
+export type UserUncheckedCreateWithoutGuideFirstAidRecordsVerifiedInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  name: string
+  phone?: string | null
+  avatarUrl?: string | null
+  provider?: $Enums.AuthProvider
+  providerSubject?: string | null
+  roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
+  isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  guideProfile?: Prisma.GuideProfileUncheckedCreateNestedOneWithoutUserInput
+  listings?: Prisma.ListingUncheckedCreateNestedManyWithoutHostInput
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutTravelerInput
+  guidedBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutGuideInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutUserInput
+  participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
+  reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutGuideInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  bookingEvents?: Prisma.BookingEventUncheckedCreateNestedManyWithoutActorInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput
+}
+
+export type UserCreateOrConnectWithoutGuideFirstAidRecordsVerifiedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutGuideFirstAidRecordsVerifiedInput, Prisma.UserUncheckedCreateWithoutGuideFirstAidRecordsVerifiedInput>
+}
+
+export type UserUpsertWithoutGuideFirstAidRecordsVerifiedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutGuideFirstAidRecordsVerifiedInput, Prisma.UserUncheckedUpdateWithoutGuideFirstAidRecordsVerifiedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutGuideFirstAidRecordsVerifiedInput, Prisma.UserUncheckedCreateWithoutGuideFirstAidRecordsVerifiedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutGuideFirstAidRecordsVerifiedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutGuideFirstAidRecordsVerifiedInput, Prisma.UserUncheckedUpdateWithoutGuideFirstAidRecordsVerifiedInput>
+}
+
+export type UserUpdateWithoutGuideFirstAidRecordsVerifiedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  providerSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  guideProfile?: Prisma.GuideProfileUpdateOneWithoutUserNestedInput
+  listings?: Prisma.ListingUpdateManyWithoutHostNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutTravelerNestedInput
+  guidedBookings?: Prisma.BookingUpdateManyWithoutGuideNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutUserNestedInput
+  participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
+  reviewsWritten?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutGuideNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  bookingEvents?: Prisma.BookingEventUpdateManyWithoutActorNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutGuideFirstAidRecordsVerifiedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  providerSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideProfile?: Prisma.GuideProfileUncheckedUpdateOneWithoutUserNestedInput
+  listings?: Prisma.ListingUncheckedUpdateManyWithoutHostNestedInput
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutTravelerNestedInput
+  guidedBookings?: Prisma.BookingUncheckedUpdateManyWithoutGuideNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutUserNestedInput
+  participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
+  reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutGuideNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  bookingEvents?: Prisma.BookingEventUncheckedUpdateManyWithoutActorNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput
+}
+
+export type UserCreateWithoutAssessmentAttemptsInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  name: string
+  phone?: string | null
+  avatarUrl?: string | null
+  provider?: $Enums.AuthProvider
+  providerSubject?: string | null
+  roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
+  isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  guideProfile?: Prisma.GuideProfileCreateNestedOneWithoutUserInput
+  listings?: Prisma.ListingCreateNestedManyWithoutHostInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutTravelerInput
+  guidedBookings?: Prisma.BookingCreateNestedManyWithoutGuideInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutUserInput
+  participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
+  reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutGuideInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  bookingEvents?: Prisma.BookingEventCreateNestedManyWithoutActorInput
+  idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+  assessmentReviews?: Prisma.AssessmentReviewCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput
+}
+
+export type UserUncheckedCreateWithoutAssessmentAttemptsInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  name: string
+  phone?: string | null
+  avatarUrl?: string | null
+  provider?: $Enums.AuthProvider
+  providerSubject?: string | null
+  roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
+  isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  guideProfile?: Prisma.GuideProfileUncheckedCreateNestedOneWithoutUserInput
+  listings?: Prisma.ListingUncheckedCreateNestedManyWithoutHostInput
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutTravelerInput
+  guidedBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutGuideInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutUserInput
+  participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
+  reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutGuideInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  bookingEvents?: Prisma.BookingEventUncheckedCreateNestedManyWithoutActorInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput
+}
+
+export type UserCreateOrConnectWithoutAssessmentAttemptsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAssessmentAttemptsInput, Prisma.UserUncheckedCreateWithoutAssessmentAttemptsInput>
+}
+
+export type UserUpsertWithoutAssessmentAttemptsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAssessmentAttemptsInput, Prisma.UserUncheckedUpdateWithoutAssessmentAttemptsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAssessmentAttemptsInput, Prisma.UserUncheckedCreateWithoutAssessmentAttemptsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAssessmentAttemptsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAssessmentAttemptsInput, Prisma.UserUncheckedUpdateWithoutAssessmentAttemptsInput>
+}
+
+export type UserUpdateWithoutAssessmentAttemptsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  providerSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  guideProfile?: Prisma.GuideProfileUpdateOneWithoutUserNestedInput
+  listings?: Prisma.ListingUpdateManyWithoutHostNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutTravelerNestedInput
+  guidedBookings?: Prisma.BookingUpdateManyWithoutGuideNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutUserNestedInput
+  participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
+  reviewsWritten?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutGuideNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  bookingEvents?: Prisma.BookingEventUpdateManyWithoutActorNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAssessmentAttemptsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  providerSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideProfile?: Prisma.GuideProfileUncheckedUpdateOneWithoutUserNestedInput
+  listings?: Prisma.ListingUncheckedUpdateManyWithoutHostNestedInput
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutTravelerNestedInput
+  guidedBookings?: Prisma.BookingUncheckedUpdateManyWithoutGuideNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutUserNestedInput
+  participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
+  reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutGuideNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  bookingEvents?: Prisma.BookingEventUncheckedUpdateManyWithoutActorNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput
+}
+
+export type UserCreateWithoutAssessmentReviewsInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  name: string
+  phone?: string | null
+  avatarUrl?: string | null
+  provider?: $Enums.AuthProvider
+  providerSubject?: string | null
+  roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
+  isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  guideProfile?: Prisma.GuideProfileCreateNestedOneWithoutUserInput
+  listings?: Prisma.ListingCreateNestedManyWithoutHostInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutTravelerInput
+  guidedBookings?: Prisma.BookingCreateNestedManyWithoutGuideInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutUserInput
+  participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
+  reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutGuideInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  bookingEvents?: Prisma.BookingEventCreateNestedManyWithoutActorInput
+  idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput
+}
+
+export type UserUncheckedCreateWithoutAssessmentReviewsInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  name: string
+  phone?: string | null
+  avatarUrl?: string | null
+  provider?: $Enums.AuthProvider
+  providerSubject?: string | null
+  roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
+  isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  guideProfile?: Prisma.GuideProfileUncheckedCreateNestedOneWithoutUserInput
+  listings?: Prisma.ListingUncheckedCreateNestedManyWithoutHostInput
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutTravelerInput
+  guidedBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutGuideInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutUserInput
+  participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
+  reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutGuideInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  bookingEvents?: Prisma.BookingEventUncheckedCreateNestedManyWithoutActorInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput
+}
+
+export type UserCreateOrConnectWithoutAssessmentReviewsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAssessmentReviewsInput, Prisma.UserUncheckedCreateWithoutAssessmentReviewsInput>
+}
+
+export type UserUpsertWithoutAssessmentReviewsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAssessmentReviewsInput, Prisma.UserUncheckedUpdateWithoutAssessmentReviewsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAssessmentReviewsInput, Prisma.UserUncheckedCreateWithoutAssessmentReviewsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAssessmentReviewsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAssessmentReviewsInput, Prisma.UserUncheckedUpdateWithoutAssessmentReviewsInput>
+}
+
+export type UserUpdateWithoutAssessmentReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  providerSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  guideProfile?: Prisma.GuideProfileUpdateOneWithoutUserNestedInput
+  listings?: Prisma.ListingUpdateManyWithoutHostNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutTravelerNestedInput
+  guidedBookings?: Prisma.BookingUpdateManyWithoutGuideNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutUserNestedInput
+  participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
+  reviewsWritten?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutGuideNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  bookingEvents?: Prisma.BookingEventUpdateManyWithoutActorNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAssessmentReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  providerSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideProfile?: Prisma.GuideProfileUncheckedUpdateOneWithoutUserNestedInput
+  listings?: Prisma.ListingUncheckedUpdateManyWithoutHostNestedInput
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutTravelerNestedInput
+  guidedBookings?: Prisma.BookingUncheckedUpdateManyWithoutGuideNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutUserNestedInput
+  participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
+  reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutGuideNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  bookingEvents?: Prisma.BookingEventUncheckedUpdateManyWithoutActorNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput
+}
+
+export type UserCreateWithoutAiConversationsInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  name: string
+  phone?: string | null
+  avatarUrl?: string | null
+  provider?: $Enums.AuthProvider
+  providerSubject?: string | null
+  roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
+  isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  guideProfile?: Prisma.GuideProfileCreateNestedOneWithoutUserInput
+  listings?: Prisma.ListingCreateNestedManyWithoutHostInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutTravelerInput
+  guidedBookings?: Prisma.BookingCreateNestedManyWithoutGuideInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutUserInput
+  participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
+  reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutGuideInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  bookingEvents?: Prisma.BookingEventCreateNestedManyWithoutActorInput
+  idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidCreateNestedManyWithoutVerifiedByInput
+  aiExperimentRuns?: Prisma.AiExperimentRunCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput
+}
+
+export type UserUncheckedCreateWithoutAiConversationsInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  name: string
+  phone?: string | null
+  avatarUrl?: string | null
+  provider?: $Enums.AuthProvider
+  providerSubject?: string | null
+  roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
+  isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  guideProfile?: Prisma.GuideProfileUncheckedCreateNestedOneWithoutUserInput
+  listings?: Prisma.ListingUncheckedCreateNestedManyWithoutHostInput
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutTravelerInput
+  guidedBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutGuideInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutUserInput
+  participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
+  reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutGuideInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  bookingEvents?: Prisma.BookingEventUncheckedCreateNestedManyWithoutActorInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutVerifiedByInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput
+}
+
+export type UserCreateOrConnectWithoutAiConversationsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAiConversationsInput, Prisma.UserUncheckedCreateWithoutAiConversationsInput>
+}
+
+export type UserUpsertWithoutAiConversationsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAiConversationsInput, Prisma.UserUncheckedUpdateWithoutAiConversationsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAiConversationsInput, Prisma.UserUncheckedCreateWithoutAiConversationsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAiConversationsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAiConversationsInput, Prisma.UserUncheckedUpdateWithoutAiConversationsInput>
+}
+
+export type UserUpdateWithoutAiConversationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  providerSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  guideProfile?: Prisma.GuideProfileUpdateOneWithoutUserNestedInput
+  listings?: Prisma.ListingUpdateManyWithoutHostNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutTravelerNestedInput
+  guidedBookings?: Prisma.BookingUpdateManyWithoutGuideNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutUserNestedInput
+  participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
+  reviewsWritten?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutGuideNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  bookingEvents?: Prisma.BookingEventUpdateManyWithoutActorNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUpdateManyWithoutVerifiedByNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAiConversationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  providerSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideProfile?: Prisma.GuideProfileUncheckedUpdateOneWithoutUserNestedInput
+  listings?: Prisma.ListingUncheckedUpdateManyWithoutHostNestedInput
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutTravelerNestedInput
+  guidedBookings?: Prisma.BookingUncheckedUpdateManyWithoutGuideNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutUserNestedInput
+  participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
+  reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutGuideNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  bookingEvents?: Prisma.BookingEventUncheckedUpdateManyWithoutActorNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutVerifiedByNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput
+}
+
+export type UserCreateWithoutAiExperimentRunsInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  name: string
+  phone?: string | null
+  avatarUrl?: string | null
+  provider?: $Enums.AuthProvider
+  providerSubject?: string | null
+  roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
+  isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  guideProfile?: Prisma.GuideProfileCreateNestedOneWithoutUserInput
+  listings?: Prisma.ListingCreateNestedManyWithoutHostInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutTravelerInput
+  guidedBookings?: Prisma.BookingCreateNestedManyWithoutGuideInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutUserInput
+  participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
+  reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutGuideInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  bookingEvents?: Prisma.BookingEventCreateNestedManyWithoutActorInput
+  idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput
+}
+
+export type UserUncheckedCreateWithoutAiExperimentRunsInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  name: string
+  phone?: string | null
+  avatarUrl?: string | null
+  provider?: $Enums.AuthProvider
+  providerSubject?: string | null
+  roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
+  isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  guideProfile?: Prisma.GuideProfileUncheckedCreateNestedOneWithoutUserInput
+  listings?: Prisma.ListingUncheckedCreateNestedManyWithoutHostInput
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutTravelerInput
+  guidedBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutGuideInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutUserInput
+  participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
+  reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutGuideInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  bookingEvents?: Prisma.BookingEventUncheckedCreateNestedManyWithoutActorInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput
+}
+
+export type UserCreateOrConnectWithoutAiExperimentRunsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAiExperimentRunsInput, Prisma.UserUncheckedCreateWithoutAiExperimentRunsInput>
+}
+
+export type UserUpsertWithoutAiExperimentRunsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAiExperimentRunsInput, Prisma.UserUncheckedUpdateWithoutAiExperimentRunsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAiExperimentRunsInput, Prisma.UserUncheckedCreateWithoutAiExperimentRunsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAiExperimentRunsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAiExperimentRunsInput, Prisma.UserUncheckedUpdateWithoutAiExperimentRunsInput>
+}
+
+export type UserUpdateWithoutAiExperimentRunsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  providerSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  guideProfile?: Prisma.GuideProfileUpdateOneWithoutUserNestedInput
+  listings?: Prisma.ListingUpdateManyWithoutHostNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutTravelerNestedInput
+  guidedBookings?: Prisma.BookingUpdateManyWithoutGuideNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutUserNestedInput
+  participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
+  reviewsWritten?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutGuideNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  bookingEvents?: Prisma.BookingEventUpdateManyWithoutActorNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAiExperimentRunsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  providerSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideProfile?: Prisma.GuideProfileUncheckedUpdateOneWithoutUserNestedInput
+  listings?: Prisma.ListingUncheckedUpdateManyWithoutHostNestedInput
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutTravelerNestedInput
+  guidedBookings?: Prisma.BookingUncheckedUpdateManyWithoutGuideNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutUserNestedInput
+  participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
+  reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutGuideNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  bookingEvents?: Prisma.BookingEventUncheckedUpdateManyWithoutActorNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput
+}
+
+export type UserCreateWithoutAiEvaluationReviewsInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  name: string
+  phone?: string | null
+  avatarUrl?: string | null
+  provider?: $Enums.AuthProvider
+  providerSubject?: string | null
+  roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
+  isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  guideProfile?: Prisma.GuideProfileCreateNestedOneWithoutUserInput
+  listings?: Prisma.ListingCreateNestedManyWithoutHostInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutTravelerInput
+  guidedBookings?: Prisma.BookingCreateNestedManyWithoutGuideInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutUserInput
+  participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
+  reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutGuideInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  bookingEvents?: Prisma.BookingEventCreateNestedManyWithoutActorInput
+  idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunCreateNestedManyWithoutUserInput
+  guideMatchRuns?: Prisma.GuideMatchRunCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput
+}
+
+export type UserUncheckedCreateWithoutAiEvaluationReviewsInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  name: string
+  phone?: string | null
+  avatarUrl?: string | null
+  provider?: $Enums.AuthProvider
+  providerSubject?: string | null
+  roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
+  isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  guideProfile?: Prisma.GuideProfileUncheckedCreateNestedOneWithoutUserInput
+  listings?: Prisma.ListingUncheckedCreateNestedManyWithoutHostInput
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutTravelerInput
+  guidedBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutGuideInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutUserInput
+  participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
+  reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutGuideInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  bookingEvents?: Prisma.BookingEventUncheckedCreateNestedManyWithoutActorInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedCreateNestedManyWithoutUserInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput
+}
+
+export type UserCreateOrConnectWithoutAiEvaluationReviewsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAiEvaluationReviewsInput, Prisma.UserUncheckedCreateWithoutAiEvaluationReviewsInput>
+}
+
+export type UserUpsertWithoutAiEvaluationReviewsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAiEvaluationReviewsInput, Prisma.UserUncheckedUpdateWithoutAiEvaluationReviewsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAiEvaluationReviewsInput, Prisma.UserUncheckedCreateWithoutAiEvaluationReviewsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAiEvaluationReviewsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAiEvaluationReviewsInput, Prisma.UserUncheckedUpdateWithoutAiEvaluationReviewsInput>
+}
+
+export type UserUpdateWithoutAiEvaluationReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  providerSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  guideProfile?: Prisma.GuideProfileUpdateOneWithoutUserNestedInput
+  listings?: Prisma.ListingUpdateManyWithoutHostNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutTravelerNestedInput
+  guidedBookings?: Prisma.BookingUpdateManyWithoutGuideNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutUserNestedInput
+  participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
+  reviewsWritten?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutGuideNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  bookingEvents?: Prisma.BookingEventUpdateManyWithoutActorNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUpdateManyWithoutUserNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAiEvaluationReviewsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  providerSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideProfile?: Prisma.GuideProfileUncheckedUpdateOneWithoutUserNestedInput
+  listings?: Prisma.ListingUncheckedUpdateManyWithoutHostNestedInput
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutTravelerNestedInput
+  guidedBookings?: Prisma.BookingUncheckedUpdateManyWithoutGuideNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutUserNestedInput
+  participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
+  reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutGuideNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  bookingEvents?: Prisma.BookingEventUncheckedUpdateManyWithoutActorNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedUpdateManyWithoutUserNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput
+}
+
+export type UserCreateWithoutGuideMatchRunsInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  name: string
+  phone?: string | null
+  avatarUrl?: string | null
+  provider?: $Enums.AuthProvider
+  providerSubject?: string | null
+  roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
+  isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  guideProfile?: Prisma.GuideProfileCreateNestedOneWithoutUserInput
+  listings?: Prisma.ListingCreateNestedManyWithoutHostInput
+  bookings?: Prisma.BookingCreateNestedManyWithoutTravelerInput
+  guidedBookings?: Prisma.BookingCreateNestedManyWithoutGuideInput
+  favorites?: Prisma.FavoriteCreateNestedManyWithoutUserInput
+  participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageCreateNestedManyWithoutSenderInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
+  reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutAuthorInput
+  reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutGuideInput
+  posts?: Prisma.PostCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput
+  following?: Prisma.FollowCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput
+  bookingEvents?: Prisma.BookingEventCreateNestedManyWithoutActorInput
+  idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultCreateNestedManyWithoutReviewerInput
+  safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput
+}
+
+export type UserUncheckedCreateWithoutGuideMatchRunsInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  name: string
+  phone?: string | null
+  avatarUrl?: string | null
+  provider?: $Enums.AuthProvider
+  providerSubject?: string | null
+  roles?: Prisma.UserCreaterolesInput | $Enums.Role[]
+  isVerified?: boolean
+  emailVerifiedAt?: Date | string | null
+  moderationStatus?: $Enums.UserModerationStatus
+  suspendedUntil?: Date | string | null
+  suspensionReason?: string | null
+  lastLoginAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  guideProfile?: Prisma.GuideProfileUncheckedCreateNestedOneWithoutUserInput
+  listings?: Prisma.ListingUncheckedCreateNestedManyWithoutHostInput
+  bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutTravelerInput
+  guidedBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutGuideInput
+  favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutUserInput
+  participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
+  reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput
+  reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutGuideInput
+  posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput
+  postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput
+  postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput
+  following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput
+  followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput
+  bookingEvents?: Prisma.BookingEventUncheckedCreateNestedManyWithoutActorInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutReviewerInput
+  blocksCreated?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput
+  blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
+  reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
+  moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedCreateNestedManyWithoutReviewerInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput
+}
+
+export type UserCreateOrConnectWithoutGuideMatchRunsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutGuideMatchRunsInput, Prisma.UserUncheckedCreateWithoutGuideMatchRunsInput>
+}
+
+export type UserUpsertWithoutGuideMatchRunsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutGuideMatchRunsInput, Prisma.UserUncheckedUpdateWithoutGuideMatchRunsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutGuideMatchRunsInput, Prisma.UserUncheckedCreateWithoutGuideMatchRunsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutGuideMatchRunsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutGuideMatchRunsInput, Prisma.UserUncheckedUpdateWithoutGuideMatchRunsInput>
+}
+
+export type UserUpdateWithoutGuideMatchRunsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  providerSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  guideProfile?: Prisma.GuideProfileUpdateOneWithoutUserNestedInput
+  listings?: Prisma.ListingUpdateManyWithoutHostNestedInput
+  bookings?: Prisma.BookingUpdateManyWithoutTravelerNestedInput
+  guidedBookings?: Prisma.BookingUpdateManyWithoutGuideNestedInput
+  favorites?: Prisma.FavoriteUpdateManyWithoutUserNestedInput
+  participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
+  reviewsWritten?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput
+  reviewsReceived?: Prisma.ReviewUpdateManyWithoutGuideNestedInput
+  posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput
+  following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput
+  bookingEvents?: Prisma.BookingEventUpdateManyWithoutActorNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUpdateManyWithoutReviewerNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput
+}
+
+export type UserUncheckedUpdateWithoutGuideMatchRunsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  providerSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  roles?: Prisma.UserUpdaterolesInput | $Enums.Role[]
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus
+  suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideProfile?: Prisma.GuideProfileUncheckedUpdateOneWithoutUserNestedInput
+  listings?: Prisma.ListingUncheckedUpdateManyWithoutHostNestedInput
+  bookings?: Prisma.BookingUncheckedUpdateManyWithoutTravelerNestedInput
+  guidedBookings?: Prisma.BookingUncheckedUpdateManyWithoutGuideNestedInput
+  favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutUserNestedInput
+  participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
+  reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput
+  reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutGuideNestedInput
+  posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput
+  postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput
+  postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput
+  following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput
+  followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput
+  bookingEvents?: Prisma.BookingEventUncheckedUpdateManyWithoutActorNestedInput
+  idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  blocksCreated?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
+  blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
+  reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
+  moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
+  paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedUpdateManyWithoutReviewerNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutGuideVerificationReviewsInput = {
@@ -2080,6 +5564,18 @@ export type UserCreateWithoutGuideVerificationReviewsInput = {
   reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutGuideVerificationReviewsInput = {
@@ -2127,6 +5623,18 @@ export type UserUncheckedCreateWithoutGuideVerificationReviewsInput = {
   reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutGuideVerificationReviewsInput = {
@@ -2190,6 +5698,18 @@ export type UserUpdateWithoutGuideVerificationReviewsInput = {
   reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGuideVerificationReviewsInput = {
@@ -2237,6 +5757,18 @@ export type UserUncheckedUpdateWithoutGuideVerificationReviewsInput = {
   reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutListingsInput = {
@@ -2284,6 +5816,18 @@ export type UserCreateWithoutListingsInput = {
   reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutListingsInput = {
@@ -2331,6 +5875,18 @@ export type UserUncheckedCreateWithoutListingsInput = {
   reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutListingsInput = {
@@ -2394,6 +5950,18 @@ export type UserUpdateWithoutListingsInput = {
   reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutListingsInput = {
@@ -2441,6 +6009,18 @@ export type UserUncheckedUpdateWithoutListingsInput = {
   reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutBookingsInput = {
@@ -2488,6 +6068,18 @@ export type UserCreateWithoutBookingsInput = {
   reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutBookingsInput = {
@@ -2535,6 +6127,18 @@ export type UserUncheckedCreateWithoutBookingsInput = {
   reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutBookingsInput = {
@@ -2587,6 +6191,18 @@ export type UserCreateWithoutGuidedBookingsInput = {
   reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutGuidedBookingsInput = {
@@ -2634,6 +6250,18 @@ export type UserUncheckedCreateWithoutGuidedBookingsInput = {
   reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutGuidedBookingsInput = {
@@ -2697,6 +6325,18 @@ export type UserUpdateWithoutBookingsInput = {
   reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBookingsInput = {
@@ -2744,6 +6384,18 @@ export type UserUncheckedUpdateWithoutBookingsInput = {
   reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserUpsertWithoutGuidedBookingsInput = {
@@ -2802,6 +6454,18 @@ export type UserUpdateWithoutGuidedBookingsInput = {
   reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGuidedBookingsInput = {
@@ -2849,6 +6513,18 @@ export type UserUncheckedUpdateWithoutGuidedBookingsInput = {
   reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutPaymentArrangementsProposedInput = {
@@ -2896,6 +6572,18 @@ export type UserCreateWithoutPaymentArrangementsProposedInput = {
   blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
   reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutPaymentArrangementsProposedInput = {
@@ -2943,6 +6631,18 @@ export type UserUncheckedCreateWithoutPaymentArrangementsProposedInput = {
   blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
   reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutPaymentArrangementsProposedInput = {
@@ -3006,6 +6706,18 @@ export type UserUpdateWithoutPaymentArrangementsProposedInput = {
   blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
   reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPaymentArrangementsProposedInput = {
@@ -3053,6 +6765,18 @@ export type UserUncheckedUpdateWithoutPaymentArrangementsProposedInput = {
   blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
   reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutBookingEventsInput = {
@@ -3100,6 +6824,18 @@ export type UserCreateWithoutBookingEventsInput = {
   reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutBookingEventsInput = {
@@ -3147,6 +6883,18 @@ export type UserUncheckedCreateWithoutBookingEventsInput = {
   reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutBookingEventsInput = {
@@ -3210,6 +6958,18 @@ export type UserUpdateWithoutBookingEventsInput = {
   reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBookingEventsInput = {
@@ -3257,6 +7017,18 @@ export type UserUncheckedUpdateWithoutBookingEventsInput = {
   reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutIdempotencyKeysInput = {
@@ -3304,6 +7076,18 @@ export type UserCreateWithoutIdempotencyKeysInput = {
   reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutIdempotencyKeysInput = {
@@ -3351,6 +7135,18 @@ export type UserUncheckedCreateWithoutIdempotencyKeysInput = {
   reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutIdempotencyKeysInput = {
@@ -3414,6 +7210,18 @@ export type UserUpdateWithoutIdempotencyKeysInput = {
   reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutIdempotencyKeysInput = {
@@ -3461,6 +7269,18 @@ export type UserUncheckedUpdateWithoutIdempotencyKeysInput = {
   reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutFavoritesInput = {
@@ -3508,6 +7328,18 @@ export type UserCreateWithoutFavoritesInput = {
   reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutFavoritesInput = {
@@ -3555,6 +7387,18 @@ export type UserUncheckedCreateWithoutFavoritesInput = {
   reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutFavoritesInput = {
@@ -3618,6 +7462,18 @@ export type UserUpdateWithoutFavoritesInput = {
   reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFavoritesInput = {
@@ -3665,6 +7521,18 @@ export type UserUncheckedUpdateWithoutFavoritesInput = {
   reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutParticipantsInput = {
@@ -3712,6 +7580,18 @@ export type UserCreateWithoutParticipantsInput = {
   reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutParticipantsInput = {
@@ -3759,6 +7639,18 @@ export type UserUncheckedCreateWithoutParticipantsInput = {
   reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutParticipantsInput = {
@@ -3822,6 +7714,18 @@ export type UserUpdateWithoutParticipantsInput = {
   reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutParticipantsInput = {
@@ -3869,6 +7773,18 @@ export type UserUncheckedUpdateWithoutParticipantsInput = {
   reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutBlocksCreatedInput = {
@@ -3916,6 +7832,18 @@ export type UserCreateWithoutBlocksCreatedInput = {
   reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutBlocksCreatedInput = {
@@ -3963,6 +7891,18 @@ export type UserUncheckedCreateWithoutBlocksCreatedInput = {
   reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutBlocksCreatedInput = {
@@ -4015,6 +7955,18 @@ export type UserCreateWithoutBlocksReceivedInput = {
   reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutBlocksReceivedInput = {
@@ -4062,6 +8014,18 @@ export type UserUncheckedCreateWithoutBlocksReceivedInput = {
   reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutBlocksReceivedInput = {
@@ -4125,6 +8089,18 @@ export type UserUpdateWithoutBlocksCreatedInput = {
   reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBlocksCreatedInput = {
@@ -4172,6 +8148,18 @@ export type UserUncheckedUpdateWithoutBlocksCreatedInput = {
   reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserUpsertWithoutBlocksReceivedInput = {
@@ -4230,6 +8218,18 @@ export type UserUpdateWithoutBlocksReceivedInput = {
   reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBlocksReceivedInput = {
@@ -4277,6 +8277,18 @@ export type UserUncheckedUpdateWithoutBlocksReceivedInput = {
   reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutReportsCreatedInput = {
@@ -4324,6 +8336,18 @@ export type UserCreateWithoutReportsCreatedInput = {
   blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
   moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutReportsCreatedInput = {
@@ -4371,6 +8395,18 @@ export type UserUncheckedCreateWithoutReportsCreatedInput = {
   blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
   moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutReportsCreatedInput = {
@@ -4434,6 +8470,18 @@ export type UserUpdateWithoutReportsCreatedInput = {
   blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
   moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReportsCreatedInput = {
@@ -4481,6 +8529,18 @@ export type UserUncheckedUpdateWithoutReportsCreatedInput = {
   blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
   moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutModerationActionsInput = {
@@ -4528,6 +8588,18 @@ export type UserCreateWithoutModerationActionsInput = {
   blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput
   reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
   paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutModerationActionsInput = {
@@ -4575,6 +8647,18 @@ export type UserUncheckedCreateWithoutModerationActionsInput = {
   blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput
   reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutModerationActionsInput = {
@@ -4638,6 +8722,18 @@ export type UserUpdateWithoutModerationActionsInput = {
   blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput
   reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutModerationActionsInput = {
@@ -4685,6 +8781,18 @@ export type UserUncheckedUpdateWithoutModerationActionsInput = {
   blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
   reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutMessagesInput = {
@@ -4732,6 +8840,18 @@ export type UserCreateWithoutMessagesInput = {
   reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutMessagesInput = {
@@ -4779,6 +8899,18 @@ export type UserUncheckedCreateWithoutMessagesInput = {
   reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutMessagesInput = {
@@ -4842,6 +8974,18 @@ export type UserUpdateWithoutMessagesInput = {
   reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMessagesInput = {
@@ -4889,6 +9033,18 @@ export type UserUncheckedUpdateWithoutMessagesInput = {
   reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -4936,6 +9092,18 @@ export type UserCreateWithoutNotificationsInput = {
   reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -4983,6 +9151,18 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -5046,6 +9226,18 @@ export type UserUpdateWithoutNotificationsInput = {
   reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -5093,6 +9285,18 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutPaymentMethodsInput = {
@@ -5140,6 +9344,18 @@ export type UserCreateWithoutPaymentMethodsInput = {
   reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutPaymentMethodsInput = {
@@ -5187,6 +9403,18 @@ export type UserUncheckedCreateWithoutPaymentMethodsInput = {
   reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutPaymentMethodsInput = {
@@ -5250,6 +9478,18 @@ export type UserUpdateWithoutPaymentMethodsInput = {
   reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPaymentMethodsInput = {
@@ -5297,6 +9537,18 @@ export type UserUncheckedUpdateWithoutPaymentMethodsInput = {
   reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutReviewsWrittenInput = {
@@ -5344,6 +9596,18 @@ export type UserCreateWithoutReviewsWrittenInput = {
   reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutReviewsWrittenInput = {
@@ -5391,6 +9655,18 @@ export type UserUncheckedCreateWithoutReviewsWrittenInput = {
   reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutReviewsWrittenInput = {
@@ -5443,6 +9719,18 @@ export type UserCreateWithoutReviewsReceivedInput = {
   reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutReviewsReceivedInput = {
@@ -5490,6 +9778,18 @@ export type UserUncheckedCreateWithoutReviewsReceivedInput = {
   reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutReviewsReceivedInput = {
@@ -5553,6 +9853,18 @@ export type UserUpdateWithoutReviewsWrittenInput = {
   reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewsWrittenInput = {
@@ -5600,6 +9912,18 @@ export type UserUncheckedUpdateWithoutReviewsWrittenInput = {
   reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserUpsertWithoutReviewsReceivedInput = {
@@ -5658,6 +9982,18 @@ export type UserUpdateWithoutReviewsReceivedInput = {
   reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewsReceivedInput = {
@@ -5705,6 +10041,18 @@ export type UserUncheckedUpdateWithoutReviewsReceivedInput = {
   reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutPostsInput = {
@@ -5752,6 +10100,18 @@ export type UserCreateWithoutPostsInput = {
   reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutPostsInput = {
@@ -5799,6 +10159,18 @@ export type UserUncheckedCreateWithoutPostsInput = {
   reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutPostsInput = {
@@ -5862,6 +10234,18 @@ export type UserUpdateWithoutPostsInput = {
   reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPostsInput = {
@@ -5909,6 +10293,18 @@ export type UserUncheckedUpdateWithoutPostsInput = {
   reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutPostLikesInput = {
@@ -5956,6 +10352,18 @@ export type UserCreateWithoutPostLikesInput = {
   reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutPostLikesInput = {
@@ -6003,6 +10411,18 @@ export type UserUncheckedCreateWithoutPostLikesInput = {
   reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutPostLikesInput = {
@@ -6066,6 +10486,18 @@ export type UserUpdateWithoutPostLikesInput = {
   reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPostLikesInput = {
@@ -6113,6 +10545,18 @@ export type UserUncheckedUpdateWithoutPostLikesInput = {
   reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutPostCommentsInput = {
@@ -6160,6 +10604,18 @@ export type UserCreateWithoutPostCommentsInput = {
   reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutPostCommentsInput = {
@@ -6207,6 +10663,18 @@ export type UserUncheckedCreateWithoutPostCommentsInput = {
   reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutPostCommentsInput = {
@@ -6270,6 +10738,18 @@ export type UserUpdateWithoutPostCommentsInput = {
   reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPostCommentsInput = {
@@ -6317,6 +10797,18 @@ export type UserUncheckedUpdateWithoutPostCommentsInput = {
   reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserCreateWithoutFollowingInput = {
@@ -6364,6 +10856,18 @@ export type UserCreateWithoutFollowingInput = {
   reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutFollowingInput = {
@@ -6411,6 +10915,18 @@ export type UserUncheckedCreateWithoutFollowingInput = {
   reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutFollowingInput = {
@@ -6463,6 +10979,18 @@ export type UserCreateWithoutFollowersInput = {
   reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput
 }
 
 export type UserUncheckedCreateWithoutFollowersInput = {
@@ -6510,6 +11038,18 @@ export type UserUncheckedCreateWithoutFollowersInput = {
   reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput
   moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedCreateNestedManyWithoutReviewerInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutVerifiedByInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutVerifiedByInput
+  aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedCreateNestedManyWithoutUserInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedCreateNestedManyWithoutReviewerInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedCreateNestedManyWithoutUserInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput
 }
 
 export type UserCreateOrConnectWithoutFollowersInput = {
@@ -6573,6 +11113,18 @@ export type UserUpdateWithoutFollowingInput = {
   reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFollowingInput = {
@@ -6620,6 +11172,18 @@ export type UserUncheckedUpdateWithoutFollowingInput = {
   reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput
 }
 
 export type UserUpsertWithoutFollowersInput = {
@@ -6678,6 +11242,18 @@ export type UserUpdateWithoutFollowersInput = {
   reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFollowersInput = {
@@ -6725,6 +11301,18 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
   reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput
   moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput
   paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput
+  assessmentReviews?: Prisma.AssessmentReviewUncheckedUpdateManyWithoutReviewerNestedInput
+  guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutVerifiedByNestedInput
+  guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutVerifiedByNestedInput
+  aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput
+  aiExperimentRuns?: Prisma.AiExperimentRunUncheckedUpdateManyWithoutUserNestedInput
+  aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedUpdateManyWithoutReviewerNestedInput
+  guideMatchRuns?: Prisma.GuideMatchRunUncheckedUpdateManyWithoutUserNestedInput
+  safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput
+  safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput
+  safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput
 }
 
 
@@ -6759,6 +11347,18 @@ export type UserCountOutputType = {
   reportsCreated: number
   moderationActions: number
   paymentArrangementsProposed: number
+  assessmentAttempts: number
+  assessmentReviews: number
+  guideCompetenciesVerified: number
+  guideLanguageAssessmentsVerified: number
+  guideFirstAidRecordsVerified: number
+  aiConversations: number
+  aiExperimentRuns: number
+  aiEvaluationReviews: number
+  guideMatchRuns: number
+  safetyPlansCreated: number
+  safetyPlansReviewed: number
+  safetyPlanAuditEntries: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -6788,6 +11388,18 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   reportsCreated?: boolean | UserCountOutputTypeCountReportsCreatedArgs
   moderationActions?: boolean | UserCountOutputTypeCountModerationActionsArgs
   paymentArrangementsProposed?: boolean | UserCountOutputTypeCountPaymentArrangementsProposedArgs
+  assessmentAttempts?: boolean | UserCountOutputTypeCountAssessmentAttemptsArgs
+  assessmentReviews?: boolean | UserCountOutputTypeCountAssessmentReviewsArgs
+  guideCompetenciesVerified?: boolean | UserCountOutputTypeCountGuideCompetenciesVerifiedArgs
+  guideLanguageAssessmentsVerified?: boolean | UserCountOutputTypeCountGuideLanguageAssessmentsVerifiedArgs
+  guideFirstAidRecordsVerified?: boolean | UserCountOutputTypeCountGuideFirstAidRecordsVerifiedArgs
+  aiConversations?: boolean | UserCountOutputTypeCountAiConversationsArgs
+  aiExperimentRuns?: boolean | UserCountOutputTypeCountAiExperimentRunsArgs
+  aiEvaluationReviews?: boolean | UserCountOutputTypeCountAiEvaluationReviewsArgs
+  guideMatchRuns?: boolean | UserCountOutputTypeCountGuideMatchRunsArgs
+  safetyPlansCreated?: boolean | UserCountOutputTypeCountSafetyPlansCreatedArgs
+  safetyPlansReviewed?: boolean | UserCountOutputTypeCountSafetyPlansReviewedArgs
+  safetyPlanAuditEntries?: boolean | UserCountOutputTypeCountSafetyPlanAuditEntriesArgs
 }
 
 /**
@@ -6982,6 +11594,90 @@ export type UserCountOutputTypeCountPaymentArrangementsProposedArgs<ExtArgs exte
   where?: Prisma.PilotPaymentWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAssessmentAttemptsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AssessmentAttemptWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAssessmentReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AssessmentReviewWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountGuideCompetenciesVerifiedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.GuideCompetencyWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountGuideLanguageAssessmentsVerifiedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.GuideLanguageAssessmentWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountGuideFirstAidRecordsVerifiedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.GuideFirstAidWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAiConversationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AiConversationWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAiExperimentRunsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AiExperimentRunWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAiEvaluationReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AiEvaluationResultWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountGuideMatchRunsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.GuideMatchRunWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSafetyPlansCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SafetyPlanWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSafetyPlansReviewedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SafetyPlanWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSafetyPlanAuditEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SafetyPlanAuditWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -7029,6 +11725,18 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   reportsCreated?: boolean | Prisma.User$reportsCreatedArgs<ExtArgs>
   moderationActions?: boolean | Prisma.User$moderationActionsArgs<ExtArgs>
   paymentArrangementsProposed?: boolean | Prisma.User$paymentArrangementsProposedArgs<ExtArgs>
+  assessmentAttempts?: boolean | Prisma.User$assessmentAttemptsArgs<ExtArgs>
+  assessmentReviews?: boolean | Prisma.User$assessmentReviewsArgs<ExtArgs>
+  guideCompetenciesVerified?: boolean | Prisma.User$guideCompetenciesVerifiedArgs<ExtArgs>
+  guideLanguageAssessmentsVerified?: boolean | Prisma.User$guideLanguageAssessmentsVerifiedArgs<ExtArgs>
+  guideFirstAidRecordsVerified?: boolean | Prisma.User$guideFirstAidRecordsVerifiedArgs<ExtArgs>
+  aiConversations?: boolean | Prisma.User$aiConversationsArgs<ExtArgs>
+  aiExperimentRuns?: boolean | Prisma.User$aiExperimentRunsArgs<ExtArgs>
+  aiEvaluationReviews?: boolean | Prisma.User$aiEvaluationReviewsArgs<ExtArgs>
+  guideMatchRuns?: boolean | Prisma.User$guideMatchRunsArgs<ExtArgs>
+  safetyPlansCreated?: boolean | Prisma.User$safetyPlansCreatedArgs<ExtArgs>
+  safetyPlansReviewed?: boolean | Prisma.User$safetyPlansReviewedArgs<ExtArgs>
+  safetyPlanAuditEntries?: boolean | Prisma.User$safetyPlanAuditEntriesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -7124,6 +11832,18 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   reportsCreated?: boolean | Prisma.User$reportsCreatedArgs<ExtArgs>
   moderationActions?: boolean | Prisma.User$moderationActionsArgs<ExtArgs>
   paymentArrangementsProposed?: boolean | Prisma.User$paymentArrangementsProposedArgs<ExtArgs>
+  assessmentAttempts?: boolean | Prisma.User$assessmentAttemptsArgs<ExtArgs>
+  assessmentReviews?: boolean | Prisma.User$assessmentReviewsArgs<ExtArgs>
+  guideCompetenciesVerified?: boolean | Prisma.User$guideCompetenciesVerifiedArgs<ExtArgs>
+  guideLanguageAssessmentsVerified?: boolean | Prisma.User$guideLanguageAssessmentsVerifiedArgs<ExtArgs>
+  guideFirstAidRecordsVerified?: boolean | Prisma.User$guideFirstAidRecordsVerifiedArgs<ExtArgs>
+  aiConversations?: boolean | Prisma.User$aiConversationsArgs<ExtArgs>
+  aiExperimentRuns?: boolean | Prisma.User$aiExperimentRunsArgs<ExtArgs>
+  aiEvaluationReviews?: boolean | Prisma.User$aiEvaluationReviewsArgs<ExtArgs>
+  guideMatchRuns?: boolean | Prisma.User$guideMatchRunsArgs<ExtArgs>
+  safetyPlansCreated?: boolean | Prisma.User$safetyPlansCreatedArgs<ExtArgs>
+  safetyPlansReviewed?: boolean | Prisma.User$safetyPlansReviewedArgs<ExtArgs>
+  safetyPlanAuditEntries?: boolean | Prisma.User$safetyPlanAuditEntriesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -7159,6 +11879,18 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     reportsCreated: Prisma.$ReportPayload<ExtArgs>[]
     moderationActions: Prisma.$ModerationActionPayload<ExtArgs>[]
     paymentArrangementsProposed: Prisma.$PilotPaymentPayload<ExtArgs>[]
+    assessmentAttempts: Prisma.$AssessmentAttemptPayload<ExtArgs>[]
+    assessmentReviews: Prisma.$AssessmentReviewPayload<ExtArgs>[]
+    guideCompetenciesVerified: Prisma.$GuideCompetencyPayload<ExtArgs>[]
+    guideLanguageAssessmentsVerified: Prisma.$GuideLanguageAssessmentPayload<ExtArgs>[]
+    guideFirstAidRecordsVerified: Prisma.$GuideFirstAidPayload<ExtArgs>[]
+    aiConversations: Prisma.$AiConversationPayload<ExtArgs>[]
+    aiExperimentRuns: Prisma.$AiExperimentRunPayload<ExtArgs>[]
+    aiEvaluationReviews: Prisma.$AiEvaluationResultPayload<ExtArgs>[]
+    guideMatchRuns: Prisma.$GuideMatchRunPayload<ExtArgs>[]
+    safetyPlansCreated: Prisma.$SafetyPlanPayload<ExtArgs>[]
+    safetyPlansReviewed: Prisma.$SafetyPlanPayload<ExtArgs>[]
+    safetyPlanAuditEntries: Prisma.$SafetyPlanAuditPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -7600,6 +12332,18 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   reportsCreated<T extends Prisma.User$reportsCreatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reportsCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   moderationActions<T extends Prisma.User$moderationActionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$moderationActionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ModerationActionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   paymentArrangementsProposed<T extends Prisma.User$paymentArrangementsProposedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$paymentArrangementsProposedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PilotPaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  assessmentAttempts<T extends Prisma.User$assessmentAttemptsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$assessmentAttemptsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AssessmentAttemptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  assessmentReviews<T extends Prisma.User$assessmentReviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$assessmentReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AssessmentReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  guideCompetenciesVerified<T extends Prisma.User$guideCompetenciesVerifiedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$guideCompetenciesVerifiedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GuideCompetencyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  guideLanguageAssessmentsVerified<T extends Prisma.User$guideLanguageAssessmentsVerifiedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$guideLanguageAssessmentsVerifiedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GuideLanguageAssessmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  guideFirstAidRecordsVerified<T extends Prisma.User$guideFirstAidRecordsVerifiedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$guideFirstAidRecordsVerifiedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GuideFirstAidPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  aiConversations<T extends Prisma.User$aiConversationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$aiConversationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AiConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  aiExperimentRuns<T extends Prisma.User$aiExperimentRunsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$aiExperimentRunsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AiExperimentRunPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  aiEvaluationReviews<T extends Prisma.User$aiEvaluationReviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$aiEvaluationReviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AiEvaluationResultPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  guideMatchRuns<T extends Prisma.User$guideMatchRunsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$guideMatchRunsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GuideMatchRunPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  safetyPlansCreated<T extends Prisma.User$safetyPlansCreatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$safetyPlansCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SafetyPlanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  safetyPlansReviewed<T extends Prisma.User$safetyPlansReviewedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$safetyPlansReviewedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SafetyPlanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  safetyPlanAuditEntries<T extends Prisma.User$safetyPlanAuditEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$safetyPlanAuditEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SafetyPlanAuditPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8680,6 +13424,294 @@ export type User$paymentArrangementsProposedArgs<ExtArgs extends runtime.Types.E
   take?: number
   skip?: number
   distinct?: Prisma.PilotPaymentScalarFieldEnum | Prisma.PilotPaymentScalarFieldEnum[]
+}
+
+/**
+ * User.assessmentAttempts
+ */
+export type User$assessmentAttemptsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AssessmentAttempt
+   */
+  select?: Prisma.AssessmentAttemptSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AssessmentAttempt
+   */
+  omit?: Prisma.AssessmentAttemptOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AssessmentAttemptInclude<ExtArgs> | null
+  where?: Prisma.AssessmentAttemptWhereInput
+  orderBy?: Prisma.AssessmentAttemptOrderByWithRelationInput | Prisma.AssessmentAttemptOrderByWithRelationInput[]
+  cursor?: Prisma.AssessmentAttemptWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AssessmentAttemptScalarFieldEnum | Prisma.AssessmentAttemptScalarFieldEnum[]
+}
+
+/**
+ * User.assessmentReviews
+ */
+export type User$assessmentReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AssessmentReview
+   */
+  select?: Prisma.AssessmentReviewSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AssessmentReview
+   */
+  omit?: Prisma.AssessmentReviewOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AssessmentReviewInclude<ExtArgs> | null
+  where?: Prisma.AssessmentReviewWhereInput
+  orderBy?: Prisma.AssessmentReviewOrderByWithRelationInput | Prisma.AssessmentReviewOrderByWithRelationInput[]
+  cursor?: Prisma.AssessmentReviewWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AssessmentReviewScalarFieldEnum | Prisma.AssessmentReviewScalarFieldEnum[]
+}
+
+/**
+ * User.guideCompetenciesVerified
+ */
+export type User$guideCompetenciesVerifiedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GuideCompetency
+   */
+  select?: Prisma.GuideCompetencySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the GuideCompetency
+   */
+  omit?: Prisma.GuideCompetencyOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GuideCompetencyInclude<ExtArgs> | null
+  where?: Prisma.GuideCompetencyWhereInput
+  orderBy?: Prisma.GuideCompetencyOrderByWithRelationInput | Prisma.GuideCompetencyOrderByWithRelationInput[]
+  cursor?: Prisma.GuideCompetencyWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.GuideCompetencyScalarFieldEnum | Prisma.GuideCompetencyScalarFieldEnum[]
+}
+
+/**
+ * User.guideLanguageAssessmentsVerified
+ */
+export type User$guideLanguageAssessmentsVerifiedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GuideLanguageAssessment
+   */
+  select?: Prisma.GuideLanguageAssessmentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the GuideLanguageAssessment
+   */
+  omit?: Prisma.GuideLanguageAssessmentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GuideLanguageAssessmentInclude<ExtArgs> | null
+  where?: Prisma.GuideLanguageAssessmentWhereInput
+  orderBy?: Prisma.GuideLanguageAssessmentOrderByWithRelationInput | Prisma.GuideLanguageAssessmentOrderByWithRelationInput[]
+  cursor?: Prisma.GuideLanguageAssessmentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.GuideLanguageAssessmentScalarFieldEnum | Prisma.GuideLanguageAssessmentScalarFieldEnum[]
+}
+
+/**
+ * User.guideFirstAidRecordsVerified
+ */
+export type User$guideFirstAidRecordsVerifiedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GuideFirstAid
+   */
+  select?: Prisma.GuideFirstAidSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the GuideFirstAid
+   */
+  omit?: Prisma.GuideFirstAidOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GuideFirstAidInclude<ExtArgs> | null
+  where?: Prisma.GuideFirstAidWhereInput
+  orderBy?: Prisma.GuideFirstAidOrderByWithRelationInput | Prisma.GuideFirstAidOrderByWithRelationInput[]
+  cursor?: Prisma.GuideFirstAidWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.GuideFirstAidScalarFieldEnum | Prisma.GuideFirstAidScalarFieldEnum[]
+}
+
+/**
+ * User.aiConversations
+ */
+export type User$aiConversationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AiConversation
+   */
+  select?: Prisma.AiConversationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AiConversation
+   */
+  omit?: Prisma.AiConversationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AiConversationInclude<ExtArgs> | null
+  where?: Prisma.AiConversationWhereInput
+  orderBy?: Prisma.AiConversationOrderByWithRelationInput | Prisma.AiConversationOrderByWithRelationInput[]
+  cursor?: Prisma.AiConversationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AiConversationScalarFieldEnum | Prisma.AiConversationScalarFieldEnum[]
+}
+
+/**
+ * User.aiExperimentRuns
+ */
+export type User$aiExperimentRunsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AiExperimentRun
+   */
+  select?: Prisma.AiExperimentRunSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AiExperimentRun
+   */
+  omit?: Prisma.AiExperimentRunOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AiExperimentRunInclude<ExtArgs> | null
+  where?: Prisma.AiExperimentRunWhereInput
+  orderBy?: Prisma.AiExperimentRunOrderByWithRelationInput | Prisma.AiExperimentRunOrderByWithRelationInput[]
+  cursor?: Prisma.AiExperimentRunWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AiExperimentRunScalarFieldEnum | Prisma.AiExperimentRunScalarFieldEnum[]
+}
+
+/**
+ * User.aiEvaluationReviews
+ */
+export type User$aiEvaluationReviewsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AiEvaluationResult
+   */
+  select?: Prisma.AiEvaluationResultSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AiEvaluationResult
+   */
+  omit?: Prisma.AiEvaluationResultOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AiEvaluationResultInclude<ExtArgs> | null
+  where?: Prisma.AiEvaluationResultWhereInput
+  orderBy?: Prisma.AiEvaluationResultOrderByWithRelationInput | Prisma.AiEvaluationResultOrderByWithRelationInput[]
+  cursor?: Prisma.AiEvaluationResultWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AiEvaluationResultScalarFieldEnum | Prisma.AiEvaluationResultScalarFieldEnum[]
+}
+
+/**
+ * User.guideMatchRuns
+ */
+export type User$guideMatchRunsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GuideMatchRun
+   */
+  select?: Prisma.GuideMatchRunSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the GuideMatchRun
+   */
+  omit?: Prisma.GuideMatchRunOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GuideMatchRunInclude<ExtArgs> | null
+  where?: Prisma.GuideMatchRunWhereInput
+  orderBy?: Prisma.GuideMatchRunOrderByWithRelationInput | Prisma.GuideMatchRunOrderByWithRelationInput[]
+  cursor?: Prisma.GuideMatchRunWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.GuideMatchRunScalarFieldEnum | Prisma.GuideMatchRunScalarFieldEnum[]
+}
+
+/**
+ * User.safetyPlansCreated
+ */
+export type User$safetyPlansCreatedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SafetyPlan
+   */
+  select?: Prisma.SafetyPlanSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SafetyPlan
+   */
+  omit?: Prisma.SafetyPlanOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SafetyPlanInclude<ExtArgs> | null
+  where?: Prisma.SafetyPlanWhereInput
+  orderBy?: Prisma.SafetyPlanOrderByWithRelationInput | Prisma.SafetyPlanOrderByWithRelationInput[]
+  cursor?: Prisma.SafetyPlanWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SafetyPlanScalarFieldEnum | Prisma.SafetyPlanScalarFieldEnum[]
+}
+
+/**
+ * User.safetyPlansReviewed
+ */
+export type User$safetyPlansReviewedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SafetyPlan
+   */
+  select?: Prisma.SafetyPlanSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SafetyPlan
+   */
+  omit?: Prisma.SafetyPlanOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SafetyPlanInclude<ExtArgs> | null
+  where?: Prisma.SafetyPlanWhereInput
+  orderBy?: Prisma.SafetyPlanOrderByWithRelationInput | Prisma.SafetyPlanOrderByWithRelationInput[]
+  cursor?: Prisma.SafetyPlanWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SafetyPlanScalarFieldEnum | Prisma.SafetyPlanScalarFieldEnum[]
+}
+
+/**
+ * User.safetyPlanAuditEntries
+ */
+export type User$safetyPlanAuditEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SafetyPlanAudit
+   */
+  select?: Prisma.SafetyPlanAuditSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SafetyPlanAudit
+   */
+  omit?: Prisma.SafetyPlanAuditOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SafetyPlanAuditInclude<ExtArgs> | null
+  where?: Prisma.SafetyPlanAuditWhereInput
+  orderBy?: Prisma.SafetyPlanAuditOrderByWithRelationInput | Prisma.SafetyPlanAuditOrderByWithRelationInput[]
+  cursor?: Prisma.SafetyPlanAuditWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SafetyPlanAuditScalarFieldEnum | Prisma.SafetyPlanAuditScalarFieldEnum[]
 }
 
 /**

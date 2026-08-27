@@ -345,13 +345,6 @@ export type IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput = {
     updateMany?: Prisma.IdempotencyKeyUpdateManyWithWhereWithoutUserInput | Prisma.IdempotencyKeyUpdateManyWithWhereWithoutUserInput[];
     deleteMany?: Prisma.IdempotencyKeyScalarWhereInput | Prisma.IdempotencyKeyScalarWhereInput[];
 };
-export type NullableIntFieldUpdateOperationsInput = {
-    set?: number | null;
-    increment?: number;
-    decrement?: number;
-    multiply?: number;
-    divide?: number;
-};
 export type IdempotencyKeyCreateWithoutUserInput = {
     id?: string;
     key: string;

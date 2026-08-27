@@ -1,0 +1,12 @@
+{
+  "version": "2026-08-15",
+  "canonicalIds": ["A", "B", "C", "D", "E"],
+  "legacyAliases": { "E0": "A", "E1": "B", "E2": "C", "E3": "D", "E4": "E" },
+  "tracks": [
+    { "id": "A", "modelTrack": "base", "domainAdapter": false, "rag": false, "routeGraph": false, "tools": false, "validator": false },
+    { "id": "B", "modelTrack": "base", "domainAdapter": false, "rag": true, "routeGraph": false, "tools": false, "validator": false },
+    { "id": "C", "modelTrack": "domain", "domainAdapter": true, "rag": false, "routeGraph": false, "tools": false, "validator": false },
+    { "id": "D", "modelTrack": "domain", "domainAdapter": true, "rag": true, "routeGraph": false, "tools": false, "validator": false },
+    { "id": "E", "modelTrack": "domain", "domainAdapter": true, "rag": true, "routeGraph": true, "tools": true, "validator": true }
+  ]
+}

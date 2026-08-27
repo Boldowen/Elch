@@ -49,10 +49,17 @@ services:
       NODE_ENV: production
       DATABASE_URL: postgresql://${POSTGRES_USER:-ventour}:${POSTGRES_PASSWORD:-ventour_change_me}@postgres:5432/${POSTGRES_DB:-elch}?schema=public
       PORT: 3000
+      STORAGE_LOCAL_ROOT: /app/data/uploads
     ports:
       - "${BACKEND_PORT:-3000}:3000"
     networks:
       - ventour_network
+    volumes:
+      - uploads_data:/app/data/uploads
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
     depends_on:
       postgres:
         condition: service_healthy
@@ -80,3 +87,4 @@ networks:
 volumes:
   postgres_data:
   pgadmin_data:
+  uploads_data:

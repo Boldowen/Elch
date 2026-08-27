@@ -1,0 +1,6 @@
+id,title,url,authority_tier,last_verified_at,license_or_usage_note,status
+mto-central,Mongolia tourism information,https://www.mongolia.travel/,2,2026-08-10,Verify reuse terms before corpus ingestion,prototype
+omnogovi,Umnugovi official information,https://www.omnogovi.gov.mn/,4,2026-08-10,Verify reuse terms before corpus ingestion,prototype
+khuvsgul,Khuvsgul official information,https://khovsgol.gov.mn/,4,2026-08-10,Verify reuse terms before corpus ingestion,prototype
+unesco-orkhon,Orkhon Valley Cultural Landscape,https://whc.unesco.org/en/list/1081/,3,2026-08-10,Link and attribute source,prototype
+unesco-altai,Petroglyphic Complexes of the Mongolian Altai,https://whc.unesco.org/en/list/1382/,3,2026-08-10,Link and attribute source,prototype

@@ -26,6 +26,14 @@ import { NotificationsModule } from './modules/notifications/notifications.modul
 import { TrustSafetyModule } from './modules/trust-safety/trust-safety.module.js';
 import { ReviewsModule } from './modules/reviews/reviews.module.js';
 import { RankingModule } from './modules/ranking/ranking.module.js';
+import { RoutePlanningModule } from './modules/route-planning/route-planning.module.js';
+import { GuideResearchModule } from './modules/guide-research/guide-research.module.js';
+import { ResearchAssistantModule } from './modules/research-assistant/research-assistant.module.js';
+import { AiModule } from './modules/ai/ai.module.js';
+import { TourismKnowledgeModule } from './modules/tourism-knowledge/tourism-knowledge.module.js';
+import { GuideAssessmentsModule } from './modules/guide-assessments/guide-assessments.module.js';
+import { ResearchModule } from './modules/research/research.module.js';
+import { OperationsModule } from './modules/operations/operations.module.js';
 let AppModule = class AppModule {
     configure(consumer) {
         consumer.apply(RequestIdMiddleware).forRoutes('*');
@@ -48,6 +56,14 @@ AppModule = __decorate([
             TrustSafetyModule,
             ReviewsModule,
             RankingModule,
+            RoutePlanningModule,
+            GuideResearchModule,
+            ResearchAssistantModule,
+            AiModule,
+            TourismKnowledgeModule,
+            GuideAssessmentsModule,
+            ResearchModule,
+            OperationsModule,
             SocialModule,
             HealthModule,
         ],

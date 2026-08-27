@@ -10,6 +10,8 @@ import { AllExceptionsFilter } from './common/filters/all-exceptions.filter.js';
 async function bootstrap() {
     const app = await NestFactory.create(AppModule, { bufferLogs: true });
     const config = app.get(ConfigService);
+    app.enableShutdownHooks();
+    app.useBodyParser('json', { limit: `${Math.ceil(config.get('STORAGE_MAX_FILE_BYTES', 5_242_880) * 1.4)}b` });
     app.setGlobalPrefix('api');
     app.enableVersioning({ type: VersioningType.URI, defaultVersion: '1' });
     app.use(helmet());

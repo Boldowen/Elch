@@ -17,8 +17,8 @@ export declare class ListingsController {
             };
             images: {
                 id: string;
-                listingId: string;
                 url: string;
+                listingId: string;
                 alt: string | null;
                 sortOrder: number;
             }[];
@@ -31,11 +31,11 @@ export declare class ListingsController {
             status: import("../../generated/prisma/enums.js").ListingStatus;
             rating: import("@prisma/client-runtime-utils").Decimal;
             reviewCount: number;
-            slug: string;
             title: string;
-            location: string;
-            description: string;
             category: ListingCategory;
+            description: string;
+            slug: string;
+            location: string;
             basePriceMinor: number;
             cleaningFeeMinor: number;
             serviceFeeMinor: number;
@@ -64,8 +64,8 @@ export declare class ListingsController {
         };
         images: {
             id: string;
-            listingId: string;
             url: string;
+            listingId: string;
             alt: string | null;
             sortOrder: number;
         }[];
@@ -78,11 +78,11 @@ export declare class ListingsController {
         status: import("../../generated/prisma/enums.js").ListingStatus;
         rating: import("@prisma/client-runtime-utils").Decimal;
         reviewCount: number;
-        slug: string;
         title: string;
-        location: string;
-        description: string;
         category: ListingCategory;
+        description: string;
+        slug: string;
+        location: string;
         basePriceMinor: number;
         cleaningFeeMinor: number;
         serviceFeeMinor: number;
@@ -107,8 +107,8 @@ export declare class ListingsController {
         };
         images: {
             id: string;
-            listingId: string;
             url: string;
+            listingId: string;
             alt: string | null;
             sortOrder: number;
         }[];
@@ -121,11 +121,11 @@ export declare class ListingsController {
         status: import("../../generated/prisma/enums.js").ListingStatus;
         rating: import("@prisma/client-runtime-utils").Decimal;
         reviewCount: number;
-        slug: string;
         title: string;
-        location: string;
-        description: string;
         category: ListingCategory;
+        description: string;
+        slug: string;
+        location: string;
         basePriceMinor: number;
         cleaningFeeMinor: number;
         serviceFeeMinor: number;
@@ -152,8 +152,8 @@ export declare class ListingsController {
         };
         images: {
             id: string;
-            listingId: string;
             url: string;
+            listingId: string;
             alt: string | null;
             sortOrder: number;
         }[];
@@ -166,11 +166,11 @@ export declare class ListingsController {
         status: import("../../generated/prisma/enums.js").ListingStatus;
         rating: import("@prisma/client-runtime-utils").Decimal;
         reviewCount: number;
-        slug: string;
         title: string;
-        location: string;
-        description: string;
         category: ListingCategory;
+        description: string;
+        slug: string;
+        location: string;
         basePriceMinor: number;
         cleaningFeeMinor: number;
         serviceFeeMinor: number;
@@ -195,11 +195,11 @@ export declare class ListingsController {
         status: import("../../generated/prisma/enums.js").ListingStatus;
         rating: import("@prisma/client-runtime-utils").Decimal;
         reviewCount: number;
-        slug: string;
         title: string;
-        location: string;
-        description: string;
         category: ListingCategory;
+        description: string;
+        slug: string;
+        location: string;
         basePriceMinor: number;
         cleaningFeeMinor: number;
         serviceFeeMinor: number;
@@ -224,11 +224,11 @@ export declare class ListingsController {
         status: import("../../generated/prisma/enums.js").ListingStatus;
         rating: import("@prisma/client-runtime-utils").Decimal;
         reviewCount: number;
-        slug: string;
         title: string;
-        location: string;
-        description: string;
         category: ListingCategory;
+        description: string;
+        slug: string;
+        location: string;
         basePriceMinor: number;
         cleaningFeeMinor: number;
         serviceFeeMinor: number;
@@ -253,11 +253,11 @@ export declare class ListingsController {
         status: import("../../generated/prisma/enums.js").ListingStatus;
         rating: import("@prisma/client-runtime-utils").Decimal;
         reviewCount: number;
-        slug: string;
         title: string;
-        location: string;
-        description: string;
         category: ListingCategory;
+        description: string;
+        slug: string;
+        location: string;
         basePriceMinor: number;
         cleaningFeeMinor: number;
         serviceFeeMinor: number;
@@ -302,8 +302,8 @@ export declare class ListingsController {
         };
         images: {
             id: string;
-            listingId: string;
             url: string;
+            listingId: string;
             alt: string | null;
             sortOrder: number;
         }[];
@@ -316,11 +316,11 @@ export declare class ListingsController {
         status: import("../../generated/prisma/enums.js").ListingStatus;
         rating: import("@prisma/client-runtime-utils").Decimal;
         reviewCount: number;
-        slug: string;
         title: string;
-        location: string;
-        description: string;
         category: ListingCategory;
+        description: string;
+        slug: string;
+        location: string;
         basePriceMinor: number;
         cleaningFeeMinor: number;
         serviceFeeMinor: number;

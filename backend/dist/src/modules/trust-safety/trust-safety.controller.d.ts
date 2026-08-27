@@ -56,11 +56,11 @@ export declare class ReportsController {
             id: string;
             createdAt: Date;
             expiresAt: Date | null;
-            reason: string;
             metadata: import("@prisma/client/runtime/client").JsonValue | null;
+            action: import("../../generated/prisma/enums.js").ModerationActionType;
+            reason: string;
             reportId: string;
             adminId: string;
-            action: import("../../generated/prisma/enums.js").ModerationActionType;
         })[];
     } & {
         id: string;

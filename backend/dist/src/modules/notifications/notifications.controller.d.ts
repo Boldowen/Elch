@@ -8,8 +8,8 @@ export declare class NotificationsController {
             id: string;
             createdAt: Date;
             userId: string;
-            title: string;
             type: import("../../generated/prisma/enums.js").NotificationType;
+            title: string;
             body: string;
             data: import("@prisma/client/runtime/client").JsonValue | null;
             readAt: Date | null;
@@ -23,8 +23,8 @@ export declare class NotificationsController {
         id: string;
         createdAt: Date;
         userId: string;
-        title: string;
         type: import("../../generated/prisma/enums.js").NotificationType;
+        title: string;
         body: string;
         data: import("@prisma/client/runtime/client").JsonValue | null;
         readAt: Date | null;

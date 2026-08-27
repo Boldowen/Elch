@@ -56,6 +56,31 @@ export const ModelName = {
   EmailVerificationToken: 'EmailVerificationToken',
   PasswordResetToken: 'PasswordResetToken',
   GuideProfile: 'GuideProfile',
+  GuideEvidence: 'GuideEvidence',
+  CompetencyAttempt: 'CompetencyAttempt',
+  TourismSource: 'TourismSource',
+  TourismKnowledge: 'TourismKnowledge',
+  ResearchRoute: 'ResearchRoute',
+  RouteNode: 'RouteNode',
+  RouteEdge: 'RouteEdge',
+  SafetyPlan: 'SafetyPlan',
+  SafetyPlanAudit: 'SafetyPlanAudit',
+  GuideCompetency: 'GuideCompetency',
+  GuideLanguageAssessment: 'GuideLanguageAssessment',
+  GuideKnowledgeAssessment: 'GuideKnowledgeAssessment',
+  GuideSkillAssessment: 'GuideSkillAssessment',
+  GuideRouteCompetency: 'GuideRouteCompetency',
+  GuideFirstAid: 'GuideFirstAid',
+  AssessmentQuestion: 'AssessmentQuestion',
+  AssessmentAttempt: 'AssessmentAttempt',
+  AssessmentResponse: 'AssessmentResponse',
+  AssessmentReview: 'AssessmentReview',
+  AiConversation: 'AiConversation',
+  AiMessage: 'AiMessage',
+  AiExperimentRun: 'AiExperimentRun',
+  AiEvaluationResult: 'AiEvaluationResult',
+  GuideMatchRun: 'GuideMatchRun',
+  GuideMatchResult: 'GuideMatchResult',
   GuideVerificationReview: 'GuideVerificationReview',
   Listing: 'Listing',
   ListingInventory: 'ListingInventory',
@@ -176,6 +201,11 @@ export const GuideProfileScalarFieldEnum = {
   price: 'price',
   status: 'status',
   verified: 'verified',
+  legalRole: 'legalRole',
+  routeBadges: 'routeBadges',
+  specialtySkills: 'specialtySkills',
+  firstAidVerified: 'firstAidVerified',
+  languageEstimate: 'languageEstimate',
   assessmentScore: 'assessmentScore',
   referenceContact: 'referenceContact',
   codeOfConductAccepted: 'codeOfConductAccepted',
@@ -194,6 +224,544 @@ export const GuideProfileScalarFieldEnum = {
 } as const
 
 export type GuideProfileScalarFieldEnum = (typeof GuideProfileScalarFieldEnum)[keyof typeof GuideProfileScalarFieldEnum]
+
+
+export const GuideEvidenceScalarFieldEnum = {
+  id: 'id',
+  guideProfileId: 'guideProfileId',
+  type: 'type',
+  issuer: 'issuer',
+  reference: 'reference',
+  verifiedAt: 'verifiedAt',
+  expiresAt: 'expiresAt',
+  status: 'status',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type GuideEvidenceScalarFieldEnum = (typeof GuideEvidenceScalarFieldEnum)[keyof typeof GuideEvidenceScalarFieldEnum]
+
+
+export const CompetencyAttemptScalarFieldEnum = {
+  id: 'id',
+  guideProfileId: 'guideProfileId',
+  taskType: 'taskType',
+  routeId: 'routeId',
+  rubricVersion: 'rubricVersion',
+  aiScore: 'aiScore',
+  humanScores: 'humanScores',
+  confidence: 'confidence',
+  breakdown: 'breakdown',
+  passed: 'passed',
+  reviewedAt: 'reviewedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type CompetencyAttemptScalarFieldEnum = (typeof CompetencyAttemptScalarFieldEnum)[keyof typeof CompetencyAttemptScalarFieldEnum]
+
+
+export const TourismSourceScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  organization: 'organization',
+  sourceType: 'sourceType',
+  authorityLevel: 'authorityLevel',
+  url: 'url',
+  language: 'language',
+  publishedAt: 'publishedAt',
+  validFrom: 'validFrom',
+  validTo: 'validTo',
+  lastVerifiedAt: 'lastVerifiedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TourismSourceScalarFieldEnum = (typeof TourismSourceScalarFieldEnum)[keyof typeof TourismSourceScalarFieldEnum]
+
+
+export const TourismKnowledgeScalarFieldEnum = {
+  id: 'id',
+  sourceId: 'sourceId',
+  title: 'title',
+  content: 'content',
+  contentHash: 'contentHash',
+  chunkIndex: 'chunkIndex',
+  region: 'region',
+  routeFamily: 'routeFamily',
+  category: 'category',
+  language: 'language',
+  embedding: 'embedding',
+  embeddingReference: 'embeddingReference',
+  embeddingModel: 'embeddingModel',
+  tokenCount: 'tokenCount',
+  metadata: 'metadata',
+  active: 'active',
+  lastVerifiedAt: 'lastVerifiedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TourismKnowledgeScalarFieldEnum = (typeof TourismKnowledgeScalarFieldEnum)[keyof typeof TourismKnowledgeScalarFieldEnum]
+
+
+export const ResearchRouteScalarFieldEnum = {
+  id: 'id',
+  sourceId: 'sourceId',
+  code: 'code',
+  name: 'name',
+  routeFamily: 'routeFamily',
+  description: 'description',
+  minimumDays: 'minimumDays',
+  recommendedDays: 'recommendedDays',
+  riskLevel: 'riskLevel',
+  minimumLanguageLevel: 'minimumLanguageLevel',
+  routeBadge: 'routeBadge',
+  firstAidRequired: 'firstAidRequired',
+  requiredGuideLegalRole: 'requiredGuideLegalRole',
+  requiredSpecialtySkills: 'requiredSpecialtySkills',
+  active: 'active',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ResearchRouteScalarFieldEnum = (typeof ResearchRouteScalarFieldEnum)[keyof typeof ResearchRouteScalarFieldEnum]
+
+
+export const RouteNodeScalarFieldEnum = {
+  id: 'id',
+  routeId: 'routeId',
+  sourceId: 'sourceId',
+  destinationId: 'destinationId',
+  code: 'code',
+  name: 'name',
+  nameMn: 'nameMn',
+  nameEn: 'nameEn',
+  region: 'region',
+  latitude: 'latitude',
+  longitude: 'longitude',
+  altitude: 'altitude',
+  nodeType: 'nodeType',
+  sequenceHint: 'sequenceHint',
+  minimumVisitMinutes: 'minimumVisitMinutes',
+  seasonalityMetadata: 'seasonalityMetadata',
+  accessMetadata: 'accessMetadata',
+  safetyMetadata: 'safetyMetadata',
+  active: 'active',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type RouteNodeScalarFieldEnum = (typeof RouteNodeScalarFieldEnum)[keyof typeof RouteNodeScalarFieldEnum]
+
+
+export const RouteEdgeScalarFieldEnum = {
+  id: 'id',
+  routeId: 'routeId',
+  fromNodeId: 'fromNodeId',
+  toNodeId: 'toNodeId',
+  sourceId: 'sourceId',
+  code: 'code',
+  transportMode: 'transportMode',
+  distanceKm: 'distanceKm',
+  estimatedTravelMinutes: 'estimatedTravelMinutes',
+  estimatedCostMinor: 'estimatedCostMinor',
+  estimatedCostCurrency: 'estimatedCostCurrency',
+  terrain: 'terrain',
+  riskLevel: 'riskLevel',
+  seasonality: 'seasonality',
+  bidirectional: 'bidirectional',
+  requiresRoadCheck: 'requiresRoadCheck',
+  requiresWeatherCheck: 'requiresWeatherCheck',
+  requiresPermitCheck: 'requiresPermitCheck',
+  requiresGuide: 'requiresGuide',
+  requiredGuideCompetencies: 'requiredGuideCompetencies',
+  emergencyPlanRequired: 'emergencyPlanRequired',
+  active: 'active',
+  lastVerifiedAt: 'lastVerifiedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type RouteEdgeScalarFieldEnum = (typeof RouteEdgeScalarFieldEnum)[keyof typeof RouteEdgeScalarFieldEnum]
+
+
+export const SafetyPlanScalarFieldEnum = {
+  id: 'id',
+  routeId: 'routeId',
+  createdById: 'createdById',
+  guideProfileId: 'guideProfileId',
+  reviewedById: 'reviewedById',
+  title: 'title',
+  tripStartAt: 'tripStartAt',
+  tripEndAt: 'tripEndAt',
+  riskLevelSnapshot: 'riskLevelSnapshot',
+  itinerary: 'itinerary',
+  emergencyContacts: 'emergencyContacts',
+  communicationsPlan: 'communicationsPlan',
+  evacuationPlan: 'evacuationPlan',
+  medicalPlan: 'medicalPlan',
+  riskMitigations: 'riskMitigations',
+  equipmentChecklist: 'equipmentChecklist',
+  permitReferences: 'permitReferences',
+  status: 'status',
+  version: 'version',
+  submittedAt: 'submittedAt',
+  approvedAt: 'approvedAt',
+  rejectedAt: 'rejectedAt',
+  revokedAt: 'revokedAt',
+  expiresAt: 'expiresAt',
+  reviewNotes: 'reviewNotes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SafetyPlanScalarFieldEnum = (typeof SafetyPlanScalarFieldEnum)[keyof typeof SafetyPlanScalarFieldEnum]
+
+
+export const SafetyPlanAuditScalarFieldEnum = {
+  id: 'id',
+  safetyPlanId: 'safetyPlanId',
+  actorId: 'actorId',
+  action: 'action',
+  fromStatus: 'fromStatus',
+  toStatus: 'toStatus',
+  planVersion: 'planVersion',
+  snapshot: 'snapshot',
+  reason: 'reason',
+  createdAt: 'createdAt'
+} as const
+
+export type SafetyPlanAuditScalarFieldEnum = (typeof SafetyPlanAuditScalarFieldEnum)[keyof typeof SafetyPlanAuditScalarFieldEnum]
+
+
+export const GuideCompetencyScalarFieldEnum = {
+  id: 'id',
+  guideProfileId: 'guideProfileId',
+  routeId: 'routeId',
+  assessmentAttemptId: 'assessmentAttemptId',
+  competencyType: 'competencyType',
+  competencyCode: 'competencyCode',
+  score: 'score',
+  status: 'status',
+  verifiedById: 'verifiedById',
+  verificationMethod: 'verificationMethod',
+  validFrom: 'validFrom',
+  validTo: 'validTo',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type GuideCompetencyScalarFieldEnum = (typeof GuideCompetencyScalarFieldEnum)[keyof typeof GuideCompetencyScalarFieldEnum]
+
+
+export const GuideLanguageAssessmentScalarFieldEnum = {
+  id: 'id',
+  guideProfileId: 'guideProfileId',
+  assessmentAttemptId: 'assessmentAttemptId',
+  language: 'language',
+  officialEvidenceType: 'officialEvidenceType',
+  officialEvidenceValue: 'officialEvidenceValue',
+  aiEstimatedCefr: 'aiEstimatedCefr',
+  aiConfidence: 'aiConfidence',
+  fluencyScore: 'fluencyScore',
+  grammarScore: 'grammarScore',
+  vocabularyScore: 'vocabularyScore',
+  interactionScore: 'interactionScore',
+  clarityScore: 'clarityScore',
+  humanVerifiedCefr: 'humanVerifiedCefr',
+  assessmentStatus: 'assessmentStatus',
+  verifiedById: 'verifiedById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type GuideLanguageAssessmentScalarFieldEnum = (typeof GuideLanguageAssessmentScalarFieldEnum)[keyof typeof GuideLanguageAssessmentScalarFieldEnum]
+
+
+export const GuideKnowledgeAssessmentScalarFieldEnum = {
+  id: 'id',
+  guideProfileId: 'guideProfileId',
+  assessmentAttemptId: 'assessmentAttemptId',
+  historyScore: 'historyScore',
+  cultureScore: 'cultureScore',
+  geographyNatureScore: 'geographyNatureScore',
+  lawEthicsScore: 'lawEthicsScore',
+  societyEconomyScore: 'societyEconomyScore',
+  totalScore: 'totalScore',
+  pass: 'pass',
+  evaluatorType: 'evaluatorType',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type GuideKnowledgeAssessmentScalarFieldEnum = (typeof GuideKnowledgeAssessmentScalarFieldEnum)[keyof typeof GuideKnowledgeAssessmentScalarFieldEnum]
+
+
+export const GuideSkillAssessmentScalarFieldEnum = {
+  id: 'id',
+  guideProfileId: 'guideProfileId',
+  assessmentAttemptId: 'assessmentAttemptId',
+  communicationScore: 'communicationScore',
+  guidingTechniqueScore: 'guidingTechniqueScore',
+  explanationStructureScore: 'explanationStructureScore',
+  factualPresentationScore: 'factualPresentationScore',
+  groupCareScore: 'groupCareScore',
+  questionHandlingScore: 'questionHandlingScore',
+  professionalismScore: 'professionalismScore',
+  totalScore: 'totalScore',
+  aiConfidence: 'aiConfidence',
+  humanReviewStatus: 'humanReviewStatus',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type GuideSkillAssessmentScalarFieldEnum = (typeof GuideSkillAssessmentScalarFieldEnum)[keyof typeof GuideSkillAssessmentScalarFieldEnum]
+
+
+export const GuideRouteCompetencyScalarFieldEnum = {
+  id: 'id',
+  guideProfileId: 'guideProfileId',
+  routeId: 'routeId',
+  assessmentAttemptId: 'assessmentAttemptId',
+  routeFamily: 'routeFamily',
+  score: 'score',
+  status: 'status',
+  passedAt: 'passedAt',
+  expiresAt: 'expiresAt',
+  evaluatorType: 'evaluatorType',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type GuideRouteCompetencyScalarFieldEnum = (typeof GuideRouteCompetencyScalarFieldEnum)[keyof typeof GuideRouteCompetencyScalarFieldEnum]
+
+
+export const GuideFirstAidScalarFieldEnum = {
+  id: 'id',
+  guideProfileId: 'guideProfileId',
+  assessmentAttemptId: 'assessmentAttemptId',
+  certificateProvider: 'certificateProvider',
+  certificateReference: 'certificateReference',
+  issuedAt: 'issuedAt',
+  expiresAt: 'expiresAt',
+  certificateStatus: 'certificateStatus',
+  theoryScore: 'theoryScore',
+  practicalVerificationStatus: 'practicalVerificationStatus',
+  verifiedAt: 'verifiedAt',
+  verifiedById: 'verifiedById',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type GuideFirstAidScalarFieldEnum = (typeof GuideFirstAidScalarFieldEnum)[keyof typeof GuideFirstAidScalarFieldEnum]
+
+
+export const AssessmentQuestionScalarFieldEnum = {
+  id: 'id',
+  category: 'category',
+  routeFamily: 'routeFamily',
+  difficulty: 'difficulty',
+  language: 'language',
+  questionType: 'questionType',
+  prompt: 'prompt',
+  responseOptions: 'responseOptions',
+  answerKey: 'answerKey',
+  scoringRubric: 'scoringRubric',
+  active: 'active',
+  sourceId: 'sourceId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AssessmentQuestionScalarFieldEnum = (typeof AssessmentQuestionScalarFieldEnum)[keyof typeof AssessmentQuestionScalarFieldEnum]
+
+
+export const AssessmentAttemptScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  guideProfileId: 'guideProfileId',
+  routeId: 'routeId',
+  routeFamily: 'routeFamily',
+  assessmentType: 'assessmentType',
+  language: 'language',
+  status: 'status',
+  rubricVersion: 'rubricVersion',
+  startedAt: 'startedAt',
+  submittedAt: 'submittedAt',
+  completedAt: 'completedAt',
+  score: 'score',
+  aiScore: 'aiScore',
+  humanScore: 'humanScore',
+  passed: 'passed',
+  humanPassed: 'humanPassed',
+  aiEstimatedCefr: 'aiEstimatedCefr',
+  humanCefr: 'humanCefr',
+  aiConfidence: 'aiConfidence',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AssessmentAttemptScalarFieldEnum = (typeof AssessmentAttemptScalarFieldEnum)[keyof typeof AssessmentAttemptScalarFieldEnum]
+
+
+export const AssessmentResponseScalarFieldEnum = {
+  id: 'id',
+  assessmentAttemptId: 'assessmentAttemptId',
+  questionId: 'questionId',
+  responseText: 'responseText',
+  responsePayload: 'responsePayload',
+  audioReference: 'audioReference',
+  aiScore: 'aiScore',
+  humanScore: 'humanScore',
+  aiFeedback: 'aiFeedback',
+  humanFeedback: 'humanFeedback',
+  unsafeActionDetected: 'unsafeActionDetected',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AssessmentResponseScalarFieldEnum = (typeof AssessmentResponseScalarFieldEnum)[keyof typeof AssessmentResponseScalarFieldEnum]
+
+
+export const AssessmentReviewScalarFieldEnum = {
+  id: 'id',
+  assessmentAttemptId: 'assessmentAttemptId',
+  reviewerId: 'reviewerId',
+  blindEvaluation: 'blindEvaluation',
+  decision: 'decision',
+  humanScore: 'humanScore',
+  humanPassed: 'humanPassed',
+  humanCefr: 'humanCefr',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AssessmentReviewScalarFieldEnum = (typeof AssessmentReviewScalarFieldEnum)[keyof typeof AssessmentReviewScalarFieldEnum]
+
+
+export const AiConversationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  title: 'title',
+  experimentMode: 'experimentMode',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt'
+} as const
+
+export type AiConversationScalarFieldEnum = (typeof AiConversationScalarFieldEnum)[keyof typeof AiConversationScalarFieldEnum]
+
+
+export const AiMessageScalarFieldEnum = {
+  id: 'id',
+  conversationId: 'conversationId',
+  role: 'role',
+  content: 'content',
+  structuredContent: 'structuredContent',
+  sources: 'sources',
+  toolName: 'toolName',
+  model: 'model',
+  tokenCount: 'tokenCount',
+  createdAt: 'createdAt'
+} as const
+
+export type AiMessageScalarFieldEnum = (typeof AiMessageScalarFieldEnum)[keyof typeof AiMessageScalarFieldEnum]
+
+
+export const AiExperimentRunScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  conversationId: 'conversationId',
+  routeId: 'routeId',
+  experimentMode: 'experimentMode',
+  requestType: 'requestType',
+  provider: 'provider',
+  model: 'model',
+  promptVersion: 'promptVersion',
+  routeFamily: 'routeFamily',
+  inputTokens: 'inputTokens',
+  outputTokens: 'outputTokens',
+  latencyMs: 'latencyMs',
+  estimatedCost: 'estimatedCost',
+  toolCalls: 'toolCalls',
+  validatorResult: 'validatorResult',
+  finalValidity: 'finalValidity',
+  failureReason: 'failureReason',
+  metadata: 'metadata',
+  createdAt: 'createdAt'
+} as const
+
+export type AiExperimentRunScalarFieldEnum = (typeof AiExperimentRunScalarFieldEnum)[keyof typeof AiExperimentRunScalarFieldEnum]
+
+
+export const AiEvaluationResultScalarFieldEnum = {
+  id: 'id',
+  experimentRunId: 'experimentRunId',
+  reviewerId: 'reviewerId',
+  evaluatorType: 'evaluatorType',
+  blindEvaluation: 'blindEvaluation',
+  factualAccuracy: 'factualAccuracy',
+  hallucinationDetected: 'hallucinationDetected',
+  poiValidity: 'poiValidity',
+  spatialFeasibility: 'spatialFeasibility',
+  temporalFeasibility: 'temporalFeasibility',
+  budgetCompliance: 'budgetCompliance',
+  seasonCompliance: 'seasonCompliance',
+  safetyViolation: 'safetyViolation',
+  personalizationScore: 'personalizationScore',
+  aiScore: 'aiScore',
+  humanScore: 'humanScore',
+  aiPass: 'aiPass',
+  humanPass: 'humanPass',
+  aiCefr: 'aiCefr',
+  humanCefr: 'humanCefr',
+  safetyFalseNegative: 'safetyFalseNegative',
+  safetyFalsePositive: 'safetyFalsePositive',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AiEvaluationResultScalarFieldEnum = (typeof AiEvaluationResultScalarFieldEnum)[keyof typeof AiEvaluationResultScalarFieldEnum]
+
+
+export const GuideMatchRunScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  routeId: 'routeId',
+  experimentRunId: 'experimentRunId',
+  routeFamily: 'routeFamily',
+  requestedStartAt: 'requestedStartAt',
+  requestedEndAt: 'requestedEndAt',
+  language: 'language',
+  minimumCefr: 'minimumCefr',
+  requirements: 'requirements',
+  weights: 'weights',
+  createdAt: 'createdAt'
+} as const
+
+export type GuideMatchRunScalarFieldEnum = (typeof GuideMatchRunScalarFieldEnum)[keyof typeof GuideMatchRunScalarFieldEnum]
+
+
+export const GuideMatchResultScalarFieldEnum = {
+  id: 'id',
+  guideMatchRunId: 'guideMatchRunId',
+  guideProfileId: 'guideProfileId',
+  eligible: 'eligible',
+  score: 'score',
+  rank: 'rank',
+  hardGateFailures: 'hardGateFailures',
+  factors: 'factors',
+  reasons: 'reasons',
+  createdAt: 'createdAt'
+} as const
+
+export type GuideMatchResultScalarFieldEnum = (typeof GuideMatchResultScalarFieldEnum)[keyof typeof GuideMatchResultScalarFieldEnum]
 
 
 export const GuideVerificationReviewScalarFieldEnum = {

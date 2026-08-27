@@ -49,7 +49,8 @@ export const VerificationCheckStatus = {
   PENDING: 'PENDING',
   VERIFIED: 'VERIFIED',
   FAILED: 'FAILED',
-  NOT_PROVIDED: 'NOT_PROVIDED'
+  NOT_PROVIDED: 'NOT_PROVIDED',
+  EXPIRED: 'EXPIRED'
 } as const
 
 export type VerificationCheckStatus = (typeof VerificationCheckStatus)[keyof typeof VerificationCheckStatus]
@@ -240,3 +241,356 @@ export const PricingType = {
 } as const
 
 export type PricingType = (typeof PricingType)[keyof typeof PricingType]
+
+
+export const GuideLegalRole = {
+  UNVERIFIED: 'UNVERIFIED',
+  LICENSED_PROFESSIONAL: 'LICENSED_PROFESSIONAL',
+  LICENSED_PROFESSIONAL_GUIDE: 'LICENSED_PROFESSIONAL_GUIDE',
+  LOCAL_HOST: 'LOCAL_HOST',
+  SPECIALIST_INSTRUCTOR: 'SPECIALIST_INSTRUCTOR'
+} as const
+
+export type GuideLegalRole = (typeof GuideLegalRole)[keyof typeof GuideLegalRole]
+
+
+export const GuideEvidenceType = {
+  IDENTITY: 'IDENTITY',
+  PROFESSIONAL_LICENSE: 'PROFESSIONAL_LICENSE',
+  LANGUAGE: 'LANGUAGE',
+  FIRST_AID: 'FIRST_AID',
+  INSURANCE: 'INSURANCE',
+  SPECIALTY: 'SPECIALTY'
+} as const
+
+export type GuideEvidenceType = (typeof GuideEvidenceType)[keyof typeof GuideEvidenceType]
+
+
+export const CompetencyTaskType = {
+  PERFORMANCE: 'PERFORMANCE',
+  GENERAL_KNOWLEDGE: 'GENERAL_KNOWLEDGE',
+  ROUTE_KNOWLEDGE: 'ROUTE_KNOWLEDGE',
+  LANGUAGE: 'LANGUAGE',
+  FIRST_AID_THEORY: 'FIRST_AID_THEORY',
+  SAFETY_SCENARIO: 'SAFETY_SCENARIO'
+} as const
+
+export type CompetencyTaskType = (typeof CompetencyTaskType)[keyof typeof CompetencyTaskType]
+
+
+export const TourismSourceType = {
+  WEBSITE: 'WEBSITE',
+  LAW: 'LAW',
+  REGULATION: 'REGULATION',
+  REPORT: 'REPORT',
+  DATASET: 'DATASET',
+  MAP: 'MAP',
+  ARTICLE: 'ARTICLE',
+  BOOK: 'BOOK',
+  OTHER: 'OTHER'
+} as const
+
+export type TourismSourceType = (typeof TourismSourceType)[keyof typeof TourismSourceType]
+
+
+export const TourismAuthorityLevel = {
+  GOVERNMENT: 'GOVERNMENT',
+  LEGAL: 'LEGAL',
+  OFFICIAL_TOURISM: 'OFFICIAL_TOURISM',
+  UNESCO: 'UNESCO',
+  LOCAL_AUTHORITY: 'LOCAL_AUTHORITY',
+  MUSEUM: 'MUSEUM',
+  PROTECTED_AREA: 'PROTECTED_AREA',
+  VERIFIED_OPERATOR: 'VERIFIED_OPERATOR',
+  OTHER: 'OTHER'
+} as const
+
+export type TourismAuthorityLevel = (typeof TourismAuthorityLevel)[keyof typeof TourismAuthorityLevel]
+
+
+export const TourismKnowledgeCategory = {
+  HISTORY: 'HISTORY',
+  CULTURE: 'CULTURE',
+  GEOGRAPHY: 'GEOGRAPHY',
+  NATURE: 'NATURE',
+  LAW: 'LAW',
+  SAFETY: 'SAFETY',
+  FIRST_AID_REFERENCE: 'FIRST_AID_REFERENCE',
+  ROUTE_INFORMATION: 'ROUTE_INFORMATION',
+  DESTINATION_INFORMATION: 'DESTINATION_INFORMATION',
+  TOURISM_GUIDANCE: 'TOURISM_GUIDANCE'
+} as const
+
+export type TourismKnowledgeCategory = (typeof TourismKnowledgeCategory)[keyof typeof TourismKnowledgeCategory]
+
+
+export const RouteFamily = {
+  CENTRAL_HERITAGE: 'CENTRAL_HERITAGE',
+  GOBI: 'GOBI',
+  KHUVSGUL: 'KHUVSGUL',
+  WESTERN_ALTAI: 'WESTERN_ALTAI'
+} as const
+
+export type RouteFamily = (typeof RouteFamily)[keyof typeof RouteFamily]
+
+
+export const RouteRiskLevel = {
+  R0: 'R0',
+  R1: 'R1',
+  R2: 'R2',
+  R3: 'R3',
+  R4: 'R4'
+} as const
+
+export type RouteRiskLevel = (typeof RouteRiskLevel)[keyof typeof RouteRiskLevel]
+
+
+export const RouteNodeType = {
+  CITY: 'CITY',
+  DESTINATION: 'DESTINATION',
+  HERITAGE: 'HERITAGE',
+  MUSEUM: 'MUSEUM',
+  NATURE: 'NATURE',
+  TRAILHEAD: 'TRAILHEAD',
+  TRANSPORT_HUB: 'TRANSPORT_HUB',
+  ACCOMMODATION: 'ACCOMMODATION',
+  OTHER: 'OTHER'
+} as const
+
+export type RouteNodeType = (typeof RouteNodeType)[keyof typeof RouteNodeType]
+
+
+export const RouteTransportMode = {
+  ROAD: 'ROAD',
+  OFF_ROAD: 'OFF_ROAD',
+  TREK: 'TREK',
+  BOAT: 'BOAT',
+  AIR: 'AIR',
+  RAIL: 'RAIL',
+  HORSE: 'HORSE',
+  OTHER: 'OTHER'
+} as const
+
+export type RouteTransportMode = (typeof RouteTransportMode)[keyof typeof RouteTransportMode]
+
+
+export const SafetyPlanStatus = {
+  DRAFT: 'DRAFT',
+  SUBMITTED: 'SUBMITTED',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+  REVOKED: 'REVOKED',
+  EXPIRED: 'EXPIRED'
+} as const
+
+export type SafetyPlanStatus = (typeof SafetyPlanStatus)[keyof typeof SafetyPlanStatus]
+
+
+export const SafetyPlanAuditAction = {
+  CREATED: 'CREATED',
+  UPDATED: 'UPDATED',
+  SUBMITTED: 'SUBMITTED',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+  REVOKED: 'REVOKED',
+  EXPIRED: 'EXPIRED'
+} as const
+
+export type SafetyPlanAuditAction = (typeof SafetyPlanAuditAction)[keyof typeof SafetyPlanAuditAction]
+
+
+export const GuideCompetencyType = {
+  GENERAL_KNOWLEDGE: 'GENERAL_KNOWLEDGE',
+  GUIDE_SKILL: 'GUIDE_SKILL',
+  LANGUAGE: 'LANGUAGE',
+  ROUTE_SPECIFIC: 'ROUTE_SPECIFIC',
+  FIRST_AID_THEORY: 'FIRST_AID_THEORY',
+  SAFETY: 'SAFETY',
+  SPECIALTY: 'SPECIALTY'
+} as const
+
+export type GuideCompetencyType = (typeof GuideCompetencyType)[keyof typeof GuideCompetencyType]
+
+
+export const GuideCompetencyStatus = {
+  NOT_ASSESSED: 'NOT_ASSESSED',
+  AI_PRE_SCREENED: 'AI_PRE_SCREENED',
+  HUMAN_VERIFIED: 'HUMAN_VERIFIED',
+  DOCUMENT_VERIFIED: 'DOCUMENT_VERIFIED',
+  EXPIRED: 'EXPIRED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type GuideCompetencyStatus = (typeof GuideCompetencyStatus)[keyof typeof GuideCompetencyStatus]
+
+
+export const CefrLevel = {
+  A1: 'A1',
+  A2: 'A2',
+  B1: 'B1',
+  B2: 'B2',
+  C1: 'C1',
+  C2: 'C2'
+} as const
+
+export type CefrLevel = (typeof CefrLevel)[keyof typeof CefrLevel]
+
+
+export const FirstAidCertificateStatus = {
+  NOT_PROVIDED: 'NOT_PROVIDED',
+  PENDING: 'PENDING',
+  DOCUMENT_VERIFIED: 'DOCUMENT_VERIFIED',
+  EXPIRED: 'EXPIRED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type FirstAidCertificateStatus = (typeof FirstAidCertificateStatus)[keyof typeof FirstAidCertificateStatus]
+
+
+export const PracticalVerificationStatus = {
+  NOT_ASSESSED: 'NOT_ASSESSED',
+  PENDING: 'PENDING',
+  VERIFIED: 'VERIFIED',
+  REJECTED: 'REJECTED',
+  EXPIRED: 'EXPIRED'
+} as const
+
+export type PracticalVerificationStatus = (typeof PracticalVerificationStatus)[keyof typeof PracticalVerificationStatus]
+
+
+export const AssessmentCategory = {
+  HISTORY_ARCHAEOLOGY: 'HISTORY_ARCHAEOLOGY',
+  RELIGION_CULTURE: 'RELIGION_CULTURE',
+  GEOGRAPHY_NATURE: 'GEOGRAPHY_NATURE',
+  LAW_ETHICS: 'LAW_ETHICS',
+  SOCIETY_ECONOMY: 'SOCIETY_ECONOMY',
+  ROUTE_SPECIFIC: 'ROUTE_SPECIFIC',
+  SAFETY: 'SAFETY',
+  FIRST_AID_THEORY: 'FIRST_AID_THEORY',
+  LANGUAGE: 'LANGUAGE',
+  GUIDE_SKILL: 'GUIDE_SKILL'
+} as const
+
+export type AssessmentCategory = (typeof AssessmentCategory)[keyof typeof AssessmentCategory]
+
+
+export const AssessmentQuestionType = {
+  MULTIPLE_CHOICE: 'MULTIPLE_CHOICE',
+  SHORT_ANSWER: 'SHORT_ANSWER',
+  OPEN_EXPLANATION: 'OPEN_EXPLANATION',
+  SCENARIO: 'SCENARIO',
+  SPEAKING_TASK: 'SPEAKING_TASK'
+} as const
+
+export type AssessmentQuestionType = (typeof AssessmentQuestionType)[keyof typeof AssessmentQuestionType]
+
+
+export const AssessmentDifficulty = {
+  BASIC: 'BASIC',
+  INTERMEDIATE: 'INTERMEDIATE',
+  ADVANCED: 'ADVANCED'
+} as const
+
+export type AssessmentDifficulty = (typeof AssessmentDifficulty)[keyof typeof AssessmentDifficulty]
+
+
+export const AssessmentType = {
+  LANGUAGE: 'LANGUAGE',
+  GENERAL_KNOWLEDGE: 'GENERAL_KNOWLEDGE',
+  GUIDE_SKILL: 'GUIDE_SKILL',
+  ROUTE_COMPETENCY: 'ROUTE_COMPETENCY',
+  FIRST_AID_THEORY: 'FIRST_AID_THEORY',
+  SAFETY_SCENARIO: 'SAFETY_SCENARIO'
+} as const
+
+export type AssessmentType = (typeof AssessmentType)[keyof typeof AssessmentType]
+
+
+export const AssessmentAttemptStatus = {
+  NOT_STARTED: 'NOT_STARTED',
+  IN_PROGRESS: 'IN_PROGRESS',
+  SUBMITTED: 'SUBMITTED',
+  AI_SCORED: 'AI_SCORED',
+  HUMAN_REVIEWED: 'HUMAN_REVIEWED',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type AssessmentAttemptStatus = (typeof AssessmentAttemptStatus)[keyof typeof AssessmentAttemptStatus]
+
+
+export const EvaluatorType = {
+  AI: 'AI',
+  HUMAN: 'HUMAN',
+  HYBRID: 'HYBRID'
+} as const
+
+export type EvaluatorType = (typeof EvaluatorType)[keyof typeof EvaluatorType]
+
+
+export const HumanReviewStatus = {
+  NOT_REQUESTED: 'NOT_REQUESTED',
+  PENDING: 'PENDING',
+  BLIND_REVIEW_IN_PROGRESS: 'BLIND_REVIEW_IN_PROGRESS',
+  VERIFIED: 'VERIFIED',
+  REJECTED: 'REJECTED',
+  REASSESSMENT_REQUIRED: 'REASSESSMENT_REQUIRED'
+} as const
+
+export type HumanReviewStatus = (typeof HumanReviewStatus)[keyof typeof HumanReviewStatus]
+
+
+export const AssessmentReviewDecision = {
+  VERIFIED: 'VERIFIED',
+  REJECTED: 'REJECTED',
+  REASSESSMENT_REQUIRED: 'REASSESSMENT_REQUIRED'
+} as const
+
+export type AssessmentReviewDecision = (typeof AssessmentReviewDecision)[keyof typeof AssessmentReviewDecision]
+
+
+export const AiExperimentMode = {
+  A: 'A',
+  B: 'B',
+  C: 'C',
+  D: 'D',
+  E: 'E'
+} as const
+
+export type AiExperimentMode = (typeof AiExperimentMode)[keyof typeof AiExperimentMode]
+
+
+export const AiRequestType = {
+  GENERAL_TRAVEL: 'GENERAL_TRAVEL',
+  DESTINATION_QA: 'DESTINATION_QA',
+  ITINERARY: 'ITINERARY',
+  ROUTE_PLANNING: 'ROUTE_PLANNING',
+  GUIDE_SEARCH: 'GUIDE_SEARCH',
+  GUIDE_MATCHING: 'GUIDE_MATCHING',
+  TOUR_SEARCH: 'TOUR_SEARCH',
+  TOUR_COMPARISON: 'TOUR_COMPARISON',
+  TRANSLATION: 'TRANSLATION',
+  SAFETY_INFORMATION: 'SAFETY_INFORMATION',
+  BOOKING_HELP: 'BOOKING_HELP',
+  OTHER: 'OTHER'
+} as const
+
+export type AiRequestType = (typeof AiRequestType)[keyof typeof AiRequestType]
+
+
+export const AiConversationStatus = {
+  ACTIVE: 'ACTIVE',
+  ARCHIVED: 'ARCHIVED'
+} as const
+
+export type AiConversationStatus = (typeof AiConversationStatus)[keyof typeof AiConversationStatus]
+
+
+export const AiMessageRole = {
+  SYSTEM: 'SYSTEM',
+  USER: 'USER',
+  ASSISTANT: 'ASSISTANT',
+  TOOL: 'TOOL'
+} as const
+
+export type AiMessageRole = (typeof AiMessageRole)[keyof typeof AiMessageRole]

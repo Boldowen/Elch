@@ -24,9 +24,9 @@ export declare class ConversationsService {
             id: string;
             deletedAt: Date | null;
             sentAt: Date;
+            type: import("../../generated/prisma/enums.js").MessageType;
             conversationId: string;
             senderId: string;
-            type: import("../../generated/prisma/enums.js").MessageType;
             body: string | null;
             mediaUrl: string | null;
         }[];
@@ -50,9 +50,9 @@ export declare class ConversationsService {
         id: string;
         deletedAt: Date | null;
         sentAt: Date;
+        type: import("../../generated/prisma/enums.js").MessageType;
         conversationId: string;
         senderId: string;
-        type: import("../../generated/prisma/enums.js").MessageType;
         body: string | null;
         mediaUrl: string | null;
     }[]>;
@@ -60,9 +60,9 @@ export declare class ConversationsService {
         id: string;
         deletedAt: Date | null;
         sentAt: Date;
+        type: import("../../generated/prisma/enums.js").MessageType;
         conversationId: string;
         senderId: string;
-        type: import("../../generated/prisma/enums.js").MessageType;
         body: string | null;
         mediaUrl: string | null;
     }>;

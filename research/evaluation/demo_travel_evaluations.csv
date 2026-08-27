@@ -1,0 +1,6 @@
+run_id,experiment_mode,data_status,factual_accuracy,hallucination_detected,poi_validity,spatial_feasibility,temporal_feasibility,budget_compliance,season_compliance,safety_violation,personalization_score,final_validity,latency_ms,input_tokens,output_tokens,estimated_cost_usd
+demo-travel-001,A,DEMO_RESEARCH_GENERATED,0.70,true,true,false,false,true,true,true,0.60,false,1200,510,190,0
+demo-travel-002,B,DEMO_RESEARCH_GENERATED,0.82,false,true,true,false,true,true,false,0.72,false,1450,640,220,0
+demo-travel-003,D,DEMO_RESEARCH_GENERATED,0.88,false,true,true,true,true,true,false,0.80,true,1600,710,260,0
+demo-travel-004,E,DEMO_RESEARCH_GENERATED,0.94,false,true,true,true,true,true,false,0.91,true,1750,760,280,0
+demo-travel-005,E,DEMO_RESEARCH_GENERATED,0.90,false,true,true,true,false,true,false,0.86,false,1810,790,300,0

@@ -25,3 +25,36 @@ export class CreateBookingDto {
   @MaxLength(1000)
   note?: string;
 }
+
+export class UpdateBookingDraftDto {
+  @IsOptional()
+  @IsUUID()
+  listingId?: string;
+
+  @IsOptional()
+  @IsUUID()
+  guideId?: string;
+
+  @IsOptional()
+  @IsDateString()
+  startsAt?: string;
+
+  @IsOptional()
+  @IsDateString()
+  endsAt?: string;
+
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  @Max(30)
+  guests?: number;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(1000)
+  note?: string;
+
+  @IsOptional()
+  @IsDateString()
+  expectedUpdatedAt?: string;
+}

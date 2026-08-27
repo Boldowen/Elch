@@ -7,20 +7,52 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, ServiceUnavailableException } from '@nestjs/common';
 import { Public } from '../../common/decorators/public.decorator.js';
+import { PrismaService } from '../../prisma/prisma.service.js';
 let HealthController = class HealthController {
-    check() { return { status: 'ok', service: 'elch-api', timestamp: new Date().toISOString() }; }
+    prisma;
+    constructor(prisma) {
+        this.prisma = prisma;
+    }
+    live() {
+        return { status: 'ok', service: 'elch-api', check: 'liveness', timestamp: new Date().toISOString() };
+    }
+    check() {
+        return this.ready();
+    }
+    async ready() {
+        try {
+            await this.prisma.$queryRaw `SELECT 1`;
+            return { status: 'ok', service: 'elch-api', check: 'readiness', database: 'ok', timestamp: new Date().toISOString() };
+        }
+        catch {
+            throw new ServiceUnavailableException({ code: 'DATABASE_NOT_READY', message: 'Database is not ready' });
+        }
+    }
 };
+__decorate([
+    Get('live'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], HealthController.prototype, "live", null);
 __decorate([
     Get(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], HealthController.prototype, "check", null);
+__decorate([
+    Get('ready'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], HealthController.prototype, "ready", null);
 HealthController = __decorate([
     Public(),
-    Controller({ path: 'health', version: '1' })
+    Controller({ path: 'health', version: '1' }),
+    __metadata("design:paramtypes", [PrismaService])
 ], HealthController);
 export { HealthController };
 //# sourceMappingURL=health.controller.js.map

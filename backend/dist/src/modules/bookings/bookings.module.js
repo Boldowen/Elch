@@ -13,7 +13,7 @@ import { PaymentArrangementsService } from './payment-arrangements.service.js';
 let BookingsModule = class BookingsModule {
 };
 BookingsModule = __decorate([
-    Module({ imports: [PricingModule], controllers: [BookingsController], providers: [BookingsService, BookingLifecycleService, PaymentArrangementsService] })
+    Module({ imports: [PricingModule], controllers: [BookingsController], providers: [BookingsService, BookingLifecycleService, PaymentArrangementsService], exports: [BookingsService] })
 ], BookingsModule);
 export { BookingsModule };
 //# sourceMappingURL=bookings.module.js.map

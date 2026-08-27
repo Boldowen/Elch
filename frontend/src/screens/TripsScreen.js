@@ -122,6 +122,16 @@ export default function TripsScreen({ navigation }) {
                   {item.guests} · {formatMoney(item.amount, item.currency, language)}
                 </Text>
                 {item.note ? <Text style={styles.note}>{item.note}</Text> : null}
+                {item.status === 'DRAFT' ? (
+                  <Pressable
+                    accessibilityRole="button"
+                    accessibilityLabel={t('trips.resumeDraft')}
+                    onPress={() => navigation.navigate('Booking', { draftId: item.id })}
+                    style={styles.cancel}
+                  >
+                    <Text style={styles.cancelText}>{t('trips.resumeDraft')}</Text>
+                  </Pressable>
+                ) : null}
                 {cancellable.has(item.status) ? (
                   <Pressable
                     accessibilityRole="button"
