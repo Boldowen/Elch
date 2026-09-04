@@ -27,6 +27,7 @@ export interface AssistantGroundingSource {
   lastVerifiedAt: string;
   verificationStatus: 'PROTOTYPE_REQUIRES_REVIEW' | 'HUMAN_VERIFIED';
   excerpt?: string;
+  licenseOrUsageNote?: string;
 }
 
 export interface AssistantSendOptions {
@@ -409,10 +410,11 @@ export class ResearchAssistantService {
           url: result.source.url,
           authorityTier: result.source.authorityLevel,
           lastVerifiedAt: verifiedAt.toISOString(),
-          verificationStatus: verifiedAt.getUTCFullYear() <= 1970
-            ? 'PROTOTYPE_REQUIRES_REVIEW'
-            : 'HUMAN_VERIFIED',
+          verificationStatus: result.source.reviewStatus === 'HUMAN_VERIFIED'
+            ? 'HUMAN_VERIFIED'
+            : 'PROTOTYPE_REQUIRES_REVIEW',
           excerpt: result.content.slice(0, 600),
+          licenseOrUsageNote: result.source.licenseOrUsageNote,
         };
       });
     } catch {

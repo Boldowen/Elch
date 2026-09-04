@@ -182,6 +182,11 @@ export const TourismSourceType = {
     BOOK: 'BOOK',
     OTHER: 'OTHER'
 };
+export const TourismSourceReviewStatus = {
+    PENDING: 'PENDING',
+    HUMAN_VERIFIED: 'HUMAN_VERIFIED',
+    REJECTED: 'REJECTED'
+};
 export const TourismAuthorityLevel = {
     GOVERNMENT: 'GOVERNMENT',
     LEGAL: 'LEGAL',

@@ -5,7 +5,7 @@ import { AuthService } from './auth.service.js';
 import { LoginDto } from './dto/login.dto.js';
 import { RefreshDto } from './dto/refresh.dto.js';
 import { RegisterDto } from './dto/register.dto.js';
-import { CurrentUser, RequestUser } from '../common/decorators/current-user.decorator.js';
+import { CurrentUser, type RequestUser } from '../common/decorators/current-user.decorator.js';
 import { Throttle } from '@nestjs/throttler';
 import { ResendVerificationDto, VerifyEmailDto } from './dto/verify-email.dto.js';
 import { ChangePasswordDto, ForgotPasswordDto, ResetPasswordDto } from './dto/password-recovery.dto.js';

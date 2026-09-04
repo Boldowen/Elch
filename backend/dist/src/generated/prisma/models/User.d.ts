@@ -236,6 +236,7 @@ export type UserWhereInput = {
     safetyPlansCreated?: Prisma.SafetyPlanListRelationFilter;
     safetyPlansReviewed?: Prisma.SafetyPlanListRelationFilter;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditListRelationFilter;
+    tourismSourcesReviewed?: Prisma.TourismSourceListRelationFilter;
 };
 export type UserOrderByWithRelationInput = {
     id?: Prisma.SortOrder;
@@ -295,6 +296,7 @@ export type UserOrderByWithRelationInput = {
     safetyPlansCreated?: Prisma.SafetyPlanOrderByRelationAggregateInput;
     safetyPlansReviewed?: Prisma.SafetyPlanOrderByRelationAggregateInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditOrderByRelationAggregateInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceOrderByRelationAggregateInput;
 };
 export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: string;
@@ -358,6 +360,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
     safetyPlansCreated?: Prisma.SafetyPlanListRelationFilter;
     safetyPlansReviewed?: Prisma.SafetyPlanListRelationFilter;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditListRelationFilter;
+    tourismSourcesReviewed?: Prisma.TourismSourceListRelationFilter;
 }, "id" | "email" | "provider_providerSubject">;
 export type UserOrderByWithAggregationInput = {
     id?: Prisma.SortOrder;
@@ -463,6 +466,7 @@ export type UserCreateInput = {
     safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceCreateNestedManyWithoutReviewedByInput;
 };
 export type UserUncheckedCreateInput = {
     id?: string;
@@ -522,6 +526,7 @@ export type UserUncheckedCreateInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedCreateNestedManyWithoutReviewedByInput;
 };
 export type UserUpdateInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -581,6 +586,7 @@ export type UserUpdateInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUncheckedUpdateInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -640,6 +646,7 @@ export type UserUncheckedUpdateInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserCreateManyInput = {
     id?: string;
@@ -853,6 +860,20 @@ export type UserUpdateOneRequiredWithoutGuideProfileNestedInput = {
     upsert?: Prisma.UserUpsertWithoutGuideProfileInput;
     connect?: Prisma.UserWhereUniqueInput;
     update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutGuideProfileInput, Prisma.UserUpdateWithoutGuideProfileInput>, Prisma.UserUncheckedUpdateWithoutGuideProfileInput>;
+};
+export type UserCreateNestedOneWithoutTourismSourcesReviewedInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutTourismSourcesReviewedInput, Prisma.UserUncheckedCreateWithoutTourismSourcesReviewedInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutTourismSourcesReviewedInput;
+    connect?: Prisma.UserWhereUniqueInput;
+};
+export type UserUpdateOneWithoutTourismSourcesReviewedNestedInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutTourismSourcesReviewedInput, Prisma.UserUncheckedCreateWithoutTourismSourcesReviewedInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutTourismSourcesReviewedInput;
+    upsert?: Prisma.UserUpsertWithoutTourismSourcesReviewedInput;
+    disconnect?: Prisma.UserWhereInput | boolean;
+    delete?: Prisma.UserWhereInput | boolean;
+    connect?: Prisma.UserWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutTourismSourcesReviewedInput, Prisma.UserUpdateWithoutTourismSourcesReviewedInput>, Prisma.UserUncheckedUpdateWithoutTourismSourcesReviewedInput>;
 };
 export type UserCreateNestedOneWithoutSafetyPlansCreatedInput = {
     create?: Prisma.XOR<Prisma.UserCreateWithoutSafetyPlansCreatedInput, Prisma.UserUncheckedCreateWithoutSafetyPlansCreatedInput>;
@@ -1353,6 +1374,7 @@ export type UserCreateWithoutRefreshTokensInput = {
     safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceCreateNestedManyWithoutReviewedByInput;
 };
 export type UserUncheckedCreateWithoutRefreshTokensInput = {
     id?: string;
@@ -1411,6 +1433,7 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedCreateNestedManyWithoutReviewedByInput;
 };
 export type UserCreateOrConnectWithoutRefreshTokensInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -1482,6 +1505,7 @@ export type UserUpdateWithoutRefreshTokensInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUncheckedUpdateWithoutRefreshTokensInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -1540,6 +1564,7 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserCreateWithoutEmailVerificationTokensInput = {
     id?: string;
@@ -1598,6 +1623,7 @@ export type UserCreateWithoutEmailVerificationTokensInput = {
     safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceCreateNestedManyWithoutReviewedByInput;
 };
 export type UserUncheckedCreateWithoutEmailVerificationTokensInput = {
     id?: string;
@@ -1656,6 +1682,7 @@ export type UserUncheckedCreateWithoutEmailVerificationTokensInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedCreateNestedManyWithoutReviewedByInput;
 };
 export type UserCreateOrConnectWithoutEmailVerificationTokensInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -1727,6 +1754,7 @@ export type UserUpdateWithoutEmailVerificationTokensInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUncheckedUpdateWithoutEmailVerificationTokensInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -1785,6 +1813,7 @@ export type UserUncheckedUpdateWithoutEmailVerificationTokensInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserCreateWithoutPasswordResetTokensInput = {
     id?: string;
@@ -1843,6 +1872,7 @@ export type UserCreateWithoutPasswordResetTokensInput = {
     safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceCreateNestedManyWithoutReviewedByInput;
 };
 export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
     id?: string;
@@ -1901,6 +1931,7 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedCreateNestedManyWithoutReviewedByInput;
 };
 export type UserCreateOrConnectWithoutPasswordResetTokensInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -1972,6 +2003,7 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -2030,6 +2062,7 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserCreateWithoutGuideProfileInput = {
     id?: string;
@@ -2088,6 +2121,7 @@ export type UserCreateWithoutGuideProfileInput = {
     safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceCreateNestedManyWithoutReviewedByInput;
 };
 export type UserUncheckedCreateWithoutGuideProfileInput = {
     id?: string;
@@ -2146,6 +2180,7 @@ export type UserUncheckedCreateWithoutGuideProfileInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedCreateNestedManyWithoutReviewedByInput;
 };
 export type UserCreateOrConnectWithoutGuideProfileInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -2217,6 +2252,7 @@ export type UserUpdateWithoutGuideProfileInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUncheckedUpdateWithoutGuideProfileInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -2238,6 +2274,256 @@ export type UserUncheckedUpdateWithoutGuideProfileInput = {
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput;
+    listings?: Prisma.ListingUncheckedUpdateManyWithoutHostNestedInput;
+    bookings?: Prisma.BookingUncheckedUpdateManyWithoutTravelerNestedInput;
+    guidedBookings?: Prisma.BookingUncheckedUpdateManyWithoutGuideNestedInput;
+    favorites?: Prisma.FavoriteUncheckedUpdateManyWithoutUserNestedInput;
+    participants?: Prisma.ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput;
+    messages?: Prisma.MessageUncheckedUpdateManyWithoutSenderNestedInput;
+    paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput;
+    reviewsWritten?: Prisma.ReviewUncheckedUpdateManyWithoutAuthorNestedInput;
+    reviewsReceived?: Prisma.ReviewUncheckedUpdateManyWithoutGuideNestedInput;
+    posts?: Prisma.PostUncheckedUpdateManyWithoutAuthorNestedInput;
+    postLikes?: Prisma.PostLikeUncheckedUpdateManyWithoutUserNestedInput;
+    postComments?: Prisma.PostCommentUncheckedUpdateManyWithoutAuthorNestedInput;
+    following?: Prisma.FollowUncheckedUpdateManyWithoutFollowerNestedInput;
+    followers?: Prisma.FollowUncheckedUpdateManyWithoutFollowingNestedInput;
+    bookingEvents?: Prisma.BookingEventUncheckedUpdateManyWithoutActorNestedInput;
+    idempotencyKeys?: Prisma.IdempotencyKeyUncheckedUpdateManyWithoutUserNestedInput;
+    notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput;
+    guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutReviewerNestedInput;
+    blocksCreated?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockerNestedInput;
+    blocksReceived?: Prisma.UserBlockUncheckedUpdateManyWithoutBlockedNestedInput;
+    reportsCreated?: Prisma.ReportUncheckedUpdateManyWithoutReporterNestedInput;
+    moderationActions?: Prisma.ModerationActionUncheckedUpdateManyWithoutAdminNestedInput;
+    paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedUpdateManyWithoutProposedByNestedInput;
+    assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutUserNestedInput;
+    assessmentReviews?: Prisma.AssessmentReviewUncheckedUpdateManyWithoutReviewerNestedInput;
+    guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutVerifiedByNestedInput;
+    guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutVerifiedByNestedInput;
+    guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutVerifiedByNestedInput;
+    aiConversations?: Prisma.AiConversationUncheckedUpdateManyWithoutUserNestedInput;
+    aiExperimentRuns?: Prisma.AiExperimentRunUncheckedUpdateManyWithoutUserNestedInput;
+    aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedUpdateManyWithoutReviewerNestedInput;
+    guideMatchRuns?: Prisma.GuideMatchRunUncheckedUpdateManyWithoutUserNestedInput;
+    safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput;
+    safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput;
+    safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedUpdateManyWithoutReviewedByNestedInput;
+};
+export type UserCreateWithoutTourismSourcesReviewedInput = {
+    id?: string;
+    email: string;
+    passwordHash?: string | null;
+    name: string;
+    phone?: string | null;
+    avatarUrl?: string | null;
+    provider?: $Enums.AuthProvider;
+    providerSubject?: string | null;
+    roles?: Prisma.UserCreaterolesInput | $Enums.Role[];
+    isVerified?: boolean;
+    emailVerifiedAt?: Date | string | null;
+    moderationStatus?: $Enums.UserModerationStatus;
+    suspendedUntil?: Date | string | null;
+    suspensionReason?: string | null;
+    lastLoginAt?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    deletedAt?: Date | string | null;
+    refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput;
+    guideProfile?: Prisma.GuideProfileCreateNestedOneWithoutUserInput;
+    listings?: Prisma.ListingCreateNestedManyWithoutHostInput;
+    bookings?: Prisma.BookingCreateNestedManyWithoutTravelerInput;
+    guidedBookings?: Prisma.BookingCreateNestedManyWithoutGuideInput;
+    favorites?: Prisma.FavoriteCreateNestedManyWithoutUserInput;
+    participants?: Prisma.ConversationParticipantCreateNestedManyWithoutUserInput;
+    messages?: Prisma.MessageCreateNestedManyWithoutSenderInput;
+    paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput;
+    reviewsWritten?: Prisma.ReviewCreateNestedManyWithoutAuthorInput;
+    reviewsReceived?: Prisma.ReviewCreateNestedManyWithoutGuideInput;
+    posts?: Prisma.PostCreateNestedManyWithoutAuthorInput;
+    postLikes?: Prisma.PostLikeCreateNestedManyWithoutUserInput;
+    postComments?: Prisma.PostCommentCreateNestedManyWithoutAuthorInput;
+    following?: Prisma.FollowCreateNestedManyWithoutFollowerInput;
+    followers?: Prisma.FollowCreateNestedManyWithoutFollowingInput;
+    bookingEvents?: Prisma.BookingEventCreateNestedManyWithoutActorInput;
+    idempotencyKeys?: Prisma.IdempotencyKeyCreateNestedManyWithoutUserInput;
+    notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput;
+    guideVerificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutReviewerInput;
+    blocksCreated?: Prisma.UserBlockCreateNestedManyWithoutBlockerInput;
+    blocksReceived?: Prisma.UserBlockCreateNestedManyWithoutBlockedInput;
+    reportsCreated?: Prisma.ReportCreateNestedManyWithoutReporterInput;
+    moderationActions?: Prisma.ModerationActionCreateNestedManyWithoutAdminInput;
+    paymentArrangementsProposed?: Prisma.PilotPaymentCreateNestedManyWithoutProposedByInput;
+    assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutUserInput;
+    assessmentReviews?: Prisma.AssessmentReviewCreateNestedManyWithoutReviewerInput;
+    guideCompetenciesVerified?: Prisma.GuideCompetencyCreateNestedManyWithoutVerifiedByInput;
+    guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutVerifiedByInput;
+    guideFirstAidRecordsVerified?: Prisma.GuideFirstAidCreateNestedManyWithoutVerifiedByInput;
+    aiConversations?: Prisma.AiConversationCreateNestedManyWithoutUserInput;
+    aiExperimentRuns?: Prisma.AiExperimentRunCreateNestedManyWithoutUserInput;
+    aiEvaluationReviews?: Prisma.AiEvaluationResultCreateNestedManyWithoutReviewerInput;
+    guideMatchRuns?: Prisma.GuideMatchRunCreateNestedManyWithoutUserInput;
+    safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput;
+    safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput;
+    safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput;
+};
+export type UserUncheckedCreateWithoutTourismSourcesReviewedInput = {
+    id?: string;
+    email: string;
+    passwordHash?: string | null;
+    name: string;
+    phone?: string | null;
+    avatarUrl?: string | null;
+    provider?: $Enums.AuthProvider;
+    providerSubject?: string | null;
+    roles?: Prisma.UserCreaterolesInput | $Enums.Role[];
+    isVerified?: boolean;
+    emailVerifiedAt?: Date | string | null;
+    moderationStatus?: $Enums.UserModerationStatus;
+    suspendedUntil?: Date | string | null;
+    suspensionReason?: string | null;
+    lastLoginAt?: Date | string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    deletedAt?: Date | string | null;
+    refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput;
+    guideProfile?: Prisma.GuideProfileUncheckedCreateNestedOneWithoutUserInput;
+    listings?: Prisma.ListingUncheckedCreateNestedManyWithoutHostInput;
+    bookings?: Prisma.BookingUncheckedCreateNestedManyWithoutTravelerInput;
+    guidedBookings?: Prisma.BookingUncheckedCreateNestedManyWithoutGuideInput;
+    favorites?: Prisma.FavoriteUncheckedCreateNestedManyWithoutUserInput;
+    participants?: Prisma.ConversationParticipantUncheckedCreateNestedManyWithoutUserInput;
+    messages?: Prisma.MessageUncheckedCreateNestedManyWithoutSenderInput;
+    paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput;
+    reviewsWritten?: Prisma.ReviewUncheckedCreateNestedManyWithoutAuthorInput;
+    reviewsReceived?: Prisma.ReviewUncheckedCreateNestedManyWithoutGuideInput;
+    posts?: Prisma.PostUncheckedCreateNestedManyWithoutAuthorInput;
+    postLikes?: Prisma.PostLikeUncheckedCreateNestedManyWithoutUserInput;
+    postComments?: Prisma.PostCommentUncheckedCreateNestedManyWithoutAuthorInput;
+    following?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowerInput;
+    followers?: Prisma.FollowUncheckedCreateNestedManyWithoutFollowingInput;
+    bookingEvents?: Prisma.BookingEventUncheckedCreateNestedManyWithoutActorInput;
+    idempotencyKeys?: Prisma.IdempotencyKeyUncheckedCreateNestedManyWithoutUserInput;
+    notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput;
+    guideVerificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutReviewerInput;
+    blocksCreated?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockerInput;
+    blocksReceived?: Prisma.UserBlockUncheckedCreateNestedManyWithoutBlockedInput;
+    reportsCreated?: Prisma.ReportUncheckedCreateNestedManyWithoutReporterInput;
+    moderationActions?: Prisma.ModerationActionUncheckedCreateNestedManyWithoutAdminInput;
+    paymentArrangementsProposed?: Prisma.PilotPaymentUncheckedCreateNestedManyWithoutProposedByInput;
+    assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutUserInput;
+    assessmentReviews?: Prisma.AssessmentReviewUncheckedCreateNestedManyWithoutReviewerInput;
+    guideCompetenciesVerified?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutVerifiedByInput;
+    guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutVerifiedByInput;
+    guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutVerifiedByInput;
+    aiConversations?: Prisma.AiConversationUncheckedCreateNestedManyWithoutUserInput;
+    aiExperimentRuns?: Prisma.AiExperimentRunUncheckedCreateNestedManyWithoutUserInput;
+    aiEvaluationReviews?: Prisma.AiEvaluationResultUncheckedCreateNestedManyWithoutReviewerInput;
+    guideMatchRuns?: Prisma.GuideMatchRunUncheckedCreateNestedManyWithoutUserInput;
+    safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput;
+    safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput;
+    safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput;
+};
+export type UserCreateOrConnectWithoutTourismSourcesReviewedInput = {
+    where: Prisma.UserWhereUniqueInput;
+    create: Prisma.XOR<Prisma.UserCreateWithoutTourismSourcesReviewedInput, Prisma.UserUncheckedCreateWithoutTourismSourcesReviewedInput>;
+};
+export type UserUpsertWithoutTourismSourcesReviewedInput = {
+    update: Prisma.XOR<Prisma.UserUpdateWithoutTourismSourcesReviewedInput, Prisma.UserUncheckedUpdateWithoutTourismSourcesReviewedInput>;
+    create: Prisma.XOR<Prisma.UserCreateWithoutTourismSourcesReviewedInput, Prisma.UserUncheckedCreateWithoutTourismSourcesReviewedInput>;
+    where?: Prisma.UserWhereInput;
+};
+export type UserUpdateToOneWithWhereWithoutTourismSourcesReviewedInput = {
+    where?: Prisma.UserWhereInput;
+    data: Prisma.XOR<Prisma.UserUpdateWithoutTourismSourcesReviewedInput, Prisma.UserUncheckedUpdateWithoutTourismSourcesReviewedInput>;
+};
+export type UserUpdateWithoutTourismSourcesReviewedInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    name?: Prisma.StringFieldUpdateOperationsInput | string;
+    phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider;
+    providerSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    roles?: Prisma.UserUpdaterolesInput | $Enums.Role[];
+    isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus;
+    suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput;
+    guideProfile?: Prisma.GuideProfileUpdateOneWithoutUserNestedInput;
+    listings?: Prisma.ListingUpdateManyWithoutHostNestedInput;
+    bookings?: Prisma.BookingUpdateManyWithoutTravelerNestedInput;
+    guidedBookings?: Prisma.BookingUpdateManyWithoutGuideNestedInput;
+    favorites?: Prisma.FavoriteUpdateManyWithoutUserNestedInput;
+    participants?: Prisma.ConversationParticipantUpdateManyWithoutUserNestedInput;
+    messages?: Prisma.MessageUpdateManyWithoutSenderNestedInput;
+    paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput;
+    reviewsWritten?: Prisma.ReviewUpdateManyWithoutAuthorNestedInput;
+    reviewsReceived?: Prisma.ReviewUpdateManyWithoutGuideNestedInput;
+    posts?: Prisma.PostUpdateManyWithoutAuthorNestedInput;
+    postLikes?: Prisma.PostLikeUpdateManyWithoutUserNestedInput;
+    postComments?: Prisma.PostCommentUpdateManyWithoutAuthorNestedInput;
+    following?: Prisma.FollowUpdateManyWithoutFollowerNestedInput;
+    followers?: Prisma.FollowUpdateManyWithoutFollowingNestedInput;
+    bookingEvents?: Prisma.BookingEventUpdateManyWithoutActorNestedInput;
+    idempotencyKeys?: Prisma.IdempotencyKeyUpdateManyWithoutUserNestedInput;
+    notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput;
+    emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput;
+    passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput;
+    guideVerificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutReviewerNestedInput;
+    blocksCreated?: Prisma.UserBlockUpdateManyWithoutBlockerNestedInput;
+    blocksReceived?: Prisma.UserBlockUpdateManyWithoutBlockedNestedInput;
+    reportsCreated?: Prisma.ReportUpdateManyWithoutReporterNestedInput;
+    moderationActions?: Prisma.ModerationActionUpdateManyWithoutAdminNestedInput;
+    paymentArrangementsProposed?: Prisma.PilotPaymentUpdateManyWithoutProposedByNestedInput;
+    assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutUserNestedInput;
+    assessmentReviews?: Prisma.AssessmentReviewUpdateManyWithoutReviewerNestedInput;
+    guideCompetenciesVerified?: Prisma.GuideCompetencyUpdateManyWithoutVerifiedByNestedInput;
+    guideLanguageAssessmentsVerified?: Prisma.GuideLanguageAssessmentUpdateManyWithoutVerifiedByNestedInput;
+    guideFirstAidRecordsVerified?: Prisma.GuideFirstAidUpdateManyWithoutVerifiedByNestedInput;
+    aiConversations?: Prisma.AiConversationUpdateManyWithoutUserNestedInput;
+    aiExperimentRuns?: Prisma.AiExperimentRunUpdateManyWithoutUserNestedInput;
+    aiEvaluationReviews?: Prisma.AiEvaluationResultUpdateManyWithoutReviewerNestedInput;
+    guideMatchRuns?: Prisma.GuideMatchRunUpdateManyWithoutUserNestedInput;
+    safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput;
+    safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput;
+    safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput;
+};
+export type UserUncheckedUpdateWithoutTourismSourcesReviewedInput = {
+    id?: Prisma.StringFieldUpdateOperationsInput | string;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    name?: Prisma.StringFieldUpdateOperationsInput | string;
+    phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider;
+    providerSubject?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    roles?: Prisma.UserUpdaterolesInput | $Enums.Role[];
+    isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean;
+    emailVerifiedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    moderationStatus?: Prisma.EnumUserModerationStatusFieldUpdateOperationsInput | $Enums.UserModerationStatus;
+    suspendedUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
+    refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput;
+    guideProfile?: Prisma.GuideProfileUncheckedUpdateOneWithoutUserNestedInput;
     listings?: Prisma.ListingUncheckedUpdateManyWithoutHostNestedInput;
     bookings?: Prisma.BookingUncheckedUpdateManyWithoutTravelerNestedInput;
     guidedBookings?: Prisma.BookingUncheckedUpdateManyWithoutGuideNestedInput;
@@ -2333,6 +2619,7 @@ export type UserCreateWithoutSafetyPlansCreatedInput = {
     guideMatchRuns?: Prisma.GuideMatchRunCreateNestedManyWithoutUserInput;
     safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceCreateNestedManyWithoutReviewedByInput;
 };
 export type UserUncheckedCreateWithoutSafetyPlansCreatedInput = {
     id?: string;
@@ -2391,6 +2678,7 @@ export type UserUncheckedCreateWithoutSafetyPlansCreatedInput = {
     guideMatchRuns?: Prisma.GuideMatchRunUncheckedCreateNestedManyWithoutUserInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedCreateNestedManyWithoutReviewedByInput;
 };
 export type UserCreateOrConnectWithoutSafetyPlansCreatedInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -2453,6 +2741,7 @@ export type UserCreateWithoutSafetyPlansReviewedInput = {
     guideMatchRuns?: Prisma.GuideMatchRunCreateNestedManyWithoutUserInput;
     safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceCreateNestedManyWithoutReviewedByInput;
 };
 export type UserUncheckedCreateWithoutSafetyPlansReviewedInput = {
     id?: string;
@@ -2511,6 +2800,7 @@ export type UserUncheckedCreateWithoutSafetyPlansReviewedInput = {
     guideMatchRuns?: Prisma.GuideMatchRunUncheckedCreateNestedManyWithoutUserInput;
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedCreateNestedManyWithoutReviewedByInput;
 };
 export type UserCreateOrConnectWithoutSafetyPlansReviewedInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -2582,6 +2872,7 @@ export type UserUpdateWithoutSafetyPlansCreatedInput = {
     guideMatchRuns?: Prisma.GuideMatchRunUpdateManyWithoutUserNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUncheckedUpdateWithoutSafetyPlansCreatedInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -2640,6 +2931,7 @@ export type UserUncheckedUpdateWithoutSafetyPlansCreatedInput = {
     guideMatchRuns?: Prisma.GuideMatchRunUncheckedUpdateManyWithoutUserNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUpsertWithoutSafetyPlansReviewedInput = {
     update: Prisma.XOR<Prisma.UserUpdateWithoutSafetyPlansReviewedInput, Prisma.UserUncheckedUpdateWithoutSafetyPlansReviewedInput>;
@@ -2707,6 +2999,7 @@ export type UserUpdateWithoutSafetyPlansReviewedInput = {
     guideMatchRuns?: Prisma.GuideMatchRunUpdateManyWithoutUserNestedInput;
     safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUncheckedUpdateWithoutSafetyPlansReviewedInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -2765,6 +3058,7 @@ export type UserUncheckedUpdateWithoutSafetyPlansReviewedInput = {
     guideMatchRuns?: Prisma.GuideMatchRunUncheckedUpdateManyWithoutUserNestedInput;
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserCreateWithoutSafetyPlanAuditEntriesInput = {
     id?: string;
@@ -2823,6 +3117,7 @@ export type UserCreateWithoutSafetyPlanAuditEntriesInput = {
     guideMatchRuns?: Prisma.GuideMatchRunCreateNestedManyWithoutUserInput;
     safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceCreateNestedManyWithoutReviewedByInput;
 };
 export type UserUncheckedCreateWithoutSafetyPlanAuditEntriesInput = {
     id?: string;
@@ -2881,6 +3176,7 @@ export type UserUncheckedCreateWithoutSafetyPlanAuditEntriesInput = {
     guideMatchRuns?: Prisma.GuideMatchRunUncheckedCreateNestedManyWithoutUserInput;
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedCreateNestedManyWithoutReviewedByInput;
 };
 export type UserCreateOrConnectWithoutSafetyPlanAuditEntriesInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -2952,6 +3248,7 @@ export type UserUpdateWithoutSafetyPlanAuditEntriesInput = {
     guideMatchRuns?: Prisma.GuideMatchRunUpdateManyWithoutUserNestedInput;
     safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUncheckedUpdateWithoutSafetyPlanAuditEntriesInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -3010,6 +3307,7 @@ export type UserUncheckedUpdateWithoutSafetyPlanAuditEntriesInput = {
     guideMatchRuns?: Prisma.GuideMatchRunUncheckedUpdateManyWithoutUserNestedInput;
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserCreateWithoutGuideCompetenciesVerifiedInput = {
     id?: string;
@@ -3068,6 +3366,7 @@ export type UserCreateWithoutGuideCompetenciesVerifiedInput = {
     safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceCreateNestedManyWithoutReviewedByInput;
 };
 export type UserUncheckedCreateWithoutGuideCompetenciesVerifiedInput = {
     id?: string;
@@ -3126,6 +3425,7 @@ export type UserUncheckedCreateWithoutGuideCompetenciesVerifiedInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedCreateNestedManyWithoutReviewedByInput;
 };
 export type UserCreateOrConnectWithoutGuideCompetenciesVerifiedInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -3197,6 +3497,7 @@ export type UserUpdateWithoutGuideCompetenciesVerifiedInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUncheckedUpdateWithoutGuideCompetenciesVerifiedInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -3255,6 +3556,7 @@ export type UserUncheckedUpdateWithoutGuideCompetenciesVerifiedInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserCreateWithoutGuideLanguageAssessmentsVerifiedInput = {
     id?: string;
@@ -3313,6 +3615,7 @@ export type UserCreateWithoutGuideLanguageAssessmentsVerifiedInput = {
     safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceCreateNestedManyWithoutReviewedByInput;
 };
 export type UserUncheckedCreateWithoutGuideLanguageAssessmentsVerifiedInput = {
     id?: string;
@@ -3371,6 +3674,7 @@ export type UserUncheckedCreateWithoutGuideLanguageAssessmentsVerifiedInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedCreateNestedManyWithoutReviewedByInput;
 };
 export type UserCreateOrConnectWithoutGuideLanguageAssessmentsVerifiedInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -3442,6 +3746,7 @@ export type UserUpdateWithoutGuideLanguageAssessmentsVerifiedInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUncheckedUpdateWithoutGuideLanguageAssessmentsVerifiedInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -3500,6 +3805,7 @@ export type UserUncheckedUpdateWithoutGuideLanguageAssessmentsVerifiedInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserCreateWithoutGuideFirstAidRecordsVerifiedInput = {
     id?: string;
@@ -3558,6 +3864,7 @@ export type UserCreateWithoutGuideFirstAidRecordsVerifiedInput = {
     safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceCreateNestedManyWithoutReviewedByInput;
 };
 export type UserUncheckedCreateWithoutGuideFirstAidRecordsVerifiedInput = {
     id?: string;
@@ -3616,6 +3923,7 @@ export type UserUncheckedCreateWithoutGuideFirstAidRecordsVerifiedInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedCreateNestedManyWithoutReviewedByInput;
 };
 export type UserCreateOrConnectWithoutGuideFirstAidRecordsVerifiedInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -3687,6 +3995,7 @@ export type UserUpdateWithoutGuideFirstAidRecordsVerifiedInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUncheckedUpdateWithoutGuideFirstAidRecordsVerifiedInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -3745,6 +4054,7 @@ export type UserUncheckedUpdateWithoutGuideFirstAidRecordsVerifiedInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserCreateWithoutAssessmentAttemptsInput = {
     id?: string;
@@ -3803,6 +4113,7 @@ export type UserCreateWithoutAssessmentAttemptsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceCreateNestedManyWithoutReviewedByInput;
 };
 export type UserUncheckedCreateWithoutAssessmentAttemptsInput = {
     id?: string;
@@ -3861,6 +4172,7 @@ export type UserUncheckedCreateWithoutAssessmentAttemptsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedCreateNestedManyWithoutReviewedByInput;
 };
 export type UserCreateOrConnectWithoutAssessmentAttemptsInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -3932,6 +4244,7 @@ export type UserUpdateWithoutAssessmentAttemptsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUncheckedUpdateWithoutAssessmentAttemptsInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -3990,6 +4303,7 @@ export type UserUncheckedUpdateWithoutAssessmentAttemptsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserCreateWithoutAssessmentReviewsInput = {
     id?: string;
@@ -4048,6 +4362,7 @@ export type UserCreateWithoutAssessmentReviewsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceCreateNestedManyWithoutReviewedByInput;
 };
 export type UserUncheckedCreateWithoutAssessmentReviewsInput = {
     id?: string;
@@ -4106,6 +4421,7 @@ export type UserUncheckedCreateWithoutAssessmentReviewsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedCreateNestedManyWithoutReviewedByInput;
 };
 export type UserCreateOrConnectWithoutAssessmentReviewsInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -4177,6 +4493,7 @@ export type UserUpdateWithoutAssessmentReviewsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUncheckedUpdateWithoutAssessmentReviewsInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -4235,6 +4552,7 @@ export type UserUncheckedUpdateWithoutAssessmentReviewsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserCreateWithoutAiConversationsInput = {
     id?: string;
@@ -4293,6 +4611,7 @@ export type UserCreateWithoutAiConversationsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceCreateNestedManyWithoutReviewedByInput;
 };
 export type UserUncheckedCreateWithoutAiConversationsInput = {
     id?: string;
@@ -4351,6 +4670,7 @@ export type UserUncheckedCreateWithoutAiConversationsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedCreateNestedManyWithoutReviewedByInput;
 };
 export type UserCreateOrConnectWithoutAiConversationsInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -4422,6 +4742,7 @@ export type UserUpdateWithoutAiConversationsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUncheckedUpdateWithoutAiConversationsInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -4480,6 +4801,7 @@ export type UserUncheckedUpdateWithoutAiConversationsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserCreateWithoutAiExperimentRunsInput = {
     id?: string;
@@ -4538,6 +4860,7 @@ export type UserCreateWithoutAiExperimentRunsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceCreateNestedManyWithoutReviewedByInput;
 };
 export type UserUncheckedCreateWithoutAiExperimentRunsInput = {
     id?: string;
@@ -4596,6 +4919,7 @@ export type UserUncheckedCreateWithoutAiExperimentRunsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedCreateNestedManyWithoutReviewedByInput;
 };
 export type UserCreateOrConnectWithoutAiExperimentRunsInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -4667,6 +4991,7 @@ export type UserUpdateWithoutAiExperimentRunsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUncheckedUpdateWithoutAiExperimentRunsInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -4725,6 +5050,7 @@ export type UserUncheckedUpdateWithoutAiExperimentRunsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserCreateWithoutAiEvaluationReviewsInput = {
     id?: string;
@@ -4783,6 +5109,7 @@ export type UserCreateWithoutAiEvaluationReviewsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceCreateNestedManyWithoutReviewedByInput;
 };
 export type UserUncheckedCreateWithoutAiEvaluationReviewsInput = {
     id?: string;
@@ -4841,6 +5168,7 @@ export type UserUncheckedCreateWithoutAiEvaluationReviewsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedCreateNestedManyWithoutReviewedByInput;
 };
 export type UserCreateOrConnectWithoutAiEvaluationReviewsInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -4912,6 +5240,7 @@ export type UserUpdateWithoutAiEvaluationReviewsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUncheckedUpdateWithoutAiEvaluationReviewsInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -4970,6 +5299,7 @@ export type UserUncheckedUpdateWithoutAiEvaluationReviewsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserCreateWithoutGuideMatchRunsInput = {
     id?: string;
@@ -5028,6 +5358,7 @@ export type UserCreateWithoutGuideMatchRunsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceCreateNestedManyWithoutReviewedByInput;
 };
 export type UserUncheckedCreateWithoutGuideMatchRunsInput = {
     id?: string;
@@ -5086,6 +5417,7 @@ export type UserUncheckedCreateWithoutGuideMatchRunsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedCreateNestedManyWithoutReviewedByInput;
 };
 export type UserCreateOrConnectWithoutGuideMatchRunsInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -5157,6 +5489,7 @@ export type UserUpdateWithoutGuideMatchRunsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUncheckedUpdateWithoutGuideMatchRunsInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -5215,6 +5548,7 @@ export type UserUncheckedUpdateWithoutGuideMatchRunsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserCreateWithoutGuideVerificationReviewsInput = {
     id?: string;
@@ -5273,6 +5607,7 @@ export type UserCreateWithoutGuideVerificationReviewsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceCreateNestedManyWithoutReviewedByInput;
 };
 export type UserUncheckedCreateWithoutGuideVerificationReviewsInput = {
     id?: string;
@@ -5331,6 +5666,7 @@ export type UserUncheckedCreateWithoutGuideVerificationReviewsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedCreateNestedManyWithoutReviewedByInput;
 };
 export type UserCreateOrConnectWithoutGuideVerificationReviewsInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -5402,6 +5738,7 @@ export type UserUpdateWithoutGuideVerificationReviewsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUncheckedUpdateWithoutGuideVerificationReviewsInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -5460,6 +5797,7 @@ export type UserUncheckedUpdateWithoutGuideVerificationReviewsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserCreateWithoutListingsInput = {
     id?: string;
@@ -5518,6 +5856,7 @@ export type UserCreateWithoutListingsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceCreateNestedManyWithoutReviewedByInput;
 };
 export type UserUncheckedCreateWithoutListingsInput = {
     id?: string;
@@ -5576,6 +5915,7 @@ export type UserUncheckedCreateWithoutListingsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedCreateNestedManyWithoutReviewedByInput;
 };
 export type UserCreateOrConnectWithoutListingsInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -5647,6 +5987,7 @@ export type UserUpdateWithoutListingsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUncheckedUpdateWithoutListingsInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -5705,6 +6046,7 @@ export type UserUncheckedUpdateWithoutListingsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserCreateWithoutBookingsInput = {
     id?: string;
@@ -5763,6 +6105,7 @@ export type UserCreateWithoutBookingsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceCreateNestedManyWithoutReviewedByInput;
 };
 export type UserUncheckedCreateWithoutBookingsInput = {
     id?: string;
@@ -5821,6 +6164,7 @@ export type UserUncheckedCreateWithoutBookingsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedCreateNestedManyWithoutReviewedByInput;
 };
 export type UserCreateOrConnectWithoutBookingsInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -5883,6 +6227,7 @@ export type UserCreateWithoutGuidedBookingsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceCreateNestedManyWithoutReviewedByInput;
 };
 export type UserUncheckedCreateWithoutGuidedBookingsInput = {
     id?: string;
@@ -5941,6 +6286,7 @@ export type UserUncheckedCreateWithoutGuidedBookingsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedCreateNestedManyWithoutReviewedByInput;
 };
 export type UserCreateOrConnectWithoutGuidedBookingsInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -6012,6 +6358,7 @@ export type UserUpdateWithoutBookingsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUncheckedUpdateWithoutBookingsInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -6070,6 +6417,7 @@ export type UserUncheckedUpdateWithoutBookingsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUpsertWithoutGuidedBookingsInput = {
     update: Prisma.XOR<Prisma.UserUpdateWithoutGuidedBookingsInput, Prisma.UserUncheckedUpdateWithoutGuidedBookingsInput>;
@@ -6137,6 +6485,7 @@ export type UserUpdateWithoutGuidedBookingsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUncheckedUpdateWithoutGuidedBookingsInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -6195,6 +6544,7 @@ export type UserUncheckedUpdateWithoutGuidedBookingsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserCreateWithoutPaymentArrangementsProposedInput = {
     id?: string;
@@ -6253,6 +6603,7 @@ export type UserCreateWithoutPaymentArrangementsProposedInput = {
     safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceCreateNestedManyWithoutReviewedByInput;
 };
 export type UserUncheckedCreateWithoutPaymentArrangementsProposedInput = {
     id?: string;
@@ -6311,6 +6662,7 @@ export type UserUncheckedCreateWithoutPaymentArrangementsProposedInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedCreateNestedManyWithoutReviewedByInput;
 };
 export type UserCreateOrConnectWithoutPaymentArrangementsProposedInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -6382,6 +6734,7 @@ export type UserUpdateWithoutPaymentArrangementsProposedInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUncheckedUpdateWithoutPaymentArrangementsProposedInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -6440,6 +6793,7 @@ export type UserUncheckedUpdateWithoutPaymentArrangementsProposedInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserCreateWithoutBookingEventsInput = {
     id?: string;
@@ -6498,6 +6852,7 @@ export type UserCreateWithoutBookingEventsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceCreateNestedManyWithoutReviewedByInput;
 };
 export type UserUncheckedCreateWithoutBookingEventsInput = {
     id?: string;
@@ -6556,6 +6911,7 @@ export type UserUncheckedCreateWithoutBookingEventsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedCreateNestedManyWithoutReviewedByInput;
 };
 export type UserCreateOrConnectWithoutBookingEventsInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -6627,6 +6983,7 @@ export type UserUpdateWithoutBookingEventsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUncheckedUpdateWithoutBookingEventsInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -6685,6 +7042,7 @@ export type UserUncheckedUpdateWithoutBookingEventsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserCreateWithoutIdempotencyKeysInput = {
     id?: string;
@@ -6743,6 +7101,7 @@ export type UserCreateWithoutIdempotencyKeysInput = {
     safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceCreateNestedManyWithoutReviewedByInput;
 };
 export type UserUncheckedCreateWithoutIdempotencyKeysInput = {
     id?: string;
@@ -6801,6 +7160,7 @@ export type UserUncheckedCreateWithoutIdempotencyKeysInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedCreateNestedManyWithoutReviewedByInput;
 };
 export type UserCreateOrConnectWithoutIdempotencyKeysInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -6872,6 +7232,7 @@ export type UserUpdateWithoutIdempotencyKeysInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUncheckedUpdateWithoutIdempotencyKeysInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -6930,6 +7291,7 @@ export type UserUncheckedUpdateWithoutIdempotencyKeysInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserCreateWithoutFavoritesInput = {
     id?: string;
@@ -6988,6 +7350,7 @@ export type UserCreateWithoutFavoritesInput = {
     safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceCreateNestedManyWithoutReviewedByInput;
 };
 export type UserUncheckedCreateWithoutFavoritesInput = {
     id?: string;
@@ -7046,6 +7409,7 @@ export type UserUncheckedCreateWithoutFavoritesInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedCreateNestedManyWithoutReviewedByInput;
 };
 export type UserCreateOrConnectWithoutFavoritesInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -7117,6 +7481,7 @@ export type UserUpdateWithoutFavoritesInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUncheckedUpdateWithoutFavoritesInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -7175,6 +7540,7 @@ export type UserUncheckedUpdateWithoutFavoritesInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserCreateWithoutParticipantsInput = {
     id?: string;
@@ -7233,6 +7599,7 @@ export type UserCreateWithoutParticipantsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceCreateNestedManyWithoutReviewedByInput;
 };
 export type UserUncheckedCreateWithoutParticipantsInput = {
     id?: string;
@@ -7291,6 +7658,7 @@ export type UserUncheckedCreateWithoutParticipantsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedCreateNestedManyWithoutReviewedByInput;
 };
 export type UserCreateOrConnectWithoutParticipantsInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -7362,6 +7730,7 @@ export type UserUpdateWithoutParticipantsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUncheckedUpdateWithoutParticipantsInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -7420,6 +7789,7 @@ export type UserUncheckedUpdateWithoutParticipantsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserCreateWithoutBlocksCreatedInput = {
     id?: string;
@@ -7478,6 +7848,7 @@ export type UserCreateWithoutBlocksCreatedInput = {
     safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceCreateNestedManyWithoutReviewedByInput;
 };
 export type UserUncheckedCreateWithoutBlocksCreatedInput = {
     id?: string;
@@ -7536,6 +7907,7 @@ export type UserUncheckedCreateWithoutBlocksCreatedInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedCreateNestedManyWithoutReviewedByInput;
 };
 export type UserCreateOrConnectWithoutBlocksCreatedInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -7598,6 +7970,7 @@ export type UserCreateWithoutBlocksReceivedInput = {
     safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceCreateNestedManyWithoutReviewedByInput;
 };
 export type UserUncheckedCreateWithoutBlocksReceivedInput = {
     id?: string;
@@ -7656,6 +8029,7 @@ export type UserUncheckedCreateWithoutBlocksReceivedInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedCreateNestedManyWithoutReviewedByInput;
 };
 export type UserCreateOrConnectWithoutBlocksReceivedInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -7727,6 +8101,7 @@ export type UserUpdateWithoutBlocksCreatedInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUncheckedUpdateWithoutBlocksCreatedInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -7785,6 +8160,7 @@ export type UserUncheckedUpdateWithoutBlocksCreatedInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUpsertWithoutBlocksReceivedInput = {
     update: Prisma.XOR<Prisma.UserUpdateWithoutBlocksReceivedInput, Prisma.UserUncheckedUpdateWithoutBlocksReceivedInput>;
@@ -7852,6 +8228,7 @@ export type UserUpdateWithoutBlocksReceivedInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUncheckedUpdateWithoutBlocksReceivedInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -7910,6 +8287,7 @@ export type UserUncheckedUpdateWithoutBlocksReceivedInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserCreateWithoutReportsCreatedInput = {
     id?: string;
@@ -7968,6 +8346,7 @@ export type UserCreateWithoutReportsCreatedInput = {
     safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceCreateNestedManyWithoutReviewedByInput;
 };
 export type UserUncheckedCreateWithoutReportsCreatedInput = {
     id?: string;
@@ -8026,6 +8405,7 @@ export type UserUncheckedCreateWithoutReportsCreatedInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedCreateNestedManyWithoutReviewedByInput;
 };
 export type UserCreateOrConnectWithoutReportsCreatedInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -8097,6 +8477,7 @@ export type UserUpdateWithoutReportsCreatedInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUncheckedUpdateWithoutReportsCreatedInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -8155,6 +8536,7 @@ export type UserUncheckedUpdateWithoutReportsCreatedInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserCreateWithoutModerationActionsInput = {
     id?: string;
@@ -8213,6 +8595,7 @@ export type UserCreateWithoutModerationActionsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceCreateNestedManyWithoutReviewedByInput;
 };
 export type UserUncheckedCreateWithoutModerationActionsInput = {
     id?: string;
@@ -8271,6 +8654,7 @@ export type UserUncheckedCreateWithoutModerationActionsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedCreateNestedManyWithoutReviewedByInput;
 };
 export type UserCreateOrConnectWithoutModerationActionsInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -8342,6 +8726,7 @@ export type UserUpdateWithoutModerationActionsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUncheckedUpdateWithoutModerationActionsInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -8400,6 +8785,7 @@ export type UserUncheckedUpdateWithoutModerationActionsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserCreateWithoutMessagesInput = {
     id?: string;
@@ -8458,6 +8844,7 @@ export type UserCreateWithoutMessagesInput = {
     safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceCreateNestedManyWithoutReviewedByInput;
 };
 export type UserUncheckedCreateWithoutMessagesInput = {
     id?: string;
@@ -8516,6 +8903,7 @@ export type UserUncheckedCreateWithoutMessagesInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedCreateNestedManyWithoutReviewedByInput;
 };
 export type UserCreateOrConnectWithoutMessagesInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -8587,6 +8975,7 @@ export type UserUpdateWithoutMessagesInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUncheckedUpdateWithoutMessagesInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -8645,6 +9034,7 @@ export type UserUncheckedUpdateWithoutMessagesInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserCreateWithoutNotificationsInput = {
     id?: string;
@@ -8703,6 +9093,7 @@ export type UserCreateWithoutNotificationsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceCreateNestedManyWithoutReviewedByInput;
 };
 export type UserUncheckedCreateWithoutNotificationsInput = {
     id?: string;
@@ -8761,6 +9152,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedCreateNestedManyWithoutReviewedByInput;
 };
 export type UserCreateOrConnectWithoutNotificationsInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -8832,6 +9224,7 @@ export type UserUpdateWithoutNotificationsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUncheckedUpdateWithoutNotificationsInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -8890,6 +9283,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserCreateWithoutPaymentMethodsInput = {
     id?: string;
@@ -8948,6 +9342,7 @@ export type UserCreateWithoutPaymentMethodsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceCreateNestedManyWithoutReviewedByInput;
 };
 export type UserUncheckedCreateWithoutPaymentMethodsInput = {
     id?: string;
@@ -9006,6 +9401,7 @@ export type UserUncheckedCreateWithoutPaymentMethodsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedCreateNestedManyWithoutReviewedByInput;
 };
 export type UserCreateOrConnectWithoutPaymentMethodsInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -9077,6 +9473,7 @@ export type UserUpdateWithoutPaymentMethodsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUncheckedUpdateWithoutPaymentMethodsInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -9135,6 +9532,7 @@ export type UserUncheckedUpdateWithoutPaymentMethodsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserCreateWithoutReviewsWrittenInput = {
     id?: string;
@@ -9193,6 +9591,7 @@ export type UserCreateWithoutReviewsWrittenInput = {
     safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceCreateNestedManyWithoutReviewedByInput;
 };
 export type UserUncheckedCreateWithoutReviewsWrittenInput = {
     id?: string;
@@ -9251,6 +9650,7 @@ export type UserUncheckedCreateWithoutReviewsWrittenInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedCreateNestedManyWithoutReviewedByInput;
 };
 export type UserCreateOrConnectWithoutReviewsWrittenInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -9313,6 +9713,7 @@ export type UserCreateWithoutReviewsReceivedInput = {
     safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceCreateNestedManyWithoutReviewedByInput;
 };
 export type UserUncheckedCreateWithoutReviewsReceivedInput = {
     id?: string;
@@ -9371,6 +9772,7 @@ export type UserUncheckedCreateWithoutReviewsReceivedInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedCreateNestedManyWithoutReviewedByInput;
 };
 export type UserCreateOrConnectWithoutReviewsReceivedInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -9442,6 +9844,7 @@ export type UserUpdateWithoutReviewsWrittenInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUncheckedUpdateWithoutReviewsWrittenInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -9500,6 +9903,7 @@ export type UserUncheckedUpdateWithoutReviewsWrittenInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUpsertWithoutReviewsReceivedInput = {
     update: Prisma.XOR<Prisma.UserUpdateWithoutReviewsReceivedInput, Prisma.UserUncheckedUpdateWithoutReviewsReceivedInput>;
@@ -9567,6 +9971,7 @@ export type UserUpdateWithoutReviewsReceivedInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUncheckedUpdateWithoutReviewsReceivedInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -9625,6 +10030,7 @@ export type UserUncheckedUpdateWithoutReviewsReceivedInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserCreateWithoutPostsInput = {
     id?: string;
@@ -9683,6 +10089,7 @@ export type UserCreateWithoutPostsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceCreateNestedManyWithoutReviewedByInput;
 };
 export type UserUncheckedCreateWithoutPostsInput = {
     id?: string;
@@ -9741,6 +10148,7 @@ export type UserUncheckedCreateWithoutPostsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedCreateNestedManyWithoutReviewedByInput;
 };
 export type UserCreateOrConnectWithoutPostsInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -9812,6 +10220,7 @@ export type UserUpdateWithoutPostsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUncheckedUpdateWithoutPostsInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -9870,6 +10279,7 @@ export type UserUncheckedUpdateWithoutPostsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserCreateWithoutPostLikesInput = {
     id?: string;
@@ -9928,6 +10338,7 @@ export type UserCreateWithoutPostLikesInput = {
     safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceCreateNestedManyWithoutReviewedByInput;
 };
 export type UserUncheckedCreateWithoutPostLikesInput = {
     id?: string;
@@ -9986,6 +10397,7 @@ export type UserUncheckedCreateWithoutPostLikesInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedCreateNestedManyWithoutReviewedByInput;
 };
 export type UserCreateOrConnectWithoutPostLikesInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -10057,6 +10469,7 @@ export type UserUpdateWithoutPostLikesInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUncheckedUpdateWithoutPostLikesInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -10115,6 +10528,7 @@ export type UserUncheckedUpdateWithoutPostLikesInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserCreateWithoutPostCommentsInput = {
     id?: string;
@@ -10173,6 +10587,7 @@ export type UserCreateWithoutPostCommentsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceCreateNestedManyWithoutReviewedByInput;
 };
 export type UserUncheckedCreateWithoutPostCommentsInput = {
     id?: string;
@@ -10231,6 +10646,7 @@ export type UserUncheckedCreateWithoutPostCommentsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedCreateNestedManyWithoutReviewedByInput;
 };
 export type UserCreateOrConnectWithoutPostCommentsInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -10302,6 +10718,7 @@ export type UserUpdateWithoutPostCommentsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUncheckedUpdateWithoutPostCommentsInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -10360,6 +10777,7 @@ export type UserUncheckedUpdateWithoutPostCommentsInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserCreateWithoutFollowingInput = {
     id?: string;
@@ -10418,6 +10836,7 @@ export type UserCreateWithoutFollowingInput = {
     safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceCreateNestedManyWithoutReviewedByInput;
 };
 export type UserUncheckedCreateWithoutFollowingInput = {
     id?: string;
@@ -10476,6 +10895,7 @@ export type UserUncheckedCreateWithoutFollowingInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedCreateNestedManyWithoutReviewedByInput;
 };
 export type UserCreateOrConnectWithoutFollowingInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -10538,6 +10958,7 @@ export type UserCreateWithoutFollowersInput = {
     safetyPlansCreated?: Prisma.SafetyPlanCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceCreateNestedManyWithoutReviewedByInput;
 };
 export type UserUncheckedCreateWithoutFollowersInput = {
     id?: string;
@@ -10596,6 +11017,7 @@ export type UserUncheckedCreateWithoutFollowersInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutCreatedByInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutReviewedByInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedCreateNestedManyWithoutActorInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedCreateNestedManyWithoutReviewedByInput;
 };
 export type UserCreateOrConnectWithoutFollowersInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -10667,6 +11089,7 @@ export type UserUpdateWithoutFollowingInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUncheckedUpdateWithoutFollowingInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -10725,6 +11148,7 @@ export type UserUncheckedUpdateWithoutFollowingInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUpsertWithoutFollowersInput = {
     update: Prisma.XOR<Prisma.UserUpdateWithoutFollowersInput, Prisma.UserUncheckedUpdateWithoutFollowersInput>;
@@ -10792,6 +11216,7 @@ export type UserUpdateWithoutFollowersInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserUncheckedUpdateWithoutFollowersInput = {
     id?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -10850,6 +11275,7 @@ export type UserUncheckedUpdateWithoutFollowersInput = {
     safetyPlansCreated?: Prisma.SafetyPlanUncheckedUpdateManyWithoutCreatedByNestedInput;
     safetyPlansReviewed?: Prisma.SafetyPlanUncheckedUpdateManyWithoutReviewedByNestedInput;
     safetyPlanAuditEntries?: Prisma.SafetyPlanAuditUncheckedUpdateManyWithoutActorNestedInput;
+    tourismSourcesReviewed?: Prisma.TourismSourceUncheckedUpdateManyWithoutReviewedByNestedInput;
 };
 export type UserCountOutputType = {
     refreshTokens: number;
@@ -10890,6 +11316,7 @@ export type UserCountOutputType = {
     safetyPlansCreated: number;
     safetyPlansReviewed: number;
     safetyPlanAuditEntries: number;
+    tourismSourcesReviewed: number;
 };
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     refreshTokens?: boolean | UserCountOutputTypeCountRefreshTokensArgs;
@@ -10930,6 +11357,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
     safetyPlansCreated?: boolean | UserCountOutputTypeCountSafetyPlansCreatedArgs;
     safetyPlansReviewed?: boolean | UserCountOutputTypeCountSafetyPlansReviewedArgs;
     safetyPlanAuditEntries?: boolean | UserCountOutputTypeCountSafetyPlanAuditEntriesArgs;
+    tourismSourcesReviewed?: boolean | UserCountOutputTypeCountTourismSourcesReviewedArgs;
 };
 export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     select?: Prisma.UserCountOutputTypeSelect<ExtArgs> | null;
@@ -11048,6 +11476,9 @@ export type UserCountOutputTypeCountSafetyPlansReviewedArgs<ExtArgs extends runt
 export type UserCountOutputTypeCountSafetyPlanAuditEntriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     where?: Prisma.SafetyPlanAuditWhereInput;
 };
+export type UserCountOutputTypeCountTourismSourcesReviewedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.TourismSourceWhereInput;
+};
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
     email?: boolean;
@@ -11106,6 +11537,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
     safetyPlansCreated?: boolean | Prisma.User$safetyPlansCreatedArgs<ExtArgs>;
     safetyPlansReviewed?: boolean | Prisma.User$safetyPlansReviewedArgs<ExtArgs>;
     safetyPlanAuditEntries?: boolean | Prisma.User$safetyPlanAuditEntriesArgs<ExtArgs>;
+    tourismSourcesReviewed?: boolean | Prisma.User$tourismSourcesReviewedArgs<ExtArgs>;
     _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>;
 }, ExtArgs["result"]["user"]>;
 export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -11209,6 +11641,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
     safetyPlansCreated?: boolean | Prisma.User$safetyPlansCreatedArgs<ExtArgs>;
     safetyPlansReviewed?: boolean | Prisma.User$safetyPlansReviewedArgs<ExtArgs>;
     safetyPlanAuditEntries?: boolean | Prisma.User$safetyPlanAuditEntriesArgs<ExtArgs>;
+    tourismSourcesReviewed?: boolean | Prisma.User$tourismSourcesReviewedArgs<ExtArgs>;
     _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>;
 };
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {};
@@ -11255,6 +11688,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
         safetyPlansCreated: Prisma.$SafetyPlanPayload<ExtArgs>[];
         safetyPlansReviewed: Prisma.$SafetyPlanPayload<ExtArgs>[];
         safetyPlanAuditEntries: Prisma.$SafetyPlanAuditPayload<ExtArgs>[];
+        tourismSourcesReviewed: Prisma.$TourismSourcePayload<ExtArgs>[];
     };
     scalars: runtime.Types.Extensions.GetPayloadResult<{
         id: string;
@@ -11366,6 +11800,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
     safetyPlansCreated<T extends Prisma.User$safetyPlansCreatedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$safetyPlansCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SafetyPlanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
     safetyPlansReviewed<T extends Prisma.User$safetyPlansReviewedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$safetyPlansReviewedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SafetyPlanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
     safetyPlanAuditEntries<T extends Prisma.User$safetyPlanAuditEntriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$safetyPlanAuditEntriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SafetyPlanAuditPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    tourismSourcesReviewed<T extends Prisma.User$tourismSourcesReviewedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$tourismSourcesReviewedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TourismSourcePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
     then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
     catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): runtime.Types.Utils.JsPromise<T | TResult>;
     finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
@@ -11911,6 +12346,17 @@ export type User$safetyPlanAuditEntriesArgs<ExtArgs extends runtime.Types.Extens
     take?: number;
     skip?: number;
     distinct?: Prisma.SafetyPlanAuditScalarFieldEnum | Prisma.SafetyPlanAuditScalarFieldEnum[];
+};
+export type User$tourismSourcesReviewedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    select?: Prisma.TourismSourceSelect<ExtArgs> | null;
+    omit?: Prisma.TourismSourceOmit<ExtArgs> | null;
+    include?: Prisma.TourismSourceInclude<ExtArgs> | null;
+    where?: Prisma.TourismSourceWhereInput;
+    orderBy?: Prisma.TourismSourceOrderByWithRelationInput | Prisma.TourismSourceOrderByWithRelationInput[];
+    cursor?: Prisma.TourismSourceWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.TourismSourceScalarFieldEnum | Prisma.TourismSourceScalarFieldEnum[];
 };
 export type UserDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     select?: Prisma.UserSelect<ExtArgs> | null;

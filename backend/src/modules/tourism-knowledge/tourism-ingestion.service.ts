@@ -1,6 +1,6 @@
 import { BadRequestException, Inject, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { createHash } from 'node:crypto';
-import { Prisma } from '../../generated/prisma/client.js';
+import { Prisma, TourismSourceReviewStatus } from '../../generated/prisma/client.js';
 import { PrismaService } from '../../prisma/prisma.service.js';
 import { AI_PROVIDER } from '../ai/ai-provider.interface.js';
 import type { AiProvider } from '../ai/ai-provider.interface.js';
@@ -48,6 +48,11 @@ export class TourismIngestionService {
         publishedAt: true,
         validFrom: true,
         validTo: true,
+        licenseOrUsageNote: true,
+        reviewStatus: true,
+        reviewedAt: true,
+        reviewedById: true,
+        reviewNotes: true,
         lastVerifiedAt: true,
         createdAt: true,
         updatedAt: true,
@@ -88,6 +93,9 @@ export class TourismIngestionService {
 
   createSource(dto: CreateTourismSourceDto) {
     this.assertVerificationDate(dto.lastVerifiedAt);
+    if (!dto.licenseOrUsageNote.trim()) {
+      throw new BadRequestException('licenseOrUsageNote is required');
+    }
     if (dto.validFrom && dto.validTo && new Date(dto.validTo) < new Date(dto.validFrom)) {
       throw new BadRequestException('validTo must be on or after validFrom');
     }
@@ -96,6 +104,8 @@ export class TourismIngestionService {
       authorityLevel: dto.authorityLevel, url: dto.url, language: dto.language.toLowerCase(),
       publishedAt: dto.publishedAt ? new Date(dto.publishedAt) : null,
       validFrom: dto.validFrom ? new Date(dto.validFrom) : null, validTo: dto.validTo ? new Date(dto.validTo) : null,
+      licenseOrUsageNote: dto.licenseOrUsageNote.trim(),
+      reviewStatus: TourismSourceReviewStatus.PENDING,
       lastVerifiedAt: new Date(dto.lastVerifiedAt),
     } });
   }
@@ -107,6 +117,16 @@ export class TourismIngestionService {
     if (dto.validTo && existing.validFrom && new Date(dto.validTo) < existing.validFrom) {
       throw new BadRequestException('validTo must be on or after validFrom');
     }
+    const reviewStatus = dto.reviewStatus ?? TourismSourceReviewStatus.HUMAN_VERIFIED;
+    if (reviewStatus === TourismSourceReviewStatus.PENDING) {
+      throw new BadRequestException('A source review decision must verify or reject the source');
+    }
+    if (reviewStatus === TourismSourceReviewStatus.REJECTED && !dto.reviewNotes?.trim()) {
+      throw new BadRequestException('reviewNotes are required when rejecting a source');
+    }
+    if (dto.licenseOrUsageNote !== undefined && !dto.licenseOrUsageNote.trim()) {
+      throw new BadRequestException('licenseOrUsageNote cannot be empty');
+    }
     const reviewedAt = new Date(dto.lastVerifiedAt);
     const source = await this.prisma.$transaction(async (tx) => {
       const updated = await tx.tourismSource.update({
@@ -115,22 +135,44 @@ export class TourismIngestionService {
           lastVerifiedAt: reviewedAt,
           validTo: dto.validTo ? new Date(dto.validTo) : undefined,
           authorityLevel: dto.authorityLevel,
+          licenseOrUsageNote: dto.licenseOrUsageNote?.trim(),
+          reviewStatus,
+          reviewedAt: new Date(),
+          reviewedById: reviewerId,
+          reviewNotes: dto.reviewNotes?.trim() || null,
         },
       });
-      if (dto.disableKnowledge !== undefined) {
-        await tx.tourismKnowledge.updateMany({
-          where: { sourceId: id },
-          data: { active: !dto.disableKnowledge, lastVerifiedAt: reviewedAt },
-        });
-      }
+      await tx.tourismKnowledge.updateMany({
+        where: { sourceId: id },
+        data: {
+          active: reviewStatus === TourismSourceReviewStatus.HUMAN_VERIFIED && !dto.disableKnowledge,
+          lastVerifiedAt: reviewedAt,
+        },
+      });
       return updated;
     });
-    this.logger.log(JSON.stringify({ event: 'tourism_source_reviewed', reviewerId, sourceId: id, disableKnowledge: dto.disableKnowledge ?? null }));
+    this.logger.log(JSON.stringify({
+      event: 'tourism_source_reviewed',
+      reviewerId,
+      sourceId: id,
+      reviewStatus,
+      disableKnowledge: dto.disableKnowledge ?? null,
+    }));
     return source;
   }
 
   async reviewKnowledge(reviewerId: string, id: string, dto: ReviewTourismKnowledgeDto) {
     if (dto.lastVerifiedAt) this.assertVerificationDate(dto.lastVerifiedAt);
+    if (dto.active) {
+      const existing = await this.prisma.tourismKnowledge.findUnique({
+        where: { id },
+        select: { source: { select: { reviewStatus: true } } },
+      });
+      if (!existing) throw new NotFoundException('Tourism knowledge chunk not found');
+      if (existing.source.reviewStatus !== TourismSourceReviewStatus.HUMAN_VERIFIED) {
+        throw new BadRequestException('Knowledge cannot be activated until its source is human verified');
+      }
+    }
     const changed = await this.prisma.tourismKnowledge.updateMany({
       where: { id },
       data: {
@@ -180,10 +222,13 @@ export class TourismIngestionService {
           category: dto.category,
           embedding: item.embedding as Prisma.InputJsonValue,
           embeddingModel: item.embeddingModel,
-          metadata: { embeddingDimensions: item.embedding.length },
+          metadata: {
+            embeddingDimensions: item.embedding.length,
+            sourceReviewStatus: source.reviewStatus,
+          },
           tokenCount: Math.ceil(item.content.length / 4),
           lastVerifiedAt: source.lastVerifiedAt,
-          active: true,
+          active: source.reviewStatus === TourismSourceReviewStatus.HUMAN_VERIFIED,
         };
         saved.push(await tx.tourismKnowledge.upsert({
           where: {

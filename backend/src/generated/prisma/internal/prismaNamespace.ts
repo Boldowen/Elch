@@ -4567,6 +4567,11 @@ export const TourismSourceScalarFieldEnum = {
   publishedAt: 'publishedAt',
   validFrom: 'validFrom',
   validTo: 'validTo',
+  licenseOrUsageNote: 'licenseOrUsageNote',
+  reviewStatus: 'reviewStatus',
+  reviewedAt: 'reviewedAt',
+  reviewedById: 'reviewedById',
+  reviewNotes: 'reviewNotes',
   lastVerifiedAt: 'lastVerifiedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -5690,7 +5695,21 @@ export type EnumTourismAuthorityLevelFieldRefInput<$PrismaModel> = FieldRefInput
  * Reference to a field of type 'TourismAuthorityLevel[]'
  */
 export type ListEnumTourismAuthorityLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TourismAuthorityLevel[]'>
-    
+
+
+
+/**
+ * Reference to a field of type 'TourismSourceReviewStatus'
+ */
+export type EnumTourismSourceReviewStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TourismSourceReviewStatus'>
+
+
+
+/**
+ * Reference to a field of type 'TourismSourceReviewStatus[]'
+ */
+export type ListEnumTourismSourceReviewStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TourismSourceReviewStatus[]'>
+
 
 
 /**
@@ -6462,4 +6481,3 @@ export type PrismaAction =
  * `PrismaClient` proxy available in interactive transactions.
  */
 export type TransactionClient = Omit<DefaultPrismaClient, runtime.ITXClientDenyList>
-

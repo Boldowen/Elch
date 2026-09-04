@@ -107,4 +107,56 @@ describe('RoutePlanningService', () => {
     expect(result.repairAttempted).toBe(true);
     expect(result.repaired).not.toHaveProperty('repaired');
   });
+
+  it('rejects unreviewed provenance in the authoritative database-backed path', async () => {
+    const fixture = new RoutePlanningService().getRoute('central-heritage') as any;
+    const graph = { find: async () => fixture };
+    const authoritative = new RoutePlanningService(undefined, undefined, graph as any);
+
+    const result = await authoritative.validateAuthoritative({
+      routeId: 'central-heritage',
+      startDate: '2026-07-01',
+      permitConfirmed: true,
+      stops: [
+        { poiId: 'ulaanbaatar', day: 1, activityMinutes: 60 },
+        { poiId: 'kharkhorin', day: 2, activityMinutes: 120 },
+        { poiId: 'orkhon-valley', day: 3, activityMinutes: 120 },
+      ],
+    }, new Date('2026-08-15'));
+
+    expect(result.valid).toBe(false);
+    expect(result.issues).toEqual(expect.arrayContaining([
+      expect.objectContaining({ code: 'SOURCE_UNVERIFIED', rule: 'SOURCE_PROVENANCE', severity: 'ERROR' }),
+    ]));
+  });
+
+  it('accepts explicitly reviewed source provenance in the authoritative path', async () => {
+    const fixture = new RoutePlanningService().getRoute('central-heritage') as any;
+    const graph = {
+      find: async () => ({
+        ...fixture,
+        sources: fixture.sources.map((source: any) => ({
+          ...source,
+          verificationStatus: 'HUMAN_VERIFIED',
+          licenseOrUsageNote: 'Reviewed for this controlled research use.',
+        })),
+      }),
+    };
+    const authoritative = new RoutePlanningService(undefined, undefined, graph as any);
+
+    const result = await authoritative.validateAuthoritative({
+      routeId: 'central-heritage',
+      startDate: '2026-07-01',
+      permitConfirmed: true,
+      stops: [
+        { poiId: 'ulaanbaatar', day: 1, activityMinutes: 60 },
+        { poiId: 'kharkhorin', day: 2, activityMinutes: 120 },
+        { poiId: 'orkhon-valley', day: 3, activityMinutes: 120 },
+      ],
+    }, new Date('2026-08-15'));
+
+    expect(result.issues).not.toEqual(expect.arrayContaining([
+      expect.objectContaining({ code: 'SOURCE_UNVERIFIED' }),
+    ]));
+  });
 });

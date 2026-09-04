@@ -2,6 +2,8 @@ import { Inject, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import {
   LIVE_DATA_PROVIDER,
+} from './live-data.types.js';
+import type {
   LiveDataProvider,
   PermitQuery,
   RoadClosureQuery,

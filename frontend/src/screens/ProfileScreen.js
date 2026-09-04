@@ -40,9 +40,7 @@ export default function ProfileScreen({ navigation }) {
   const user = session.user;
   const links = user.roles?.includes('ADMIN')
     ? [
-        { key: 'researchDashboard.title', route: 'ResearchDashboard' },
-        { key: 'Safety reports', route: 'AdminReports', literal: true },
-        { key: 'Guide applications', route: 'AdminGuideApplications', literal: true },
+        { key: 'admin.title', route: 'AdminWorkspace' },
         ...LINKS,
       ]
     : LINKS;

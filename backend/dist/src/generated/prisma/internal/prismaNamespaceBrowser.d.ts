@@ -202,6 +202,11 @@ export declare const TourismSourceScalarFieldEnum: {
     readonly publishedAt: "publishedAt";
     readonly validFrom: "validFrom";
     readonly validTo: "validTo";
+    readonly licenseOrUsageNote: "licenseOrUsageNote";
+    readonly reviewStatus: "reviewStatus";
+    readonly reviewedAt: "reviewedAt";
+    readonly reviewedById: "reviewedById";
+    readonly reviewNotes: "reviewNotes";
     readonly lastVerifiedAt: "lastVerifiedAt";
     readonly createdAt: "createdAt";
     readonly updatedAt: "updatedAt";

@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, ParseEnumPipe, Patch, Post, Query } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Throttle } from '@nestjs/throttler';
-import { CurrentUser, RequestUser } from '../../common/decorators/current-user.decorator.js';
+import { CurrentUser, type RequestUser } from '../../common/decorators/current-user.decorator.js';
 import { Roles } from '../../common/decorators/roles.decorator.js';
 import { ReportStatus, Role } from '../../generated/prisma/client.js';
 import { CreateReportDto } from './dto/create-report.dto.js';

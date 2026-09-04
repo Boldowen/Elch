@@ -9,6 +9,7 @@ import { colors, radius, spacing } from '../theme';
 
 const SECTIONS = [
   { route: 'AdminKnowledge', icon: 'library-outline', title: 'admin.knowledge', copy: 'admin.knowledgeCopy' },
+  { route: 'AdminSourceReview', icon: 'checkmark-done-outline', title: 'admin.sourceReview', copy: 'admin.sourceReviewCopy' },
   { route: 'AdminRouteGraph', icon: 'git-network-outline', title: 'admin.routeGraph', copy: 'admin.routeGraphCopy' },
   { route: 'AdminSafetyPlans', icon: 'shield-checkmark-outline', title: 'admin.safetyPlans', copy: 'admin.safetyPlansCopy' },
   { route: 'AdminGuideEvidence', icon: 'documents-outline', title: 'admin.guideEvidence', copy: 'admin.guideEvidenceCopy' },

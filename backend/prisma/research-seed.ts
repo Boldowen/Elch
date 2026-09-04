@@ -9,6 +9,7 @@ import {
   RouteTransportMode,
   TourismAuthorityLevel,
   TourismKnowledgeCategory,
+  TourismSourceReviewStatus,
   TourismSourceType,
 } from '../src/generated/prisma/client.js';
 import { ROUTE_GRAPH } from '../src/modules/route-planning/route-graph.data.js';
@@ -118,6 +119,8 @@ export async function seedResearchData(prisma: PrismaClient) {
       publishedAt: null,
       validFrom: null,
       validTo: null,
+      licenseOrUsageNote: 'Reuse terms must be verified before corpus ingestion or production use',
+      reviewStatus: TourismSourceReviewStatus.PENDING,
       // The required timestamp deliberately remains stale until a human verifies
       // the exact content, scope, and reuse terms represented by this record.
       lastVerifiedAt: UNVERIFIED_AT,
@@ -139,6 +142,8 @@ export async function seedResearchData(prisma: PrismaClient) {
     publishedAt: null,
     validFrom: null,
     validTo: null,
+    licenseOrUsageNote: 'Demo-only platform-authored placeholder; not approved for production knowledge',
+    reviewStatus: TourismSourceReviewStatus.PENDING,
     lastVerifiedAt: UNVERIFIED_AT,
   };
   await prisma.tourismSource.upsert({

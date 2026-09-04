@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Role } from '../../generated/prisma/client.js';
-import { CurrentUser, RequestUser } from '../../common/decorators/current-user.decorator.js';
+import { CurrentUser, type RequestUser } from '../../common/decorators/current-user.decorator.js';
 import { Public } from '../../common/decorators/public.decorator.js';
 import { Roles } from '../../common/decorators/roles.decorator.js';
 import { ApplyGuideDto } from './dto/apply-guide.dto.js';

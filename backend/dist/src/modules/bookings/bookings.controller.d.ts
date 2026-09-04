@@ -1,4 +1,4 @@
-import { RequestUser } from '../../common/decorators/current-user.decorator.js';
+import { type RequestUser } from '../../common/decorators/current-user.decorator.js';
 import { BookingsService } from './bookings.service.js';
 import { CreateBookingDto, UpdateBookingDraftDto } from './dto/create-booking.dto.js';
 import { UpdateBookingStatusDto } from './dto/update-booking-status.dto.js';

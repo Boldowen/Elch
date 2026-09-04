@@ -1,4 +1,5 @@
 import { NotFoundException } from '@nestjs/common';
+import { jest } from '@jest/globals';
 import { RouteGraphRepository } from '../src/modules/route-planning/route-graph.repository.js';
 
 describe('RouteGraphRepository', () => {
@@ -122,13 +123,21 @@ describe('RouteGraphRepository', () => {
           legalRole: 'SPECIALIST_INSTRUCTOR',
           specialtySkills: ['altitude-safety'],
         }),
-        pois: [expect.objectContaining({ id: 'alpha' }), expect.objectContaining({ id: 'beta' })],
+        pois: [
+          expect.objectContaining({ id: 'alpha', databaseId: firstNode.id }),
+          expect.objectContaining({ id: 'beta', databaseId: secondNode.id }),
+        ],
         edges: [expect.objectContaining({
           id: 'alpha-beta',
+          databaseId: databaseRoute.edges[0].id,
           from: 'alpha',
           to: 'beta',
           openMonths: [6, 7, 8],
           requiresPermitCheck: true,
+        })],
+        sources: [expect.objectContaining({
+          id: source.id,
+          verificationStatus: 'PROTOTYPE_REQUIRES_REVIEW',
         })],
       }),
     ]);

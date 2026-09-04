@@ -8,6 +8,7 @@ import {
   GuideStatus,
   Prisma,
   RouteFamily,
+  RouteRiskLevel,
 } from '../../generated/prisma/client.js';
 import { PrismaService } from '../../prisma/prisma.service.js';
 import { ROUTE_GRAPH } from '../route-planning/route-graph.data.js';
@@ -28,6 +29,21 @@ const ROUTE_FAMILY_BY_CODE: Record<string, RouteFamily> = {
   khuvsgul: RouteFamily.KHUVSGUL,
   'western-altai': RouteFamily.WESTERN_ALTAI,
 };
+
+interface MatchingRoute {
+  databaseId?: string;
+  id: string;
+  name: string;
+  routeFamily: RouteFamily;
+  riskClass: RouteRiskLevel;
+  guideRequirements: {
+    minimumLanguageLevel: CefrLevel | string;
+    routeBadge: string;
+    firstAidRequired: boolean;
+    legalRole: string;
+    specialtySkills: string[];
+  };
+}
 
 @Injectable()
 export class GuideResearchService {
@@ -72,21 +88,14 @@ export class GuideResearchService {
   }
 
   async match(dto: MatchGuidesDto, userId?: string) {
-    const route = ROUTE_GRAPH.routes.find((item) => item.id === dto.routeId);
-    if (!route) throw new NotFoundException('Research route not found');
-    const routeFamily = ROUTE_FAMILY_BY_CODE[route.id];
-    if (!routeFamily) throw new NotFoundException('Research route family not found');
+    const route = await this.resolveRoute(dto.routeId);
+    const routeFamily = route.routeFamily;
     const interval = this.requestedInterval(dto);
     const now = new Date();
     const language = dto.language.trim().toLowerCase();
     const weights = this.weights();
 
-    const [databaseRoute, guides] = await Promise.all([
-      this.prisma.researchRoute.findUnique({
-        where: { code: route.id },
-        select: { id: true },
-      }),
-      this.prisma.guideProfile.findMany({
+    const guides = await this.prisma.guideProfile.findMany({
         where: { status: GuideStatus.APPROVED, verified: true, deletedAt: null },
         include: {
           user: {
@@ -175,12 +184,15 @@ export class GuideResearchService {
             select: { competencyType: true, competencyCode: true, score: true, status: true },
           },
         },
-      }),
-    ]);
+      });
 
-    const minimum = this.languageValue(
-      dto.minimumLanguageLevel || route.guideRequirements.minimumLanguageLevel,
+    // A caller may request a stricter language level, but can never weaken the
+    // authoritative route requirement maintained by an administrator.
+    const effectiveMinimumLanguage = this.stricterLanguageLevel(
+      route.guideRequirements.minimumLanguageLevel,
+      dto.minimumLanguageLevel,
     );
+    const minimum = this.languageValue(effectiveMinimumLanguage);
     const evaluated = guides.map((guide) => {
       const languageAssessment = guide.languageAssessments[0];
       const assessedLevel = languageAssessment?.humanVerifiedCefr ?? null;
@@ -278,12 +290,12 @@ export class GuideResearchService {
       const created = await tx.guideMatchRun.create({
         data: {
           userId,
-          routeId: databaseRoute?.id,
+          routeId: route.databaseId,
           routeFamily,
           requestedStartAt: interval?.startsAt,
           requestedEndAt: interval?.endsAt,
           language,
-          minimumCefr: dto.minimumLanguageLevel as CefrLevel,
+          minimumCefr: effectiveMinimumLanguage as CefrLevel,
           requirements: {
             riskClass: route.riskClass,
             legalRole: route.guideRequirements.legalRole,
@@ -329,6 +341,50 @@ export class GuideResearchService {
     };
   }
 
+  private async resolveRoute(reference: string): Promise<MatchingRoute> {
+    const databaseRoute = await this.prisma.researchRoute.findFirst({
+      where: {
+        active: true,
+        OR: this.isUuid(reference) ? [{ id: reference }, { code: reference }] : [{ code: reference }],
+      },
+      select: {
+        id: true,
+        code: true,
+        name: true,
+        routeFamily: true,
+        riskLevel: true,
+        minimumLanguageLevel: true,
+        routeBadge: true,
+        firstAidRequired: true,
+        requiredGuideLegalRole: true,
+        requiredSpecialtySkills: true,
+      },
+    });
+    if (databaseRoute) {
+      return {
+        databaseId: databaseRoute.id,
+        id: databaseRoute.code,
+        name: databaseRoute.name,
+        routeFamily: databaseRoute.routeFamily,
+        riskClass: databaseRoute.riskLevel,
+        guideRequirements: {
+          minimumLanguageLevel: databaseRoute.minimumLanguageLevel,
+          routeBadge: databaseRoute.routeBadge,
+          firstAidRequired: databaseRoute.firstAidRequired,
+          legalRole: databaseRoute.requiredGuideLegalRole,
+          specialtySkills: databaseRoute.requiredSpecialtySkills,
+        },
+      };
+    }
+
+    if (this.config.get<boolean>('ROUTE_GRAPH_ALLOW_STATIC_FALLBACK', false)) {
+      const fixture = ROUTE_GRAPH.routes.find((item) => item.id === reference);
+      const routeFamily = fixture && ROUTE_FAMILY_BY_CODE[fixture.id];
+      if (fixture && routeFamily) return { ...fixture, routeFamily };
+    }
+    throw new NotFoundException('Research route not found');
+  }
+
   private requestedInterval(dto: MatchGuidesDto) {
     if (!dto.requestedStartAt && !dto.requestedEndAt) return null;
     if (!dto.requestedStartAt || !dto.requestedEndAt) {
@@ -346,6 +402,16 @@ export class GuideResearchService {
     return ({ A1: 1, A2: 2, B1: 3, B2: 4, C1: 5, C2: 6 })[
       String(value).toUpperCase()
     ] ?? 0;
+  }
+
+  private stricterLanguageLevel(routeMinimum: string, requestedMinimum: string) {
+    return this.languageValue(requestedMinimum) > this.languageValue(routeMinimum)
+      ? requestedMinimum.toUpperCase()
+      : routeMinimum.toUpperCase();
+  }
+
+  private isUuid(value: string) {
+    return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
   }
 
   private sum(values: Record<string, number>) {

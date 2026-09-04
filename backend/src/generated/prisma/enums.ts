@@ -293,6 +293,15 @@ export const TourismSourceType = {
 export type TourismSourceType = (typeof TourismSourceType)[keyof typeof TourismSourceType]
 
 
+export const TourismSourceReviewStatus = {
+  PENDING: 'PENDING',
+  HUMAN_VERIFIED: 'HUMAN_VERIFIED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type TourismSourceReviewStatus = (typeof TourismSourceReviewStatus)[keyof typeof TourismSourceReviewStatus]
+
+
 export const TourismAuthorityLevel = {
   GOVERNMENT: 'GOVERNMENT',
   LEGAL: 'LEGAL',

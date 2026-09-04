@@ -2,11 +2,25 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Alert, FlatList, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScreenHeader, StateBox } from '../components/ui';
+import { useT } from '../localization';
 import { guidesRepository } from '../repositories/guidesRepository';
 import { apiErrorMessage } from '../services/api';
 import { colors, radius, spacing } from '../theme';
 
+const ASSESSMENT_FIELDS = [
+  { name: 'localKnowledge', labelKey: 'guideApplications.localKnowledge' },
+  { name: 'communication', labelKey: 'guideApplications.communication' },
+  { name: 'safety', labelKey: 'guideApplications.safety' },
+  { name: 'professionalism', labelKey: 'guideApplications.professionalism' },
+];
+
+const REVIEW_CHECKS = [
+  { name: 'documentStatus', labelKey: 'guideApplications.document' },
+  { name: 'referenceStatus', labelKey: 'guideApplications.referenceCheck' },
+];
+
 export default function AdminGuideApplicationsScreen({ navigation }) {
+  const { t } = useT();
   const [items, setItems] = useState([]);
   const [reviews, setReviews] = useState({});
   const [loading, setLoading] = useState(true);
@@ -36,11 +50,11 @@ export default function AdminGuideApplicationsScreen({ navigation }) {
       professionalism: Number(draft.professionalism ?? 20),
     };
     if (Object.values(assessmentBreakdown).some((score) => !Number.isInteger(score) || score < 0 || score > 25)) {
-      Alert.alert('Invalid assessment', 'Each assessment category must be between 0 and 25.');
+      Alert.alert(t('guideApplications.invalidAssessment'), t('guideApplications.invalidAssessmentCopy'));
       return;
     }
     if (decision === 'REJECT' && !draft.decisionReason?.trim()) {
-      Alert.alert('Reason required', 'Add a decision reason before rejecting.');
+      Alert.alert(t('guideApplications.reasonRequired'), t('guideApplications.reasonRequiredCopy'));
       return;
     }
     try {
@@ -54,50 +68,50 @@ export default function AdminGuideApplicationsScreen({ navigation }) {
       });
       await load();
     } catch (e) {
-      Alert.alert('Review failed', apiErrorMessage(e));
+      Alert.alert(t('guideApplications.reviewFailed'), apiErrorMessage(e));
     }
   };
 
   return (
     <SafeAreaView style={styles.root} edges={['top']}>
-      <ScreenHeader title="Guide applications" onBack={() => navigation.goBack()} />
-      <StateBox loading={loading} error={error} empty={!items.length} emptyText="No pending applications.">
+      <ScreenHeader title={t('guideApplications.title')} onBack={() => navigation.goBack()} />
+      <StateBox loading={loading} error={error} empty={!items.length} emptyText={t('guideApplications.empty')}>
         <FlatList
           data={items}
           keyExtractor={(item) => item.id}
           contentContainerStyle={styles.body}
           renderItem={({ item }) => (
             <View style={styles.card}>
-              <Text style={styles.name}>{item.user?.name || 'Applicant'}</Text>
+              <Text style={styles.name}>{item.user?.name || t('guideApplications.applicant')}</Text>
               <Text style={styles.meta}>{item.user?.email}</Text>
-              <Text style={styles.meta}>{item.city}, {item.country} · {item.experienceYears} years</Text>
+              <Text style={styles.meta}>{item.city}, {item.country} · {item.experienceYears} {t('guideApplications.years')}</Text>
               <Text style={styles.bio}>{item.bio}</Text>
-              <Text style={styles.label}>Languages</Text>
+              <Text style={styles.label}>{t('guideApplications.languages')}</Text>
               <Text style={styles.value}>{Object.entries(item.languages || {}).map(([name, level]) => `${name} (${level})`).join(', ')}</Text>
-              <Text style={styles.label}>Expertise</Text>
+              <Text style={styles.label}>{t('guideApplications.expertise')}</Text>
               <Text style={styles.value}>{(item.expertise || []).join(', ')}</Text>
-              <Text style={styles.label}>Reference</Text>
-              <Text style={styles.value}>{item.referenceContact || 'None'}</Text>
-              <Text style={styles.label}>Assessment (each 0–25)</Text>
-              {['localKnowledge', 'communication', 'safety', 'professionalism'].map((field) => (
+              <Text style={styles.label}>{t('guideApplications.reference')}</Text>
+              <Text style={styles.value}>{item.referenceContact || t('guideApplications.none')}</Text>
+              <Text style={styles.label}>{t('guideApplications.assessment')}</Text>
+              {ASSESSMENT_FIELDS.map(({ name, labelKey }) => (
                 <TextInput
-                  key={field}
-                  accessibilityLabel={field}
-                  placeholder={field}
-                  value={String(reviews[item.id]?.[field] ?? 20)}
-                  onChangeText={(value) => setReviews((current) => ({ ...current, [item.id]: { ...current[item.id], [field]: value } }))}
+                  key={name}
+                  accessibilityLabel={t(labelKey)}
+                  placeholder={t(labelKey)}
+                  value={String(reviews[item.id]?.[name] ?? 20)}
+                  onChangeText={(value) => setReviews((current) => ({ ...current, [item.id]: { ...current[item.id], [name]: value } }))}
                   keyboardType="number-pad"
                   style={styles.score}
                 />
               ))}
-              <Text style={styles.label}>Decision reason (required for reject)</Text>
+              <Text style={styles.label}>{t('guideApplications.decisionReason')}</Text>
               <TextInput
                 value={reviews[item.id]?.decisionReason || ''}
                 onChangeText={(value) => setReviews((current) => ({ ...current, [item.id]: { ...current[item.id], decisionReason: value } }))}
                 multiline
                 style={styles.note}
               />
-              <Text style={styles.label}>Internal note</Text>
+              <Text style={styles.label}>{t('guideApplications.internalNote')}</Text>
               <TextInput
                 value={reviews[item.id]?.internalNote || ''}
                 onChangeText={(value) => setReviews((current) => ({ ...current, [item.id]: { ...current[item.id], internalNote: value } }))}
@@ -105,21 +119,21 @@ export default function AdminGuideApplicationsScreen({ navigation }) {
                 style={styles.note}
               />
               <View style={styles.actions}>
-                {['documentStatus', 'referenceStatus'].map((field) => {
-                  const value = reviews[item.id]?.[field] || 'VERIFIED';
+                {REVIEW_CHECKS.map(({ name, labelKey }) => {
+                  const value = reviews[item.id]?.[name] || 'VERIFIED';
                   return (
-                    <Pressable key={field} onPress={() => setReviews((current) => ({ ...current, [item.id]: { ...current[item.id], [field]: value === 'VERIFIED' ? 'FAILED' : 'VERIFIED' } }))} style={styles.checkButton}>
-                      <Text style={styles.value}>{field === 'documentStatus' ? 'Document' : 'Reference'}: {value}</Text>
+                    <Pressable key={name} onPress={() => setReviews((current) => ({ ...current, [item.id]: { ...current[item.id], [name]: value === 'VERIFIED' ? 'FAILED' : 'VERIFIED' } }))} style={styles.checkButton}>
+                      <Text style={styles.value}>{t(labelKey)}: {t(value === 'VERIFIED' ? 'guideApplications.verified' : 'guideApplications.failed')}</Text>
                     </Pressable>
                   );
                 })}
               </View>
               <View style={styles.actions}>
                 <Pressable accessibilityRole="button" onPress={() => review(item, 'REJECT')} style={styles.reject}>
-                  <Text style={styles.rejectText}>Reject</Text>
+                  <Text style={styles.rejectText}>{t('guideApplications.reject')}</Text>
                 </Pressable>
                 <Pressable accessibilityRole="button" onPress={() => review(item, 'APPROVE')} style={styles.approve}>
-                  <Text style={styles.approveText}>Approve</Text>
+                  <Text style={styles.approveText}>{t('guideApplications.approve')}</Text>
                 </Pressable>
               </View>
             </View>

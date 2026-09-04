@@ -1,4 +1,6 @@
 export type ControlledToolName =
+  | 'searchDestinations'
+  | 'getDestinationDetails'
   | 'searchRoutes'
   | 'getRouteDetails'
   | 'validateRoute'
@@ -6,6 +8,10 @@ export type ControlledToolName =
   | 'getTourDetails'
   | 'searchGuides'
   | 'getGuideDetails'
+  | 'getGuideAvailability'
+  | 'getGuideCompetency'
+  | 'matchGuides'
+  | 'getTourAvailability'
   | 'getLiveWeather'
   | 'getRoadClosures'
   | 'getPermitRequirements'

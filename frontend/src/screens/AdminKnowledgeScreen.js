@@ -70,6 +70,7 @@ export default function AdminKnowledgeScreen({ navigation }) {
     publishedAt: '',
     validFrom: '',
     validTo: '',
+    licenseOrUsageNote: '',
     lastVerifiedAt: dateValue(),
   });
   const [sourceReview, setSourceReview] = useState(false);
@@ -100,6 +101,7 @@ export default function AdminKnowledgeScreen({ navigation }) {
     ...(toDateTime(source.publishedAt) ? { publishedAt: toDateTime(source.publishedAt) } : {}),
     ...(toDateTime(source.validFrom) ? { validFrom: toDateTime(source.validFrom) } : {}),
     ...(toDateTime(source.validTo) ? { validTo: toDateTime(source.validTo) } : {}),
+    licenseOrUsageNote: source.licenseOrUsageNote.trim(),
     lastVerifiedAt: toDateTime(source.lastVerifiedAt),
   }), [source]);
 
@@ -108,7 +110,7 @@ export default function AdminKnowledgeScreen({ navigation }) {
 
   const reviewSource = () => {
     const optionalDates = [source.publishedAt, source.validFrom, source.validTo].filter(Boolean);
-    if (!sourcePayload.title || !sourcePayload.organization || !/^https?:\/\//i.test(sourcePayload.url) || !sourcePayload.language) {
+    if (!sourcePayload.title || !sourcePayload.organization || !/^https?:\/\//i.test(sourcePayload.url) || !sourcePayload.language || !sourcePayload.licenseOrUsageNote) {
       Alert.alert(t('adminKnowledge.invalidSource'), t('adminKnowledge.invalidSourceCopy'));
       return;
     }
@@ -179,7 +181,7 @@ export default function AdminKnowledgeScreen({ navigation }) {
     setSourceError(null);
     setIngestResult(null);
     setIngestError(null);
-    setSource((current) => ({ ...current, title: '', organization: '', url: '', publishedAt: '', validFrom: '', validTo: '', lastVerifiedAt: dateValue() }));
+    setSource((current) => ({ ...current, title: '', organization: '', url: '', publishedAt: '', validFrom: '', validTo: '', licenseOrUsageNote: '', lastVerifiedAt: dateValue() }));
     setKnowledge((current) => ({ ...current, title: '', content: '', region: '' }));
   };
 
@@ -206,6 +208,7 @@ export default function AdminKnowledgeScreen({ navigation }) {
                 <AppInput label={t('adminKnowledge.publishedAt')} value={source.publishedAt} onChangeText={(value) => patchSource('publishedAt', value)} placeholder="YYYY-MM-DD" keyboardType="numbers-and-punctuation" />
                 <AppInput label={t('adminKnowledge.validFrom')} value={source.validFrom} onChangeText={(value) => patchSource('validFrom', value)} placeholder="YYYY-MM-DD" keyboardType="numbers-and-punctuation" />
                 <AppInput label={t('adminKnowledge.validTo')} value={source.validTo} onChangeText={(value) => patchSource('validTo', value)} placeholder="YYYY-MM-DD" keyboardType="numbers-and-punctuation" />
+                <AppInput label={t('adminKnowledge.licenseOrUsage')} value={source.licenseOrUsageNote} onChangeText={(value) => patchSource('licenseOrUsageNote', value)} multiline inputStyle={styles.contentInput} />
                 <AppInput label={t('adminKnowledge.lastVerified')} value={source.lastVerifiedAt} onChangeText={(value) => patchSource('lastVerifiedAt', value)} placeholder="YYYY-MM-DD" keyboardType="numbers-and-punctuation" />
                 {sourceError ? <Text style={styles.error} accessibilityLiveRegion="assertive">{sourceError}</Text> : null}
                 <AppButton title={t('adminKnowledge.reviewSource')} onPress={reviewSource} />
@@ -221,6 +224,7 @@ export default function AdminKnowledgeScreen({ navigation }) {
                 <ReviewRow label={t('adminKnowledge.authority')} value={sourcePayload.authorityLevel} />
                 <ReviewRow label={t('adminKnowledge.url')} value={sourcePayload.url} />
                 <ReviewRow label={t('adminKnowledge.language')} value={sourcePayload.language} />
+                <ReviewRow label={t('adminKnowledge.licenseOrUsage')} value={sourcePayload.licenseOrUsageNote} />
                 <ReviewRow label={t('adminKnowledge.lastVerified')} value={source.lastVerifiedAt} />
                 {sourceError ? <Text style={styles.error} accessibilityLiveRegion="assertive">{sourceError}</Text> : null}
                 <View style={styles.actions}>

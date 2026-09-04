@@ -1,4 +1,4 @@
-import { RequestUser } from '../../common/decorators/current-user.decorator.js';
+import { type RequestUser } from '../../common/decorators/current-user.decorator.js';
 import { CreateCommentDto } from './dto/create-comment.dto.js';
 import { CreatePostDto } from './dto/create-post.dto.js';
 import { SocialService } from './social.service.js';

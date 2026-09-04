@@ -1,4 +1,4 @@
-import { RequestUser } from '../../common/decorators/current-user.decorator.js';
+import { type RequestUser } from '../../common/decorators/current-user.decorator.js';
 import { ApplyGuideDto } from './dto/apply-guide.dto.js';
 import { ReviewGuideApplicationDto } from './dto/review-guide-application.dto.js';
 import { UpdateGuideProfileDto } from './dto/update-guide-profile.dto.js';

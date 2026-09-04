@@ -19,6 +19,7 @@ import { colors, radius, spacing } from '../theme';
 
 const AUTHORITIES = ['GOVERNMENT', 'LEGAL', 'OFFICIAL_TOURISM', 'UNESCO', 'LOCAL_AUTHORITY', 'MUSEUM', 'PROTECTED_AREA', 'VERIFIED_OPERATOR', 'OTHER'];
 const KNOWLEDGE_ACTIONS = ['KEEP', 'DISABLE', 'ENABLE'];
+const SOURCE_DECISIONS = ['HUMAN_VERIFIED', 'REJECTED'];
 
 function today() {
   return new Date().toISOString().slice(0, 10);
@@ -77,6 +78,9 @@ export default function AdminSourceReviewScreen({ navigation }) {
       lastVerifiedAt: today(),
       validTo: source.validTo ? source.validTo.slice(0, 10) : '',
       authorityLevel: source.authorityLevel,
+      licenseOrUsageNote: source.licenseOrUsageNote || '',
+      reviewStatus: source.reviewStatus === 'REJECTED' ? 'REJECTED' : 'HUMAN_VERIFIED',
+      reviewNotes: source.reviewNotes || '',
       knowledgeAction: 'KEEP',
     });
     setDetailLoading(true);
@@ -105,6 +109,10 @@ export default function AdminSourceReviewScreen({ navigation }) {
       Alert.alert(t('sourceReview.invalidDate'), t('sourceReview.invalidDateCopy'));
       return;
     }
+    if (!draft?.licenseOrUsageNote?.trim() || (draft.reviewStatus === 'REJECTED' && !draft.reviewNotes.trim())) {
+      Alert.alert(t('sourceReview.invalidDecision'), t('sourceReview.invalidDecisionCopy'));
+      return;
+    }
     const perform = async () => {
       setSaving(true);
       setDetailError(null);
@@ -113,6 +121,9 @@ export default function AdminSourceReviewScreen({ navigation }) {
           lastVerifiedAt: verified,
           ...(validTo ? { validTo } : {}),
           authorityLevel: draft.authorityLevel,
+          licenseOrUsageNote: draft.licenseOrUsageNote.trim(),
+          reviewStatus: draft.reviewStatus,
+          ...(draft.reviewNotes.trim() ? { reviewNotes: draft.reviewNotes.trim() } : {}),
           ...(draft.knowledgeAction === 'KEEP' ? {} : { disableKnowledge: draft.knowledgeAction === 'DISABLE' }),
         });
         await load(query, true);
@@ -161,14 +172,19 @@ export default function AdminSourceReviewScreen({ navigation }) {
             <View style={styles.hero}>
               <Text style={styles.heroTitle}>{selected.title}</Text>
               <Text style={styles.heroCopy}>{selected.organization} · {selected.sourceType}</Text>
+              <Text style={styles.heroCopy}>{t('sourceReview.status')}: {selected.reviewStatus}</Text>
               <Text style={styles.url} numberOfLines={2}>{selected.url}</Text>
             </View>
             {detailError ? <Text style={styles.error} accessibilityLiveRegion="assertive">{detailError}</Text> : null}
             <StateBox loading={detailLoading && !selected.knowledge?.length}>
               <View style={styles.card}>
                 <Text style={styles.sectionTitle}>{t('sourceReview.sourceDecision')}</Text>
+                <Text style={styles.label}>{t('sourceReview.decision')}</Text>
+                <Chips values={SOURCE_DECISIONS} value={draft?.reviewStatus} onChange={(value) => setDraft((current) => ({ ...current, reviewStatus: value }))} />
                 <AppInput label={t('adminKnowledge.lastVerified')} value={draft?.lastVerifiedAt || ''} onChangeText={(value) => setDraft((current) => ({ ...current, lastVerifiedAt: value }))} keyboardType="numbers-and-punctuation" />
                 <AppInput label={t('adminKnowledge.validTo')} value={draft?.validTo || ''} onChangeText={(value) => setDraft((current) => ({ ...current, validTo: value }))} placeholder="YYYY-MM-DD" keyboardType="numbers-and-punctuation" />
+                <AppInput label={t('adminKnowledge.licenseOrUsage')} value={draft?.licenseOrUsageNote || ''} onChangeText={(value) => setDraft((current) => ({ ...current, licenseOrUsageNote: value }))} multiline inputStyle={styles.longInput} />
+                <AppInput label={t('sourceReview.reviewNotes')} value={draft?.reviewNotes || ''} onChangeText={(value) => setDraft((current) => ({ ...current, reviewNotes: value }))} multiline inputStyle={styles.longInput} />
                 <Text style={styles.label}>{t('adminKnowledge.authority')}</Text>
                 <Chips values={AUTHORITIES} value={draft?.authorityLevel} onChange={(value) => setDraft((current) => ({ ...current, authorityLevel: value }))} />
                 <Text style={styles.label}>{t('sourceReview.knowledgeAction')}</Text>
@@ -217,6 +233,7 @@ export default function AdminSourceReviewScreen({ navigation }) {
                     <View style={styles.sourceCopy}>
                       <Text style={styles.sourceTitle}>{source.title}</Text>
                       <Text style={styles.help}>{source.organization} · {source.authorityLevel}</Text>
+                      <Text style={styles.help}>{t('sourceReview.status')}: {source.reviewStatus}</Text>
                       <Text style={styles.help}>{source.counts.knowledge} {t('sourceReview.chunks').toLowerCase()} · {t('sourceReview.verified')} {formatDateTime(source.lastVerifiedAt, language) || '—'}</Text>
                     </View>
                     <Ionicons name="chevron-forward" size={18} color={colors.inkSoft} />
@@ -242,6 +259,7 @@ const styles = StyleSheet.create({
   card: { padding: 16, borderWidth: 1, borderColor: colors.border, borderRadius: radius.xl, backgroundColor: colors.white },
   sectionTitle: { color: colors.ink, fontSize: 17, fontWeight: '800' },
   label: { color: colors.ink, fontSize: 13, fontWeight: '700', marginTop: 12, marginBottom: 6 },
+  longInput: { minHeight: 92, textAlignVertical: 'top' },
   chips: { paddingVertical: 3, paddingRight: 8 },
   help: { color: colors.inkSoft, fontSize: 12, lineHeight: 18, marginTop: 5 },
   error: { color: '#B42318', fontSize: 12, lineHeight: 18, padding: 12, borderRadius: radius.md, backgroundColor: '#FEF2F2' },

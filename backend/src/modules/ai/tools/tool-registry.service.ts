@@ -11,6 +11,7 @@ import { tool } from 'ai';
 import { z } from 'zod';
 import { PrismaService } from '../../../prisma/prisma.service.js';
 import { BookingsService } from '../../bookings/bookings.service.js';
+import { GuideResearchService } from '../../guide-research/guide-research.service.js';
 import { RoutePlanningService } from '../../route-planning/route-planning.service.js';
 import {
   validateBookingDraftToolArgs,
@@ -25,7 +26,26 @@ import {
   weatherQuerySchema,
 } from '../live/live-data.types.js';
 
-const TOOL_NAMES = new Set<ControlledToolName>(['searchRoutes','getRouteDetails','validateRoute','searchTours','getTourDetails','searchGuides','getGuideDetails','getLiveWeather','getRoadClosures','getPermitRequirements','searchTransportAvailability','createBookingDraft']);
+const TOOL_NAMES = new Set<ControlledToolName>([
+  'searchDestinations',
+  'getDestinationDetails',
+  'searchRoutes',
+  'getRouteDetails',
+  'validateRoute',
+  'searchTours',
+  'getTourDetails',
+  'searchGuides',
+  'getGuideDetails',
+  'getGuideAvailability',
+  'getGuideCompetency',
+  'matchGuides',
+  'getTourAvailability',
+  'getLiveWeather',
+  'getRoadClosures',
+  'getPermitRequirements',
+  'searchTransportAvailability',
+  'createBookingDraft',
+]);
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 const searchSchema = z.object({
@@ -33,6 +53,11 @@ const searchSchema = z.object({
   limit: z.number().int().min(1).max(20).nullable(),
 }).strict();
 const detailsSchema = z.object({ id: z.string().trim().min(1).max(100) }).strict();
+const destinationSearchSchema = z.object({
+  query: z.string().trim().min(1).max(200).nullable(),
+  routeId: z.string().trim().min(1).max(80).nullable(),
+  limit: z.number().int().min(1).max(20).nullable(),
+}).strict();
 const guideSearchSchema = z.object({
   city: z.string().trim().min(1).max(100).nullable(),
   limit: z.number().int().min(1).max(20).nullable(),
@@ -45,6 +70,34 @@ const itinerarySchema = z.object({
     day: z.number().int().min(1).max(30),
     activityMinutes: z.number().int().min(0).max(1440),
   }).strict()).min(2).max(30),
+  maxDailyMinutes: z.number().int().min(60).max(1440).nullable(),
+  budgetMinor: z.number().int().min(0).nullable(),
+  transportation: z.enum(['ROAD', 'OFF_ROAD', 'TREK', 'BOAT', 'ANY']).nullable(),
+  permitConfirmed: z.boolean().nullable(),
+  guideProfileId: z.string().uuid().nullable(),
+  guideLanguage: z.string().trim().min(2).max(32).nullable(),
+  safetyPlanId: z.string().uuid().nullable(),
+}).strict();
+const availabilitySchema = z.object({
+  id: z.string().uuid(),
+  startsAt: z.string().datetime({ offset: true }),
+  endsAt: z.string().datetime({ offset: true }),
+}).strict();
+const tourAvailabilitySchema = availabilitySchema.extend({
+  requestedUnits: z.number().int().min(1).max(20),
+}).strict();
+const guideCompetencySchema = z.object({
+  id: z.string().uuid(),
+  routeId: z.string().trim().min(1).max(80).nullable(),
+  language: z.string().trim().min(2).max(32).nullable(),
+}).strict();
+const guideMatchSchema = z.object({
+  routeId: z.string().trim().min(1).max(80),
+  language: z.string().trim().min(2).max(32),
+  minimumLanguageLevel: z.enum(['A1', 'A2', 'B1', 'B2', 'C1', 'C2']),
+  requestedStartAt: z.string().datetime({ offset: true }).nullable(),
+  requestedEndAt: z.string().datetime({ offset: true }).nullable(),
+  limit: z.number().int().min(1).max(20).nullable(),
 }).strict();
 const bookingDraftSchema = z.object({
   listingId: z.string().uuid().nullable(),
@@ -70,6 +123,7 @@ export class ToolRegistryService {
     private readonly routes: RoutePlanningService,
     private readonly bookings: BookingsService,
     @Optional() private readonly liveData?: LiveDataService,
+    @Optional() private readonly guideResearch?: GuideResearchService,
   ) {}
 
   /**
@@ -79,6 +133,18 @@ export class ToolRegistryService {
    */
   aiSdkTools(context: AiToolContext) {
     return {
+      searchDestinations: tool({
+        description: 'Search sourced destinations and route nodes. Results are catalog records, not proof of current access.',
+        inputSchema: destinationSearchSchema,
+        strict: true,
+        execute: (input) => this.execute('searchDestinations', this.compactNullable(input), context),
+      }),
+      getDestinationDetails: tool({
+        description: 'Read sourced destination records and the research routes containing them.',
+        inputSchema: detailsSchema,
+        strict: true,
+        execute: (input) => this.execute('getDestinationDetails', input, context),
+      }),
       searchRoutes: tool({
         description: 'Search the verified Mongolia research route catalog. This does not confirm availability.',
         inputSchema: searchSchema,
@@ -95,7 +161,7 @@ export class ToolRegistryService {
         description: 'Run the deterministic preflight route validator. A valid result is not a booking or safety clearance.',
         inputSchema: itinerarySchema,
         strict: true,
-        execute: (input) => this.execute('validateRoute', input, context),
+        execute: (input) => this.execute('validateRoute', this.compactNullable(input), context),
       }),
       searchTours: tool({
         description: 'Search currently published tour/listing records. Prices are database values, not a reservation.',
@@ -120,6 +186,30 @@ export class ToolRegistryService {
         inputSchema: detailsSchema,
         strict: true,
         execute: (input) => this.execute('getGuideDetails', input, context),
+      }),
+      getGuideAvailability: tool({
+        description: 'Check a verified guide for overlapping application bookings in a bounded date range. The result is a snapshot, not a reservation.',
+        inputSchema: availabilitySchema,
+        strict: true,
+        execute: (input) => this.execute('getGuideAvailability', input, context),
+      }),
+      getGuideCompetency: tool({
+        description: 'Read only current human/document-verified guide competency evidence for an optional route and language.',
+        inputSchema: guideCompetencySchema,
+        strict: true,
+        execute: (input) => this.execute('getGuideCompetency', this.compactNullable(input), context),
+      }),
+      matchGuides: tool({
+        description: 'Apply database-owned hard eligibility gates before explainable ranking. Rating cannot override a failed safety gate.',
+        inputSchema: guideMatchSchema,
+        strict: true,
+        execute: (input) => this.execute('matchGuides', this.compactNullable(input), context),
+      }),
+      getTourAvailability: tool({
+        description: 'Check current listing inventory for a bounded date range. The snapshot does not reserve inventory or confirm a booking.',
+        inputSchema: tourAvailabilitySchema,
+        strict: true,
+        execute: (input) => this.execute('getTourAvailability', input, context),
       }),
       getLiveWeather: tool({
         description: 'Fetch current/forecast weather for coordinates inside Mongolia from the configured verified live provider.',
@@ -159,6 +249,8 @@ export class ToolRegistryService {
     if (name === 'createBookingDraft') this.authenticatedUserId(context);
     const params = this.record(args);
     switch (name as ControlledToolName) {
+      case 'searchDestinations': return this.result('searchDestinations', await this.searchDestinations(params));
+      case 'getDestinationDetails': return this.result('getDestinationDetails', await this.getDestination(params));
       case 'searchRoutes': return this.result('searchRoutes', await this.searchRoutes(params));
       case 'getRouteDetails': return this.result('getRouteDetails', await this.routes.getRoute(this.requiredString(params, 'id')));
       case 'validateRoute': return this.result('validateRoute', await this.routes.validateAuthoritative(this.validationParams(params), new Date(), context.userId));
@@ -166,6 +258,10 @@ export class ToolRegistryService {
       case 'getTourDetails': return this.result('getTourDetails', await this.getTour(params));
       case 'searchGuides': return this.result('searchGuides', await this.searchGuides(params));
       case 'getGuideDetails': return this.result('getGuideDetails', await this.getGuide(params));
+      case 'getGuideAvailability': return this.result('getGuideAvailability', await this.getGuideAvailability(params));
+      case 'getGuideCompetency': return this.result('getGuideCompetency', await this.getGuideCompetency(params));
+      case 'matchGuides': return this.result('matchGuides', await this.matchGuides(params, context));
+      case 'getTourAvailability': return this.result('getTourAvailability', await this.getTourAvailability(params));
       case 'getLiveWeather': return this.result('getLiveWeather', await this.live().weather(this.parse(weatherQuerySchema, params)));
       case 'getRoadClosures': return this.result('getRoadClosures', await this.live().roadClosures(this.parse(roadClosureQuerySchema, params)));
       case 'getPermitRequirements': return this.result('getPermitRequirements', await this.live().permits(this.parse(permitQuerySchema, params)));
@@ -178,6 +274,67 @@ export class ToolRegistryService {
     const query = this.optionalString(params, 'query')?.toLowerCase();
     const limit = this.limit(params);
     return (await this.routes.listRoutes()).filter((route) => !query || `${route.id} ${route.name} ${route.description}`.toLowerCase().includes(query)).slice(0, limit);
+  }
+
+  private async searchDestinations(params: Record<string, unknown>) {
+    const parsed = this.parse(destinationSearchSchema, {
+      query: params.query ?? null,
+      routeId: params.routeId ?? null,
+      limit: params.limit ?? null,
+      ...params,
+    });
+    const query = parsed.query?.toLowerCase();
+    const routes = (await this.routes.listRoutes())
+      .filter((route) => !parsed.routeId || route.id === parsed.routeId || route.databaseId === parsed.routeId);
+    const results = routes.flatMap((route) => route.pois
+      .filter((poi) => !query || `${poi.id} ${poi.nameMn} ${poi.nameEn} ${poi.region}`.toLowerCase().includes(query))
+      .map((poi) => {
+        const source = route.sources.find((item) => item.id === poi.sourceId);
+        return {
+          id: poi.id,
+          nameMn: poi.nameMn,
+          nameEn: poi.nameEn,
+          region: poi.region,
+          type: poi.type,
+          latitude: poi.latitude,
+          longitude: poi.longitude,
+          route: { id: route.id, name: route.name, riskClass: route.riskClass },
+          source: source ? {
+            id: source.id,
+            title: source.title,
+            url: source.url,
+            lastVerifiedAt: source.lastVerifiedAt,
+            verificationStatus: source.verificationStatus,
+          } : null,
+        };
+      }));
+    return results.slice(0, parsed.limit ?? 10);
+  }
+
+  private async getDestination(params: Record<string, unknown>) {
+    const { id } = this.parse(detailsSchema, params);
+    const matches = (await this.routes.listRoutes()).flatMap((route) => route.pois
+      .filter((poi) => poi.id === id || poi.databaseId === id)
+      .map((poi) => ({
+        id: poi.id,
+        nameMn: poi.nameMn,
+        nameEn: poi.nameEn,
+        region: poi.region,
+        type: poi.type,
+        latitude: poi.latitude,
+        longitude: poi.longitude,
+        elevationMeters: poi.elevationMeters ?? null,
+        route: {
+          id: route.id,
+          name: route.name,
+          riskClass: route.riskClass,
+          recommendedDays: route.recommendedDays,
+        },
+        source: route.sources.find((source) => source.id === poi.sourceId) ?? null,
+        disclaimer: route.disclaimer,
+      })));
+    if (!matches.length) throw new NotFoundException('Destination not found');
+    return matches.slice(0, 20);
   }
 
   private async searchTours(params: Record<string, unknown>) {
@@ -211,6 +368,175 @@ export class ToolRegistryService {
     });
     if (!item) throw new NotFoundException('Guide not found');
     return item;
+  }
+
+  private async getGuideAvailability(params: Record<string, unknown>) {
+    const parsed = this.parse(availabilitySchema, params);
+    const range = this.boundedRange(parsed.startsAt, parsed.endsAt);
+    const guide = await this.prisma.guideProfile.findFirst({
+      where: { id: parsed.id, status: 'APPROVED', verified: true, deletedAt: null },
+      select: { id: true, userId: true },
+    });
+    if (!guide) throw new NotFoundException('Guide not found');
+    const conflicts = await this.prisma.booking.findMany({
+      where: {
+        guideId: guide.userId,
+        deletedAt: null,
+        status: { in: ['PENDING', 'CONFIRMED', 'IN_PROGRESS'] },
+        startsAt: { lt: range.endsAt },
+        endsAt: { gt: range.startsAt },
+      },
+      select: { startsAt: true, endsAt: true, status: true },
+      orderBy: { startsAt: 'asc' },
+      take: 20,
+    });
+    return {
+      guideProfileId: guide.id,
+      startsAt: range.startsAt.toISOString(),
+      endsAt: range.endsAt.toISOString(),
+      available: conflicts.length === 0,
+      conflicts,
+      checkedAt: new Date().toISOString(),
+      isReservation: false,
+    };
+  }
+
+  private async getGuideCompetency(params: Record<string, unknown>) {
+    const parsed = this.parse(guideCompetencySchema, {
+      routeId: params.routeId ?? null,
+      language: params.language ?? null,
+      ...params,
+    });
+    const now = new Date();
+    const route = parsed.routeId ? await this.routes.getRoute(parsed.routeId) : null;
+    const verified = ['HUMAN_VERIFIED', 'DOCUMENT_VERIFIED'] as const;
+    const guide = await this.prisma.guideProfile.findFirst({
+      where: { id: parsed.id, status: 'APPROVED', verified: true, deletedAt: null },
+      select: {
+        id: true,
+        legalRole: true,
+        languageAssessments: {
+          where: {
+            ...(parsed.language ? { language: parsed.language.toLowerCase() } : {}),
+            assessmentStatus: { in: [...verified] },
+            humanVerifiedCefr: { not: null },
+          },
+          orderBy: { createdAt: 'desc' },
+          select: { language: true, humanVerifiedCefr: true, assessmentStatus: true, updatedAt: true },
+        },
+        routeCompetencies: {
+          where: {
+            ...(route ? { routeFamily: route.routeFamily } : {}),
+            status: { in: [...verified] },
+            AND: [{ OR: [{ expiresAt: null }, { expiresAt: { gt: now } }] }],
+          },
+          orderBy: { createdAt: 'desc' },
+          select: { routeFamily: true, score: true, status: true, passedAt: true, expiresAt: true },
+        },
+        competencies: {
+          where: {
+            status: { in: [...verified] },
+            AND: [{ OR: [{ validTo: null }, { validTo: { gt: now } }] }],
+          },
+          select: { competencyType: true, competencyCode: true, score: true, status: true, validTo: true },
+        },
+        firstAidRecords: {
+          where: {
+            AND: [
+              { OR: [
+                { certificateStatus: 'DOCUMENT_VERIFIED' },
+                { practicalVerificationStatus: 'VERIFIED' },
+              ] },
+              { OR: [{ expiresAt: null }, { expiresAt: { gt: now } }] },
+            ],
+          },
+          select: {
+            certificateStatus: true,
+            practicalVerificationStatus: true,
+            issuedAt: true,
+            expiresAt: true,
+            verifiedAt: true,
+          },
+        },
+      },
+    });
+    if (!guide) throw new NotFoundException('Guide not found');
+    return {
+      guideProfileId: guide.id,
+      legalRole: guide.legalRole,
+      requestedRoute: route ? { id: route.id, routeFamily: route.routeFamily } : null,
+      languages: guide.languageAssessments,
+      routeCompetencies: guide.routeCompetencies,
+      competencies: guide.competencies,
+      firstAid: guide.firstAidRecords,
+      currentVerifiedEvidenceOnly: true,
+      checkedAt: now.toISOString(),
+    };
+  }
+
+  private async matchGuides(params: Record<string, unknown>, context: AiToolContext) {
+    const userId = this.authenticatedUserId(context);
+    if (!this.guideResearch) {
+      throw new ServiceUnavailableException('Guide matching service is unavailable');
+    }
+    const parsed = this.parse(guideMatchSchema, {
+      requestedStartAt: params.requestedStartAt ?? null,
+      requestedEndAt: params.requestedEndAt ?? null,
+      limit: params.limit ?? null,
+      ...params,
+    });
+    if (Boolean(parsed.requestedStartAt) !== Boolean(parsed.requestedEndAt)) {
+      throw new BadRequestException('requestedStartAt and requestedEndAt must be provided together');
+    }
+    if (parsed.requestedStartAt && parsed.requestedEndAt) {
+      this.boundedRange(parsed.requestedStartAt, parsed.requestedEndAt);
+    }
+    return this.guideResearch.match({
+      routeId: parsed.routeId,
+      language: parsed.language,
+      minimumLanguageLevel: parsed.minimumLanguageLevel,
+      ...(parsed.requestedStartAt ? { requestedStartAt: parsed.requestedStartAt } : {}),
+      ...(parsed.requestedEndAt ? { requestedEndAt: parsed.requestedEndAt } : {}),
+      ...(parsed.limit ? { limit: parsed.limit } : {}),
+    }, userId);
+  }
+
+  private async getTourAvailability(params: Record<string, unknown>) {
+    const parsed = this.parse(tourAvailabilitySchema, params);
+    const range = this.boundedRange(parsed.startsAt, parsed.endsAt);
+    const listing = await this.prisma.listing.findFirst({
+      where: { id: parsed.id, status: 'PUBLISHED', published: true, deletedAt: null },
+      select: { id: true, defaultTotalUnits: true },
+    });
+    if (!listing) throw new NotFoundException('Tour/listing not found');
+    const dates = this.inventoryDates(range.startsAt, range.endsAt);
+    const rows = await this.prisma.listingInventory.findMany({
+      where: { listingId: listing.id, date: { in: dates } },
+      select: { date: true, availableUnits: true, updatedAt: true },
+      orderBy: { date: 'asc' },
+    });
+    const byDate = new Map(rows.map((row) => [row.date.toISOString().slice(0, 10), row]));
+    const days = dates.map((date) => {
+      const row = byDate.get(date.toISOString().slice(0, 10));
+      return {
+        date: date.toISOString().slice(0, 10),
+        availableUnits: row?.availableUnits ?? listing.defaultTotalUnits,
+        source: row ? 'EXPLICIT_INVENTORY' : 'DEFAULT_INVENTORY_POLICY',
+        updatedAt: row?.updatedAt ?? null,
+      };
+    });
+    const minimumAvailableUnits = Math.min(...days.map((day) => day.availableUnits));
+    return {
+      listingId: listing.id,
+      startsAt: range.startsAt.toISOString(),
+      endsAt: range.endsAt.toISOString(),
+      requestedUnits: parsed.requestedUnits,
+      available: minimumAvailableUnits >= parsed.requestedUnits,
+      minimumAvailableUnits,
+      days,
+      checkedAt: new Date().toISOString(),
+      isReservation: false,
+    };
   }
 
   private async createBookingDraft(
@@ -256,7 +582,7 @@ export class ToolRegistryService {
     if (!context || typeof context.userId !== 'string' || !UUID.test(context.userId)) {
       throw new UnauthorizedException({
         code: 'AI_TOOL_AUTHENTICATION_REQUIRED',
-        message: 'Authentication is required to create a booking draft',
+        message: 'Authentication is required for this AI tool',
       });
     }
     return context.userId;
@@ -317,20 +643,57 @@ export class ToolRegistryService {
     if (!this.liveData) throw new ServiceUnavailableException('Verified live-data provider is unavailable');
     return this.liveData;
   }
+  private boundedRange(startsAtValue: string, endsAtValue: string) {
+    const startsAt = new Date(startsAtValue);
+    const endsAt = new Date(endsAtValue);
+    if (!Number.isFinite(startsAt.getTime()) || !Number.isFinite(endsAt.getTime()) || endsAt <= startsAt) {
+      throw new BadRequestException('endsAt must be after startsAt');
+    }
+    if (endsAt.getTime() - startsAt.getTime() > 31 * 86_400_000) {
+      throw new BadRequestException('Availability range cannot exceed 31 days');
+    }
+    return { startsAt, endsAt };
+  }
+  private inventoryDates(startsAt: Date, endsAt: Date) {
+    const dates: Date[] = [];
+    const cursor = new Date(Date.UTC(
+      startsAt.getUTCFullYear(),
+      startsAt.getUTCMonth(),
+      startsAt.getUTCDate(),
+    ));
+    const exclusiveEnd = new Date(Date.UTC(
+      endsAt.getUTCFullYear(),
+      endsAt.getUTCMonth(),
+      endsAt.getUTCDate(),
+    ));
+    do {
+      dates.push(new Date(cursor));
+      cursor.setUTCDate(cursor.getUTCDate() + 1);
+    } while (cursor < exclusiveEnd);
+    return dates;
+  }
   private validationParams(params: Record<string, unknown>) {
-    const routeId = this.requiredString(params, 'routeId');
-    const startDate = this.requiredString(params, 'startDate');
-    if (Number.isNaN(Date.parse(startDate))) throw new BadRequestException('startDate must be an ISO date');
-    if (!Array.isArray(params.stops) || params.stops.length < 2 || params.stops.length > 30) throw new BadRequestException('stops must contain between 2 and 30 items');
-    const stops = params.stops.map((value) => {
-      const stop = this.record(value);
-      const poiId = this.requiredString(stop, 'poiId');
-      const day = Number(stop.day);
-      const activityMinutes = Number(stop.activityMinutes);
-      if (!Number.isInteger(day) || day < 1 || day > 30) throw new BadRequestException('stop day must be an integer between 1 and 30');
-      if (!Number.isInteger(activityMinutes) || activityMinutes < 0 || activityMinutes > 1440) throw new BadRequestException('activityMinutes must be an integer between 0 and 1440');
-      return { poiId, day, activityMinutes };
+    const parsed = this.parse(itinerarySchema, {
+      maxDailyMinutes: params.maxDailyMinutes ?? null,
+      budgetMinor: params.budgetMinor ?? null,
+      transportation: params.transportation ?? null,
+      permitConfirmed: params.permitConfirmed ?? null,
+      guideProfileId: params.guideProfileId ?? null,
+      guideLanguage: params.guideLanguage ?? null,
+      safetyPlanId: params.safetyPlanId ?? null,
+      ...params,
     });
-    return { routeId, startDate, stops };
+    return {
+      routeId: parsed.routeId,
+      startDate: parsed.startDate,
+      stops: parsed.stops,
+      ...(parsed.maxDailyMinutes === null ? {} : { maxDailyMinutes: parsed.maxDailyMinutes }),
+      ...(parsed.budgetMinor === null ? {} : { budgetMinor: parsed.budgetMinor }),
+      ...(parsed.transportation === null ? {} : { transportation: parsed.transportation }),
+      ...(parsed.permitConfirmed === null ? {} : { permitConfirmed: parsed.permitConfirmed }),
+      ...(parsed.guideProfileId === null ? {} : { guideProfileId: parsed.guideProfileId }),
+      ...(parsed.guideLanguage === null ? {} : { guideLanguage: parsed.guideLanguage }),
+      ...(parsed.safetyPlanId === null ? {} : { safetyPlanId: parsed.safetyPlanId }),
+    };
   }
 }

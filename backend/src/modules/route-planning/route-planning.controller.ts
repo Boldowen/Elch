@@ -5,7 +5,7 @@ import { ValidateItineraryDto } from './dto/validate-itinerary.dto.js';
 import { RoutePlanningService } from './route-planning.service.js';
 import { PlanRouteDto } from './dto/plan-route.dto.js';
 import { RoutePlannerService } from './route-planner.service.js';
-import { CurrentUser, RequestUser } from '../../common/decorators/current-user.decorator.js';
+import { CurrentUser, type RequestUser } from '../../common/decorators/current-user.decorator.js';
 
 @ApiTags('route-planning')
 @Controller({ path: 'research-routes', version: '1' })

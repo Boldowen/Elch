@@ -207,6 +207,12 @@ export declare const TourismSourceType: {
     readonly OTHER: "OTHER";
 };
 export type TourismSourceType = (typeof TourismSourceType)[keyof typeof TourismSourceType];
+export declare const TourismSourceReviewStatus: {
+    readonly PENDING: "PENDING";
+    readonly HUMAN_VERIFIED: "HUMAN_VERIFIED";
+    readonly REJECTED: "REJECTED";
+};
+export type TourismSourceReviewStatus = (typeof TourismSourceReviewStatus)[keyof typeof TourismSourceReviewStatus];
 export declare const TourismAuthorityLevel: {
     readonly GOVERNMENT: "GOVERNMENT";
     readonly LEGAL: "LEGAL";

@@ -1,6 +1,10 @@
 import { jest } from '@jest/globals';
 import { ConfigService } from '@nestjs/config';
-import { TourismAuthorityLevel, TourismKnowledgeCategory } from '../src/generated/prisma/client.js';
+import {
+  TourismAuthorityLevel,
+  TourismKnowledgeCategory,
+  TourismSourceReviewStatus,
+} from '../src/generated/prisma/client.js';
 import { LocalSafeAiProvider } from '../src/modules/ai/local-safe.provider.js';
 import { TourismRetrievalService } from '../src/modules/tourism-knowledge/tourism-retrieval.service.js';
 
@@ -13,8 +17,8 @@ describe('tourism RAG retrieval', () => {
       category: TourismKnowledgeCategory.HISTORY, language: 'en', embedding, lastVerifiedAt: new Date(),
     };
     const prisma = { tourismKnowledge: { findMany: async () => [
-      { ...base, id: 'operator', source: { id: 's1', title: 'Operator', organization: 'O', authorityLevel: TourismAuthorityLevel.VERIFIED_OPERATOR, url: 'https://example.com/o', lastVerifiedAt: new Date() } },
-      { ...base, id: 'legal', source: { id: 's2', title: 'Law', organization: 'Government', authorityLevel: TourismAuthorityLevel.LEGAL, url: 'https://example.com/law', lastVerifiedAt: new Date() } },
+      { ...base, id: 'operator', source: { id: 's1', title: 'Operator', organization: 'O', authorityLevel: TourismAuthorityLevel.VERIFIED_OPERATOR, url: 'https://example.com/o', lastVerifiedAt: new Date(), reviewStatus: TourismSourceReviewStatus.HUMAN_VERIFIED, reviewedAt: new Date(), licenseOrUsageNote: 'Attributed reuse' } },
+      { ...base, id: 'legal', source: { id: 's2', title: 'Law', organization: 'Government', authorityLevel: TourismAuthorityLevel.LEGAL, url: 'https://example.com/law', lastVerifiedAt: new Date(), reviewStatus: TourismSourceReviewStatus.HUMAN_VERIFIED, reviewedAt: new Date(), licenseOrUsageNote: 'Public legal source' } },
     ] } };
     const service = new TourismRetrievalService(prisma as never, new ConfigService({ RAG_TOP_K: 6, RAG_MIN_SCORE: 0 }), provider);
     const results = await service.search({ query: 'Orkhon heritage', language: 'en' });
@@ -42,6 +46,9 @@ describe('tourism RAG retrieval', () => {
           id: 'source', title: 'Authority', organization: 'Authority',
           authorityLevel: TourismAuthorityLevel.GOVERNMENT,
           url: 'https://example.com/source', lastVerifiedAt: new Date(),
+          reviewStatus: TourismSourceReviewStatus.HUMAN_VERIFIED,
+          reviewedAt: new Date(),
+          licenseOrUsageNote: 'Attributed reuse',
         },
       },
     ]) } };
@@ -57,8 +64,13 @@ describe('tourism RAG retrieval', () => {
     expect(provider.generateEmbedding).toHaveBeenCalledTimes(1);
     expect(prisma.tourismKnowledge.findMany).toHaveBeenCalledWith(expect.objectContaining({
       where: expect.objectContaining({
-        source: { AND: expect.arrayContaining([{ OR: [{ validFrom: null }, { validFrom: expect.any(Object) }] }]) },
+        source: { AND: expect.arrayContaining([
+          { reviewStatus: TourismSourceReviewStatus.HUMAN_VERIFIED },
+          { licenseOrUsageNote: { not: '' } },
+          { OR: [{ validFrom: null }, { validFrom: expect.any(Object) }] },
+        ]) },
       }),
+      take: 5000,
     }));
   });
 

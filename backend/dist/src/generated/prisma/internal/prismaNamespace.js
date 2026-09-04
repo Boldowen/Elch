@@ -206,6 +206,11 @@ export const TourismSourceScalarFieldEnum = {
     publishedAt: 'publishedAt',
     validFrom: 'validFrom',
     validTo: 'validTo',
+    licenseOrUsageNote: 'licenseOrUsageNote',
+    reviewStatus: 'reviewStatus',
+    reviewedAt: 'reviewedAt',
+    reviewedById: 'reviewedById',
+    reviewNotes: 'reviewNotes',
     lastVerifiedAt: 'lastVerifiedAt',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'

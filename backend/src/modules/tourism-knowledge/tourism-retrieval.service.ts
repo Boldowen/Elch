@@ -1,6 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { Prisma, TourismAuthorityLevel } from '../../generated/prisma/client.js';
+import {
+  Prisma,
+  TourismAuthorityLevel,
+  TourismSourceReviewStatus,
+} from '../../generated/prisma/client.js';
 import { PrismaService } from '../../prisma/prisma.service.js';
 import { AI_PROVIDER } from '../ai/ai-provider.interface.js';
 import type { AiProvider } from '../ai/ai-provider.interface.js';
@@ -23,14 +27,28 @@ export class TourismRetrievalService {
       active: true, region: dto.region, routeFamily: dto.routeFamily, category: dto.category, language: dto.language?.toLowerCase(),
       source: {
         AND: [
+          { reviewStatus: TourismSourceReviewStatus.HUMAN_VERIFIED },
+          { licenseOrUsageNote: { not: '' } },
           { OR: [{ validFrom: null }, { validFrom: { lte: now } }] },
           { OR: [{ validTo: null }, { validTo: { gt: now } }] },
         ],
       },
     };
-    const candidates = await this.prisma.tourismKnowledge.findMany({ where, include: { source: true }, take: 500, orderBy: { lastVerifiedAt: 'desc' } });
     const minScore = this.config.get<number>('RAG_MIN_SCORE', 0.15);
     const topK = dto.topK ?? this.config.get<number>('RAG_TOP_K', 6);
+    // JSON embeddings are intentionally portable for the bachelor prototype.
+    // Keep the candidate pool configurable and large enough for the planned
+    // 2k-5k corpus; move to pgvector/ANN before growing beyond this bound.
+    const candidateLimit = Math.min(
+      10_000,
+      Math.max(topK, this.config.get<number>('RAG_CANDIDATE_LIMIT', 5_000)),
+    );
+    const candidates = await this.prisma.tourismKnowledge.findMany({
+      where,
+      include: { source: true },
+      take: candidateLimit,
+      orderBy: { lastVerifiedAt: 'desc' },
+    });
     return candidates.map((item) => {
       const vector = this.vector(item.embedding);
       const semanticScore = vector?.length === queryVector.length
@@ -43,7 +61,17 @@ export class TourismRetrievalService {
     }).filter((result) => result.score >= minScore).sort((left, right) => right.score - left.score).slice(0, topK).map(({ item, score }) => ({
       id: item.id, title: item.title, content: item.content, region: item.region, routeFamily: item.routeFamily,
       category: item.category, language: item.language, score: Math.round(score * 10000) / 10000,
-      source: { id: item.source.id, title: item.source.title, organization: item.source.organization, authorityLevel: item.source.authorityLevel, url: item.source.url, lastVerifiedAt: item.source.lastVerifiedAt },
+      source: {
+        id: item.source.id,
+        title: item.source.title,
+        organization: item.source.organization,
+        authorityLevel: item.source.authorityLevel,
+        url: item.source.url,
+        lastVerifiedAt: item.source.lastVerifiedAt,
+        reviewStatus: item.source.reviewStatus,
+        reviewedAt: item.source.reviewedAt,
+        licenseOrUsageNote: item.source.licenseOrUsageNote,
+      },
     }));
   }
 

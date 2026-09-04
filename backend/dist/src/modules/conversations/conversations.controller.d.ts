@@ -1,4 +1,4 @@
-import { RequestUser } from '../../common/decorators/current-user.decorator.js';
+import { type RequestUser } from '../../common/decorators/current-user.decorator.js';
 import { ConversationsService } from './conversations.service.js';
 import { SendMessageDto } from './dto/send-message.dto.js';
 export declare class ConversationsController {

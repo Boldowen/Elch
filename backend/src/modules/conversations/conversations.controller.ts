@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { CurrentUser, RequestUser } from '../../common/decorators/current-user.decorator.js';
+import { CurrentUser, type RequestUser } from '../../common/decorators/current-user.decorator.js';
 import { ConversationsService } from './conversations.service.js';
 import { SendMessageDto } from './dto/send-message.dto.js';
 @ApiTags('conversations') @ApiBearerAuth() @Controller({ path: 'conversations', version: '1' })

@@ -19,7 +19,7 @@ describe('ResearchAssistantService', () => {
 
   it('does not invent dynamic weather data', async () => {
     const result = await assistant.query({ message: 'Khuvsgul weather and road closure?', language: 'en' });
-    expect(result.suggestedTools).toContain('LIVE_WEATHER_OR_CLOSURE_LOOKUP');
+    expect(result.suggestedTools).toEqual(expect.arrayContaining(['getLiveWeather', 'getRoadClosures']));
     expect(result.limitations.join(' ')).toContain('not invented');
   });
 

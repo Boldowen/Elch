@@ -16,9 +16,10 @@ import {
 import { LIVE_DATA_PROVIDER } from './live/live-data.types.js';
 import { LiveDataService } from './live/live-data.service.js';
 import { AssistantRuntimeService } from './assistant-runtime.service.js';
+import { GuideResearchModule } from '../guide-research/guide-research.module.js';
 
 @Module({
-  imports: [RoutePlanningModule, BookingsModule],
+  imports: [RoutePlanningModule, BookingsModule, GuideResearchModule],
   providers: [
     ExperimentModeService,
     LocalSafeAiProvider,

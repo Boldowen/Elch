@@ -9,7 +9,7 @@
     "start:dev": "nest start --watch",
     "lint": "eslint \"src/**/*.ts\"",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest --runInBand",
-    "test:integration": "NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules jest --runInBand",
+    "test:integration": "RUN_INTEGRATION_TESTS=1 NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules jest --runInBand",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:deploy": "prisma migrate deploy",

@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { z } from 'zod';
-import {
+import type {
   LiveDataProvider,
   PermitData,
   PermitQuery,

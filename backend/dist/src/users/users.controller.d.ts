@@ -1,4 +1,4 @@
-import { RequestUser } from '../common/decorators/current-user.decorator.js';
+import { type RequestUser } from '../common/decorators/current-user.decorator.js';
 import { UpdateUserDto } from './dto/update-user.dto.js';
 import { UsersService } from './users.service.js';
 export declare class UsersController {

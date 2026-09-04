@@ -1,6 +1,12 @@
 import { Type } from 'class-transformer';
 import { IsBoolean, IsDateString, IsEnum, IsInt, IsOptional, IsString, IsUrl, Max, MaxLength, Min } from 'class-validator';
-import { RouteFamily, TourismAuthorityLevel, TourismKnowledgeCategory, TourismSourceType } from '../../../generated/prisma/client.js';
+import {
+  RouteFamily,
+  TourismAuthorityLevel,
+  TourismKnowledgeCategory,
+  TourismSourceReviewStatus,
+  TourismSourceType,
+} from '../../../generated/prisma/client.js';
 
 export class CreateTourismSourceDto {
   @IsString() @MaxLength(300) title: string;
@@ -12,6 +18,7 @@ export class CreateTourismSourceDto {
   @IsOptional() @IsDateString() publishedAt?: string;
   @IsOptional() @IsDateString() validFrom?: string;
   @IsOptional() @IsDateString() validTo?: string;
+  @IsString() @MaxLength(2000) licenseOrUsageNote: string;
   @IsDateString() lastVerifiedAt: string;
 }
 
@@ -46,6 +53,9 @@ export class ReviewTourismSourceDto {
   @IsDateString() lastVerifiedAt: string;
   @IsOptional() @IsDateString() validTo?: string;
   @IsOptional() @IsEnum(TourismAuthorityLevel) authorityLevel?: TourismAuthorityLevel;
+  @IsOptional() @IsEnum(TourismSourceReviewStatus) reviewStatus?: TourismSourceReviewStatus;
+  @IsOptional() @IsString() @MaxLength(2000) licenseOrUsageNote?: string;
+  @IsOptional() @IsString() @MaxLength(2000) reviewNotes?: string;
   @IsOptional() @IsBoolean() disableKnowledge?: boolean;
 }
 

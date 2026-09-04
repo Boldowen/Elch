@@ -7,9 +7,13 @@ export interface RouteSource {
   authority: 1 | 2 | 3 | 4 | 5 | 6;
   lastVerifiedAt: string;
   verificationStatus: 'PROTOTYPE_REQUIRES_REVIEW' | 'HUMAN_VERIFIED';
+  licenseOrUsageNote?: string;
+  reviewedAt?: string;
 }
 
 export interface RoutePoi {
+  /** Stable database identifier used by authenticated admin mutation endpoints. */
+  databaseId?: string;
   id: string;
   nameMn: string;
   nameEn: string;
@@ -19,9 +23,14 @@ export interface RoutePoi {
   longitude: number;
   elevationMeters?: number;
   sourceId: string;
+  active?: boolean;
+  sequenceHint?: number;
+  minimumVisitMinutes?: number;
 }
 
 export interface RouteEdge {
+  /** Stable database identifier used by authenticated admin mutation endpoints. */
+  databaseId?: string;
   id: string;
   from: string;
   to: string;
@@ -32,6 +41,8 @@ export interface RouteEdge {
   riskClass: RiskClass;
   requiredSkills: string[];
   estimatedCostMinor?: number;
+  estimatedCostCurrency?: string;
+  terrain?: string;
   sourceId: string;
   bidirectional?: boolean;
   requiresRoadCheck?: boolean;
@@ -40,6 +51,7 @@ export interface RouteEdge {
   requiresGuide?: boolean;
   emergencyPlanRequired?: boolean;
   lastVerifiedAt?: string;
+  active?: boolean;
 }
 
 export interface ResearchRoute {
@@ -56,6 +68,7 @@ export interface ResearchRoute {
     legalRole: 'UNVERIFIED' | 'LICENSED_PROFESSIONAL' | 'LICENSED_PROFESSIONAL_GUIDE' | 'LOCAL_HOST' | 'SPECIALIST_INSTRUCTOR';
     specialtySkills: string[];
   };
+  sourceId?: string;
 }
 
 export interface HydratedResearchRoute extends ResearchRoute {

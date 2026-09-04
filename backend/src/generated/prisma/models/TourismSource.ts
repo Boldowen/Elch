@@ -36,6 +36,11 @@ export type TourismSourceMinAggregateOutputType = {
   publishedAt: Date | null
   validFrom: Date | null
   validTo: Date | null
+  licenseOrUsageNote: string | null
+  reviewStatus: $Enums.TourismSourceReviewStatus | null
+  reviewedAt: Date | null
+  reviewedById: string | null
+  reviewNotes: string | null
   lastVerifiedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -52,6 +57,11 @@ export type TourismSourceMaxAggregateOutputType = {
   publishedAt: Date | null
   validFrom: Date | null
   validTo: Date | null
+  licenseOrUsageNote: string | null
+  reviewStatus: $Enums.TourismSourceReviewStatus | null
+  reviewedAt: Date | null
+  reviewedById: string | null
+  reviewNotes: string | null
   lastVerifiedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -68,6 +78,11 @@ export type TourismSourceCountAggregateOutputType = {
   publishedAt: number
   validFrom: number
   validTo: number
+  licenseOrUsageNote: number
+  reviewStatus: number
+  reviewedAt: number
+  reviewedById: number
+  reviewNotes: number
   lastVerifiedAt: number
   createdAt: number
   updatedAt: number
@@ -86,6 +101,11 @@ export type TourismSourceMinAggregateInputType = {
   publishedAt?: true
   validFrom?: true
   validTo?: true
+  licenseOrUsageNote?: true
+  reviewStatus?: true
+  reviewedAt?: true
+  reviewedById?: true
+  reviewNotes?: true
   lastVerifiedAt?: true
   createdAt?: true
   updatedAt?: true
@@ -102,6 +122,11 @@ export type TourismSourceMaxAggregateInputType = {
   publishedAt?: true
   validFrom?: true
   validTo?: true
+  licenseOrUsageNote?: true
+  reviewStatus?: true
+  reviewedAt?: true
+  reviewedById?: true
+  reviewNotes?: true
   lastVerifiedAt?: true
   createdAt?: true
   updatedAt?: true
@@ -118,6 +143,11 @@ export type TourismSourceCountAggregateInputType = {
   publishedAt?: true
   validFrom?: true
   validTo?: true
+  licenseOrUsageNote?: true
+  reviewStatus?: true
+  reviewedAt?: true
+  reviewedById?: true
+  reviewNotes?: true
   lastVerifiedAt?: true
   createdAt?: true
   updatedAt?: true
@@ -207,6 +237,11 @@ export type TourismSourceGroupByOutputType = {
   publishedAt: Date | null
   validFrom: Date | null
   validTo: Date | null
+  licenseOrUsageNote: string
+  reviewStatus: $Enums.TourismSourceReviewStatus
+  reviewedAt: Date | null
+  reviewedById: string | null
+  reviewNotes: string | null
   lastVerifiedAt: Date
   createdAt: Date
   updatedAt: Date
@@ -244,6 +279,11 @@ export type TourismSourceWhereInput = {
   publishedAt?: Prisma.DateTimeNullableFilter<"TourismSource"> | Date | string | null
   validFrom?: Prisma.DateTimeNullableFilter<"TourismSource"> | Date | string | null
   validTo?: Prisma.DateTimeNullableFilter<"TourismSource"> | Date | string | null
+  licenseOrUsageNote?: Prisma.StringFilter<"TourismSource"> | string
+  reviewStatus?: Prisma.EnumTourismSourceReviewStatusFilter<"TourismSource"> | $Enums.TourismSourceReviewStatus
+  reviewedAt?: Prisma.DateTimeNullableFilter<"TourismSource"> | Date | string | null
+  reviewedById?: Prisma.UuidNullableFilter<"TourismSource"> | string | null
+  reviewNotes?: Prisma.StringNullableFilter<"TourismSource"> | string | null
   lastVerifiedAt?: Prisma.DateTimeFilter<"TourismSource"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"TourismSource"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TourismSource"> | Date | string
@@ -252,6 +292,7 @@ export type TourismSourceWhereInput = {
   routeNodes?: Prisma.RouteNodeListRelationFilter
   routeEdges?: Prisma.RouteEdgeListRelationFilter
   assessmentQuestions?: Prisma.AssessmentQuestionListRelationFilter
+  reviewedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
 export type TourismSourceOrderByWithRelationInput = {
@@ -265,6 +306,11 @@ export type TourismSourceOrderByWithRelationInput = {
   publishedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   validFrom?: Prisma.SortOrderInput | Prisma.SortOrder
   validTo?: Prisma.SortOrderInput | Prisma.SortOrder
+  licenseOrUsageNote?: Prisma.SortOrder
+  reviewStatus?: Prisma.SortOrder
+  reviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  reviewedById?: Prisma.SortOrderInput | Prisma.SortOrder
+  reviewNotes?: Prisma.SortOrderInput | Prisma.SortOrder
   lastVerifiedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -273,6 +319,7 @@ export type TourismSourceOrderByWithRelationInput = {
   routeNodes?: Prisma.RouteNodeOrderByRelationAggregateInput
   routeEdges?: Prisma.RouteEdgeOrderByRelationAggregateInput
   assessmentQuestions?: Prisma.AssessmentQuestionOrderByRelationAggregateInput
+  reviewedBy?: Prisma.UserOrderByWithRelationInput
 }
 
 export type TourismSourceWhereUniqueInput = Prisma.AtLeast<{
@@ -289,6 +336,11 @@ export type TourismSourceWhereUniqueInput = Prisma.AtLeast<{
   publishedAt?: Prisma.DateTimeNullableFilter<"TourismSource"> | Date | string | null
   validFrom?: Prisma.DateTimeNullableFilter<"TourismSource"> | Date | string | null
   validTo?: Prisma.DateTimeNullableFilter<"TourismSource"> | Date | string | null
+  licenseOrUsageNote?: Prisma.StringFilter<"TourismSource"> | string
+  reviewStatus?: Prisma.EnumTourismSourceReviewStatusFilter<"TourismSource"> | $Enums.TourismSourceReviewStatus
+  reviewedAt?: Prisma.DateTimeNullableFilter<"TourismSource"> | Date | string | null
+  reviewedById?: Prisma.UuidNullableFilter<"TourismSource"> | string | null
+  reviewNotes?: Prisma.StringNullableFilter<"TourismSource"> | string | null
   lastVerifiedAt?: Prisma.DateTimeFilter<"TourismSource"> | Date | string
   createdAt?: Prisma.DateTimeFilter<"TourismSource"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TourismSource"> | Date | string
@@ -297,6 +349,7 @@ export type TourismSourceWhereUniqueInput = Prisma.AtLeast<{
   routeNodes?: Prisma.RouteNodeListRelationFilter
   routeEdges?: Prisma.RouteEdgeListRelationFilter
   assessmentQuestions?: Prisma.AssessmentQuestionListRelationFilter
+  reviewedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "id">
 
 export type TourismSourceOrderByWithAggregationInput = {
@@ -310,6 +363,11 @@ export type TourismSourceOrderByWithAggregationInput = {
   publishedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   validFrom?: Prisma.SortOrderInput | Prisma.SortOrder
   validTo?: Prisma.SortOrderInput | Prisma.SortOrder
+  licenseOrUsageNote?: Prisma.SortOrder
+  reviewStatus?: Prisma.SortOrder
+  reviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  reviewedById?: Prisma.SortOrderInput | Prisma.SortOrder
+  reviewNotes?: Prisma.SortOrderInput | Prisma.SortOrder
   lastVerifiedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -332,6 +390,11 @@ export type TourismSourceScalarWhereWithAggregatesInput = {
   publishedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"TourismSource"> | Date | string | null
   validFrom?: Prisma.DateTimeNullableWithAggregatesFilter<"TourismSource"> | Date | string | null
   validTo?: Prisma.DateTimeNullableWithAggregatesFilter<"TourismSource"> | Date | string | null
+  licenseOrUsageNote?: Prisma.StringWithAggregatesFilter<"TourismSource"> | string
+  reviewStatus?: Prisma.EnumTourismSourceReviewStatusWithAggregatesFilter<"TourismSource"> | $Enums.TourismSourceReviewStatus
+  reviewedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"TourismSource"> | Date | string | null
+  reviewedById?: Prisma.UuidNullableWithAggregatesFilter<"TourismSource"> | string | null
+  reviewNotes?: Prisma.StringNullableWithAggregatesFilter<"TourismSource"> | string | null
   lastVerifiedAt?: Prisma.DateTimeWithAggregatesFilter<"TourismSource"> | Date | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"TourismSource"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"TourismSource"> | Date | string
@@ -348,6 +411,10 @@ export type TourismSourceCreateInput = {
   publishedAt?: Date | string | null
   validFrom?: Date | string | null
   validTo?: Date | string | null
+  licenseOrUsageNote: string
+  reviewStatus?: $Enums.TourismSourceReviewStatus
+  reviewedAt?: Date | string | null
+  reviewNotes?: string | null
   lastVerifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -356,6 +423,7 @@ export type TourismSourceCreateInput = {
   routeNodes?: Prisma.RouteNodeCreateNestedManyWithoutSourceInput
   routeEdges?: Prisma.RouteEdgeCreateNestedManyWithoutSourceInput
   assessmentQuestions?: Prisma.AssessmentQuestionCreateNestedManyWithoutSourceInput
+  reviewedBy?: Prisma.UserCreateNestedOneWithoutTourismSourcesReviewedInput
 }
 
 export type TourismSourceUncheckedCreateInput = {
@@ -369,6 +437,11 @@ export type TourismSourceUncheckedCreateInput = {
   publishedAt?: Date | string | null
   validFrom?: Date | string | null
   validTo?: Date | string | null
+  licenseOrUsageNote: string
+  reviewStatus?: $Enums.TourismSourceReviewStatus
+  reviewedAt?: Date | string | null
+  reviewedById?: string | null
+  reviewNotes?: string | null
   lastVerifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -390,6 +463,10 @@ export type TourismSourceUpdateInput = {
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   validFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   validTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  licenseOrUsageNote?: Prisma.StringFieldUpdateOperationsInput | string
+  reviewStatus?: Prisma.EnumTourismSourceReviewStatusFieldUpdateOperationsInput | $Enums.TourismSourceReviewStatus
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastVerifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -398,6 +475,7 @@ export type TourismSourceUpdateInput = {
   routeNodes?: Prisma.RouteNodeUpdateManyWithoutSourceNestedInput
   routeEdges?: Prisma.RouteEdgeUpdateManyWithoutSourceNestedInput
   assessmentQuestions?: Prisma.AssessmentQuestionUpdateManyWithoutSourceNestedInput
+  reviewedBy?: Prisma.UserUpdateOneWithoutTourismSourcesReviewedNestedInput
 }
 
 export type TourismSourceUncheckedUpdateInput = {
@@ -411,6 +489,11 @@ export type TourismSourceUncheckedUpdateInput = {
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   validFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   validTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  licenseOrUsageNote?: Prisma.StringFieldUpdateOperationsInput | string
+  reviewStatus?: Prisma.EnumTourismSourceReviewStatusFieldUpdateOperationsInput | $Enums.TourismSourceReviewStatus
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastVerifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -432,6 +515,11 @@ export type TourismSourceCreateManyInput = {
   publishedAt?: Date | string | null
   validFrom?: Date | string | null
   validTo?: Date | string | null
+  licenseOrUsageNote: string
+  reviewStatus?: $Enums.TourismSourceReviewStatus
+  reviewedAt?: Date | string | null
+  reviewedById?: string | null
+  reviewNotes?: string | null
   lastVerifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -448,6 +536,10 @@ export type TourismSourceUpdateManyMutationInput = {
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   validFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   validTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  licenseOrUsageNote?: Prisma.StringFieldUpdateOperationsInput | string
+  reviewStatus?: Prisma.EnumTourismSourceReviewStatusFieldUpdateOperationsInput | $Enums.TourismSourceReviewStatus
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastVerifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -464,9 +556,24 @@ export type TourismSourceUncheckedUpdateManyInput = {
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   validFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   validTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  licenseOrUsageNote?: Prisma.StringFieldUpdateOperationsInput | string
+  reviewStatus?: Prisma.EnumTourismSourceReviewStatusFieldUpdateOperationsInput | $Enums.TourismSourceReviewStatus
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastVerifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type TourismSourceListRelationFilter = {
+  every?: Prisma.TourismSourceWhereInput
+  some?: Prisma.TourismSourceWhereInput
+  none?: Prisma.TourismSourceWhereInput
+}
+
+export type TourismSourceOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type TourismSourceCountOrderByAggregateInput = {
@@ -480,6 +587,11 @@ export type TourismSourceCountOrderByAggregateInput = {
   publishedAt?: Prisma.SortOrder
   validFrom?: Prisma.SortOrder
   validTo?: Prisma.SortOrder
+  licenseOrUsageNote?: Prisma.SortOrder
+  reviewStatus?: Prisma.SortOrder
+  reviewedAt?: Prisma.SortOrder
+  reviewedById?: Prisma.SortOrder
+  reviewNotes?: Prisma.SortOrder
   lastVerifiedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -496,6 +608,11 @@ export type TourismSourceMaxOrderByAggregateInput = {
   publishedAt?: Prisma.SortOrder
   validFrom?: Prisma.SortOrder
   validTo?: Prisma.SortOrder
+  licenseOrUsageNote?: Prisma.SortOrder
+  reviewStatus?: Prisma.SortOrder
+  reviewedAt?: Prisma.SortOrder
+  reviewedById?: Prisma.SortOrder
+  reviewNotes?: Prisma.SortOrder
   lastVerifiedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -512,6 +629,11 @@ export type TourismSourceMinOrderByAggregateInput = {
   publishedAt?: Prisma.SortOrder
   validFrom?: Prisma.SortOrder
   validTo?: Prisma.SortOrder
+  licenseOrUsageNote?: Prisma.SortOrder
+  reviewStatus?: Prisma.SortOrder
+  reviewedAt?: Prisma.SortOrder
+  reviewedById?: Prisma.SortOrder
+  reviewNotes?: Prisma.SortOrder
   lastVerifiedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -527,12 +649,58 @@ export type TourismSourceNullableScalarRelationFilter = {
   isNot?: Prisma.TourismSourceWhereInput | null
 }
 
+export type TourismSourceCreateNestedManyWithoutReviewedByInput = {
+  create?: Prisma.XOR<Prisma.TourismSourceCreateWithoutReviewedByInput, Prisma.TourismSourceUncheckedCreateWithoutReviewedByInput> | Prisma.TourismSourceCreateWithoutReviewedByInput[] | Prisma.TourismSourceUncheckedCreateWithoutReviewedByInput[]
+  connectOrCreate?: Prisma.TourismSourceCreateOrConnectWithoutReviewedByInput | Prisma.TourismSourceCreateOrConnectWithoutReviewedByInput[]
+  createMany?: Prisma.TourismSourceCreateManyReviewedByInputEnvelope
+  connect?: Prisma.TourismSourceWhereUniqueInput | Prisma.TourismSourceWhereUniqueInput[]
+}
+
+export type TourismSourceUncheckedCreateNestedManyWithoutReviewedByInput = {
+  create?: Prisma.XOR<Prisma.TourismSourceCreateWithoutReviewedByInput, Prisma.TourismSourceUncheckedCreateWithoutReviewedByInput> | Prisma.TourismSourceCreateWithoutReviewedByInput[] | Prisma.TourismSourceUncheckedCreateWithoutReviewedByInput[]
+  connectOrCreate?: Prisma.TourismSourceCreateOrConnectWithoutReviewedByInput | Prisma.TourismSourceCreateOrConnectWithoutReviewedByInput[]
+  createMany?: Prisma.TourismSourceCreateManyReviewedByInputEnvelope
+  connect?: Prisma.TourismSourceWhereUniqueInput | Prisma.TourismSourceWhereUniqueInput[]
+}
+
+export type TourismSourceUpdateManyWithoutReviewedByNestedInput = {
+  create?: Prisma.XOR<Prisma.TourismSourceCreateWithoutReviewedByInput, Prisma.TourismSourceUncheckedCreateWithoutReviewedByInput> | Prisma.TourismSourceCreateWithoutReviewedByInput[] | Prisma.TourismSourceUncheckedCreateWithoutReviewedByInput[]
+  connectOrCreate?: Prisma.TourismSourceCreateOrConnectWithoutReviewedByInput | Prisma.TourismSourceCreateOrConnectWithoutReviewedByInput[]
+  upsert?: Prisma.TourismSourceUpsertWithWhereUniqueWithoutReviewedByInput | Prisma.TourismSourceUpsertWithWhereUniqueWithoutReviewedByInput[]
+  createMany?: Prisma.TourismSourceCreateManyReviewedByInputEnvelope
+  set?: Prisma.TourismSourceWhereUniqueInput | Prisma.TourismSourceWhereUniqueInput[]
+  disconnect?: Prisma.TourismSourceWhereUniqueInput | Prisma.TourismSourceWhereUniqueInput[]
+  delete?: Prisma.TourismSourceWhereUniqueInput | Prisma.TourismSourceWhereUniqueInput[]
+  connect?: Prisma.TourismSourceWhereUniqueInput | Prisma.TourismSourceWhereUniqueInput[]
+  update?: Prisma.TourismSourceUpdateWithWhereUniqueWithoutReviewedByInput | Prisma.TourismSourceUpdateWithWhereUniqueWithoutReviewedByInput[]
+  updateMany?: Prisma.TourismSourceUpdateManyWithWhereWithoutReviewedByInput | Prisma.TourismSourceUpdateManyWithWhereWithoutReviewedByInput[]
+  deleteMany?: Prisma.TourismSourceScalarWhereInput | Prisma.TourismSourceScalarWhereInput[]
+}
+
+export type TourismSourceUncheckedUpdateManyWithoutReviewedByNestedInput = {
+  create?: Prisma.XOR<Prisma.TourismSourceCreateWithoutReviewedByInput, Prisma.TourismSourceUncheckedCreateWithoutReviewedByInput> | Prisma.TourismSourceCreateWithoutReviewedByInput[] | Prisma.TourismSourceUncheckedCreateWithoutReviewedByInput[]
+  connectOrCreate?: Prisma.TourismSourceCreateOrConnectWithoutReviewedByInput | Prisma.TourismSourceCreateOrConnectWithoutReviewedByInput[]
+  upsert?: Prisma.TourismSourceUpsertWithWhereUniqueWithoutReviewedByInput | Prisma.TourismSourceUpsertWithWhereUniqueWithoutReviewedByInput[]
+  createMany?: Prisma.TourismSourceCreateManyReviewedByInputEnvelope
+  set?: Prisma.TourismSourceWhereUniqueInput | Prisma.TourismSourceWhereUniqueInput[]
+  disconnect?: Prisma.TourismSourceWhereUniqueInput | Prisma.TourismSourceWhereUniqueInput[]
+  delete?: Prisma.TourismSourceWhereUniqueInput | Prisma.TourismSourceWhereUniqueInput[]
+  connect?: Prisma.TourismSourceWhereUniqueInput | Prisma.TourismSourceWhereUniqueInput[]
+  update?: Prisma.TourismSourceUpdateWithWhereUniqueWithoutReviewedByInput | Prisma.TourismSourceUpdateWithWhereUniqueWithoutReviewedByInput[]
+  updateMany?: Prisma.TourismSourceUpdateManyWithWhereWithoutReviewedByInput | Prisma.TourismSourceUpdateManyWithWhereWithoutReviewedByInput[]
+  deleteMany?: Prisma.TourismSourceScalarWhereInput | Prisma.TourismSourceScalarWhereInput[]
+}
+
 export type EnumTourismSourceTypeFieldUpdateOperationsInput = {
   set?: $Enums.TourismSourceType
 }
 
 export type EnumTourismAuthorityLevelFieldUpdateOperationsInput = {
   set?: $Enums.TourismAuthorityLevel
+}
+
+export type EnumTourismSourceReviewStatusFieldUpdateOperationsInput = {
+  set?: $Enums.TourismSourceReviewStatus
 }
 
 export type TourismSourceCreateNestedOneWithoutKnowledgeInput = {
@@ -609,6 +777,106 @@ export type TourismSourceUpdateOneRequiredWithoutAssessmentQuestionsNestedInput 
   update?: Prisma.XOR<Prisma.XOR<Prisma.TourismSourceUpdateToOneWithWhereWithoutAssessmentQuestionsInput, Prisma.TourismSourceUpdateWithoutAssessmentQuestionsInput>, Prisma.TourismSourceUncheckedUpdateWithoutAssessmentQuestionsInput>
 }
 
+export type TourismSourceCreateWithoutReviewedByInput = {
+  id?: string
+  title: string
+  organization: string
+  sourceType: $Enums.TourismSourceType
+  authorityLevel: $Enums.TourismAuthorityLevel
+  url: string
+  language: string
+  publishedAt?: Date | string | null
+  validFrom?: Date | string | null
+  validTo?: Date | string | null
+  licenseOrUsageNote: string
+  reviewStatus?: $Enums.TourismSourceReviewStatus
+  reviewedAt?: Date | string | null
+  reviewNotes?: string | null
+  lastVerifiedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  knowledge?: Prisma.TourismKnowledgeCreateNestedManyWithoutSourceInput
+  routes?: Prisma.ResearchRouteCreateNestedManyWithoutSourceInput
+  routeNodes?: Prisma.RouteNodeCreateNestedManyWithoutSourceInput
+  routeEdges?: Prisma.RouteEdgeCreateNestedManyWithoutSourceInput
+  assessmentQuestions?: Prisma.AssessmentQuestionCreateNestedManyWithoutSourceInput
+}
+
+export type TourismSourceUncheckedCreateWithoutReviewedByInput = {
+  id?: string
+  title: string
+  organization: string
+  sourceType: $Enums.TourismSourceType
+  authorityLevel: $Enums.TourismAuthorityLevel
+  url: string
+  language: string
+  publishedAt?: Date | string | null
+  validFrom?: Date | string | null
+  validTo?: Date | string | null
+  licenseOrUsageNote: string
+  reviewStatus?: $Enums.TourismSourceReviewStatus
+  reviewedAt?: Date | string | null
+  reviewNotes?: string | null
+  lastVerifiedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  knowledge?: Prisma.TourismKnowledgeUncheckedCreateNestedManyWithoutSourceInput
+  routes?: Prisma.ResearchRouteUncheckedCreateNestedManyWithoutSourceInput
+  routeNodes?: Prisma.RouteNodeUncheckedCreateNestedManyWithoutSourceInput
+  routeEdges?: Prisma.RouteEdgeUncheckedCreateNestedManyWithoutSourceInput
+  assessmentQuestions?: Prisma.AssessmentQuestionUncheckedCreateNestedManyWithoutSourceInput
+}
+
+export type TourismSourceCreateOrConnectWithoutReviewedByInput = {
+  where: Prisma.TourismSourceWhereUniqueInput
+  create: Prisma.XOR<Prisma.TourismSourceCreateWithoutReviewedByInput, Prisma.TourismSourceUncheckedCreateWithoutReviewedByInput>
+}
+
+export type TourismSourceCreateManyReviewedByInputEnvelope = {
+  data: Prisma.TourismSourceCreateManyReviewedByInput | Prisma.TourismSourceCreateManyReviewedByInput[]
+  skipDuplicates?: boolean
+}
+
+export type TourismSourceUpsertWithWhereUniqueWithoutReviewedByInput = {
+  where: Prisma.TourismSourceWhereUniqueInput
+  update: Prisma.XOR<Prisma.TourismSourceUpdateWithoutReviewedByInput, Prisma.TourismSourceUncheckedUpdateWithoutReviewedByInput>
+  create: Prisma.XOR<Prisma.TourismSourceCreateWithoutReviewedByInput, Prisma.TourismSourceUncheckedCreateWithoutReviewedByInput>
+}
+
+export type TourismSourceUpdateWithWhereUniqueWithoutReviewedByInput = {
+  where: Prisma.TourismSourceWhereUniqueInput
+  data: Prisma.XOR<Prisma.TourismSourceUpdateWithoutReviewedByInput, Prisma.TourismSourceUncheckedUpdateWithoutReviewedByInput>
+}
+
+export type TourismSourceUpdateManyWithWhereWithoutReviewedByInput = {
+  where: Prisma.TourismSourceScalarWhereInput
+  data: Prisma.XOR<Prisma.TourismSourceUpdateManyMutationInput, Prisma.TourismSourceUncheckedUpdateManyWithoutReviewedByInput>
+}
+
+export type TourismSourceScalarWhereInput = {
+  AND?: Prisma.TourismSourceScalarWhereInput | Prisma.TourismSourceScalarWhereInput[]
+  OR?: Prisma.TourismSourceScalarWhereInput[]
+  NOT?: Prisma.TourismSourceScalarWhereInput | Prisma.TourismSourceScalarWhereInput[]
+  id?: Prisma.UuidFilter<"TourismSource"> | string
+  title?: Prisma.StringFilter<"TourismSource"> | string
+  organization?: Prisma.StringFilter<"TourismSource"> | string
+  sourceType?: Prisma.EnumTourismSourceTypeFilter<"TourismSource"> | $Enums.TourismSourceType
+  authorityLevel?: Prisma.EnumTourismAuthorityLevelFilter<"TourismSource"> | $Enums.TourismAuthorityLevel
+  url?: Prisma.StringFilter<"TourismSource"> | string
+  language?: Prisma.StringFilter<"TourismSource"> | string
+  publishedAt?: Prisma.DateTimeNullableFilter<"TourismSource"> | Date | string | null
+  validFrom?: Prisma.DateTimeNullableFilter<"TourismSource"> | Date | string | null
+  validTo?: Prisma.DateTimeNullableFilter<"TourismSource"> | Date | string | null
+  licenseOrUsageNote?: Prisma.StringFilter<"TourismSource"> | string
+  reviewStatus?: Prisma.EnumTourismSourceReviewStatusFilter<"TourismSource"> | $Enums.TourismSourceReviewStatus
+  reviewedAt?: Prisma.DateTimeNullableFilter<"TourismSource"> | Date | string | null
+  reviewedById?: Prisma.UuidNullableFilter<"TourismSource"> | string | null
+  reviewNotes?: Prisma.StringNullableFilter<"TourismSource"> | string | null
+  lastVerifiedAt?: Prisma.DateTimeFilter<"TourismSource"> | Date | string
+  createdAt?: Prisma.DateTimeFilter<"TourismSource"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"TourismSource"> | Date | string
+}
+
 export type TourismSourceCreateWithoutKnowledgeInput = {
   id?: string
   title: string
@@ -620,6 +888,10 @@ export type TourismSourceCreateWithoutKnowledgeInput = {
   publishedAt?: Date | string | null
   validFrom?: Date | string | null
   validTo?: Date | string | null
+  licenseOrUsageNote: string
+  reviewStatus?: $Enums.TourismSourceReviewStatus
+  reviewedAt?: Date | string | null
+  reviewNotes?: string | null
   lastVerifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -627,6 +899,7 @@ export type TourismSourceCreateWithoutKnowledgeInput = {
   routeNodes?: Prisma.RouteNodeCreateNestedManyWithoutSourceInput
   routeEdges?: Prisma.RouteEdgeCreateNestedManyWithoutSourceInput
   assessmentQuestions?: Prisma.AssessmentQuestionCreateNestedManyWithoutSourceInput
+  reviewedBy?: Prisma.UserCreateNestedOneWithoutTourismSourcesReviewedInput
 }
 
 export type TourismSourceUncheckedCreateWithoutKnowledgeInput = {
@@ -640,6 +913,11 @@ export type TourismSourceUncheckedCreateWithoutKnowledgeInput = {
   publishedAt?: Date | string | null
   validFrom?: Date | string | null
   validTo?: Date | string | null
+  licenseOrUsageNote: string
+  reviewStatus?: $Enums.TourismSourceReviewStatus
+  reviewedAt?: Date | string | null
+  reviewedById?: string | null
+  reviewNotes?: string | null
   lastVerifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -676,6 +954,10 @@ export type TourismSourceUpdateWithoutKnowledgeInput = {
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   validFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   validTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  licenseOrUsageNote?: Prisma.StringFieldUpdateOperationsInput | string
+  reviewStatus?: Prisma.EnumTourismSourceReviewStatusFieldUpdateOperationsInput | $Enums.TourismSourceReviewStatus
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastVerifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -683,6 +965,7 @@ export type TourismSourceUpdateWithoutKnowledgeInput = {
   routeNodes?: Prisma.RouteNodeUpdateManyWithoutSourceNestedInput
   routeEdges?: Prisma.RouteEdgeUpdateManyWithoutSourceNestedInput
   assessmentQuestions?: Prisma.AssessmentQuestionUpdateManyWithoutSourceNestedInput
+  reviewedBy?: Prisma.UserUpdateOneWithoutTourismSourcesReviewedNestedInput
 }
 
 export type TourismSourceUncheckedUpdateWithoutKnowledgeInput = {
@@ -696,6 +979,11 @@ export type TourismSourceUncheckedUpdateWithoutKnowledgeInput = {
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   validFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   validTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  licenseOrUsageNote?: Prisma.StringFieldUpdateOperationsInput | string
+  reviewStatus?: Prisma.EnumTourismSourceReviewStatusFieldUpdateOperationsInput | $Enums.TourismSourceReviewStatus
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastVerifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -716,6 +1004,10 @@ export type TourismSourceCreateWithoutRoutesInput = {
   publishedAt?: Date | string | null
   validFrom?: Date | string | null
   validTo?: Date | string | null
+  licenseOrUsageNote: string
+  reviewStatus?: $Enums.TourismSourceReviewStatus
+  reviewedAt?: Date | string | null
+  reviewNotes?: string | null
   lastVerifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -723,6 +1015,7 @@ export type TourismSourceCreateWithoutRoutesInput = {
   routeNodes?: Prisma.RouteNodeCreateNestedManyWithoutSourceInput
   routeEdges?: Prisma.RouteEdgeCreateNestedManyWithoutSourceInput
   assessmentQuestions?: Prisma.AssessmentQuestionCreateNestedManyWithoutSourceInput
+  reviewedBy?: Prisma.UserCreateNestedOneWithoutTourismSourcesReviewedInput
 }
 
 export type TourismSourceUncheckedCreateWithoutRoutesInput = {
@@ -736,6 +1029,11 @@ export type TourismSourceUncheckedCreateWithoutRoutesInput = {
   publishedAt?: Date | string | null
   validFrom?: Date | string | null
   validTo?: Date | string | null
+  licenseOrUsageNote: string
+  reviewStatus?: $Enums.TourismSourceReviewStatus
+  reviewedAt?: Date | string | null
+  reviewedById?: string | null
+  reviewNotes?: string | null
   lastVerifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -772,6 +1070,10 @@ export type TourismSourceUpdateWithoutRoutesInput = {
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   validFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   validTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  licenseOrUsageNote?: Prisma.StringFieldUpdateOperationsInput | string
+  reviewStatus?: Prisma.EnumTourismSourceReviewStatusFieldUpdateOperationsInput | $Enums.TourismSourceReviewStatus
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastVerifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -779,6 +1081,7 @@ export type TourismSourceUpdateWithoutRoutesInput = {
   routeNodes?: Prisma.RouteNodeUpdateManyWithoutSourceNestedInput
   routeEdges?: Prisma.RouteEdgeUpdateManyWithoutSourceNestedInput
   assessmentQuestions?: Prisma.AssessmentQuestionUpdateManyWithoutSourceNestedInput
+  reviewedBy?: Prisma.UserUpdateOneWithoutTourismSourcesReviewedNestedInput
 }
 
 export type TourismSourceUncheckedUpdateWithoutRoutesInput = {
@@ -792,6 +1095,11 @@ export type TourismSourceUncheckedUpdateWithoutRoutesInput = {
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   validFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   validTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  licenseOrUsageNote?: Prisma.StringFieldUpdateOperationsInput | string
+  reviewStatus?: Prisma.EnumTourismSourceReviewStatusFieldUpdateOperationsInput | $Enums.TourismSourceReviewStatus
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastVerifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -812,6 +1120,10 @@ export type TourismSourceCreateWithoutRouteNodesInput = {
   publishedAt?: Date | string | null
   validFrom?: Date | string | null
   validTo?: Date | string | null
+  licenseOrUsageNote: string
+  reviewStatus?: $Enums.TourismSourceReviewStatus
+  reviewedAt?: Date | string | null
+  reviewNotes?: string | null
   lastVerifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -819,6 +1131,7 @@ export type TourismSourceCreateWithoutRouteNodesInput = {
   routes?: Prisma.ResearchRouteCreateNestedManyWithoutSourceInput
   routeEdges?: Prisma.RouteEdgeCreateNestedManyWithoutSourceInput
   assessmentQuestions?: Prisma.AssessmentQuestionCreateNestedManyWithoutSourceInput
+  reviewedBy?: Prisma.UserCreateNestedOneWithoutTourismSourcesReviewedInput
 }
 
 export type TourismSourceUncheckedCreateWithoutRouteNodesInput = {
@@ -832,6 +1145,11 @@ export type TourismSourceUncheckedCreateWithoutRouteNodesInput = {
   publishedAt?: Date | string | null
   validFrom?: Date | string | null
   validTo?: Date | string | null
+  licenseOrUsageNote: string
+  reviewStatus?: $Enums.TourismSourceReviewStatus
+  reviewedAt?: Date | string | null
+  reviewedById?: string | null
+  reviewNotes?: string | null
   lastVerifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -868,6 +1186,10 @@ export type TourismSourceUpdateWithoutRouteNodesInput = {
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   validFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   validTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  licenseOrUsageNote?: Prisma.StringFieldUpdateOperationsInput | string
+  reviewStatus?: Prisma.EnumTourismSourceReviewStatusFieldUpdateOperationsInput | $Enums.TourismSourceReviewStatus
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastVerifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -875,6 +1197,7 @@ export type TourismSourceUpdateWithoutRouteNodesInput = {
   routes?: Prisma.ResearchRouteUpdateManyWithoutSourceNestedInput
   routeEdges?: Prisma.RouteEdgeUpdateManyWithoutSourceNestedInput
   assessmentQuestions?: Prisma.AssessmentQuestionUpdateManyWithoutSourceNestedInput
+  reviewedBy?: Prisma.UserUpdateOneWithoutTourismSourcesReviewedNestedInput
 }
 
 export type TourismSourceUncheckedUpdateWithoutRouteNodesInput = {
@@ -888,6 +1211,11 @@ export type TourismSourceUncheckedUpdateWithoutRouteNodesInput = {
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   validFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   validTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  licenseOrUsageNote?: Prisma.StringFieldUpdateOperationsInput | string
+  reviewStatus?: Prisma.EnumTourismSourceReviewStatusFieldUpdateOperationsInput | $Enums.TourismSourceReviewStatus
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastVerifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -908,6 +1236,10 @@ export type TourismSourceCreateWithoutRouteEdgesInput = {
   publishedAt?: Date | string | null
   validFrom?: Date | string | null
   validTo?: Date | string | null
+  licenseOrUsageNote: string
+  reviewStatus?: $Enums.TourismSourceReviewStatus
+  reviewedAt?: Date | string | null
+  reviewNotes?: string | null
   lastVerifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -915,6 +1247,7 @@ export type TourismSourceCreateWithoutRouteEdgesInput = {
   routes?: Prisma.ResearchRouteCreateNestedManyWithoutSourceInput
   routeNodes?: Prisma.RouteNodeCreateNestedManyWithoutSourceInput
   assessmentQuestions?: Prisma.AssessmentQuestionCreateNestedManyWithoutSourceInput
+  reviewedBy?: Prisma.UserCreateNestedOneWithoutTourismSourcesReviewedInput
 }
 
 export type TourismSourceUncheckedCreateWithoutRouteEdgesInput = {
@@ -928,6 +1261,11 @@ export type TourismSourceUncheckedCreateWithoutRouteEdgesInput = {
   publishedAt?: Date | string | null
   validFrom?: Date | string | null
   validTo?: Date | string | null
+  licenseOrUsageNote: string
+  reviewStatus?: $Enums.TourismSourceReviewStatus
+  reviewedAt?: Date | string | null
+  reviewedById?: string | null
+  reviewNotes?: string | null
   lastVerifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -964,6 +1302,10 @@ export type TourismSourceUpdateWithoutRouteEdgesInput = {
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   validFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   validTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  licenseOrUsageNote?: Prisma.StringFieldUpdateOperationsInput | string
+  reviewStatus?: Prisma.EnumTourismSourceReviewStatusFieldUpdateOperationsInput | $Enums.TourismSourceReviewStatus
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastVerifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -971,6 +1313,7 @@ export type TourismSourceUpdateWithoutRouteEdgesInput = {
   routes?: Prisma.ResearchRouteUpdateManyWithoutSourceNestedInput
   routeNodes?: Prisma.RouteNodeUpdateManyWithoutSourceNestedInput
   assessmentQuestions?: Prisma.AssessmentQuestionUpdateManyWithoutSourceNestedInput
+  reviewedBy?: Prisma.UserUpdateOneWithoutTourismSourcesReviewedNestedInput
 }
 
 export type TourismSourceUncheckedUpdateWithoutRouteEdgesInput = {
@@ -984,6 +1327,11 @@ export type TourismSourceUncheckedUpdateWithoutRouteEdgesInput = {
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   validFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   validTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  licenseOrUsageNote?: Prisma.StringFieldUpdateOperationsInput | string
+  reviewStatus?: Prisma.EnumTourismSourceReviewStatusFieldUpdateOperationsInput | $Enums.TourismSourceReviewStatus
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastVerifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1004,6 +1352,10 @@ export type TourismSourceCreateWithoutAssessmentQuestionsInput = {
   publishedAt?: Date | string | null
   validFrom?: Date | string | null
   validTo?: Date | string | null
+  licenseOrUsageNote: string
+  reviewStatus?: $Enums.TourismSourceReviewStatus
+  reviewedAt?: Date | string | null
+  reviewNotes?: string | null
   lastVerifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1011,6 +1363,7 @@ export type TourismSourceCreateWithoutAssessmentQuestionsInput = {
   routes?: Prisma.ResearchRouteCreateNestedManyWithoutSourceInput
   routeNodes?: Prisma.RouteNodeCreateNestedManyWithoutSourceInput
   routeEdges?: Prisma.RouteEdgeCreateNestedManyWithoutSourceInput
+  reviewedBy?: Prisma.UserCreateNestedOneWithoutTourismSourcesReviewedInput
 }
 
 export type TourismSourceUncheckedCreateWithoutAssessmentQuestionsInput = {
@@ -1024,6 +1377,11 @@ export type TourismSourceUncheckedCreateWithoutAssessmentQuestionsInput = {
   publishedAt?: Date | string | null
   validFrom?: Date | string | null
   validTo?: Date | string | null
+  licenseOrUsageNote: string
+  reviewStatus?: $Enums.TourismSourceReviewStatus
+  reviewedAt?: Date | string | null
+  reviewedById?: string | null
+  reviewNotes?: string | null
   lastVerifiedAt: Date | string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1060,6 +1418,10 @@ export type TourismSourceUpdateWithoutAssessmentQuestionsInput = {
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   validFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   validTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  licenseOrUsageNote?: Prisma.StringFieldUpdateOperationsInput | string
+  reviewStatus?: Prisma.EnumTourismSourceReviewStatusFieldUpdateOperationsInput | $Enums.TourismSourceReviewStatus
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastVerifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1067,6 +1429,7 @@ export type TourismSourceUpdateWithoutAssessmentQuestionsInput = {
   routes?: Prisma.ResearchRouteUpdateManyWithoutSourceNestedInput
   routeNodes?: Prisma.RouteNodeUpdateManyWithoutSourceNestedInput
   routeEdges?: Prisma.RouteEdgeUpdateManyWithoutSourceNestedInput
+  reviewedBy?: Prisma.UserUpdateOneWithoutTourismSourcesReviewedNestedInput
 }
 
 export type TourismSourceUncheckedUpdateWithoutAssessmentQuestionsInput = {
@@ -1080,6 +1443,11 @@ export type TourismSourceUncheckedUpdateWithoutAssessmentQuestionsInput = {
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   validFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   validTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  licenseOrUsageNote?: Prisma.StringFieldUpdateOperationsInput | string
+  reviewStatus?: Prisma.EnumTourismSourceReviewStatusFieldUpdateOperationsInput | $Enums.TourismSourceReviewStatus
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  reviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   lastVerifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1087,6 +1455,96 @@ export type TourismSourceUncheckedUpdateWithoutAssessmentQuestionsInput = {
   routes?: Prisma.ResearchRouteUncheckedUpdateManyWithoutSourceNestedInput
   routeNodes?: Prisma.RouteNodeUncheckedUpdateManyWithoutSourceNestedInput
   routeEdges?: Prisma.RouteEdgeUncheckedUpdateManyWithoutSourceNestedInput
+}
+
+export type TourismSourceCreateManyReviewedByInput = {
+  id?: string
+  title: string
+  organization: string
+  sourceType: $Enums.TourismSourceType
+  authorityLevel: $Enums.TourismAuthorityLevel
+  url: string
+  language: string
+  publishedAt?: Date | string | null
+  validFrom?: Date | string | null
+  validTo?: Date | string | null
+  licenseOrUsageNote: string
+  reviewStatus?: $Enums.TourismSourceReviewStatus
+  reviewedAt?: Date | string | null
+  reviewNotes?: string | null
+  lastVerifiedAt: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type TourismSourceUpdateWithoutReviewedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  organization?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceType?: Prisma.EnumTourismSourceTypeFieldUpdateOperationsInput | $Enums.TourismSourceType
+  authorityLevel?: Prisma.EnumTourismAuthorityLevelFieldUpdateOperationsInput | $Enums.TourismAuthorityLevel
+  url?: Prisma.StringFieldUpdateOperationsInput | string
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  validFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  validTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  licenseOrUsageNote?: Prisma.StringFieldUpdateOperationsInput | string
+  reviewStatus?: Prisma.EnumTourismSourceReviewStatusFieldUpdateOperationsInput | $Enums.TourismSourceReviewStatus
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastVerifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  knowledge?: Prisma.TourismKnowledgeUpdateManyWithoutSourceNestedInput
+  routes?: Prisma.ResearchRouteUpdateManyWithoutSourceNestedInput
+  routeNodes?: Prisma.RouteNodeUpdateManyWithoutSourceNestedInput
+  routeEdges?: Prisma.RouteEdgeUpdateManyWithoutSourceNestedInput
+  assessmentQuestions?: Prisma.AssessmentQuestionUpdateManyWithoutSourceNestedInput
+}
+
+export type TourismSourceUncheckedUpdateWithoutReviewedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  organization?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceType?: Prisma.EnumTourismSourceTypeFieldUpdateOperationsInput | $Enums.TourismSourceType
+  authorityLevel?: Prisma.EnumTourismAuthorityLevelFieldUpdateOperationsInput | $Enums.TourismAuthorityLevel
+  url?: Prisma.StringFieldUpdateOperationsInput | string
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  validFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  validTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  licenseOrUsageNote?: Prisma.StringFieldUpdateOperationsInput | string
+  reviewStatus?: Prisma.EnumTourismSourceReviewStatusFieldUpdateOperationsInput | $Enums.TourismSourceReviewStatus
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastVerifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  knowledge?: Prisma.TourismKnowledgeUncheckedUpdateManyWithoutSourceNestedInput
+  routes?: Prisma.ResearchRouteUncheckedUpdateManyWithoutSourceNestedInput
+  routeNodes?: Prisma.RouteNodeUncheckedUpdateManyWithoutSourceNestedInput
+  routeEdges?: Prisma.RouteEdgeUncheckedUpdateManyWithoutSourceNestedInput
+  assessmentQuestions?: Prisma.AssessmentQuestionUncheckedUpdateManyWithoutSourceNestedInput
+}
+
+export type TourismSourceUncheckedUpdateManyWithoutReviewedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  title?: Prisma.StringFieldUpdateOperationsInput | string
+  organization?: Prisma.StringFieldUpdateOperationsInput | string
+  sourceType?: Prisma.EnumTourismSourceTypeFieldUpdateOperationsInput | $Enums.TourismSourceType
+  authorityLevel?: Prisma.EnumTourismAuthorityLevelFieldUpdateOperationsInput | $Enums.TourismAuthorityLevel
+  url?: Prisma.StringFieldUpdateOperationsInput | string
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  validFrom?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  validTo?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  licenseOrUsageNote?: Prisma.StringFieldUpdateOperationsInput | string
+  reviewStatus?: Prisma.EnumTourismSourceReviewStatusFieldUpdateOperationsInput | $Enums.TourismSourceReviewStatus
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  reviewNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lastVerifiedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -1167,6 +1625,11 @@ export type TourismSourceSelect<ExtArgs extends runtime.Types.Extensions.Interna
   publishedAt?: boolean
   validFrom?: boolean
   validTo?: boolean
+  licenseOrUsageNote?: boolean
+  reviewStatus?: boolean
+  reviewedAt?: boolean
+  reviewedById?: boolean
+  reviewNotes?: boolean
   lastVerifiedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1175,6 +1638,7 @@ export type TourismSourceSelect<ExtArgs extends runtime.Types.Extensions.Interna
   routeNodes?: boolean | Prisma.TourismSource$routeNodesArgs<ExtArgs>
   routeEdges?: boolean | Prisma.TourismSource$routeEdgesArgs<ExtArgs>
   assessmentQuestions?: boolean | Prisma.TourismSource$assessmentQuestionsArgs<ExtArgs>
+  reviewedBy?: boolean | Prisma.TourismSource$reviewedByArgs<ExtArgs>
   _count?: boolean | Prisma.TourismSourceCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["tourismSource"]>
 
@@ -1189,9 +1653,15 @@ export type TourismSourceSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   publishedAt?: boolean
   validFrom?: boolean
   validTo?: boolean
+  licenseOrUsageNote?: boolean
+  reviewStatus?: boolean
+  reviewedAt?: boolean
+  reviewedById?: boolean
+  reviewNotes?: boolean
   lastVerifiedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  reviewedBy?: boolean | Prisma.TourismSource$reviewedByArgs<ExtArgs>
 }, ExtArgs["result"]["tourismSource"]>
 
 export type TourismSourceSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1205,9 +1675,15 @@ export type TourismSourceSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   publishedAt?: boolean
   validFrom?: boolean
   validTo?: boolean
+  licenseOrUsageNote?: boolean
+  reviewStatus?: boolean
+  reviewedAt?: boolean
+  reviewedById?: boolean
+  reviewNotes?: boolean
   lastVerifiedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  reviewedBy?: boolean | Prisma.TourismSource$reviewedByArgs<ExtArgs>
 }, ExtArgs["result"]["tourismSource"]>
 
 export type TourismSourceSelectScalar = {
@@ -1221,22 +1697,32 @@ export type TourismSourceSelectScalar = {
   publishedAt?: boolean
   validFrom?: boolean
   validTo?: boolean
+  licenseOrUsageNote?: boolean
+  reviewStatus?: boolean
+  reviewedAt?: boolean
+  reviewedById?: boolean
+  reviewNotes?: boolean
   lastVerifiedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type TourismSourceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "organization" | "sourceType" | "authorityLevel" | "url" | "language" | "publishedAt" | "validFrom" | "validTo" | "lastVerifiedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["tourismSource"]>
+export type TourismSourceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "organization" | "sourceType" | "authorityLevel" | "url" | "language" | "publishedAt" | "validFrom" | "validTo" | "licenseOrUsageNote" | "reviewStatus" | "reviewedAt" | "reviewedById" | "reviewNotes" | "lastVerifiedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["tourismSource"]>
 export type TourismSourceInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   knowledge?: boolean | Prisma.TourismSource$knowledgeArgs<ExtArgs>
   routes?: boolean | Prisma.TourismSource$routesArgs<ExtArgs>
   routeNodes?: boolean | Prisma.TourismSource$routeNodesArgs<ExtArgs>
   routeEdges?: boolean | Prisma.TourismSource$routeEdgesArgs<ExtArgs>
   assessmentQuestions?: boolean | Prisma.TourismSource$assessmentQuestionsArgs<ExtArgs>
+  reviewedBy?: boolean | Prisma.TourismSource$reviewedByArgs<ExtArgs>
   _count?: boolean | Prisma.TourismSourceCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type TourismSourceIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type TourismSourceIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type TourismSourceIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  reviewedBy?: boolean | Prisma.TourismSource$reviewedByArgs<ExtArgs>
+}
+export type TourismSourceIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  reviewedBy?: boolean | Prisma.TourismSource$reviewedByArgs<ExtArgs>
+}
 
 export type $TourismSourcePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "TourismSource"
@@ -1246,6 +1732,7 @@ export type $TourismSourcePayload<ExtArgs extends runtime.Types.Extensions.Inter
     routeNodes: Prisma.$RouteNodePayload<ExtArgs>[]
     routeEdges: Prisma.$RouteEdgePayload<ExtArgs>[]
     assessmentQuestions: Prisma.$AssessmentQuestionPayload<ExtArgs>[]
+    reviewedBy: Prisma.$UserPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1258,6 +1745,11 @@ export type $TourismSourcePayload<ExtArgs extends runtime.Types.Extensions.Inter
     publishedAt: Date | null
     validFrom: Date | null
     validTo: Date | null
+    licenseOrUsageNote: string
+    reviewStatus: $Enums.TourismSourceReviewStatus
+    reviewedAt: Date | null
+    reviewedById: string | null
+    reviewNotes: string | null
     lastVerifiedAt: Date
     createdAt: Date
     updatedAt: Date
@@ -1660,6 +2152,7 @@ export interface Prisma__TourismSourceClient<T, Null = never, ExtArgs extends ru
   routeNodes<T extends Prisma.TourismSource$routeNodesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TourismSource$routeNodesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RouteNodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   routeEdges<T extends Prisma.TourismSource$routeEdgesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TourismSource$routeEdgesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RouteEdgePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   assessmentQuestions<T extends Prisma.TourismSource$assessmentQuestionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TourismSource$assessmentQuestionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AssessmentQuestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reviewedBy<T extends Prisma.TourismSource$reviewedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TourismSource$reviewedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1699,6 +2192,11 @@ export interface TourismSourceFieldRefs {
   readonly publishedAt: Prisma.FieldRef<"TourismSource", 'DateTime'>
   readonly validFrom: Prisma.FieldRef<"TourismSource", 'DateTime'>
   readonly validTo: Prisma.FieldRef<"TourismSource", 'DateTime'>
+  readonly licenseOrUsageNote: Prisma.FieldRef<"TourismSource", 'String'>
+  readonly reviewStatus: Prisma.FieldRef<"TourismSource", 'TourismSourceReviewStatus'>
+  readonly reviewedAt: Prisma.FieldRef<"TourismSource", 'DateTime'>
+  readonly reviewedById: Prisma.FieldRef<"TourismSource", 'String'>
+  readonly reviewNotes: Prisma.FieldRef<"TourismSource", 'String'>
   readonly lastVerifiedAt: Prisma.FieldRef<"TourismSource", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"TourismSource", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"TourismSource", 'DateTime'>
@@ -1956,6 +2454,10 @@ export type TourismSourceCreateManyAndReturnArgs<ExtArgs extends runtime.Types.E
    */
   data: Prisma.TourismSourceCreateManyInput | Prisma.TourismSourceCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TourismSourceIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -2026,6 +2528,10 @@ export type TourismSourceUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.E
    * Limit how many TourismSources to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TourismSourceIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -2212,6 +2718,25 @@ export type TourismSource$assessmentQuestionsArgs<ExtArgs extends runtime.Types.
   take?: number
   skip?: number
   distinct?: Prisma.AssessmentQuestionScalarFieldEnum | Prisma.AssessmentQuestionScalarFieldEnum[]
+}
+
+/**
+ * TourismSource.reviewedBy
+ */
+export type TourismSource$reviewedByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
 }
 
 /**

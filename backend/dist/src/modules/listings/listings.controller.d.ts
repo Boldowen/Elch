@@ -1,5 +1,5 @@
 import { ListingCategory } from '../../generated/prisma/client.js';
-import { RequestUser } from '../../common/decorators/current-user.decorator.js';
+import { type RequestUser } from '../../common/decorators/current-user.decorator.js';
 import { CreateListingDto } from './dto/create-listing.dto.js';
 import { SetInventoryDto } from './dto/set-inventory.dto.js';
 import { UpdateListingDto } from './dto/update-listing.dto.js';

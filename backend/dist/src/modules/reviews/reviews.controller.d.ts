@@ -1,4 +1,4 @@
-import { RequestUser } from '../../common/decorators/current-user.decorator.js';
+import { type RequestUser } from '../../common/decorators/current-user.decorator.js';
 import { CreateReviewDto } from './dto/create-review.dto.js';
 import { ReviewsService } from './reviews.service.js';
 export declare class ReviewsController {

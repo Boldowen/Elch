@@ -2,6 +2,7 @@ import { Injectable, NotFoundException, Optional } from '@nestjs/common';
 import {
   Prisma,
   TourismAuthorityLevel,
+  TourismSourceReviewStatus,
 } from '../../generated/prisma/client.js';
 import { PrismaService } from '../../prisma/prisma.service.js';
 import { ROUTE_GRAPH } from './route-graph.data.js';
@@ -31,6 +32,18 @@ const routeGraphInclude = {
   },
 } satisfies Prisma.ResearchRouteInclude;
 
+const routeGraphAdminInclude = {
+  source: true,
+  nodes: {
+    orderBy: [{ sequenceHint: 'asc' as const }, { code: 'asc' as const }],
+    include: { source: true },
+  },
+  edges: {
+    orderBy: { code: 'asc' as const },
+    include: { source: true, fromNode: true, toNode: true },
+  },
+} satisfies Prisma.ResearchRouteInclude;
+
 type DbRouteGraph = Prisma.ResearchRouteGetPayload<{ include: typeof routeGraphInclude }>;
 
 @Injectable()
@@ -44,7 +57,7 @@ export class RouteGraphRepository {
     const routes = await this.prisma.researchRoute.findMany({
       where: activeOnly ? { active: true } : undefined,
       orderBy: [{ routeFamily: 'asc' }, { code: 'asc' }],
-      include: routeGraphInclude,
+      include: activeOnly ? routeGraphInclude : routeGraphAdminInclude,
     });
     return routes.map((route) => this.fromDatabase(route));
   }
@@ -60,7 +73,7 @@ export class RouteGraphRepository {
         ...(activeOnly ? { active: true } : {}),
         OR: this.isUuid(reference) ? [{ id: reference }, { code: reference }] : [{ code: reference }],
       },
-      include: routeGraphInclude,
+      include: activeOnly ? routeGraphInclude : routeGraphAdminInclude,
     });
     if (!route) throw new NotFoundException('Research route not found');
     return this.fromDatabase(route);
@@ -69,6 +82,7 @@ export class RouteGraphRepository {
   private fromDatabase(route: DbRouteGraph): HydratedResearchRoute {
     const activeNodeIds = new Set(route.nodes.map((node) => node.id));
     const pois: RoutePoi[] = route.nodes.map((node) => ({
+      databaseId: node.id,
       id: node.code,
       nameMn: node.nameMn,
       nameEn: node.nameEn,
@@ -78,10 +92,14 @@ export class RouteGraphRepository {
       longitude: Number(node.longitude),
       ...(node.altitude === null ? {} : { elevationMeters: node.altitude }),
       sourceId: node.sourceId ?? route.sourceId ?? '',
+      active: node.active,
+      ...(node.sequenceHint === null ? {} : { sequenceHint: node.sequenceHint }),
+      minimumVisitMinutes: node.minimumVisitMinutes,
     }));
     const edges: RouteEdge[] = route.edges
       .filter((edge) => activeNodeIds.has(edge.fromNodeId) && activeNodeIds.has(edge.toNodeId))
       .map((edge) => ({
+        databaseId: edge.id,
         id: edge.code,
         from: edge.fromNode.code,
         to: edge.toNode.code,
@@ -92,6 +110,8 @@ export class RouteGraphRepository {
         riskClass: edge.riskLevel as RiskClass,
         requiredSkills: edge.requiredGuideCompetencies,
         ...(edge.estimatedCostMinor === null ? {} : { estimatedCostMinor: edge.estimatedCostMinor }),
+        ...(edge.estimatedCostCurrency === null ? {} : { estimatedCostCurrency: edge.estimatedCostCurrency }),
+        ...(edge.terrain === null ? {} : { terrain: edge.terrain }),
         sourceId: edge.sourceId,
         bidirectional: edge.bidirectional,
         requiresRoadCheck: edge.requiresRoadCheck,
@@ -100,6 +120,7 @@ export class RouteGraphRepository {
         requiresGuide: edge.requiresGuide,
         emergencyPlanRequired: edge.emergencyPlanRequired,
         lastVerifiedAt: edge.lastVerifiedAt.toISOString(),
+        active: edge.active,
       }));
     const sourcesById = new Map<string, RouteSource>();
     for (const source of [route.source, ...route.nodes.map((node) => node.source), ...route.edges.map((edge) => edge.source)]) {
@@ -110,9 +131,11 @@ export class RouteGraphRepository {
         url: source.url,
         authority: this.authority(source.authorityLevel),
         lastVerifiedAt: source.lastVerifiedAt.toISOString(),
-        verificationStatus: source.title.includes('NOT VERIFIED')
-          ? 'PROTOTYPE_REQUIRES_REVIEW'
-          : 'HUMAN_VERIFIED',
+        licenseOrUsageNote: source.licenseOrUsageNote,
+        ...(source.reviewedAt ? { reviewedAt: source.reviewedAt.toISOString() } : {}),
+        verificationStatus: source.reviewStatus === TourismSourceReviewStatus.HUMAN_VERIFIED
+          ? 'HUMAN_VERIFIED'
+          : 'PROTOTYPE_REQUIRES_REVIEW',
       });
     }
     return {
@@ -120,6 +143,7 @@ export class RouteGraphRepository {
       id: route.code,
       name: route.name,
       description: route.description,
+      ...(route.sourceId ? { sourceId: route.sourceId } : {}),
       routeFamily: route.routeFamily,
       recommendedDays: { min: route.minimumDays, max: route.recommendedDays },
       poiIds: pois.map((poi) => poi.id),

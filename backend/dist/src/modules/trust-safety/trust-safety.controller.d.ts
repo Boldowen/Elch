@@ -1,4 +1,4 @@
-import { RequestUser } from '../../common/decorators/current-user.decorator.js';
+import { type RequestUser } from '../../common/decorators/current-user.decorator.js';
 import { ReportStatus } from '../../generated/prisma/client.js';
 import { CreateReportDto } from './dto/create-report.dto.js';
 import { DismissReportDto, ModerateReportDto } from './dto/moderate-report.dto.js';

@@ -22,11 +22,12 @@ import { PrismaService } from '../src/prisma/prisma.service.js';
 import { GuideStatus, ListingCategory, MessageType, ModerationActionType, PaymentArrangement, PriceUnit, PricingType, ReportReason, ReportTargetType, Role, VerificationCheckStatus } from '../src/generated/prisma/client.js';
 
 const databaseUrl = process.env.DATABASE_URL ?? '';
-if (process.env.NODE_ENV !== 'test' || !databaseUrl.includes('elch_test')) {
+const integrationEnabled = process.env.NODE_ENV === 'test' && databaseUrl.includes('elch_test');
+if (process.env.RUN_INTEGRATION_TESTS === '1' && !integrationEnabled) {
   throw new Error('Integration tests require NODE_ENV=test and an isolated elch_test database');
 }
 
-describe('booking reliability', () => {
+(integrationEnabled ? describe : describe.skip)('booking reliability', () => {
   const prisma = new PrismaService(new ConfigService({ DATABASE_URL: databaseUrl }));
   const pricing = new PricingService();
   const service = new BookingsService(prisma, pricing);

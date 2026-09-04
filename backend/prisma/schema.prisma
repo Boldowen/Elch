@@ -216,6 +216,12 @@ enum TourismSourceType {
   OTHER
 }
 
+enum TourismSourceReviewStatus {
+  PENDING
+  HUMAN_VERIFIED
+  REJECTED
+}
+
 enum TourismAuthorityLevel {
   GOVERNMENT
   LEGAL
@@ -503,6 +509,7 @@ model User {
   safetyPlansCreated SafetyPlan[] @relation("SafetyPlanCreator")
   safetyPlansReviewed SafetyPlan[] @relation("SafetyPlanReviewer")
   safetyPlanAuditEntries SafetyPlanAudit[] @relation("SafetyPlanAuditActor")
+  tourismSourcesReviewed TourismSource[] @relation("TourismSourceReviewer")
 
   @@index([deletedAt])
   @@index([createdAt])
@@ -656,6 +663,11 @@ model TourismSource {
   publishedAt         DateTime?
   validFrom           DateTime?
   validTo             DateTime?
+  licenseOrUsageNote  String
+  reviewStatus        TourismSourceReviewStatus @default(PENDING)
+  reviewedAt          DateTime?
+  reviewedById        String?                   @db.Uuid
+  reviewNotes         String?
   lastVerifiedAt      DateTime
   createdAt           DateTime                  @default(now())
   updatedAt           DateTime                  @updatedAt
@@ -664,8 +676,11 @@ model TourismSource {
   routeNodes          RouteNode[]
   routeEdges          RouteEdge[]
   assessmentQuestions AssessmentQuestion[]
+  reviewedBy          User?                     @relation("TourismSourceReviewer", fields: [reviewedById], references: [id], onDelete: Restrict)
 
   @@index([authorityLevel, lastVerifiedAt])
+  @@index([reviewStatus, lastVerifiedAt])
+  @@index([reviewedById, reviewedAt])
   @@index([organization])
   @@index([validTo])
 }

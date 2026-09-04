@@ -3,6 +3,11 @@
 This directory is the version-controlled home for the research artifacts described in
 `Mongolia_Tourism_AI_Bachelor_Research_Master_Plan.pdf`.
 
+Code and demo fixtures are not a completed experiment. Before participant collection
+or an A-E comparison, complete the controlled-research gates in
+[the launch readiness runbook](../docs/LAUNCH_READINESS.md) and the consent/withdrawal
+requirements in [Ethics and privacy](docs/ETHICS_AND_PRIVACY.md).
+
 ## Experiment tracks
 
 | ID | Model | RAG | LoRA | RouteGraph / validator |
@@ -76,3 +81,18 @@ Read before collecting or training:
 python3 -m compileall -q research/scripts research/training research/tests
 python3 -m unittest discover -s research/tests -v
 ```
+
+## Study launch gate
+
+The following work is intentionally not automated or claimed complete:
+
+- institutional ethics approval and a versioned consent/withdrawal register;
+- source-by-source license and claim verification in an auditable registry;
+- expert-reviewed routes, questions, rubrics, prompts, and safety policy;
+- consented participant recruitment and data collection;
+- frozen grouped splits, corpus/model/adapter hashes, and blind-review assignments;
+- real QLoRA training, A-E execution, independent scoring, statistical analysis,
+  subgroup fairness review, and thesis reporting.
+
+Keep all demo records out of thesis result tables. Preserve raw runs and exclusions,
+and record nulls/failures rather than backfilling them with model-generated labels.

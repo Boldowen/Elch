@@ -42,6 +42,13 @@ If an adapter was trained before a valid withdrawal, document whether retraining
 required and do not falsely claim that influence can be removed from an existing
 model without evidence.
 
+The current language-assessment endpoint records an AI-processing consent event in
+attempt metadata. That technical flag is not a complete research consent system. Do
+not begin real participant collection until the study has an approved, versioned
+consent register; a separately protected identity-to-pseudonym mapping; a tested
+withdrawal, database deletion, object deletion, backup-expiry and tombstone process;
+and a named data controller responsible for responding to requests.
+
 ## Anonymization and exports
 
 Use a private, randomly generated export salt of at least 16 characters. The

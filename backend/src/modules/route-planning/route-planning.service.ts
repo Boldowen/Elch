@@ -13,8 +13,8 @@ import { SafetyPlanService } from './safety-plan.service.js';
 import { HydratedResearchRoute, ResearchRoute, RiskClass, RouteEdge } from './route.types.js';
 
 export interface ValidationIssue {
-  code: 'UNKNOWN_ROUTE_NODE' | 'ROUTE_EDGE_MISSING' | 'ROUTE_ORDER_INVALID' | 'TRAVEL_TIME_IMPOSSIBLE' | 'DAILY_TIME_EXCEEDED' | 'SEASON_INCOMPATIBLE' | 'TRANSPORT_INCOMPATIBLE' | 'BUDGET_EXCEEDED' | 'ACCESS_RESTRICTED' | 'PERMIT_REQUIRED' | 'GUIDE_REQUIRED' | 'GUIDE_COMPETENCY_MISSING' | 'FIRST_AID_REQUIREMENT_NOT_MET' | 'SAFETY_CONSTRAINT_FAILED' | 'SOURCE_STALE';
-  rule: 'ROUTE_CONNECTIVITY' | 'TIME_FEASIBILITY' | 'SEASON_ACCESS' | 'TRANSPORT' | 'BUDGET' | 'GUIDE_ELIGIBILITY' | 'RISK_ESCALATION' | 'SOURCE_FRESHNESS';
+  code: 'UNKNOWN_ROUTE_NODE' | 'ROUTE_EDGE_MISSING' | 'ROUTE_ORDER_INVALID' | 'TRAVEL_TIME_IMPOSSIBLE' | 'DAILY_TIME_EXCEEDED' | 'SEASON_INCOMPATIBLE' | 'TRANSPORT_INCOMPATIBLE' | 'BUDGET_EXCEEDED' | 'ACCESS_RESTRICTED' | 'PERMIT_REQUIRED' | 'GUIDE_REQUIRED' | 'GUIDE_COMPETENCY_MISSING' | 'FIRST_AID_REQUIREMENT_NOT_MET' | 'SAFETY_CONSTRAINT_FAILED' | 'SOURCE_UNVERIFIED' | 'SOURCE_STALE';
+  rule: 'ROUTE_CONNECTIVITY' | 'TIME_FEASIBILITY' | 'SEASON_ACCESS' | 'TRANSPORT' | 'BUDGET' | 'GUIDE_ELIGIBILITY' | 'RISK_ESCALATION' | 'SOURCE_PROVENANCE' | 'SOURCE_FRESHNESS';
   severity: 'ERROR' | 'WARNING';
   message: string;
   context?: Record<string, unknown>;
@@ -41,35 +41,19 @@ export class RoutePlanningService {
 
   listRoutes() {
     if (this.graph) return this.graph.list();
-    return ROUTE_GRAPH.routes.map((route) => ({
-      ...route,
-      pois: route.poiIds.map((id) => ROUTE_GRAPH.pois.find((poi) => poi.id === id)),
-      disclaimer: ROUTE_GRAPH.disclaimer,
-    }));
+    return ROUTE_GRAPH.routes.map((route) => this.fixtureRoute(route.id));
   }
 
   getRoute(id: string) {
     if (this.graph) return this.graph.find(id);
-    const route = ROUTE_GRAPH.routes.find((item) => item.id === id);
-    if (!route) throw new NotFoundException('Research route not found');
-    const poiIds = new Set(route.poiIds);
-    return {
-      ...route,
-      pois: ROUTE_GRAPH.pois.filter((poi) => poiIds.has(poi.id)),
-      edges: ROUTE_GRAPH.edges.filter((edge) => poiIds.has(edge.from) && poiIds.has(edge.to)),
-      sources: ROUTE_GRAPH.sources.filter((source) =>
-        ROUTE_GRAPH.pois.some((poi) => poiIds.has(poi.id) && poi.sourceId === source.id) ||
-        ROUTE_GRAPH.edges.some((edge) => poiIds.has(edge.from) && edge.sourceId === source.id),
-      ),
-      disclaimer: ROUTE_GRAPH.disclaimer,
-    };
+    return this.fixtureRoute(id);
   }
 
   /** Compatibility-only deterministic facade for isolated evaluation tests.
    * Authenticated HTTP validation always calls validateAuthoritative and loads
    * the route, nodes, edges, sources, and guide requirements from PostgreSQL. */
   validate(dto: ValidateItineraryDto, now = new Date()) {
-    return this.validateAgainstRoute(this.fixtureRoute(dto.routeId), dto, now, null);
+    return this.validateAgainstRoute(this.fixtureRoute(dto.routeId), dto, now, null, false);
   }
 
   /** Client-authored guide and approval claims are discarded. Eligibility and
@@ -155,14 +139,20 @@ export class RoutePlanningService {
 
     const highestRisk = this.highestDeclaredRisk(route);
     const policy = (this.riskPolicy ?? this.fallbackRiskPolicy).for(highestRisk);
+    const travelStartAt = new Date(dto.startDate);
+    const travelEndAt = new Date(travelStartAt);
+    travelEndAt.setUTCDate(
+      travelStartAt.getUTCDate() + Math.max(...dto.stops.map((stop) => stop.day)) - 1,
+    );
     const approvedSafetyPlan = policy.safetyPlanRequired && this.safetyPlans
       ? await this.safetyPlans.approvedForValidation(
           dto.safetyPlanId,
           actorId,
           route.databaseId,
           dto.guideProfileId,
-          new Date(dto.startDate),
+          travelStartAt,
           now,
+          travelEndAt,
         )
       : null;
 
@@ -176,6 +166,7 @@ export class RoutePlanningService {
       },
       now,
       approvedSafetyPlan,
+      true,
     );
   }
 
@@ -184,6 +175,7 @@ export class RoutePlanningService {
     dto: ValidateItineraryDto,
     now: Date,
     approvedSafetyPlan: ApprovedSafetyPlan,
+    requireVerifiedSources: boolean,
   ) {
     const issues: ValidationIssue[] = [];
     const start = new Date(dto.startDate);
@@ -191,6 +183,8 @@ export class RoutePlanningService {
     let distanceKm = 0;
     let travelMinutes = 0;
     let estimatedCostMinor = 0;
+    const relevantSourceIds = new Set<string>();
+    if (route.sourceId) relevantSourceIds.add(route.sourceId);
     // A partial itinerary or client claim can never downgrade this hard gate.
     let highestRisk: RiskClass = this.highestDeclaredRisk(route);
 
@@ -198,6 +192,8 @@ export class RoutePlanningService {
       if (!route.poiIds.includes(stop.poiId)) {
         issues.push({ code: 'UNKNOWN_ROUTE_NODE', rule: 'ROUTE_CONNECTIVITY', severity: 'ERROR', message: `${stop.poiId} is not part of ${route.name}.` });
       }
+      const poi = route.pois.find((item) => item.id === stop.poiId);
+      if (poi?.sourceId) relevantSourceIds.add(poi.sourceId);
       dailyMinutes.set(stop.day, (dailyMinutes.get(stop.day) ?? 0) + stop.activityMinutes);
     }
 
@@ -212,6 +208,7 @@ export class RoutePlanningService {
         issues.push({ code: 'ROUTE_EDGE_MISSING', rule: 'ROUTE_CONNECTIVITY', severity: 'ERROR', message: `No verified route edge connects ${from.poiId} and ${to.poiId}.` });
         continue;
       }
+      relevantSourceIds.add(edge.sourceId);
       dailyMinutes.set(to.day, (dailyMinutes.get(to.day) ?? 0) + edge.nominalMinutes);
       distanceKm += edge.distanceKm;
       travelMinutes += edge.nominalMinutes;
@@ -255,7 +252,25 @@ export class RoutePlanningService {
 
     const staleBefore = new Date(now);
     staleBefore.setUTCFullYear(staleBefore.getUTCFullYear() - 1);
-    const relevantSourceIds = new Set(route.edges.map((edge) => edge.sourceId));
+    const sourcesById = new Map(route.sources.map((source) => [source.id, source]));
+    if (requireVerifiedSources) {
+      for (const sourceId of relevantSourceIds) {
+        const source = sourcesById.get(sourceId);
+        if (
+          !source ||
+          source.verificationStatus !== 'HUMAN_VERIFIED' ||
+          !source.licenseOrUsageNote?.trim()
+        ) {
+          issues.push({
+            code: 'SOURCE_UNVERIFIED',
+            rule: 'SOURCE_PROVENANCE',
+            severity: 'ERROR',
+            message: `${source?.title ?? sourceId} requires an explicit human source and reuse-rights review before authoritative validation.`,
+            context: { sourceId },
+          });
+        }
+      }
+    }
     for (const source of route.sources.filter((item) => relevantSourceIds.has(item.id))) {
       if (new Date(source.lastVerifiedAt) < staleBefore) {
         issues.push({ code: 'SOURCE_STALE', rule: 'SOURCE_FRESHNESS', severity: 'WARNING', message: `${source.title} must be re-verified before booking.` });

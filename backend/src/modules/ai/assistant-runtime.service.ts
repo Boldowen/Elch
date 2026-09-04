@@ -15,6 +15,7 @@ import {
   pruneMessages,
   streamText,
   type LanguageModel,
+  type LanguageModelUsage,
   type ModelMessage,
 } from 'ai';
 import { ToolRegistryService } from './tools/tool-registry.service.js';
@@ -151,7 +152,7 @@ export class AssistantRuntimeService {
 
     try {
       let text: string;
-      let usage: { inputTokens: { total: number | undefined }; outputTokens: { total: number | undefined } };
+      let usage: LanguageModelUsage;
       let steps: Array<{ finishReason: { unified?: string } | string }>;
       if (onDelta) {
         const result = streamText(common);
@@ -170,8 +171,8 @@ export class AssistantRuntimeService {
         usage = result.usage;
         steps = result.steps;
       }
-      const inputTokens = usage.inputTokens.total ?? 0;
-      const outputTokens = usage.outputTokens.total ?? 0;
+      const inputTokens = usage.inputTokens ?? 0;
+      const outputTokens = usage.outputTokens ?? 0;
       const latencyMs = Date.now() - startedAt;
       const finish = steps.at(-1)?.finishReason;
       const value: AssistantRuntimeResult = {

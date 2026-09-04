@@ -289,25 +289,48 @@ export class SafetyPlanService {
     actorId: string | undefined,
     routeId: string,
     guideProfileId: string | undefined,
-    travelDate: Date,
+    travelStartAt: Date,
     now = new Date(),
+    travelEndAt = travelStartAt,
   ) {
     if (!id || !actorId || !guideProfileId) return null;
     await this.expireDuePlans(now);
-    return this.prisma.safetyPlan.findFirst({
+    const plan = await this.prisma.safetyPlan.findFirst({
       where: {
         id,
         routeId,
         guideProfileId,
         status: SafetyPlanStatus.APPROVED,
         approvedAt: { not: null },
+        reviewedById: { not: null },
+        reviewedBy: { roles: { has: Role.ADMIN } },
         expiresAt: { gt: now },
-        tripStartAt: { lte: travelDate },
-        tripEndAt: { gte: travelDate },
+        tripStartAt: { lte: travelStartAt },
+        tripEndAt: { gte: travelEndAt },
         OR: [{ createdById: actorId }, { guideProfile: { userId: actorId } }],
       },
-      select: { id: true, status: true, approvedAt: true, expiresAt: true, reviewedById: true },
+      select: {
+        id: true,
+        status: true,
+        approvedAt: true,
+        expiresAt: true,
+        reviewedById: true,
+        auditEntries: {
+          where: {
+            action: SafetyPlanAuditAction.APPROVED,
+            toStatus: SafetyPlanStatus.APPROVED,
+            actorId: { not: null },
+          },
+          orderBy: { createdAt: 'desc' },
+          select: { actorId: true },
+        },
+      },
     });
+    if (!plan || !plan.reviewedById || !plan.auditEntries.some((audit) => audit.actorId === plan.reviewedById)) {
+      return null;
+    }
+    const { auditEntries: _auditEntries, ...approval } = plan;
+    return approval;
   }
 
   @Cron(CronExpression.EVERY_HOUR, { name: 'route-safety-plan-expiry' })

@@ -5,6 +5,11 @@ research extension evaluates a route-aware, safety-constrained multilingual trav
 assistant and competency-based guide matching without replacing the marketplace's
 existing authentication, bookings, listings, conversations, reviews, or moderation.
 
+The software supports a local demo, but verified operational data, formal research
+governance, external services, and production operations are not supplied by source
+code. See the [launch readiness runbook](docs/LAUNCH_READINESS.md) for the explicit
+implemented/operator/human/future-work split and go/no-go gates.
+
 ## Research architecture
 
 ```text
@@ -45,6 +50,8 @@ claim that this repository already contains a domain-tuned adapter.
 
 ```bash
 cp .env.example .env
+# The Expo emulator default expects this port.
+printf '\nBACKEND_PORT=3001\n' >> .env
 docker compose up --build
 docker compose exec backend npm run prisma:seed
 ```
@@ -57,9 +64,9 @@ npm install
 npm start
 ```
 
-- API: `http://localhost:3001/api/v1`
+- API: `http://localhost:3001/api/v1` with the `BACKEND_PORT` setting above
 - Swagger: `http://localhost:3001/docs`
-- pgAdmin: `http://localhost:5051`
+- pgAdmin: `http://localhost:5050` unless `PGADMIN_PORT` is overridden
 
 The research seed is explicitly prototype/demo data. It is not a verified production
 corpus and cannot support factual research conclusions without human source review.
@@ -76,12 +83,16 @@ Only the route catalog and route-detail reads are public.
 | Area | Endpoints |
 |---|---|
 | Assistant | `POST /api/v1/research-assistant/query`, owned conversation list/detail |
+| Assistant stream | `POST /api/v1/research-assistant/stream` (SSE) |
 | Routes | public `GET /api/v1/research-routes`; protected `POST .../plan` and `.../validate` |
+| Route administration | admin RouteGraph CRUD under `/api/v1/admin/route-graph` |
+| Route safety | owned R3/R4 safety-plan draft/submit plus admin review/revoke |
 | RAG | `POST /api/v1/tourism-knowledge/search`; admin source creation and ingestion |
 | Assessments | dashboard, attempts, saved responses, submit, consented language estimate, admin review/question bank |
 | Matching | `POST /api/v1/guide-research/match` |
 | Booking safety | `POST /api/v1/bookings/drafts`, then explicit owner submit |
 | Research | admin summary, runs, human evaluations, pseudonymized CSV/JSON export |
+| Operations | admin in-process metrics and manual expiry-job trigger |
 
 Swagger at `/docs` is the authoritative request/response reference.
 
@@ -102,12 +113,16 @@ For a new development migration use `npm run prisma:migrate`; deployments must u
 ## RAG ingestion
 
 1. An admin creates a provenance row with `POST /api/v1/tourism-knowledge/sources`.
-2. The admin submits reviewed text to `POST /api/v1/tourism-knowledge/ingest`.
-3. The server chunks, hashes, embeds, deduplicates, and stores metadata.
-4. Authenticated retrieval uses `POST /api/v1/tourism-knowledge/search`.
+2. The admin submits text to `POST /api/v1/tourism-knowledge/ingest`; its chunks are
+   staged inactive while the source is pending.
+3. An accountable admin records a human verify/reject decision, reviewer, date,
+   notes, and license/permitted-use statement through the source-review endpoint.
+4. The server activates only chunks belonging to a human-verified source. Authenticated
+   retrieval uses `POST /api/v1/tourism-knowledge/search`.
 
-Authority metadata affects ranking but is not itself proof of endorsement. Real source
-licensing and `lastVerifiedAt` dates must be checked before ingestion.
+Authority metadata affects ranking but is not itself proof of endorsement. A recent
+`lastVerifiedAt` date or authoritative-looking title never substitutes for the explicit
+human-review decision.
 
 Ingestion stages every embedding before a database transaction, records exact
 provider/model/dimension identity, and falls back to lexical scoring rather than
@@ -135,7 +150,12 @@ The canonical variable list is [.env.example](.env.example). Important controls 
 - A–E experiment selection, with request overrides disabled by default;
 - input/output caps, daily per-user request limit, maximum tool rounds, timeout, and
   at most two bounded transient retries (`AI_RETRY_ATTEMPTS`, default `1`);
-- configurable RAG top-K/threshold and guide-ranking weights;
+- bounded history, streaming timeouts, per-process response/live-data caches, and a
+  model allow-list;
+- configurable RAG top-K/threshold/candidate bound and guide-ranking weights;
+- fail-closed `disabled`, deterministic `mock`, and HTTPS `live` data modes for
+  weather, road closure, permit, and transport adapters;
+- private local/S3-compatible evidence storage settings;
 - `RESEARCH_EXPORT_ENABLED` plus a private random `RESEARCH_EXPORT_SALT` of at least
   16 characters for stable HMAC pseudonyms.
 
@@ -162,7 +182,7 @@ npm run prisma:generate
 npx prisma validate
 npm run build
 npm run lint
-npm test -- --testPathIgnorePatterns=bookings.integration.spec.ts
+npm test
 
 cd ../frontend
 npm run export:android
@@ -171,10 +191,11 @@ cd ..
 python3 -m unittest discover -s research/tests -v
 ```
 
-The existing booking integration suite requires `NODE_ENV=test` and an isolated
-database whose name contains `elch_test`; it intentionally refuses the development DB.
-Apply migrations to that database, then run only
-`test/bookings.integration.spec.ts` with its isolated `DATABASE_URL`.
+The booking integration suite is skipped by the normal unit-test command. It requires
+`NODE_ENV=test`, `RUN_INTEGRATION_TESTS=1`, and an isolated database whose name
+contains `elch_test`; it intentionally refuses the development DB. Apply migrations
+to that database, then run `npm run test:integration` with its isolated
+`DATABASE_URL`.
 
 For research tooling:
 
@@ -190,15 +211,11 @@ external release.
 
 ## Production checklist
 
-- Rotate all JWT/email/AI secrets and keep `.env` out of Git.
-- Set production CORS origins and TLS/reverse-proxy limits.
-- Configure `AI_PROVIDER=openai` and real model names only after key provisioning.
-- Review every corpus source's authority, license, freshness, and content.
-- Replace demo routes/questions with expert-reviewed data.
-- Configure backups, retention, audit review, monitoring, and request budgets.
-- Collect explicit consent before storing guide speech; pseudonymize research exports.
-- Recruit qualified human reviewers and freeze evaluation splits before experiments.
-- Run migrations and all validation commands against staging before deployment.
+Do not treat the Compose demo as a production deployment. Complete the secrets,
+live-data, storage, privacy, source licensing, backup/restore, observability, security,
+mobile-distribution, and research gates in
+[docs/LAUNCH_READINESS.md](docs/LAUNCH_READINESS.md). In particular, never expose
+pgAdmin publicly and never run the demo seed against production.
 
 ## Important limitations
 
