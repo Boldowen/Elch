@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { API_BASE_URL } from '../config';
 import { storage } from './storage';
+import { domainErrorMessage } from './domainErrors';
 
 export const api = axios.create({
   baseURL: API_BASE_URL,
@@ -27,11 +28,18 @@ function flushWaiters(error) {
 async function refreshTokens() {
   const session = storage.readSessionSync() || (await storage.readSession());
   if (!session?.refreshToken) {
-    throw new Error('No refresh token');
+    const error = new Error('No refresh token');
+    error.code = 'SESSION_EXPIRED';
+    throw error;
   }
   const { data } = await axios.post(`${API_BASE_URL}/auth/refresh`, {
     refreshToken: session.refreshToken,
-  });
+  }, { timeout: 10000 });
+  if (storage.readSessionSync()?.refreshToken !== session.refreshToken) {
+    const error = new Error('Session changed while refreshing');
+    error.code = 'SESSION_CHANGED';
+    throw error;
+  }
   const next = {
     user: data.user ?? session.user,
     accessToken: data.accessToken,
@@ -45,6 +53,8 @@ api.interceptors.request.use(async (config) => {
   const session = storage.readSessionSync() || (await storage.readSession());
   if (session?.accessToken) {
     config.headers.Authorization = `Bearer ${session.accessToken}`;
+  } else {
+    delete config.headers.Authorization;
   }
   return config;
 });
@@ -63,6 +73,7 @@ api.interceptors.response.use(
       '/auth/reset-password',
       '/auth/verify-email',
       '/auth/resend-verification',
+      '/auth/social',
     ].some((path) => requestPath.includes(path));
     const isNetwork =
       !error.response ||
@@ -70,7 +81,10 @@ api.interceptors.response.use(
       error.message?.includes('Network');
 
     // Transient retry
-    if (isNetwork && !isPublicAuthRequest) {
+    const method = String(config.method || 'get').toLowerCase();
+    const idempotencyKey = config.headers?.get?.('Idempotency-Key') || config.headers?.['Idempotency-Key'];
+    const safelyRetryable = ['get', 'head', 'options'].includes(method) || Boolean(idempotencyKey);
+    if (isNetwork && !isPublicAuthRequest && safelyRetryable) {
       const retries = config.__networkRetries || 0;
       if (retries < 2) {
         config.__networkRetries = retries + 1;
@@ -106,9 +120,14 @@ api.interceptors.response.use(
       return api.request(config);
     } catch (e) {
       flushWaiters(e);
-      await storage.clearSession();
-      sessionExpiredHandler?.();
-      return Promise.reject(error);
+      if (e.code === 'SESSION_EXPIRED' || [401, 403].includes(e.response?.status)) {
+        try {
+          await storage.clearSession();
+        } finally {
+          sessionExpiredHandler?.();
+        }
+      }
+      return Promise.reject(e);
     } finally {
       refreshing = false;
     }
@@ -117,11 +136,14 @@ api.interceptors.response.use(
 
 export function apiErrorMessage(error) {
   const data = error?.response?.data;
+  const language = storage.preferenceSync('language') || 'en';
+  const localized = domainErrorMessage(data?.code || error?.code, language);
+  if (localized) return localized;
   if (typeof data?.message === 'string') return data.message;
   if (Array.isArray(data?.message)) return data.message.join(', ');
   if (data?.error) return String(data.error);
   if (!error?.response && (error?.code === 'ECONNABORTED' || error?.message?.includes('Network'))) {
-    return `ELCH API-д холбогдож чадсангүй (${API_BASE_URL}). API хаяг болон Wi-Fi сүлжээг шалгана уу.`;
+    return domainErrorMessage('NETWORK_UNAVAILABLE', language);
   }
-  return error?.message || 'Something went wrong';
+  return error?.message || domainErrorMessage('UNKNOWN_ERROR', language);
 }

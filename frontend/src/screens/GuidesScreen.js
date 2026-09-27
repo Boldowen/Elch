@@ -33,6 +33,7 @@ export default function GuidesScreen({ navigation }) {
     <SafeAreaView style={styles.root} edges={['top']}>
       <ScreenHeader title="Guides" onBack={() => navigation.goBack()} />
       <StateBox
+        onRetry={load}
         loading={loading}
         error={error}
         empty={!items.length}

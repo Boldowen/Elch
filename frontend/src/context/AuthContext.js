@@ -20,21 +20,29 @@ export function AuthProvider({ children }) {
   const [pendingRole, setPendingRole] = useState('traveler');
   const [error, setError] = useState(null);
   const [language, setLanguageState] = useState('en');
+  const [sessionExpired, setSessionExpired] = useState(false);
+
+  useEffect(() => storage.subscribeSession(setSession), []);
 
   useEffect(() => {
     (async () => {
-      await storage.hydrate();
-      const s = await storage.readSession();
-      setSession(s);
-      const lang = await storage.preference('language');
-      if (lang) setLanguageState(lang);
-      setBooting(false);
+      try {
+        await storage.hydrate();
+        setSession(await storage.readSession());
+        const lang = await storage.preference('language');
+        if (lang) setLanguageState(lang);
+      } catch (e) {
+        setError(apiErrorMessage(e));
+      } finally {
+        setBooting(false);
+      }
     })();
   }, []);
 
   useEffect(() => setSessionExpiredHandler(() => {
     setSession(null);
-    setError('Session expired, please sign in again');
+    setSessionExpired(true);
+    setError(apiErrorMessage({ code: 'SESSION_EXPIRED' }));
   }), []);
 
   const selectRole = useCallback((role) => {
@@ -47,6 +55,7 @@ export function AuthProvider({ children }) {
     try {
       const s = await fn();
       setSession(s);
+      setSessionExpired(false);
       setLoading(false);
       return true;
     } catch (e) {
@@ -90,12 +99,7 @@ export function AuthProvider({ children }) {
     async (profile) => {
       if (!session) return;
       const user = await authRepository.updateProfile(profile);
-      const next = {
-        ...session,
-        user: mapUser({ ...session.user, ...user }),
-      };
-      setSession(next);
-      await storage.saveSession(next);
+      await storage.updateSessionUser(mapUser({ ...session.user, ...user }), session.user.id);
       return user;
     },
     [session],
@@ -109,9 +113,7 @@ export function AuthProvider({ children }) {
   const refreshUser = useCallback(async () => {
     if (!session) return null;
     const user = await authRepository.me();
-    const next = { ...session, user };
-    setSession(next);
-    await storage.saveSession(next);
+    await storage.updateSessionUser(user, session.user.id);
     return user;
   }, [session]);
 
@@ -126,6 +128,7 @@ export function AuthProvider({ children }) {
       user: session?.user ?? null,
       loading,
       booting,
+      sessionExpired,
       pendingRole,
       error,
       language,
@@ -144,6 +147,7 @@ export function AuthProvider({ children }) {
       session,
       loading,
       booting,
+      sessionExpired,
       pendingRole,
       error,
       language,

@@ -1,5 +1,30 @@
 const asArray = (value) => (Array.isArray(value) ? value : []);
 
+const FEASIBILITY_STATUSES = new Set([
+  'FEASIBLE',
+  'REPAIRABLE',
+  'REQUIRES_EXTERNAL_APPROVAL',
+  'UNSOLVABLE',
+]);
+
+/** Plan section 7.3: the validator's explicit verdict on whether these
+ * constraints can be satisfied at all, so an impossible request is shown as
+ * impossible rather than as a plan that only needs adjusting. */
+export function mapFeasibility(json) {
+  if (!json || typeof json !== 'object') return null;
+  const status = String(json.status ?? '');
+  if (!FEASIBILITY_STATUSES.has(status)) return null;
+  return {
+    status,
+    unsolvable: Boolean(json.unsolvable),
+    repairable: Boolean(json.repairable),
+    reasons: asArray(json.reasons).filter(Boolean).map((reason) => ({
+      code: String(reason.code ?? ''),
+      message: String(reason.message ?? ''),
+    })).filter((reason) => reason.message),
+  };
+}
+
 export function mapResearchRoute(json = {}) {
   const recommendedDays = json.recommendedDays || {};
   return {
@@ -86,6 +111,7 @@ export function mapAssistantResponse(json = {}) {
     routeValidation: json.routeValidation && typeof json.routeValidation === 'object'
       ? json.routeValidation
       : null,
+    feasibility: mapFeasibility(json.feasibility),
     itinerary: asArray(json.itinerary),
     requiresClarification: Boolean(json.requiresClarification),
     requiresHumanEscalation: Boolean(json.requiresHumanEscalation),
@@ -105,10 +131,12 @@ export function mapRouteValidation(json = {}) {
       days: Number(summary.days) || 0,
     },
     issues: asArray(json.issues).filter(Boolean).map((issue) => ({
+      code: String(issue.code ?? ''),
       rule: String(issue.rule ?? 'VALIDATION'),
       severity: String(issue.severity ?? 'WARNING'),
       message: String(issue.message ?? ''),
     })),
+    feasibility: mapFeasibility(json.feasibility),
     disclaimer: String(json.disclaimer ?? ''),
     validatedAt: json.validatedAt ? String(json.validatedAt) : null,
   };
@@ -128,6 +156,7 @@ function firstDefined(...values) {
 }
 
 function numeric(value, fallback = 0) {
+  if (value === null || value === undefined || value === '') return fallback;
   const number = Number(value);
   return Number.isFinite(number) ? number : fallback;
 }
@@ -141,6 +170,7 @@ export function mapResearchDistribution(value) {
         item.label,
         item.name,
         item.key,
+        item.value,
         item.mode,
         item.model,
         item.code,

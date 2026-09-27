@@ -1,10 +1,10 @@
-# ELCH mobile (Expo React Native)
+# ELCH client (Expo React Native + Web)
 
-Expo React Native client for the ELCH NestJS API.
+Responsive Android, iOS, and web client for the ELCH NestJS API.
 
 ## Stack
 
-- Expo SDK 57 + React Native
+- Expo SDK 57 + React Native + React Native Web
 - React Navigation (native stack + bottom tabs)
 - Axios (JWT attach + refresh retry)
 - AsyncStorage (session + cache)
@@ -23,6 +23,7 @@ Default:
 
 - Android emulator: `http://10.0.2.2:3001/api/v1`
 - iOS simulator: `http://localhost:3001/api/v1`
+- Web: `http://localhost:3001/api/v1`
 
 Physical device:
 
@@ -44,8 +45,17 @@ Then:
 
 ```bash
 npm start
-# press a for Android emulator, or scan QR with Expo Go
+# press a for Android, w for web, or scan the QR code with Expo Go
 ```
+
+Verify production bundles without starting the development server:
+
+```bash
+npm run export:android
+npm run export:web
+```
+
+Static web hosting must serve `index.html` as the fallback for client-side routes.
 
 ## Google and Apple sign-in
 

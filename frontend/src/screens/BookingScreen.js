@@ -11,6 +11,7 @@ import {
 import * as Crypto from 'expo-crypto';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AppButton, AppInput, ScreenHeader, StateBox } from '../components/ui';
+import CancellationPolicy from '../components/CancellationPolicy';
 import { bookingsRepository } from '../repositories/listingsRepository';
 import { bookingMatchesPayload } from '../models/bookings';
 import { apiErrorMessage } from '../services/api';
@@ -187,11 +188,12 @@ export default function BookingScreen({ navigation, route }) {
   }, [draft, hydrateFromDraft, pendingKey, resumeDraftId, t]);
 
   useEffect(() => {
-    if (!payload || phase !== 'FORM') {
+    if (!payload) {
       setQuote(null);
       setQuoteError(null);
       return undefined;
     }
+    if (phase !== 'FORM') return undefined;
     if (new Date(payload.startsAt).getTime() <= Date.now() || payload.guests < 1 || Number(duration) < 1) return undefined;
     let active = true;
     const timer = setTimeout(async () => {
@@ -377,6 +379,10 @@ export default function BookingScreen({ navigation, route }) {
           {reconciliationNote ? <Text style={styles.reconciliation}>{reconciliationNote}</Text> : null}
           <Summary title={title || t('booking.draftTitle')} booking={draft} kind={kind} unit={unit} price={price} currency={currency} t={t} language={language} />
           <Text style={styles.updated}>{t('booking.lastSaved')} {formatDateTime(draft.updatedAt, language)}</Text>
+          <View style={styles.policyBox}>
+            <CancellationPolicy policy={draft} />
+            <Text style={styles.disclaimer}>{t('booking.pilot')}</Text>
+          </View>
           {error ? <Text style={styles.error} accessibilityLiveRegion="assertive">{error}</Text> : null}
           <AppButton title={t('booking.submitDraft')} onPress={submitDraft} loading={submitting} disabled={saving} />
           <AppButton title={t('booking.editDraft')} variant="secondary" onPress={() => { setPhase('FORM'); setError(null); }} disabled={submitting || saving} style={styles.secondaryButton} />

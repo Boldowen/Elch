@@ -83,6 +83,7 @@ export default function TripsScreen({ navigation }) {
     <SafeAreaView style={styles.root} edges={['top']}>
       <Text style={styles.title}>{t('trips.title')}</Text>
       <StateBox
+        onRetry={load}
         loading={loading}
         error={error}
         empty={!items.length}
@@ -109,7 +110,7 @@ export default function TripsScreen({ navigation }) {
               <View style={styles.card}>
                 <View style={styles.cardTop}>
                   <Text style={styles.cardTitle} numberOfLines={2}>
-                    {item.listing?.title || item.guide?.name || 'Booking'}
+                    {item.listing?.title || item.guide?.name || t('trips.bookingFallback')}
                   </Text>
                   <View style={[styles.badge, styles[`badge${item.status}`]]}>
                     <Text style={styles.badgeText}>{item.status}</Text>
@@ -148,12 +149,12 @@ export default function TripsScreen({ navigation }) {
                     onPress={() => navigation.navigate('CreateReview', { bookingId: item.id, title: item.listing?.title || item.guide?.name })}
                     style={styles.cancel}
                   >
-                    <Text style={styles.cancelText}>Write verified review</Text>
+                    <Text style={styles.cancelText}>{t('trips.writeVerifiedReview')}</Text>
                   </Pressable>
                 ) : null}
                 {['CONFIRMED', 'IN_PROGRESS'].includes(item.status) ? (
                   <Pressable onPress={() => navigation.navigate('PaymentMethods', { booking: item, role: 'traveler' })} style={styles.cancel}>
-                    <Text style={styles.cancelText}>Payment policy {item.payment ? `· ${item.payment.status}` : ''}</Text>
+                    <Text style={styles.cancelText}>{t('trips.paymentPolicy')} {item.payment ? `· ${item.payment.status}` : ''}</Text>
                   </Pressable>
                 ) : null}
               </View>

@@ -51,6 +51,12 @@ export function mapListing(json = {}) {
 
 export function mapGuide(json = {}) {
   const user = json.user || {};
+  const list = (value) => (Array.isArray(value) ? value : []);
+  const numberOrNull = (value) => {
+    if (value === null || value === undefined || value === '') return null;
+    const number = Number(value);
+    return Number.isFinite(number) ? number : null;
+  };
   const packages = (json.packages || []).map((p) => ({
     id: String(p.id ?? ''),
     title: String(p.title ?? ''),
@@ -75,7 +81,10 @@ export function mapGuide(json = {}) {
             ([language, proficiency]) => `${language} (${proficiency})`,
           )
         : [],
-    specialties: (json.expertise || json.specialties || []).map(String),
+    specialties: [...new Set([
+      ...list(json.expertise || json.specialties).map(String),
+      ...list(json.specialtySkills).map(String),
+    ])],
     price: Number(json.price) || 0,
     experience: Number(json.experienceYears ?? json.experience ?? 0) || 0,
     availableToday: Boolean(json.availableToday ?? true),
@@ -85,6 +94,47 @@ export function mapGuide(json = {}) {
     packages,
     verified: Boolean(json.verified),
     status: json.status,
+    legalRole: String(json.legalRole ?? 'UNVERIFIED'),
+    availability: list(json.availability).map(String),
+    completedTrips: Number(json.completedTrips) || 0,
+    evidence: list(json.evidence).filter(Boolean).map((item) => ({
+      type: String(item.type ?? ''),
+      issuer: String(item.issuer ?? ''),
+      status: String(item.status ?? ''),
+      verifiedAt: item.verifiedAt ? String(item.verifiedAt) : null,
+      expiresAt: item.expiresAt ? String(item.expiresAt) : null,
+    })),
+    languageAssessments: list(json.languageAssessments).filter(Boolean).map((item) => ({
+      language: String(item.language ?? ''),
+      officialEvidenceType: item.officialEvidenceType ? String(item.officialEvidenceType) : null,
+      aiEstimatedCefr: item.aiEstimatedCefr ? String(item.aiEstimatedCefr) : null,
+      aiConfidence: numberOrNull(item.aiConfidence),
+      humanVerifiedCefr: item.humanVerifiedCefr ? String(item.humanVerifiedCefr) : null,
+      status: String(item.assessmentStatus ?? 'NOT_ASSESSED'),
+      createdAt: item.createdAt ? String(item.createdAt) : null,
+    })),
+    knowledgeAssessment: json.knowledgeAssessments?.[0] ? {
+      score: numberOrNull(json.knowledgeAssessments[0].totalScore),
+      passed: Boolean(json.knowledgeAssessments[0].pass),
+      evaluatorType: String(json.knowledgeAssessments[0].evaluatorType ?? ''),
+    } : null,
+    skillAssessment: json.skillAssessments?.[0] ? {
+      score: numberOrNull(json.skillAssessments[0].totalScore),
+      humanReviewStatus: String(json.skillAssessments[0].humanReviewStatus ?? 'NOT_REQUESTED'),
+    } : null,
+    routeCompetencies: list(json.routeCompetencies).filter(Boolean).map((item) => ({
+      routeFamily: String(item.routeFamily ?? ''),
+      score: numberOrNull(item.score),
+      status: String(item.status ?? 'NOT_ASSESSED'),
+      passedAt: item.passedAt ? String(item.passedAt) : null,
+      expiresAt: item.expiresAt ? String(item.expiresAt) : null,
+    })),
+    firstAid: json.firstAidRecords?.[0] ? {
+      certificateStatus: String(json.firstAidRecords[0].certificateStatus ?? 'NOT_PROVIDED'),
+      theoryScore: numberOrNull(json.firstAidRecords[0].theoryScore),
+      practicalVerificationStatus: String(json.firstAidRecords[0].practicalVerificationStatus ?? 'NOT_ASSESSED'),
+      expiresAt: json.firstAidRecords[0].expiresAt ? String(json.firstAidRecords[0].expiresAt) : null,
+    } : null,
   };
 }
 

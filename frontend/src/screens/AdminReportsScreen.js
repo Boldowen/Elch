@@ -28,7 +28,7 @@ export default function AdminReportsScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.root}>
       <ScreenHeader title={t('adminReports.title')} onBack={() => navigation.goBack()} />
-      <StateBox loading={loading} error={error} empty={!items.length} emptyText={t('adminReports.empty')}>
+      <StateBox onRetry={load} loading={loading} error={error} empty={!items.length} emptyText={t('adminReports.empty')}>
         <FlatList data={items} keyExtractor={(item) => item.id} contentContainerStyle={styles.body} renderItem={({ item }) => (
           <View style={styles.card}>
             <Text style={styles.title}>{item.reason} · {item.targetType}</Text>

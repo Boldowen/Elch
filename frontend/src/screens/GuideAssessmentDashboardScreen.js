@@ -171,7 +171,7 @@ export default function GuideAssessmentDashboardScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.root} edges={['top']}>
       <ScreenHeader title={t('assessment.title')} onBack={() => navigation.goBack()} right={refreshAction} />
-      <StateBox loading={loading} error={error && !dashboard} empty={!dashboard} emptyText={t('assessment.profileRequired')}>
+      <StateBox onRetry={() => load(true)} loading={loading} error={error && !dashboard} empty={!dashboard} emptyText={t('assessment.profileRequired')}>
         <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
           <View style={styles.hero}>
             <Text style={styles.eyebrow}>{t('assessment.researchPrescreen')}</Text>

@@ -2,6 +2,21 @@ import { api } from '../services/api';
 import { mapGuide } from '../models';
 
 export const guidesRepository = {
+  async availability(id) {
+    const { data } = await api.get(`/guides/${encodeURIComponent(id)}/availability`);
+    return data;
+  },
+
+  async ownAvailability() {
+    const { data } = await api.get('/guides/me/availability');
+    return data;
+  },
+
+  async saveAvailability(slots) {
+    const { data } = await api.patch('/guides/me/availability', { slots });
+    return data;
+  },
+
   async all() {
     const { data } = await api.get('/guides');
     return (data || []).map(mapGuide);

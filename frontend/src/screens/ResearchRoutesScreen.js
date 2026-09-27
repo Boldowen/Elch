@@ -95,6 +95,11 @@ export default function ResearchRoutesScreen({ navigation }) {
     travelHours: t('research.travelHours'),
     blocking: t('research.blocking'),
     warning: t('research.warning'),
+    unsolvableTitle: t('research.unsolvableTitle'),
+    statusFEASIBLE: t('research.statusFEASIBLE'),
+    statusREPAIRABLE: t('research.statusREPAIRABLE'),
+    statusREQUIRES_EXTERNAL_APPROVAL: t('research.statusREQUIRES_EXTERNAL_APPROVAL'),
+    statusUNSOLVABLE: t('research.statusUNSOLVABLE'),
   }), [t]);
 
   const starterPrompts = useMemo(() => [
@@ -213,6 +218,9 @@ export default function ResearchRoutesScreen({ navigation }) {
       const result = await routesRepository.validate({
         routeId,
         startDate: nextResearchDate(),
+        // One stop per day, bounded by the route's own recommended length so the
+        // preview is checked against a trip someone would actually book.
+        maxDays: Math.max(selected.poiIds.length, selected.recommendedDays?.max || 0),
         stops: selected.poiIds.map((poiId, index) => ({
           poiId,
           day: index + 1,

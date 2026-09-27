@@ -10,13 +10,17 @@ const KEYS = {
 };
 
 let memorySession = null;
+let webRefreshToken = null;
+const sessionListeners = new Set();
 const memoryCache = new Map();
 const memoryPrefs = {};
 
 async function setRefreshToken(value) {
   if (Platform.OS === 'web') {
-    if (value) await AsyncStorage.setItem(KEYS.refreshToken, value);
-    else await AsyncStorage.removeItem(KEYS.refreshToken);
+    // Browsers have no SecureStore. Keep the web session in memory and remove
+    // tokens persisted by older builds instead of using unencrypted storage.
+    webRefreshToken = value || null;
+    await AsyncStorage.removeItem(KEYS.refreshToken);
     return;
   }
   if (value) await SecureStore.setItemAsync(KEYS.refreshToken, value);
@@ -25,7 +29,7 @@ async function setRefreshToken(value) {
 
 async function getRefreshToken() {
   return Platform.OS === 'web'
-    ? AsyncStorage.getItem(KEYS.refreshToken)
+    ? webRefreshToken
     : SecureStore.getItemAsync(KEYS.refreshToken);
 }
 
@@ -36,6 +40,19 @@ export const storage = {
       setRefreshToken(session?.refreshToken),
       AsyncStorage.setItem(KEYS.session, JSON.stringify({ user: session?.user ?? null })),
     ]);
+    sessionListeners.forEach((listener) => listener(memorySession));
+  },
+
+  subscribeSession(listener) {
+    sessionListeners.add(listener);
+    return () => sessionListeners.delete(listener);
+  },
+
+  async updateSessionUser(user, expectedUserId) {
+    if (!memorySession || memorySession.user?.id !== expectedUserId) return null;
+    const next = { ...memorySession, user };
+    await this.saveSession(next);
+    return next;
   },
 
   async readSession() {
@@ -49,7 +66,11 @@ export const storage = {
       const persisted = JSON.parse(raw);
       // One-time migration from the MVP format, which persisted both tokens in
       // AsyncStorage. The rewritten value contains public user data only.
-      const refreshToken = storedRefreshToken ?? persisted.refreshToken;
+      const refreshToken = Platform.OS === 'web' ? webRefreshToken : storedRefreshToken ?? persisted.refreshToken;
+      if (persisted.accessToken || persisted.refreshToken || Platform.OS === 'web') {
+        await AsyncStorage.setItem(KEYS.session, JSON.stringify({ user: persisted.user ?? null }));
+      }
+      if (Platform.OS === 'web') await AsyncStorage.removeItem(KEYS.refreshToken);
       if (!refreshToken) return null;
       if (!storedRefreshToken && persisted.refreshToken) {
         await Promise.all([
@@ -71,6 +92,7 @@ export const storage = {
 
   async clearSession() {
     memorySession = null;
+    sessionListeners.forEach((listener) => listener(null));
     await Promise.all([AsyncStorage.removeItem(KEYS.session), setRefreshToken(null)]);
   },
 
@@ -89,6 +111,10 @@ export const storage = {
     const prefs = JSON.parse(raw);
     Object.assign(memoryPrefs, prefs);
     return prefs[key] ?? null;
+  },
+
+  preferenceSync(key) {
+    return memoryPrefs[key] ?? null;
   },
 
   async cache(key, value) {

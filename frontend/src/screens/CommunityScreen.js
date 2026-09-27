@@ -171,7 +171,7 @@ export default function CommunityScreen({ navigation }) {
       <Text style={styles.title}>Community</Text>
       {feedHeader}
 
-      <StateBox loading={loading} error={error} empty={false}>
+      <StateBox onRetry={load} loading={loading} error={error} empty={false}>
         <FlatList
           data={visiblePosts}
           keyExtractor={(post) => post.id}

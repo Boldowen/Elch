@@ -75,7 +75,7 @@ export default function AdminGuideApplicationsScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.root} edges={['top']}>
       <ScreenHeader title={t('guideApplications.title')} onBack={() => navigation.goBack()} />
-      <StateBox loading={loading} error={error} empty={!items.length} emptyText={t('guideApplications.empty')}>
+      <StateBox onRetry={load} loading={loading} error={error} empty={!items.length} emptyText={t('guideApplications.empty')}>
         <FlatList
           data={items}
           keyExtractor={(item) => item.id}

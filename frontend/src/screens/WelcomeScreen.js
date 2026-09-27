@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { Animated, Easing, Pressable, ScrollView, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
+import { Animated, Easing, Platform, Pressable, ScrollView, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAuth } from '../context/AuthContext';
@@ -16,7 +16,12 @@ export default function WelcomeScreen({ navigation }) {
   const intro = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    Animated.timing(intro, { toValue: 1, duration: 650, easing: Easing.out(Easing.cubic), useNativeDriver: true }).start();
+    Animated.timing(intro, {
+      toValue: 1,
+      duration: 650,
+      easing: Easing.out(Easing.cubic),
+      useNativeDriver: Platform.OS !== 'web',
+    }).start();
   }, [intro]);
 
   const pick = (role) => {
@@ -36,7 +41,7 @@ export default function WelcomeScreen({ navigation }) {
 
         <View style={styles.hero}>
           <Animated.View style={{ opacity: intro, transform: [{ scale: intro.interpolate({ inputRange: [0, 1], outputRange: [0.9, 1] }) }] }}>
-            <Globe size={globeSize} />
+            <Globe size={globeSize} accessibilityLabel={t('welcome.globeLabel')} />
           </Animated.View>
           <Animated.View style={[styles.copy, { opacity: intro, transform: [{ translateY: intro.interpolate({ inputRange: [0, 1], outputRange: [20, 0] }) }] }]}>
             <Text style={styles.title}>{t('welcome.title')}</Text>
@@ -45,17 +50,37 @@ export default function WelcomeScreen({ navigation }) {
         </View>
 
         <View style={styles.row}>
-          <RoleCard icon="⌖" title={t('welcome.travel')} subtitle={t('welcome.travelSub')} accent onPress={() => pick('traveler')} />
-          <RoleCard icon="⌁" title={t('welcome.guide')} subtitle={t('welcome.guideSub')} onPress={() => pick('guide')} />
+          <RoleCard icon="⌖" title={t('welcome.travel')} subtitle={t('welcome.travelSub')} continueLabel={t('welcome.continue')} accent onPress={() => pick('traveler')} />
+          <RoleCard icon="⌁" title={t('welcome.guide')} subtitle={t('welcome.guideSub')} continueLabel={t('welcome.continue')} onPress={() => pick('guide')} />
         </View>
       </ScrollView>
     </SafeAreaView>
   );
 }
 
-function Globe({ size }) {
+function Globe({ size, accessibilityLabel }) {
+  if (Platform.OS === 'web') {
+    const planetSize = Math.round(size * 0.82);
+    return (
+      <View
+        accessibilityRole="image"
+        accessibilityLabel={accessibilityLabel}
+        style={[styles.globeWrap, { width: size, height: size }]}
+      >
+        <View style={[styles.webGlobe, { width: planetSize, height: planetSize, borderRadius: planetSize / 2 }]}>
+          <View style={[styles.webGlobeShine, { borderRadius: planetSize / 2 }]} />
+          <View style={[styles.webLand, styles.webLandNorth]} />
+          <View style={[styles.webLand, styles.webLandCentral]} />
+          <View style={[styles.webLand, styles.webLandSouth]} />
+          <View style={styles.webMarkerHalo}>
+            <View style={styles.webMarker} />
+          </View>
+        </View>
+      </View>
+    );
+  }
   return (
-    <View accessibilityRole="adjustable" accessibilityLabel="Interactive 3D globe. Drag to rotate." style={[styles.globeWrap, { width: size, height: size }]}>
+    <View accessibilityRole="adjustable" accessibilityLabel={accessibilityLabel} style={[styles.globeWrap, { width: size, height: size }]}>
       <WebView
         originWhitelist={['*']}
         source={{ html: globeHtml(EARTH_TEXTURE) }}
@@ -98,20 +123,20 @@ function globeHtml(textureUrl) {
   </script></body></html>`;
 }
 
-function RoleCard({ icon, title, subtitle, accent, onPress }) {
+function RoleCard({ icon, title, subtitle, continueLabel, accent, onPress }) {
   return (
     <Pressable onPress={onPress} accessibilityRole="button" style={({ pressed }) => [styles.card, accent ? styles.cardAccent : styles.cardMuted, pressed && styles.cardPressed]}>
       <View style={[styles.cardIcon, accent ? styles.cardIconAccent : styles.cardIconMuted]}><Text style={styles.cardIconText}>{icon}</Text></View>
       <Text style={styles.cardTitle}>{title}</Text>
       <Text style={[styles.cardSub, accent && styles.cardSubAccent]}>{subtitle}</Text>
-      <Text style={[styles.continueText, accent && styles.continueAccent]}>Continue  →</Text>
+      <Text style={[styles.continueText, accent && styles.continueAccent]}>{continueLabel}  →</Text>
     </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
-  root: { flex: 1, backgroundColor: colors.introBackground },
-  content: { flexGrow: 1, paddingHorizontal: spacing.xl, paddingTop: 8, paddingBottom: spacing.xl },
+  root: { flex: 1, overflow: 'hidden', backgroundColor: colors.introBackground },
+  content: { width: '100%', maxWidth: 1120, alignSelf: 'center', flexGrow: 1, paddingHorizontal: spacing.xl, paddingTop: 8, paddingBottom: spacing.xl },
   ambientTop: { position: 'absolute', width: 280, height: 280, borderRadius: 140, top: -170, right: -120, backgroundColor: 'rgba(35,93,160,0.12)' },
   ambientBottom: { position: 'absolute', width: 240, height: 240, borderRadius: 120, bottom: -150, left: -130, backgroundColor: 'rgba(255,90,60,0.08)' },
   logoRow: { flexDirection: 'row', alignItems: 'center', gap: 10, zIndex: 2 },
@@ -120,6 +145,14 @@ const styles = StyleSheet.create({
   logoText: { color: colors.introAccent, fontSize: 21, fontWeight: '700', letterSpacing: -0.5 },
   hero: { flex: 1, justifyContent: 'center', paddingVertical: 6 },
   globeWrap: { alignSelf: 'center', alignItems: 'center', justifyContent: 'center' },
+  webGlobe: { position: 'relative', overflow: 'hidden', backgroundColor: '#315D89', borderWidth: 1, borderColor: 'rgba(158,207,255,0.65)', shadowColor: '#4599F2', shadowOpacity: 0.42, shadowRadius: 32, shadowOffset: { width: -8, height: 8 } },
+  webGlobeShine: { position: 'absolute', width: '86%', height: '86%', top: '-18%', left: '-20%', backgroundColor: 'rgba(203,229,255,0.25)' },
+  webLand: { position: 'absolute', backgroundColor: '#7694A8', opacity: 0.92 },
+  webLandNorth: { width: '48%', height: '25%', top: '18%', left: '38%', borderRadius: 999, transform: [{ rotate: '-14deg' }] },
+  webLandCentral: { width: '34%', height: '31%', top: '39%', left: '24%', borderRadius: 999, transform: [{ rotate: '24deg' }] },
+  webLandSouth: { width: '20%', height: '29%', top: '61%', left: '52%', borderRadius: 999, transform: [{ rotate: '-18deg' }] },
+  webMarkerHalo: { position: 'absolute', width: 24, height: 24, top: '35%', left: '60%', borderRadius: 12, borderWidth: 2, borderColor: 'rgba(255,123,93,0.68)', alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(255,90,60,0.12)' },
+  webMarker: { width: 9, height: 9, borderRadius: 5, backgroundColor: colors.introAccent },
   globeWebContainer: { flex: 1, width: '100%', height: '100%', backgroundColor: 'transparent' },
   globeWebView: { flex: 1, width: '100%', height: '100%', backgroundColor: 'transparent' },
   copy: { marginTop: 2 },

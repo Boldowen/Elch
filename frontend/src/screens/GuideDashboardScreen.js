@@ -91,7 +91,7 @@ export default function GuideDashboardScreen({ navigation }) {
   return (
     <SafeAreaView style={styles.root} edges={['top']}>
       <ScreenHeader title="Guide workspace" onBack={() => navigation.goBack()} />
-      <StateBox loading={loading} error={error}>
+      <StateBox onRetry={load} loading={loading} error={error}>
         <ScrollView contentContainerStyle={styles.body}>
           {profile ? (
             <>
@@ -117,6 +117,7 @@ export default function GuideDashboardScreen({ navigation }) {
                 <Text style={styles.value}>{profile.completedTrips ?? 0}</Text>
               </View>
               <Text style={styles.bio}>{profile.bio}</Text>
+              <AppButton title={t('calendar.title')} variant="secondary" onPress={() => navigation.navigate('GuideAvailability')} style={{ marginBottom: 10 }} />
               <AppButton
                 title={t('assessment.openDashboard')}
                 onPress={() => navigation.navigate('GuideAssessments')}

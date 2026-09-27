@@ -172,7 +172,7 @@ export default function AdminAssessmentReviewScreen({ navigation }) {
             </View>
           </ScrollView>
         ) : (
-          <StateBox loading={loading} error={error} empty={!items.length} emptyText={t('blindReview.empty')}>
+          <StateBox onRetry={() => load(true)} loading={loading} error={error} empty={!items.length} emptyText={t('blindReview.empty')}>
             <ScrollView contentContainerStyle={styles.list} refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => load(true)} />}>
               <View style={styles.blindNotice}>
                 <Ionicons name="eye-off-outline" size={23} color={colors.brand} />

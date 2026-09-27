@@ -65,6 +65,7 @@ export default function InboxScreen({ navigation }) {
     <SafeAreaView style={styles.root} edges={['top']}>
       <Text style={styles.title}>Inbox</Text>
       <StateBox
+        onRetry={load}
         loading={loading}
         error={error}
         empty={!items.length}

@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { AppButton } from '../components/ui';
 import { useAuth } from '../context/AuthContext';
 import { useT } from '../localization';
+import { useFeatures } from '../services/features';
 import { colors, radius, spacing } from '../theme';
 import { useHideTabBarOnScroll } from '../navigation/useHideTabBarOnScroll';
 
@@ -23,6 +24,7 @@ export default function ProfileScreen({ navigation }) {
   const onScroll = useHideTabBarOnScroll();
   const { session, logout, language, setLanguage } = useAuth();
   const { t } = useT();
+  const features = useFeatures();
 
   if (!session) {
     return (
@@ -38,12 +40,13 @@ export default function ProfileScreen({ navigation }) {
   }
 
   const user = session.user;
+  const available = LINKS.filter((link) => link.route !== 'GuideRanking' || features.guideRanking);
   const links = user.roles?.includes('ADMIN')
     ? [
         { key: 'admin.title', route: 'AdminWorkspace' },
-        ...LINKS,
+        ...available,
       ]
-    : LINKS;
+    : available.filter((link) => link.route !== 'GuideDashboard' || user.roles?.includes('GUIDE'));
   return (
     <SafeAreaView style={styles.root} edges={['top']}>
       <ScrollView contentContainerStyle={{ paddingBottom: 120 }} onScroll={onScroll} scrollEventThrottle={16}>
@@ -84,7 +87,7 @@ const styles = StyleSheet.create({
   email: { color: colors.inkSoft, marginTop: 4 },
   roles: { color: colors.brand, marginTop: 6, fontWeight: '600', fontSize: 13 },
   langRow: { gap: 8, paddingHorizontal: spacing.lg, paddingBottom: 14 },
-  lang: { minWidth: 48, minHeight: 40, paddingHorizontal: 12, borderRadius: radius.pill, backgroundColor: colors.secondary, alignItems: 'center', justifyContent: 'center' },
+  lang: { minWidth: 48, minHeight: 44, paddingHorizontal: 12, borderRadius: radius.pill, backgroundColor: colors.secondary, alignItems: 'center', justifyContent: 'center' },
   langActive: { backgroundColor: colors.ink },
   langText: { fontWeight: '700', color: colors.ink, fontSize: 12 },
   langTextActive: { color: colors.white },

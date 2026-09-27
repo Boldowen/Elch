@@ -180,7 +180,9 @@ export function GuideCard({ item, onPress }) {
   );
 }
 
-export function StateBox({ loading, error, empty, emptyText, children }) {
+/** A failed load leaves the screen with nothing to act on, so when the caller
+ * can reload it, offer that instead of a dead end. */
+export function StateBox({ loading, error, empty, emptyText, onRetry, children }) {
   if (loading) {
     return (
       <View style={styles.stateBox} accessibilityLiveRegion="polite">
@@ -192,9 +194,11 @@ export function StateBox({ loading, error, empty, emptyText, children }) {
     return (
       <View style={styles.stateBox} accessibilityLiveRegion="assertive">
         <Text style={styles.errorText}>{error}</Text>
+        {onRetry ? <RetryButton onPress={onRetry} style={styles.stateAction} /> : null}
       </View>
     );
   }
+  // An empty result is an answer, not a dead end, so it keeps its plain copy.
   if (empty) {
     return (
       <View style={styles.stateBox} accessibilityLiveRegion="polite">
@@ -203,6 +207,18 @@ export function StateBox({ loading, error, empty, emptyText, children }) {
     );
   }
   return children;
+}
+
+export function RetryButton({ onPress, style }) {
+  const { t } = useT();
+  return (
+    <AppButton
+      title={t('common.retry')}
+      variant="secondary"
+      onPress={onPress}
+      style={[styles.retryButton, style]}
+    />
+  );
 }
 
 export function ScreenHeader({ title, onBack, right }) {
@@ -238,7 +254,8 @@ const styles = StyleSheet.create({
     letterSpacing: -0.3,
   },
   btn: {
-    height: 52,
+    minHeight: 52,
+    paddingVertical: 12,
     borderRadius: radius.lg,
     alignItems: 'center',
     justifyContent: 'center',
@@ -260,7 +277,8 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
   input: {
-    height: 52,
+    minHeight: 52,
+    paddingVertical: 12,
     borderRadius: radius.md,
     backgroundColor: colors.secondary,
     paddingHorizontal: 14,
@@ -269,6 +287,8 @@ const styles = StyleSheet.create({
   },
   inputMultiline: { minHeight: 96, paddingTop: 14, textAlignVertical: 'top' },
   chip: {
+    minHeight: 44,
+    justifyContent: 'center',
     paddingHorizontal: 14,
     paddingVertical: 8,
     borderRadius: radius.pill,
@@ -330,6 +350,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   errorText: { color: colors.brand, textAlign: 'center', paddingHorizontal: 24 },
+  stateAction: { marginTop: spacing.lg },
+  retryButton: { minWidth: 160, paddingHorizontal: 24 },
   header: {
     flexDirection: 'row',
     alignItems: 'center',

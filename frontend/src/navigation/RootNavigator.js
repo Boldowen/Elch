@@ -1,12 +1,13 @@
 import React, { useEffect, useRef } from 'react';
-import { Animated, Easing, StyleSheet } from 'react-native';
-import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
+import { Animated, Easing, Platform, StyleSheet } from 'react-native';
+import { NavigationContainer, DefaultTheme, createNavigationContainerRef } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { BottomTabBar, createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from '../context/AuthContext';
 import { colors } from '../theme';
 import { useT } from '../localization';
+import { useFeatures } from '../services/features';
 import { TabBarVisibilityProvider, useTabBarVisibility } from './TabBarVisibilityContext';
 
 import WelcomeScreen from '../screens/WelcomeScreen';
@@ -31,6 +32,7 @@ import PaymentMethodsScreen from '../screens/PaymentMethodsScreen';
 import HelpCenterScreen from '../screens/HelpCenterScreen';
 import GuideRegistrationScreen from '../screens/GuideRegistrationScreen';
 import GuideDashboardScreen from '../screens/GuideDashboardScreen';
+import GuideAvailabilityScreen from '../screens/GuideAvailabilityScreen';
 import GuideProfileEditScreen from '../screens/GuideProfileEditScreen';
 import GuideRankingScreen from '../screens/GuideRankingScreen';
 import SafetyScreen from '../screens/SafetyScreen';
@@ -51,6 +53,7 @@ import AdminGuideEvidenceScreen from '../screens/AdminGuideEvidenceScreen';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+const navigationRef = createNavigationContainerRef();
 
 const navTheme = {
   ...DefaultTheme,
@@ -85,13 +88,13 @@ function AnimatedTabBar(props) {
         toValue: visible ? 0 : 110,
         duration: 280,
         easing: Easing.out(Easing.cubic),
-        useNativeDriver: true,
+        useNativeDriver: Platform.OS !== 'web',
       }),
       Animated.timing(opacity, {
         toValue: visible ? 1 : 0,
         duration: 220,
         easing: Easing.out(Easing.cubic),
-        useNativeDriver: true,
+        useNativeDriver: Platform.OS !== 'web',
       }),
     ]).start();
   }, [opacity, translateY, visible]);
@@ -109,6 +112,7 @@ function AnimatedTabBar(props) {
 function Tabs() {
   const { t } = useT();
   const { setVisible } = useTabBarVisibility();
+  const features = useFeatures();
   const labels = {
     Explore: t('nav.explore'),
     Community: t('nav.community'),
@@ -140,7 +144,7 @@ function Tabs() {
       })}
     >
       <Tab.Screen name="Explore" component={ExploreScreen} />
-      <Tab.Screen name="Community" component={CommunityScreen} />
+      {features.community ? <Tab.Screen name="Community" component={CommunityScreen} /> : null}
       <Tab.Screen name="Trips" component={TripsScreen} />
       <Tab.Screen name="Inbox" component={InboxScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
@@ -167,12 +171,22 @@ const styles = StyleSheet.create({
 });
 
 export default function RootNavigator() {
-  const { session, booting } = useAuth();
+  const { session, booting, sessionExpired } = useAuth();
+  const previousSession = useRef(session);
+  const isAdmin = Boolean(session?.user?.roles?.includes('ADMIN'));
+
+  useEffect(() => {
+    if (!booting && navigationRef.isReady() && !session && (previousSession.current || sessionExpired)) {
+      navigationRef.resetRoot({ index: 0, routes: [{ name: 'Auth', params: { mode: 'login' } }] });
+    }
+    previousSession.current = session;
+  }, [booting, session, sessionExpired]);
 
   if (booting) return null;
 
   return (
     <NavigationContainer
+      ref={navigationRef}
       theme={navTheme}
       linking={{ prefixes: ['elch://'], config: { screens: { VerifyEmail: 'verify-email', ResetPassword: 'reset-password' } } }}
     >
@@ -191,14 +205,14 @@ export default function RootNavigator() {
         <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
         <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />
         <Stack.Screen name="ListingDetail" component={ListingDetailScreen} />
-        <Stack.Screen name="Booking" component={BookingScreen} />
+        {session ? <Stack.Screen name="Booking" component={BookingScreen} /> : null}
         <Stack.Screen
           name="CategoryListing"
           component={CategoryListingScreen}
         />
         <Stack.Screen name="Guides" component={GuidesScreen} />
         <Stack.Screen name="GuideDetail" component={GuideDetailScreen} />
-        <Stack.Screen name="Chat" component={ChatScreen} />
+        {session ? <Stack.Screen name="Chat" component={ChatScreen} /> : null}
         <Stack.Screen
           name="AccountSettings"
           component={AccountSettingsScreen}
@@ -221,14 +235,16 @@ export default function RootNavigator() {
           name="GuideProfileEdit"
           component={GuideProfileEditScreen}
         />
+        {session ? <Stack.Screen name="GuideAvailability" component={GuideAvailabilityScreen} /> : null}
         <Stack.Screen name="GuideRanking" component={GuideRankingScreen} />
         <Stack.Screen name="Safety" component={SafetyScreen} />
-        <Stack.Screen name="AdminGuideApplications" component={AdminGuideApplicationsScreen} />
-        <Stack.Screen name="AdminReports" component={AdminReportsScreen} />
-        <Stack.Screen name="CreateReview" component={CreateReviewScreen} />
+        {isAdmin ? <Stack.Screen name="AdminGuideApplications" component={AdminGuideApplicationsScreen} /> : null}
+        {isAdmin ? <Stack.Screen name="AdminReports" component={AdminReportsScreen} /> : null}
+        {session ? <Stack.Screen name="CreateReview" component={CreateReviewScreen} /> : null}
         <Stack.Screen name="ResearchRoutes" component={ResearchRoutesScreen} />
         <Stack.Screen name="GuideAssessments" component={GuideAssessmentDashboardScreen} />
         <Stack.Screen name="AssessmentSession" component={AssessmentSessionScreen} />
+        {isAdmin ? <Stack.Group>
         <Stack.Screen name="ResearchDashboard" component={ResearchDashboardScreen} />
         <Stack.Screen name="AdminWorkspace" component={AdminWorkspaceScreen} />
         <Stack.Screen name="AdminKnowledge" component={AdminKnowledgeScreen} />
@@ -237,6 +253,7 @@ export default function RootNavigator() {
         <Stack.Screen name="AdminRouteGraph" component={AdminRouteGraphScreen} />
         <Stack.Screen name="AdminSafetyPlans" component={AdminSafetyPlansScreen} />
         <Stack.Screen name="AdminGuideEvidence" component={AdminGuideEvidenceScreen} />
+        </Stack.Group> : null}
       </Stack.Navigator>
     </NavigationContainer>
   );

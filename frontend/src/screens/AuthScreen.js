@@ -42,9 +42,10 @@ export default function AuthScreen({ navigation, route }) {
   };
 
   const submit = async () => {
+    if (loading || providerLoading) return;
     clearError?.();
     if (!email.trim() || !password) return Alert.alert('Missing fields', 'Email and password are required.');
-    if (isRegister && name.trim().length < 2) return Alert.alert('Check your name', 'Please enter your full name.');
+    if (isRegister && (name.trim().length < 2 || name.trim().length > 100)) return Alert.alert('Check your name', 'Please enter your full name.');
     if (password.length < 8) return Alert.alert('Weak password', 'Password must be at least 8 characters.');
     if (isRegister && password !== confirm) return Alert.alert('Passwords do not match', 'Enter the same password in both fields.');
     const ok = isRegister ? await register(name.trim(), email.trim(), password) : await login(email.trim(), password);
@@ -74,10 +75,10 @@ export default function AuthScreen({ navigation, route }) {
           <Text style={styles.title}>{isRegister ? t('auth.create') : t('auth.welcome')}</Text>
           <Text style={styles.sub}>{pendingRole === 'guide' ? t('auth.guide') : t('auth.traveler')}</Text>
           {pendingRole === 'guide' ? <Text style={styles.rolePill}>{t('welcome.guide')}</Text> : null}
-          {error ? <View style={styles.errorBox}><Text style={styles.error}>{error}</Text></View> : null}
+          {error ? <View style={styles.errorBox} accessibilityLiveRegion="assertive"><Text style={styles.error}>{error}</Text></View> : null}
 
           <View style={styles.form}>
-            {isRegister ? <AppInput label={t('auth.name')} value={name} onChangeText={setName} autoCapitalize="words" placeholder="Your full name" /> : null}
+            {isRegister ? <AppInput label={t('auth.name')} value={name} onChangeText={setName} autoCapitalize="words" maxLength={100} placeholder="Your full name" /> : null}
             <AppInput label={t('auth.email')} value={email} onChangeText={setEmail} keyboardType="email-address" autoComplete="email" placeholder="traveler@elch.mn" />
             <View>
               <AppInput label={t('auth.password')} value={password} onChangeText={setPassword} secureTextEntry={!showPassword} autoComplete={isRegister ? 'new-password' : 'current-password'} placeholder="At least 8 characters" />
@@ -147,7 +148,7 @@ function GoogleButton({ loading = false, disabled = false, onPress }) {
 const styles = StyleSheet.create({
   fill: { flex: 1 }, root: { flex: 1, backgroundColor: colors.white },
   content: { paddingHorizontal: spacing.xl, paddingTop: 8, paddingBottom: 40 },
-  backButton: { width: 38, height: 38, borderRadius: 19, backgroundColor: colors.secondary, alignItems: 'center', justifyContent: 'center' },
+  backButton: { width: 44, height: 44, borderRadius: 19, backgroundColor: colors.secondary, alignItems: 'center', justifyContent: 'center' },
   back: { fontSize: 30, lineHeight: 31, color: colors.ink, marginTop: -2 }, brand: { marginTop: 24, marginBottom: 24 },
   title: { fontSize: 28, fontWeight: '700', color: colors.ink, letterSpacing: -0.7 }, sub: { color: colors.inkSoft, marginTop: 6, fontSize: 15, lineHeight: 21 },
   rolePill: { alignSelf: 'flex-start', marginTop: 10, borderRadius: radius.pill, paddingHorizontal: 11, paddingVertical: 6, overflow: 'hidden', backgroundColor: '#FFF0F3', color: colors.brand, fontSize: 12, fontWeight: '700' },

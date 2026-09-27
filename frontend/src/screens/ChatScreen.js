@@ -72,7 +72,7 @@ export default function ChatScreen({ navigation, route }) {
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         keyboardVerticalOffset={8}
       >
-        <StateBox loading={loading} error={error}>
+        <StateBox onRetry={load} loading={loading} error={error}>
           <FlatList
             data={messages}
             keyExtractor={(m) => m.id}
