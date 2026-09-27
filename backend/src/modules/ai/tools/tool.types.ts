@@ -1,3 +1,5 @@
+import type { z } from 'zod';
+
 export type ControlledToolName =
   | 'searchDestinations'
   | 'getDestinationDetails'
@@ -27,4 +29,12 @@ export interface AiToolResult {
   tool: ControlledToolName;
   data: unknown;
   truncated: boolean;
+}
+
+export interface ControlledToolDefinition {
+  name: ControlledToolName;
+  description: string;
+  schema: z.ZodType;
+  /** Drop explicit nulls (strict-mode placeholders for optional fields) before execute(). */
+  compact: boolean;
 }

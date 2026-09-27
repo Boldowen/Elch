@@ -7,7 +7,8 @@ import {
   ServiceUnavailableException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { tool } from 'ai';
+import type Anthropic from '@anthropic-ai/sdk';
+import { tool, type ToolSet } from 'ai';
 import { z } from 'zod';
 import { PrismaService } from '../../../prisma/prisma.service.js';
 import { BookingsService } from '../../bookings/bookings.service.js';
@@ -17,7 +18,7 @@ import {
   validateBookingDraftToolArgs,
   ValidatedBookingDraftToolArgs,
 } from './create-booking-draft-tool.dto.js';
-import { AiToolContext, AiToolResult, ControlledToolName } from './tool.types.js';
+import { AiToolContext, AiToolResult, ControlledToolDefinition, ControlledToolName } from './tool.types.js';
 import { LiveDataService } from '../live/live-data.service.js';
 import {
   permitQuerySchema,
@@ -131,121 +132,93 @@ export class ToolRegistryService {
   ) {}
 
   /**
-   * The model sees only this fixed, typed allow-list. Every execute path calls
-   * execute() again so authorization and server-side validation are enforced
+   * The model sees only this fixed, typed allow-list, in a stable name order so
+   * provider prompt caches keep hitting. Every execute path calls execute()
+   * again so authorization and server-side validation are enforced
    * independently of the model/provider schema validation.
    */
-  aiSdkTools(context: AiToolContext) {
-    return {
-      searchDestinations: tool({
-        description: 'Search sourced destinations and route nodes. Results are catalog records, not proof of current access.',
-        inputSchema: destinationSearchSchema,
+  toolDefinitions(): ControlledToolDefinition[] {
+    const definitions: ControlledToolDefinition[] = [
+      { name: 'searchDestinations', compact: true, schema: destinationSearchSchema,
+        description: 'Search sourced destinations and route nodes. Results are catalog records, not proof of current access.' },
+      { name: 'getDestinationDetails', compact: false, schema: detailsSchema,
+        description: 'Read sourced destination records and the research routes containing them.' },
+      { name: 'searchRoutes', compact: true, schema: searchSchema,
+        description: 'Search the verified Mongolia research route catalog. This does not confirm availability.' },
+      { name: 'getRouteDetails', compact: false, schema: detailsSchema,
+        description: 'Read one research route and its sourced nodes, edges, guide requirements and risk class.' },
+      { name: 'validateRoute', compact: true, schema: itinerarySchema,
+        description: 'Run the deterministic preflight route validator. A valid result is not a booking or safety clearance.' },
+      { name: 'searchTours', compact: true, schema: searchSchema,
+        description: 'Search currently published tour/listing records. Prices are database values, not a reservation.' },
+      { name: 'getTourDetails', compact: false, schema: detailsSchema,
+        description: 'Read the public projection of one currently published tour/listing.' },
+      { name: 'searchGuides', compact: true, schema: guideSearchSchema,
+        description: 'Search only approved and verified public guide profiles.' },
+      { name: 'getGuideDetails', compact: false, schema: detailsSchema,
+        description: 'Read the public projection of one approved and verified guide.' },
+      { name: 'getGuideAvailability', compact: false, schema: availabilitySchema,
+        description: 'Check a verified guide for overlapping application bookings in a bounded date range. The result is a snapshot, not a reservation.' },
+      { name: 'getGuideCompetency', compact: true, schema: guideCompetencySchema,
+        description: 'Read only current human/document-verified guide competency evidence for an optional route and language.' },
+      { name: 'matchGuides', compact: true, schema: guideMatchSchema,
+        description: 'Apply database-owned hard eligibility gates before explainable ranking. Rating cannot override a failed safety gate.' },
+      { name: 'getTourAvailability', compact: false, schema: tourAvailabilitySchema,
+        description: 'Check current listing inventory for a bounded date range. The snapshot does not reserve inventory or confirm a booking.' },
+      { name: 'getLiveWeather', compact: false, schema: weatherQuerySchema,
+        description: 'Fetch current/forecast weather for coordinates inside Mongolia from the configured verified live provider.' },
+      { name: 'getRoadClosures', compact: false, schema: roadClosureQuerySchema,
+        description: 'Fetch verified current road restriction/closure records. An empty result means no incidents returned, not proof a road is safe.' },
+      { name: 'getPermitRequirements', compact: false, schema: permitQuerySchema,
+        description: 'Fetch current permit/access requirements for a route, nationality and date. Unknown is not permission.' },
+      { name: 'searchTransportAvailability', compact: false, schema: transportQuerySchema,
+        description: 'Search verified live flight or ground-transport offers. Results can expire and do not reserve seats.' },
+      { name: 'createBookingDraft', compact: true, schema: bookingDraftSchema,
+        description: 'Create an inert booking DRAFT only after the authenticated user explicitly asks for a draft and supplies complete details. Never confirms, submits, pays or reserves.' },
+    ];
+    return definitions.sort((left, right) => left.name.localeCompare(right.name));
+  }
+
+  aiSdkTools(context: AiToolContext): ToolSet {
+    return Object.fromEntries(this.toolDefinitions().map((definition) => [
+      definition.name,
+      tool({
+        description: definition.description,
+        inputSchema: definition.schema,
         strict: true,
-        execute: (input) => this.execute('searchDestinations', this.compactNullable(input), context),
+        execute: (input: unknown) => this.execute(definition.name, this.prepareArgs(definition, input), context),
       }),
-      getDestinationDetails: tool({
-        description: 'Read sourced destination records and the research routes containing them.',
-        inputSchema: detailsSchema,
-        strict: true,
-        execute: (input) => this.execute('getDestinationDetails', input, context),
-      }),
-      searchRoutes: tool({
-        description: 'Search the verified Mongolia research route catalog. This does not confirm availability.',
-        inputSchema: searchSchema,
-        strict: true,
-        execute: (input) => this.execute('searchRoutes', this.compactNullable(input), context),
-      }),
-      getRouteDetails: tool({
-        description: 'Read one research route and its sourced nodes, edges, guide requirements and risk class.',
-        inputSchema: detailsSchema,
-        strict: true,
-        execute: (input) => this.execute('getRouteDetails', input, context),
-      }),
-      validateRoute: tool({
-        description: 'Run the deterministic preflight route validator. A valid result is not a booking or safety clearance.',
-        inputSchema: itinerarySchema,
-        strict: true,
-        execute: (input) => this.execute('validateRoute', this.compactNullable(input), context),
-      }),
-      searchTours: tool({
-        description: 'Search currently published tour/listing records. Prices are database values, not a reservation.',
-        inputSchema: searchSchema,
-        strict: true,
-        execute: (input) => this.execute('searchTours', this.compactNullable(input), context),
-      }),
-      getTourDetails: tool({
-        description: 'Read the public projection of one currently published tour/listing.',
-        inputSchema: detailsSchema,
-        strict: true,
-        execute: (input) => this.execute('getTourDetails', input, context),
-      }),
-      searchGuides: tool({
-        description: 'Search only approved and verified public guide profiles.',
-        inputSchema: guideSearchSchema,
-        strict: true,
-        execute: (input) => this.execute('searchGuides', this.compactNullable(input), context),
-      }),
-      getGuideDetails: tool({
-        description: 'Read the public projection of one approved and verified guide.',
-        inputSchema: detailsSchema,
-        strict: true,
-        execute: (input) => this.execute('getGuideDetails', input, context),
-      }),
-      getGuideAvailability: tool({
-        description: 'Check a verified guide for overlapping application bookings in a bounded date range. The result is a snapshot, not a reservation.',
-        inputSchema: availabilitySchema,
-        strict: true,
-        execute: (input) => this.execute('getGuideAvailability', input, context),
-      }),
-      getGuideCompetency: tool({
-        description: 'Read only current human/document-verified guide competency evidence for an optional route and language.',
-        inputSchema: guideCompetencySchema,
-        strict: true,
-        execute: (input) => this.execute('getGuideCompetency', this.compactNullable(input), context),
-      }),
-      matchGuides: tool({
-        description: 'Apply database-owned hard eligibility gates before explainable ranking. Rating cannot override a failed safety gate.',
-        inputSchema: guideMatchSchema,
-        strict: true,
-        execute: (input) => this.execute('matchGuides', this.compactNullable(input), context),
-      }),
-      getTourAvailability: tool({
-        description: 'Check current listing inventory for a bounded date range. The snapshot does not reserve inventory or confirm a booking.',
-        inputSchema: tourAvailabilitySchema,
-        strict: true,
-        execute: (input) => this.execute('getTourAvailability', input, context),
-      }),
-      getLiveWeather: tool({
-        description: 'Fetch current/forecast weather for coordinates inside Mongolia from the configured verified live provider.',
-        inputSchema: weatherQuerySchema,
-        strict: true,
-        execute: (input) => this.execute('getLiveWeather', input, context),
-      }),
-      getRoadClosures: tool({
-        description: 'Fetch verified current road restriction/closure records. An empty result means no incidents returned, not proof a road is safe.',
-        inputSchema: roadClosureQuerySchema,
-        strict: true,
-        execute: (input) => this.execute('getRoadClosures', input, context),
-      }),
-      getPermitRequirements: tool({
-        description: 'Fetch current permit/access requirements for a route, nationality and date. Unknown is not permission.',
-        inputSchema: permitQuerySchema,
-        strict: true,
-        execute: (input) => this.execute('getPermitRequirements', input, context),
-      }),
-      searchTransportAvailability: tool({
-        description: 'Search verified live flight or ground-transport offers. Results can expire and do not reserve seats.',
-        inputSchema: transportQuerySchema,
-        strict: true,
-        execute: (input) => this.execute('searchTransportAvailability', input, context),
-      }),
-      createBookingDraft: tool({
-        description: 'Create an inert booking DRAFT only after the authenticated user explicitly asks for a draft and supplies complete details. Never confirms, submits, pays or reserves.',
-        inputSchema: bookingDraftSchema,
-        strict: true,
-        execute: (input) => this.execute('createBookingDraft', this.compactNullable(input), context),
-      }),
-    };
+    ]));
+  }
+
+  /** Claude tool definitions derived from the same Zod schemas as aiSdkTools. */
+  anthropicTools(): Anthropic.Beta.BetaTool[] {
+    return this.toolDefinitions().map((definition) => {
+      const { $schema: _ignored, ...schema } = z.toJSONSchema(definition.schema, { io: 'input' }) as Record<string, unknown>;
+      return {
+        name: definition.name,
+        description: definition.description,
+        input_schema: { ...schema, type: 'object' } as Anthropic.Beta.BetaTool.InputSchema,
+        // Streamed inputs are not server-validated; executeModelToolCall() validates them.
+        eager_input_streaming: true,
+      };
+    });
+  }
+
+  /**
+   * Validates model-supplied input against the tool's Zod schema before
+   * executing it; the provider's own schema handling is never trusted alone.
+   */
+  async executeModelToolCall(name: string, input: unknown, context: AiToolContext): Promise<AiToolResult> {
+    const definition = this.toolDefinitions().find((candidate) => candidate.name === name);
+    if (!definition) throw new BadRequestException('Unknown or unauthorized AI tool');
+    const parsed = definition.schema.safeParse(input);
+    if (!parsed.success) throw new BadRequestException('Tool arguments failed schema validation');
+    return this.execute(definition.name, this.prepareArgs(definition, parsed.data), context);
+  }
+
+  private prepareArgs(definition: ControlledToolDefinition, input: unknown) {
+    return definition.compact ? this.compactNullable(input as Record<string, unknown>) : input;
   }
 
   async execute(name: string, args: unknown, context: AiToolContext): Promise<AiToolResult> {

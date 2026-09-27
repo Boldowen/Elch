@@ -14,10 +14,12 @@
     "prisma:migrate": "prisma migrate dev",
     "prisma:deploy": "prisma migrate deploy",
     "prisma:seed": "tsx prisma/seed.ts",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "ai:smoke": "tsx --env-file-if-exists=../.env scripts/claude-smoke.ts"
   },
   "dependencies": {
     "@ai-sdk/openai": "^4.0.50",
+    "@anthropic-ai/sdk": "^0.128.0",
     "@aws-sdk/client-s3": "^3.1119.0",
     "@nestjs/common": "11.1.28",
     "@nestjs/config": "4.0.4",

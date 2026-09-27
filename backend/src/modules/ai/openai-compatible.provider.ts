@@ -23,7 +23,7 @@ export class OpenAiCompatibleProvider implements AiProvider {
 
   async generateText(options: AiGenerateOptions): Promise<AiTextResult> {
     const response = await this.request({
-      model: options.model ?? this.config.get<string>('AI_DEFAULT_MODEL'),
+      model: this.modelName(options.model ?? this.config.get<string>('AI_DEFAULT_MODEL', ''), 'gpt-5-mini'),
       instructions: options.system,
       input: options.prompt,
       max_output_tokens: options.maxOutputTokens ?? this.config.get<number>('AI_MAX_OUTPUT_TOKENS', 1200),
@@ -34,7 +34,7 @@ export class OpenAiCompatibleProvider implements AiProvider {
 
   async generateStructuredOutput<T>(options: AiStructuredOptions): Promise<AiStructuredResult<T>> {
     const response = await this.request({
-      model: options.model ?? this.config.get<string>('AI_ADVANCED_MODEL'),
+      model: this.modelName(options.model ?? this.config.get<string>('AI_ADVANCED_MODEL', ''), 'gpt-5.6'),
       instructions: options.system,
       input: options.prompt,
       max_output_tokens: options.maxOutputTokens ?? this.config.get<number>('AI_MAX_OUTPUT_TOKENS', 1200),
@@ -118,6 +118,11 @@ export class OpenAiCompatibleProvider implements AiProvider {
 
   private retryable(status: number) {
     return status === 429 || status === 500 || status === 502 || status === 503 || status === 504;
+  }
+
+  /** Accepts `openai:model` references as well as bare model names. */
+  private modelName(value: string, fallback: string) {
+    return value.replace(/^openai:/, '').trim() || fallback;
   }
 
   private apiKey() {

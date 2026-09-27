@@ -138,7 +138,7 @@ export class ResearchAssistantService {
       : null;
     const executedTools: string[] = [];
     const toolTrace: AssistantRuntimeToolTrace[] = [];
-    const runtimeEnabled = this.runtime?.isEnabled() ?? false;
+    const runtimeEnabled = this.runtime?.isEnabled(experiment.features.useDomainModel) ?? false;
     if (experiment.features.useTools && route && this.tools && !runtimeEnabled) {
       const toolStartedAt = Date.now();
       await this.tools.execute('getRouteDetails', { id: route.id }, {

@@ -1,5 +1,6 @@
 import { Injectable, ServiceUnavailableException } from '@nestjs/common';
 import { AiProvider } from './ai-provider.interface.js';
+import { localHashEmbedding } from './embedding.service.js';
 import { AiGenerateOptions, AiRequestType, AiStructuredOptions, AiStructuredResult, AiTextResult, GuideResponseEvaluation } from './ai.types.js';
 
 @Injectable()
@@ -16,15 +17,7 @@ export class LocalSafeAiProvider implements AiProvider {
   }
 
   async generateEmbedding(input: string): Promise<number[]> {
-    const dimensions = 64;
-    const vector = Array.from({ length: dimensions }, () => 0);
-    for (const token of input.toLocaleLowerCase().split(/\s+/).filter(Boolean)) {
-      let hash = 2166136261;
-      for (const char of token) hash = Math.imul(hash ^ char.charCodeAt(0), 16777619);
-      vector[Math.abs(hash) % dimensions] += 1;
-    }
-    const norm = Math.sqrt(vector.reduce((sum, value) => sum + value * value, 0)) || 1;
-    return vector.map((value) => value / norm);
+    return localHashEmbedding(input);
   }
 
   async classifyRequest(input: string): Promise<AiRequestType> {

@@ -19,6 +19,9 @@ export interface AiUsage {
   inputTokens: number;
   outputTokens: number;
   estimatedCostUsd: number;
+  /** Prompt-cache breakdown (included in inputTokens) when the provider reports it. */
+  cacheReadInputTokens?: number;
+  cacheCreationInputTokens?: number;
 }
 
 export interface AiTextResult {

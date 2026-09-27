@@ -21,7 +21,7 @@ describe('tourism source provenance', () => {
       tourismKnowledge: { updateMany: knowledgeUpdateMany },
     })),
   };
-  const ai = { generateEmbedding: jest.fn(async () => [0.1, 0.2]) };
+  const ai = { embed: jest.fn(async () => [0.1, 0.2]), identity: (dimensions: number) => `local:local-safe-fnv1a:${dimensions}` };
   const service = new TourismIngestionService(
     prisma as never,
     ai as never,

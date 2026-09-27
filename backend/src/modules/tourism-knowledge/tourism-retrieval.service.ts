@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import {
   Prisma,
@@ -6,8 +6,7 @@ import {
   TourismSourceReviewStatus,
 } from '../../generated/prisma/client.js';
 import { PrismaService } from '../../prisma/prisma.service.js';
-import { AI_PROVIDER } from '../ai/ai-provider.interface.js';
-import type { AiProvider } from '../ai/ai-provider.interface.js';
+import { EmbeddingService } from '../ai/embedding.service.js';
 import { SearchTourismKnowledgeDto } from './dto/tourism-knowledge.dto.js';
 
 const AUTHORITY_SCORE: Record<TourismAuthorityLevel, number> = {
@@ -18,10 +17,11 @@ const AUTHORITY_SCORE: Record<TourismAuthorityLevel, number> = {
 
 @Injectable()
 export class TourismRetrievalService {
-  constructor(private readonly prisma: PrismaService, private readonly config: ConfigService, @Inject(AI_PROVIDER) private readonly ai: AiProvider) {}
+  constructor(private readonly prisma: PrismaService, private readonly config: ConfigService, private readonly embeddings: EmbeddingService) {}
 
   async search(dto: SearchTourismKnowledgeDto) {
-    const queryVector = await this.ai.generateEmbedding(dto.query);
+    const queryVector = await this.embeddings.embed(dto.query);
+    const queryIdentity = this.embeddings.identity(queryVector.length);
     const now = new Date();
     const where: Prisma.TourismKnowledgeWhereInput = {
       active: true, region: dto.region, routeFamily: dto.routeFamily, category: dto.category, language: dto.language?.toLowerCase(),
@@ -51,7 +51,8 @@ export class TourismRetrievalService {
     });
     return candidates.map((item) => {
       const vector = this.vector(item.embedding);
-      const semanticScore = vector?.length === queryVector.length
+      // Vectors from a different embedding model/backend are never compared, even at equal dimensions.
+      const semanticScore = item.embeddingModel === queryIdentity && vector?.length === queryVector.length
         ? this.cosine(queryVector, vector)
         : this.lexical(dto.query, `${item.title} ${item.content}`);
       const ageDays = Math.max(0, (Date.now() - item.lastVerifiedAt.getTime()) / 86_400_000);

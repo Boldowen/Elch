@@ -1,9 +1,8 @@
-import { BadRequestException, Inject, Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { createHash } from 'node:crypto';
 import { Prisma, TourismSourceReviewStatus } from '../../generated/prisma/client.js';
 import { PrismaService } from '../../prisma/prisma.service.js';
-import { AI_PROVIDER } from '../ai/ai-provider.interface.js';
-import type { AiProvider } from '../ai/ai-provider.interface.js';
+import { EmbeddingService } from '../ai/embedding.service.js';
 import {
   CreateTourismSourceDto,
   IngestTourismKnowledgeDto,
@@ -19,7 +18,7 @@ export class TourismIngestionService {
 
   constructor(
     private readonly prisma: PrismaService,
-    @Inject(AI_PROVIDER) private readonly ai: AiProvider,
+    private readonly embeddings: EmbeddingService,
     private readonly config: ConfigService,
   ) {}
 
@@ -201,13 +200,13 @@ export class TourismIngestionService {
     }> = [];
     for (const [chunkIndex, content] of chunks.entries()) {
       const contentHash = createHash('sha256').update(content).digest('hex');
-      const embedding = await this.ai.generateEmbedding(content);
+      const embedding = await this.embeddings.embed(content);
       prepared.push({
         chunkIndex,
         content,
         contentHash,
         embedding,
-        embeddingModel: this.embeddingModel(embedding.length),
+        embeddingModel: this.embeddings.identity(embedding.length),
       });
     }
     // No database rows are changed until every external embedding call succeeds.
@@ -252,14 +251,6 @@ export class TourismIngestionService {
       return saved;
     });
     return { sourceId: source.id, chunks: records.length, records };
-  }
-
-  private embeddingModel(dimensions: number) {
-    const provider = this.config.get<string>('AI_PROVIDER', 'local');
-    const model = provider === 'openai'
-      ? this.config.get<string>('AI_EMBEDDING_MODEL', 'text-embedding-3-small')
-      : 'local-safe-fnv1a';
-    return `${provider}:${model}:${dimensions}`;
   }
 
   private assertVerificationDate(value: string) {

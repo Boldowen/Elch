@@ -33,19 +33,32 @@ never grants a guide license, and never treats first-aid theory as practical pro
 
 ### Experiment modes
 
-| Mode | Model | RAG | RouteGraph/tools/validator |
-|---|---|---:|---:|
-| A | base | no | no |
-| B | base | yes | no |
-| C | configurable advanced/domain-model candidate | no | no |
-| D | configurable advanced/domain-model candidate | yes | no |
-| E | configurable advanced/domain-model candidate | yes | yes |
+| Mode | Plan | Model | RAG | RouteGraph/tools/validator |
+|---|---|---|---:|---:|
+| A | E0 Base | `AI_DEFAULT_MODEL` | no | no |
+| B | E1 RAG | `AI_DEFAULT_MODEL` | yes | no |
+| C | E2 LoRA | `AI_ADVANCED_MODEL` | no | no |
+| D | E3 LoRA+RAG | `AI_ADVANCED_MODEL` | yes | no |
+| E | E4 Full | `AI_ADVANCED_MODEL` | yes | yes |
 
 Select with `AI_EXPERIMENT_MODE=A|B|C|D|E`. Source-code branching is shared and
-composable; changing the mode does not duplicate the assistant pipeline. Modes C–E
-route text generation to `AI_ADVANCED_MODEL`; point that variable at a reviewed local
-adapter/provider model when one exists. The default value is a model candidate, not a
-claim that this repository already contains a domain-tuned adapter.
+composable; changing the mode does not duplicate the assistant pipeline.
+
+Model settings are `provider:model` references, so each arm can point at a different
+backend without code changes:
+
+| Prefix | Backend |
+|---|---|
+| `anthropic:` | Claude through the official Anthropic SDK (streaming tool loop, adaptive thinking, prompt caching, server-side refusal fallback) |
+| `compat:` | Any OpenAI-compatible chat endpoint at `AI_COMPAT_BASE_URL` (vLLM/Ollama serving the base or LoRA open-weight model on Kaggle, a rented GPU or the project's own server) |
+| `openai:` | OpenAI Responses API |
+
+For the thesis ablation, set `AI_DEFAULT_MODEL=compat:<base model>` and
+`AI_ADVANCED_MODEL=compat:<LoRA adapter>` so A–E isolate the fine-tuning effect on
+one model family; Claude (`anthropic:claude-opus-5`) is the production assistant and
+an additional strong-API reference arm. Safety intents always use `AI_SAFETY_MODEL`.
+A model name is not evidence of fine-tuning: C–E only become domain-model experiments
+once a real frozen adapter is served.
 
 ## Start locally
 
@@ -165,7 +178,13 @@ after the owning traveler explicitly submits it.
 
 The canonical variable list is [.env.example](.env.example). Important controls are:
 
-- `AI_PROVIDER=local|openai`, configurable default/advanced/embedding models;
+- `AI_PROVIDER=local|anthropic|openai` and `provider:model` references per role;
+- `ANTHROPIC_*` settings (model, optional effort, max tokens, timeout, refusal
+  fallback). Claude cost telemetry is computed per model and includes prompt-cache
+  reads/writes;
+- embeddings configured separately (`AI_EMBEDDING_PROVIDER=auto|local|openai|compat`),
+  because Claude has no embedding API. Retrieval compares only vectors with an identical
+  backend/model/dimension identity and otherwise falls back to lexical scoring;
 - A–E experiment selection, with request overrides disabled by default;
 - input/output caps, daily per-user request limit, maximum tool rounds, timeout, and
   at most two bounded transient retries (`AI_RETRY_ATTEMPTS`, default `1`);
@@ -181,6 +200,9 @@ The canonical variable list is [.env.example](.env.example). Important controls 
 The raw OpenAI-compatible provider uses the Responses API structured-output envelope.
 Paid calls are mocked in tests; `AI_PROVIDER=local` is the safe no-key development
 default and explicitly reports when verified/generated information is unavailable.
+After adding `ANTHROPIC_API_KEY` to `.env`, `cd backend && npm run ai:smoke` makes
+three small live requests (classification plus a two-turn tool loop against the
+in-memory RouteGraph) and prints token usage, including prompt-cache reads.
 
 ## Research data and training
 
