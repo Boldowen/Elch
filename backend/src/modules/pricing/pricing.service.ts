@@ -1,4 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
+import { PriceUnit, PricingType } from '../../generated/prisma/client.js';
 
 export interface PricingInput {
   basePriceMinor: number;
@@ -26,6 +27,35 @@ export interface PriceBreakdown {
 @Injectable()
 export class PricingService {
   private readonly databaseIntegerMax = 2_147_483_647;
+
+  calculateListing(input: Omit<PricingInput, 'units'> & { priceUnit: PriceUnit; startsAt: Date; endsAt: Date }) {
+    const duration = this.duration(input.startsAt, input.endsAt);
+    let units: number;
+    switch (input.priceUnit) {
+      case PriceUnit.PER_HOUR: units = Math.ceil(duration / 3_600_000); break;
+      case PriceUnit.PER_NIGHT:
+      case PriceUnit.PER_DAY: units = Math.ceil(duration / 86_400_000); break;
+      case PriceUnit.PER_PERSON:
+      case PriceUnit.PER_GROUP:
+      case PriceUnit.PACKAGE: units = 1; break;
+      default: throw new BadRequestException('Unsupported listing price unit');
+    }
+    return this.calculate({
+      ...input,
+      units,
+      basePriceMinor: input.priceUnit === PriceUnit.PER_PERSON
+        ? this.safeMultiply(input.basePriceMinor, input.guests)
+        : input.basePriceMinor,
+    });
+  }
+
+  calculateGuide(input: Omit<PricingInput, 'units'> & { pricingType: PricingType; startsAt: Date; endsAt: Date }) {
+    const duration = this.duration(input.startsAt, input.endsAt);
+    if (input.pricingType !== PricingType.HOURLY && input.pricingType !== PricingType.PACKAGE) {
+      throw new BadRequestException('Guide has no bookable pricing arrangement');
+    }
+    return this.calculate({ ...input, units: input.pricingType === PricingType.PACKAGE ? 1 : Math.ceil(duration / 3_600_000) });
+  }
   calculate(input: PricingInput): PriceBreakdown {
     this.positiveInteger(input.basePriceMinor, 'basePriceMinor');
     this.positiveInteger(input.units, 'units');
@@ -68,6 +98,12 @@ export class PricingService {
     this.nonNegativeInteger(amountMinor, 'amountMinor');
     this.nonNegativeInteger(percent, 'percent');
     return Math.round((amountMinor * percent) / 100);
+  }
+
+  private duration(startsAt: Date, endsAt: Date) {
+    const duration = endsAt.getTime() - startsAt.getTime();
+    if (!Number.isSafeInteger(duration) || duration <= 0) throw new BadRequestException('Booking dates are invalid');
+    return duration;
   }
 
   private positiveInteger(value: number, field: string) {

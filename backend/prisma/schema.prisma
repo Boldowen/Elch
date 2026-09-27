@@ -26,6 +26,11 @@ enum GuideStatus {
   REJECTED
 }
 
+enum GuideAvailabilityStatus {
+  AVAILABLE
+  BLOCKED
+}
+
 enum GuideVerificationDecision {
   APPROVED
   REJECTED
@@ -607,10 +612,25 @@ model GuideProfile {
   assessmentAttempts AssessmentAttempt[]
   matchResults GuideMatchResult[]
   safetyPlans SafetyPlan[]
+  availabilitySlots GuideAvailability[]
 
   @@index([status, deletedAt])
   @@index([city])
   @@index([rankPoints, rating])
+}
+
+model GuideAvailability {
+  id        String                  @id @default(uuid()) @db.Uuid
+  guideId   String                  @db.Uuid
+  startsAt  DateTime
+  endsAt    DateTime
+  timeZone  String                  @db.VarChar(100)
+  status    GuideAvailabilityStatus
+  createdAt DateTime                @default(now())
+  updatedAt DateTime                @updatedAt
+  guide     GuideProfile            @relation(fields: [guideId], references: [userId], onDelete: Cascade)
+
+  @@index([guideId, startsAt, endsAt])
 }
 
 model GuideEvidence {

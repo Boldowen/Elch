@@ -43,6 +43,11 @@ export type PasswordResetToken = Prisma.PasswordResetTokenModel
  */
 export type GuideProfile = Prisma.GuideProfileModel
 /**
+ * Model GuideAvailability
+ * 
+ */
+export type GuideAvailability = Prisma.GuideAvailabilityModel
+/**
  * Model GuideEvidence
  * 
  */

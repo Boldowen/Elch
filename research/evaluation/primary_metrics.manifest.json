@@ -1,0 +1,9 @@
+{
+  "note": "Inputs for the single-command primary metric run. Replace the demo paths with the frozen evaluation exports before reporting any result.",
+  "reports": [
+    { "name": "travel", "kind": "travel", "input": "research/evaluation/demo_travel_evaluations.csv", "groupField": "experiment_mode" },
+    { "name": "guide", "kind": "guide", "input": "research/evaluation/demo_guide_evaluations.csv", "groupField": "experiment_mode" },
+    { "name": "match", "kind": "match", "input": "research/evaluation/demo_match_evaluations.csv", "groupField": "experiment_mode", "topK": 5 },
+    { "name": "items", "kind": "items", "input": "research/evaluation/demo_item_responses.csv", "groupField": "form_id" }
+  ]
+}

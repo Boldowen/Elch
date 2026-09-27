@@ -75,6 +75,18 @@ control and must encode shared facts, POIs, routes, safety scenarios, and speake
 
 ## Evaluation and export
 
+Point `research/evaluation/primary_metrics.manifest.json` at the frozen
+evaluation exports, then recompute every primary metric with one command. The
+runner writes each report plus an index recording the SHA-256 of every input, so
+a result table always names the file it came from:
+
+```bash
+make research-metrics          # refuses inputs still marked as demo fixtures
+```
+
+Individual reports, when a single family needs re-running with different
+settings:
+
 ```bash
 python3 -m research.scripts.evaluate_csv travel \
   research/evaluation/travel_runs.csv \
@@ -86,6 +98,14 @@ python3 -m research.scripts.evaluate_csv guide \
   research/evaluation/results/guide_metrics.json \
   --summary-csv research/evaluation/results/guide_by_mode.csv \
   --seed 20260815 --bootstrap-iterations 5000
+
+python3 -m research.scripts.evaluate_csv match \
+  research/evaluation/guide_match_runs.csv \
+  research/evaluation/results/match_metrics.json --top-k 5
+
+python3 -m research.scripts.evaluate_csv items \
+  research/evaluation/item_responses.csv \
+  research/evaluation/results/item_metrics.json --group-field form_id
 
 export RESEARCH_EXPORT_SALT='generate-a-private-random-value'
 python3 -m research.scripts.export_research_data \

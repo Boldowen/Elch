@@ -20,19 +20,21 @@ async function bootstrap() {
   app.use(helmet());
   app.use(compression());
   app.enableCors({
-    origin: config.get<string>('CORS_ORIGINS', '').split(',').filter(Boolean),
+    origin: config.get<string>('CORS_ORIGINS', '').split(',').map((origin) => origin.trim()).filter(Boolean),
     credentials: true,
   });
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true, transform: true }));
   app.useGlobalFilters(new AllExceptionsFilter());
 
-  const swaggerConfig = new DocumentBuilder()
+  if (config.get<string>('NODE_ENV') !== 'production') {
+    const swaggerConfig = new DocumentBuilder()
     .setTitle('ELCH API')
     .setDescription('REST API for the ELCH traveler and local-guide marketplace')
     .setVersion('1.0')
     .addBearerAuth()
     .build();
-  SwaggerModule.setup('docs', app, SwaggerModule.createDocument(app, swaggerConfig));
+    SwaggerModule.setup('docs', app, SwaggerModule.createDocument(app, swaggerConfig));
+  }
 
   await app.listen(config.get<number>('PORT', 3000), '0.0.0.0');
 }

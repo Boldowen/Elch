@@ -19,6 +19,10 @@ or safety plans suitable for a real trip.
   guards, validation, global throttling, and ownership checks.
 - Database-backed four-family RouteGraph, admin editing APIs, deterministic route
   validation, database-owned guide gates, and auditable R3/R4 safety-plan review.
+  Validation returns an explicit feasibility verdict, so an impossible request is
+  declared unsolvable with machine-readable reasons instead of being sent through
+  a repair round or answered with an itinerary. The single repair round is bounded
+  and never returns a longer trip than the traveler requested.
 - Replaceable local/OpenAI AI provider, A-E experiment switches, RAG ingestion and
   retrieval, bounded model/tool execution, history trimming, streaming, retry,
   timeout, cost telemetry, and a short-lived per-process cache.
@@ -29,7 +33,9 @@ or safety plans suitable for a real trip.
   A booking created by AI remains an inert `DRAFT` until its owner explicitly
   submits it.
 - Guide assessment, blind human review, evidence upload/review, hard-gated guide
-  matching, pseudonymized research export, and offline research/evaluation scripts.
+  matching, pseudonymized research export, and offline research/evaluation scripts
+  covering travel, guide-agreement, guide-match ranking and assessment item
+  analysis, all recomputable from one manifest-driven command.
 - Private local or S3-compatible evidence storage, hourly expiry jobs, structured
   request logs, admin-only process metrics, CI, and tagged backend image publishing.
 - Auditable tourism-source licensing/reuse notes and explicit pending, verified, or
@@ -237,6 +243,7 @@ NODE_ENV=test DATABASE_URL='postgresql://USER:PASSWORD@HOST:5432/elch_test?schem
 cd ../frontend
 npm ci
 npm run export:android
+npm run export:web
 
 cd ..
 python3 -m compileall -q research/scripts research/training research/tests

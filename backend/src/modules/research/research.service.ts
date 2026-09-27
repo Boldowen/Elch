@@ -64,6 +64,130 @@ interface ResearchRunRow {
   _count?: { evaluationResults: number };
 }
 
+const assessmentExportSelect = {
+  id: true,
+  userId: true,
+  guideProfileId: true,
+  routeId: true,
+  routeFamily: true,
+  assessmentType: true,
+  status: true,
+  score: true,
+  aiScore: true,
+  humanScore: true,
+  passed: true,
+  humanPassed: true,
+  aiEstimatedCefr: true,
+  humanCefr: true,
+  aiConfidence: true,
+  createdAt: true,
+} satisfies Prisma.AssessmentAttemptSelect;
+type AssessmentExportRow = Prisma.AssessmentAttemptGetPayload<{
+  select: typeof assessmentExportSelect;
+}>;
+
+const languageExportSelect = {
+  id: true,
+  guideProfileId: true,
+  assessmentAttemptId: true,
+  language: true,
+  aiEstimatedCefr: true,
+  aiConfidence: true,
+  fluencyScore: true,
+  grammarScore: true,
+  vocabularyScore: true,
+  interactionScore: true,
+  clarityScore: true,
+  humanVerifiedCefr: true,
+  assessmentStatus: true,
+  createdAt: true,
+} satisfies Prisma.GuideLanguageAssessmentSelect;
+type LanguageExportRow = Prisma.GuideLanguageAssessmentGetPayload<{
+  select: typeof languageExportSelect;
+}>;
+
+const competencyExportSelect = {
+  id: true,
+  guideProfileId: true,
+  routeId: true,
+  assessmentAttemptId: true,
+  competencyType: true,
+  competencyCode: true,
+  score: true,
+  status: true,
+  verifiedById: true,
+  verificationMethod: true,
+  validFrom: true,
+  validTo: true,
+  createdAt: true,
+} satisfies Prisma.GuideCompetencySelect;
+type CompetencyExportRow = Prisma.GuideCompetencyGetPayload<{
+  select: typeof competencyExportSelect;
+}>;
+
+const routeCompetencyExportSelect = {
+  id: true,
+  guideProfileId: true,
+  routeId: true,
+  assessmentAttemptId: true,
+  routeFamily: true,
+  score: true,
+  status: true,
+  passedAt: true,
+  expiresAt: true,
+  evaluatorType: true,
+  createdAt: true,
+} satisfies Prisma.GuideRouteCompetencySelect;
+type RouteCompetencyExportRow = Prisma.GuideRouteCompetencyGetPayload<{
+  select: typeof routeCompetencyExportSelect;
+}>;
+
+const firstAidExportSelect = {
+  id: true,
+  guideProfileId: true,
+  assessmentAttemptId: true,
+  issuedAt: true,
+  expiresAt: true,
+  certificateStatus: true,
+  theoryScore: true,
+  practicalVerificationStatus: true,
+  verifiedAt: true,
+  verifiedById: true,
+  createdAt: true,
+} satisfies Prisma.GuideFirstAidSelect;
+type FirstAidExportRow = Prisma.GuideFirstAidGetPayload<{
+  select: typeof firstAidExportSelect;
+}>;
+
+const guideMatchExportSelect = {
+  id: true,
+  userId: true,
+  routeId: true,
+  experimentRunId: true,
+  routeFamily: true,
+  requestedStartAt: true,
+  requestedEndAt: true,
+  language: true,
+  minimumCefr: true,
+  createdAt: true,
+  results: {
+    orderBy: [{ eligible: 'desc' as const }, { rank: 'asc' as const }, { id: 'asc' as const }],
+    take: 101,
+    select: {
+      id: true,
+      guideProfileId: true,
+      eligible: true,
+      score: true,
+      rank: true,
+      hardGateFailures: true,
+      factors: true,
+    },
+  },
+} satisfies Prisma.GuideMatchRunSelect;
+type GuideMatchExportRow = Prisma.GuideMatchRunGetPayload<{
+  select: typeof guideMatchExportSelect;
+}>;
+
 export interface ResearchExport {
   filename: string;
   contentType: string;
@@ -73,10 +197,16 @@ export interface ResearchExport {
 }
 
 const EXPORT_FIELDS = [
+  'record_type',
+  'subject_id',
   'run_id',
   'user_id',
   'conversation_id',
   'route_id',
+  'attempt_id',
+  'guide_id',
+  'match_run_id',
+  'match_result_id',
   'evaluation_id',
   'reviewer_id',
   'experiment_mode',
@@ -114,6 +244,33 @@ const EXPORT_FIELDS = [
   'human_cefr',
   'safety_false_negative',
   'safety_false_positive',
+  'assessment_type',
+  'assessment_status',
+  'score',
+  'ai_confidence',
+  'language',
+  'fluency_score',
+  'grammar_score',
+  'vocabulary_score',
+  'interaction_score',
+  'clarity_score',
+  'competency_type',
+  'competency_code',
+  'competency_status',
+  'verification_method',
+  'valid_from',
+  'valid_to',
+  'expires_at',
+  'certificate_status',
+  'practical_verification_status',
+  'theory_score',
+  'requested_start_at',
+  'requested_end_at',
+  'minimum_cefr',
+  'eligible',
+  'rank',
+  'hard_gate_failures',
+  'factor_scores',
 ] as const;
 
 type ExportField = (typeof EXPORT_FIELDS)[number];
@@ -137,6 +294,10 @@ export class ResearchService {
       humanEvaluationCount,
       guideAssessmentCount,
       failedRuns,
+      pairedAssessmentRows,
+      routeCompetencyGroups,
+      languageEstimateGroups,
+      firstAidGroups,
     ] = await Promise.all([
       this.prisma.aiExperimentRun.aggregate({
         _count: { _all: true },
@@ -174,6 +335,31 @@ export class ResearchService {
         take: 1000,
         select: { validatorResult: true, failureReason: true },
       }),
+      this.prisma.assessmentAttempt.findMany({
+        where: { aiScore: { not: null }, humanScore: { not: null } },
+        orderBy: [{ createdAt: 'desc' }, { id: 'desc' }],
+        take: 10_001,
+        select: { aiScore: true, humanScore: true },
+      }),
+      this.prisma.guideRouteCompetency.groupBy({
+        by: ['routeFamily', 'status'],
+        _count: { _all: true },
+        orderBy: [{ routeFamily: 'asc' }, { status: 'asc' }],
+      }),
+      this.prisma.guideLanguageAssessment.groupBy({
+        by: ['aiEstimatedCefr'],
+        where: { aiEstimatedCefr: { not: null } },
+        _count: { _all: true },
+        orderBy: { aiEstimatedCefr: 'asc' },
+      }),
+      this.prisma.guideFirstAid.groupBy({
+        by: ['certificateStatus', 'practicalVerificationStatus'],
+        _count: { _all: true },
+        orderBy: [
+          { certificateStatus: 'asc' },
+          { practicalVerificationStatus: 'asc' },
+        ],
+      }),
     ]);
 
     const errors = new Map<string, number>();
@@ -184,6 +370,11 @@ export class ResearchService {
       }
       for (const code of codes) errors.set(code, (errors.get(code) ?? 0) + 1);
     }
+    const pairedScores = pairedAssessmentRows.slice(0, 10_000).flatMap((row) => {
+      const aiScore = this.nullableDecimal(row.aiScore);
+      const humanScore = this.nullableDecimal(row.humanScore);
+      return aiScore === null || humanScore === null ? [] : [{ aiScore, humanScore }];
+    });
 
     return {
       totalAiRequests: aggregate._count._all,
@@ -205,6 +396,22 @@ export class ResearchService {
         .map(([code, count]) => ({ code, count })),
       guideAssessmentCount,
       humanEvaluationCount,
+      aiVsHumanScoreComparison: {
+        ...this.scoreComparison(pairedScores),
+        truncated: pairedAssessmentRows.length > 10_000,
+      },
+      routeCompetencyDistribution: routeCompetencyGroups.map((row) => ({
+        label: `${row.routeFamily}:${row.status}`,
+        count: row._count._all,
+      })),
+      languageEstimateDistribution: languageEstimateGroups.map((row) => ({
+        label: row.aiEstimatedCefr ?? 'NOT_ESTIMATED',
+        count: row._count._all,
+      })),
+      firstAidVerificationDistribution: firstAidGroups.map((row) => ({
+        label: `${row.certificateStatus}:${row.practicalVerificationStatus}`,
+        count: row._count._all,
+      })),
       generatedAt: new Date().toISOString(),
     };
   }
@@ -349,62 +556,113 @@ export class ResearchService {
         'RESEARCH_EXPORT_SALT must be configured with at least 16 characters',
       );
     }
-    const maximumRows = 50_000;
-    const runs = (await this.prisma.aiExperimentRun.findMany({
-      orderBy: [{ createdAt: 'asc' }, { id: 'asc' }],
-      take: maximumRows + 1,
-      select: {
-        id: true,
-        userId: true,
-        conversationId: true,
-        routeId: true,
-        experimentMode: true,
-        requestType: true,
-        provider: true,
-        model: true,
-        promptVersion: true,
-        routeFamily: true,
-        inputTokens: true,
-        outputTokens: true,
-        latencyMs: true,
-        estimatedCost: true,
-        toolCalls: true,
-        validatorResult: true,
-        finalValidity: true,
-        failureReason: true,
-        createdAt: true,
-        evaluationResults: {
-          orderBy: { createdAt: 'asc' },
+    const maximumRowsPerDataset = 10_000;
+    const [rawRuns, attempts, languages, competencies, routeCompetencies, firstAid, matchRuns] =
+      await Promise.all([
+        this.prisma.aiExperimentRun.findMany({
+          orderBy: [{ createdAt: 'asc' }, { id: 'asc' }],
+          take: maximumRowsPerDataset + 1,
           select: {
             id: true,
-            reviewerId: true,
-            evaluatorType: true,
-            blindEvaluation: true,
-            factualAccuracy: true,
-            hallucinationDetected: true,
-            poiValidity: true,
-            spatialFeasibility: true,
-            temporalFeasibility: true,
-            budgetCompliance: true,
-            seasonCompliance: true,
-            safetyViolation: true,
-            personalizationScore: true,
-            aiScore: true,
-            humanScore: true,
-            aiPass: true,
-            humanPass: true,
-            aiCefr: true,
-            humanCefr: true,
-            safetyFalseNegative: true,
-            safetyFalsePositive: true,
+            userId: true,
+            conversationId: true,
+            routeId: true,
+            experimentMode: true,
+            requestType: true,
+            provider: true,
+            model: true,
+            promptVersion: true,
+            routeFamily: true,
+            inputTokens: true,
+            outputTokens: true,
+            latencyMs: true,
+            estimatedCost: true,
+            toolCalls: true,
+            validatorResult: true,
+            finalValidity: true,
+            failureReason: true,
+            createdAt: true,
+            evaluationResults: {
+              orderBy: { createdAt: 'asc' },
+              select: {
+                id: true,
+                reviewerId: true,
+                evaluatorType: true,
+                blindEvaluation: true,
+                factualAccuracy: true,
+                hallucinationDetected: true,
+                poiValidity: true,
+                spatialFeasibility: true,
+                temporalFeasibility: true,
+                budgetCompliance: true,
+                seasonCompliance: true,
+                safetyViolation: true,
+                personalizationScore: true,
+                aiScore: true,
+                humanScore: true,
+                aiPass: true,
+                humanPass: true,
+                aiCefr: true,
+                humanCefr: true,
+                safetyFalseNegative: true,
+                safetyFalsePositive: true,
+              },
+            },
           },
-        },
-      },
-    })) as unknown as ResearchRunRow[];
-    const truncated = runs.length > maximumRows;
-    const rows = runs
-      .slice(0, maximumRows)
+        }),
+        this.prisma.assessmentAttempt.findMany({
+          orderBy: [{ createdAt: 'asc' }, { id: 'asc' }],
+          take: maximumRowsPerDataset + 1,
+          select: assessmentExportSelect,
+        }),
+        this.prisma.guideLanguageAssessment.findMany({
+          orderBy: [{ createdAt: 'asc' }, { id: 'asc' }],
+          take: maximumRowsPerDataset + 1,
+          select: languageExportSelect,
+        }),
+        this.prisma.guideCompetency.findMany({
+          orderBy: [{ createdAt: 'asc' }, { id: 'asc' }],
+          take: maximumRowsPerDataset + 1,
+          select: competencyExportSelect,
+        }),
+        this.prisma.guideRouteCompetency.findMany({
+          orderBy: [{ createdAt: 'asc' }, { id: 'asc' }],
+          take: maximumRowsPerDataset + 1,
+          select: routeCompetencyExportSelect,
+        }),
+        this.prisma.guideFirstAid.findMany({
+          orderBy: [{ createdAt: 'asc' }, { id: 'asc' }],
+          take: maximumRowsPerDataset + 1,
+          select: firstAidExportSelect,
+        }),
+        this.prisma.guideMatchRun.findMany({
+          orderBy: [{ createdAt: 'asc' }, { id: 'asc' }],
+          take: maximumRowsPerDataset + 1,
+          select: guideMatchExportSelect,
+        }),
+      ]);
+    const runs = rawRuns as unknown as ResearchRunRow[];
+    const expandedRunRows = runs
+      .slice(0, maximumRowsPerDataset)
       .flatMap((run) => this.exportRows(run, salt));
+    const expandedMatchRows = matchRuns
+      .slice(0, maximumRowsPerDataset)
+      .flatMap((run) => this.guideMatchExportRows(run, salt));
+    const rows = [
+      ...expandedRunRows.slice(0, maximumRowsPerDataset),
+      ...attempts.slice(0, maximumRowsPerDataset).map((row) => this.assessmentExportRow(row, salt)),
+      ...languages.slice(0, maximumRowsPerDataset).map((row) => this.languageExportRow(row, salt)),
+      ...competencies.slice(0, maximumRowsPerDataset).map((row) => this.competencyExportRow(row, salt)),
+      ...routeCompetencies.slice(0, maximumRowsPerDataset).map((row) => this.routeCompetencyExportRow(row, salt)),
+      ...firstAid.slice(0, maximumRowsPerDataset).map((row) => this.firstAidExportRow(row, salt)),
+      ...expandedMatchRows.slice(0, maximumRowsPerDataset),
+    ];
+    const truncated = [runs, attempts, languages, competencies, routeCompetencies, firstAid, matchRuns]
+      .some((dataset) => dataset.length > maximumRowsPerDataset) ||
+      expandedRunRows.length > maximumRowsPerDataset ||
+      expandedMatchRows.length > maximumRowsPerDataset ||
+      matchRuns.some((run) => run.results.length > 100);
+    const datasetCounts = this.datasetCounts(rows);
     const stamp = new Date().toISOString().slice(0, 10);
     if (format === 'csv') {
       return {
@@ -420,9 +678,10 @@ export class ResearchService {
       contentType: 'application/json; charset=utf-8',
       body: JSON.stringify(
         {
-          schemaVersion: 'elch-research-export-v1',
+          schemaVersion: 'elch-research-export-v2',
           rowCount: rows.length,
           truncated,
+          datasetCounts,
           fields: EXPORT_FIELDS,
           data: rows,
         },
@@ -466,6 +725,12 @@ export class ResearchService {
       ? run.evaluationResults
       : [null];
     return evaluations.map((evaluation) => ({
+      ...this.emptyExportRow('AI_EXPERIMENT_EVALUATION'),
+      subject_id: this.pseudonym(
+        evaluation ? 'evaluation' : 'run',
+        evaluation?.id ?? run.id,
+        salt,
+      ),
       run_id: this.pseudonym('run', run.id, salt),
       user_id: this.pseudonym('user', run.userId, salt),
       conversation_id: this.pseudonym(
@@ -526,6 +791,163 @@ export class ResearchService {
       safety_false_negative: evaluation?.safetyFalseNegative ?? null,
       safety_false_positive: evaluation?.safetyFalsePositive ?? null,
     }));
+  }
+
+  private assessmentExportRow(row: AssessmentExportRow, salt: string): ExportRow {
+    return {
+      ...this.emptyExportRow('GUIDE_ASSESSMENT'),
+      subject_id: this.pseudonym('assessment', row.id, salt),
+      attempt_id: this.pseudonym('assessment', row.id, salt),
+      user_id: this.pseudonym('user', row.userId, salt),
+      guide_id: this.pseudonym('guide', row.guideProfileId, salt),
+      route_id: this.pseudonym('route', row.routeId, salt),
+      route_family: row.routeFamily,
+      assessment_type: row.assessmentType,
+      assessment_status: row.status,
+      score: this.nullableDecimal(row.score),
+      ai_score: this.nullableDecimal(row.aiScore),
+      human_score: this.nullableDecimal(row.humanScore),
+      ai_pass: row.passed,
+      human_pass: row.humanPassed,
+      ai_cefr: row.aiEstimatedCefr,
+      human_cefr: row.humanCefr,
+      ai_confidence: this.nullableDecimal(row.aiConfidence),
+      created_at: row.createdAt.toISOString(),
+    };
+  }
+
+  private languageExportRow(row: LanguageExportRow, salt: string): ExportRow {
+    return {
+      ...this.emptyExportRow('GUIDE_LANGUAGE_ASSESSMENT'),
+      subject_id: this.pseudonym('language-assessment', row.id, salt),
+      attempt_id: this.pseudonym('assessment', row.assessmentAttemptId, salt),
+      guide_id: this.pseudonym('guide', row.guideProfileId, salt),
+      assessment_type: 'LANGUAGE',
+      assessment_status: row.assessmentStatus,
+      language: row.language,
+      ai_cefr: row.aiEstimatedCefr,
+      human_cefr: row.humanVerifiedCefr,
+      ai_confidence: this.nullableDecimal(row.aiConfidence),
+      fluency_score: this.nullableDecimal(row.fluencyScore),
+      grammar_score: this.nullableDecimal(row.grammarScore),
+      vocabulary_score: this.nullableDecimal(row.vocabularyScore),
+      interaction_score: this.nullableDecimal(row.interactionScore),
+      clarity_score: this.nullableDecimal(row.clarityScore),
+      created_at: row.createdAt.toISOString(),
+    };
+  }
+
+  private competencyExportRow(row: CompetencyExportRow, salt: string): ExportRow {
+    return {
+      ...this.emptyExportRow('GUIDE_COMPETENCY'),
+      subject_id: this.pseudonym('competency', row.id, salt),
+      attempt_id: this.pseudonym('assessment', row.assessmentAttemptId, salt),
+      guide_id: this.pseudonym('guide', row.guideProfileId, salt),
+      route_id: this.pseudonym('route', row.routeId, salt),
+      reviewer_id: this.pseudonym('reviewer', row.verifiedById, salt),
+      score: this.nullableDecimal(row.score),
+      competency_type: row.competencyType,
+      competency_code: this.safeCompetencyCode(
+        row.competencyCode,
+        row.competencyType,
+      ),
+      competency_status: row.status,
+      verification_method: row.verificationMethod,
+      valid_from: this.iso(row.validFrom),
+      valid_to: this.iso(row.validTo),
+      created_at: row.createdAt.toISOString(),
+    };
+  }
+
+  private routeCompetencyExportRow(
+    row: RouteCompetencyExportRow,
+    salt: string,
+  ): ExportRow {
+    return {
+      ...this.emptyExportRow('GUIDE_ROUTE_COMPETENCY'),
+      subject_id: this.pseudonym('route-competency', row.id, salt),
+      attempt_id: this.pseudonym('assessment', row.assessmentAttemptId, salt),
+      guide_id: this.pseudonym('guide', row.guideProfileId, salt),
+      route_id: this.pseudonym('route', row.routeId, salt),
+      route_family: row.routeFamily,
+      evaluator_type: row.evaluatorType,
+      score: this.nullableDecimal(row.score),
+      competency_type: 'ROUTE_SPECIFIC',
+      competency_status: row.status,
+      valid_from: this.iso(row.passedAt),
+      valid_to: this.iso(row.expiresAt),
+      expires_at: this.iso(row.expiresAt),
+      created_at: row.createdAt.toISOString(),
+    };
+  }
+
+  private firstAidExportRow(row: FirstAidExportRow, salt: string): ExportRow {
+    return {
+      ...this.emptyExportRow('GUIDE_FIRST_AID'),
+      subject_id: this.pseudonym('first-aid', row.id, salt),
+      attempt_id: this.pseudonym('assessment', row.assessmentAttemptId, salt),
+      guide_id: this.pseudonym('guide', row.guideProfileId, salt),
+      reviewer_id: this.pseudonym('reviewer', row.verifiedById, salt),
+      score: this.nullableDecimal(row.theoryScore),
+      competency_type: 'FIRST_AID_THEORY',
+      certificate_status: row.certificateStatus,
+      practical_verification_status: row.practicalVerificationStatus,
+      theory_score: this.nullableDecimal(row.theoryScore),
+      valid_from: this.iso(row.issuedAt),
+      valid_to: this.iso(row.expiresAt),
+      expires_at: this.iso(row.expiresAt),
+      created_at: row.createdAt.toISOString(),
+    };
+  }
+
+  private guideMatchExportRows(row: GuideMatchExportRow, salt: string): ExportRow[] {
+    const results = row.results.length ? row.results.slice(0, 100) : [null];
+    return results.map((result) => ({
+      ...this.emptyExportRow('GUIDE_MATCH_OUTCOME'),
+      subject_id: this.pseudonym(
+        result ? 'match-result' : 'match-run',
+        result?.id ?? row.id,
+        salt,
+      ),
+      run_id: this.pseudonym('run', row.experimentRunId, salt),
+      user_id: this.pseudonym('user', row.userId, salt),
+      route_id: this.pseudonym('route', row.routeId, salt),
+      guide_id: this.pseudonym('guide', result?.guideProfileId ?? null, salt),
+      match_run_id: this.pseudonym('match-run', row.id, salt),
+      match_result_id: this.pseudonym('match-result', result?.id ?? null, salt),
+      route_family: row.routeFamily,
+      language: row.language,
+      minimum_cefr: row.minimumCefr,
+      requested_start_at: this.iso(row.requestedStartAt),
+      requested_end_at: this.iso(row.requestedEndAt),
+      eligible: result?.eligible ?? null,
+      score: this.nullableDecimal(result?.score),
+      rank: result?.rank ?? null,
+      hard_gate_failures: result
+        ? JSON.stringify(this.safeMatchFailures(result.hardGateFailures))
+        : '[]',
+      factor_scores: result
+        ? JSON.stringify(this.safeMatchFactors(result.factors))
+        : '{}',
+      created_at: row.createdAt.toISOString(),
+    }));
+  }
+
+  private emptyExportRow(recordType: string): ExportRow {
+    const row = Object.fromEntries(
+      EXPORT_FIELDS.map((field) => [field, null]),
+    ) as ExportRow;
+    row.record_type = recordType;
+    return row;
+  }
+
+  private datasetCounts(rows: ExportRow[]) {
+    const counts: Record<string, number> = {};
+    for (const row of rows) {
+      const type = String(row.record_type ?? 'UNKNOWN');
+      counts[type] = (counts[type] ?? 0) + 1;
+    }
+    return counts;
   }
 
   private distribution<T extends Record<string, unknown>>(
@@ -595,6 +1017,47 @@ export class ResearchService {
     return /^[A-Za-z][A-Za-z0-9_.:-]{0,79}$/.test(value);
   }
 
+  private safeMatchFailures(value: Prisma.JsonValue): string[] {
+    if (!Array.isArray(value)) return [];
+    return [...new Set(value.slice(0, 50).flatMap((item) => {
+      if (typeof item !== 'string') return [];
+      const code = item.trim().toUpperCase();
+      if (/^[A-Z][A-Z0-9_]{0,79}$/.test(code)) return [code];
+      return code.startsWith('SPECIALTY:') ? ['SPECIALTY_REQUIREMENT'] : [];
+    }))];
+  }
+
+  private safeMatchFactors(value: Prisma.JsonValue): Record<string, number> {
+    if (!value || typeof value !== 'object' || Array.isArray(value)) return {};
+    const allowed = new Set([
+      'languageFit',
+      'routeExpertise',
+      'competency',
+      'experience',
+      'safety',
+      'reliability',
+    ]);
+    return Object.fromEntries(
+      Object.entries(value)
+        .filter(([key, item]) => allowed.has(key) && typeof item === 'number' && Number.isFinite(item))
+        .map(([key, item]) => [key, item as number]),
+    );
+  }
+
+  private safeCompetencyCode(value: string, type: string): string {
+    const normalized = value.trim().toUpperCase();
+    const allowed = new Set([
+      'GENERAL_KNOWLEDGE',
+      'GUIDE_SKILL',
+      'LANGUAGE',
+      'ROUTE_COMPETENCY',
+      'FIRST_AID_THEORY',
+      'SAFETY_SCENARIO',
+    ]);
+    if (allowed.has(normalized)) return normalized;
+    return type === 'SPECIALTY' ? 'SPECIALTY_REDACTED' : 'CUSTOM_CODE_REDACTED';
+  }
+
   private pseudonym(
     namespace: string,
     value: string | null,
@@ -605,6 +1068,10 @@ export class ResearchService {
       .update(`${namespace}\0${value}`)
       .digest('hex');
     return `p_${digest.slice(0, 24)}`;
+  }
+
+  private iso(value: Date | null): string | null {
+    return value?.toISOString() ?? null;
   }
 
   private csv(rows: ExportRow[]): string {
@@ -636,5 +1103,37 @@ export class ResearchService {
 
   private nullableDecimal(value: unknown): number | null {
     return value === null || value === undefined ? null : this.decimal(value);
+  }
+
+  private scoreComparison(rows: Array<{ aiScore: number; humanScore: number }>) {
+    if (!rows.length) {
+      return { aiAverage: null, humanAverage: null, correlation: null, sampleSize: 0 };
+    }
+    const sampleSize = rows.length;
+    const aiAverage = rows.reduce((sum, row) => sum + row.aiScore, 0) / sampleSize;
+    const humanAverage = rows.reduce((sum, row) => sum + row.humanScore, 0) / sampleSize;
+    const covariance = rows.reduce(
+      (sum, row) => sum + (row.aiScore - aiAverage) * (row.humanScore - humanAverage),
+      0,
+    );
+    const aiVariance = rows.reduce(
+      (sum, row) => sum + (row.aiScore - aiAverage) ** 2,
+      0,
+    );
+    const humanVariance = rows.reduce(
+      (sum, row) => sum + (row.humanScore - humanAverage) ** 2,
+      0,
+    );
+    const denominator = Math.sqrt(aiVariance * humanVariance);
+    return {
+      aiAverage: this.roundMetric(aiAverage),
+      humanAverage: this.roundMetric(humanAverage),
+      correlation: denominator > 0 ? this.roundMetric(covariance / denominator) : null,
+      sampleSize,
+    };
+  }
+
+  private roundMetric(value: number) {
+    return Math.round(value * 10_000) / 10_000;
   }
 }

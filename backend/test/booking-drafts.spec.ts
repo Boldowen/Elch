@@ -26,6 +26,7 @@ const listing = {
   extraGuestFeeMinor: 0,
   depositMinor: 0,
   defaultTotalUnits: 1,
+  priceUnit: 'PER_NIGHT',
 };
 
 describe('BookingsService draft flow', () => {

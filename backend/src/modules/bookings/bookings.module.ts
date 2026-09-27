@@ -4,5 +4,6 @@ import { BookingsService } from './bookings.service.js';
 import { BookingLifecycleService } from './booking-lifecycle.service.js';
 import { PricingModule } from '../pricing/pricing.module.js';
 import { PaymentArrangementsService } from './payment-arrangements.service.js';
-@Module({ imports: [PricingModule], controllers: [BookingsController], providers: [BookingsService, BookingLifecycleService, PaymentArrangementsService], exports: [BookingsService] })
+import { RankingModule } from '../ranking/ranking.module.js';
+@Module({ imports: [PricingModule, RankingModule], controllers: [BookingsController], providers: [BookingsService, BookingLifecycleService, PaymentArrangementsService], exports: [BookingsService] })
 export class BookingsModule {}

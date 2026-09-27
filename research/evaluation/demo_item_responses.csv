@@ -1,0 +1,17 @@
+form_id,data_status,candidate_id,item_id,domain,correct
+demo-form-1,DEMO_RESEARCH_GENERATED,demo-cand-1,item-history-01,HISTORY_ARCHAEOLOGY,true
+demo-form-1,DEMO_RESEARCH_GENERATED,demo-cand-1,item-culture-01,RELIGION_CULTURE,true
+demo-form-1,DEMO_RESEARCH_GENERATED,demo-cand-1,item-nature-01,GEOGRAPHY_NATURE,false
+demo-form-1,DEMO_RESEARCH_GENERATED,demo-cand-1,item-law-01,LAW_ETHICS,true
+demo-form-1,DEMO_RESEARCH_GENERATED,demo-cand-2,item-history-01,HISTORY_ARCHAEOLOGY,true
+demo-form-1,DEMO_RESEARCH_GENERATED,demo-cand-2,item-culture-01,RELIGION_CULTURE,false
+demo-form-1,DEMO_RESEARCH_GENERATED,demo-cand-2,item-nature-01,GEOGRAPHY_NATURE,false
+demo-form-1,DEMO_RESEARCH_GENERATED,demo-cand-2,item-law-01,LAW_ETHICS,true
+demo-form-1,DEMO_RESEARCH_GENERATED,demo-cand-3,item-history-01,HISTORY_ARCHAEOLOGY,true
+demo-form-1,DEMO_RESEARCH_GENERATED,demo-cand-3,item-culture-01,RELIGION_CULTURE,true
+demo-form-1,DEMO_RESEARCH_GENERATED,demo-cand-3,item-nature-01,GEOGRAPHY_NATURE,true
+demo-form-1,DEMO_RESEARCH_GENERATED,demo-cand-3,item-law-01,LAW_ETHICS,true
+demo-form-1,DEMO_RESEARCH_GENERATED,demo-cand-4,item-history-01,HISTORY_ARCHAEOLOGY,false
+demo-form-1,DEMO_RESEARCH_GENERATED,demo-cand-4,item-culture-01,RELIGION_CULTURE,false
+demo-form-1,DEMO_RESEARCH_GENERATED,demo-cand-4,item-nature-01,GEOGRAPHY_NATURE,false
+demo-form-1,DEMO_RESEARCH_GENERATED,demo-cand-4,item-law-01,LAW_ETHICS,true

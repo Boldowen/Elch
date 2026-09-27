@@ -100,6 +100,30 @@ describe('controlled AI tools', () => {
     }), expect.any(Date), userId);
   });
 
+  it('accepts the documented YYYY-MM-DD itinerary date format', async () => {
+    const validateAuthoritative = jest.fn(async () => ({ valid: true }));
+    const routeTools = new ToolRegistryService(
+      prisma as never,
+      { validateAuthoritative } as never,
+      bookings as never,
+    );
+
+    await routeTools.execute('validateRoute', {
+      routeId: 'gobi',
+      startDate: '2099-07-01',
+      stops: [
+        { poiId: 'a', day: 1, activityMinutes: 60 },
+        { poiId: 'b', day: 2, activityMinutes: 90 },
+      ],
+    }, { userId, roles: ['TRAVELER'] });
+
+    expect(validateAuthoritative).toHaveBeenCalledWith(
+      expect.objectContaining({ startDate: '2099-07-01' }),
+      expect.any(Date),
+      userId,
+    );
+  });
+
   it('checks guide availability from overlapping application bookings', async () => {
     prisma.guideProfile.findFirst.mockResolvedValueOnce({ id: guideProfileId, userId: '77777777-7777-4777-8777-777777777777' } as never);
     prisma.booking.findMany.mockResolvedValueOnce([

@@ -12,12 +12,39 @@ import { RouteRiskPolicyService } from './route-risk-policy.service.js';
 import { SafetyPlanService } from './safety-plan.service.js';
 import { HydratedResearchRoute, ResearchRoute, RiskClass, RouteEdge } from './route.types.js';
 
+export type ValidationIssueCode =
+  | 'UNKNOWN_ROUTE_NODE' | 'ROUTE_EDGE_MISSING' | 'ROUTE_ORDER_INVALID' | 'POI_DISCONNECTED'
+  | 'TRAVEL_TIME_IMPOSSIBLE' | 'DAILY_TIME_EXCEEDED' | 'TRIP_LENGTH_EXCEEDED' | 'TIME_BUDGET_EXCEEDED'
+  | 'SEASON_INCOMPATIBLE' | 'SEASON_CLOSED_ALL_DAYS' | 'TRANSPORT_INCOMPATIBLE' | 'TRANSPORT_UNAVAILABLE'
+  | 'BUDGET_EXCEEDED' | 'BUDGET_INSUFFICIENT' | 'ACCESS_RESTRICTED' | 'PERMIT_REQUIRED'
+  | 'GUIDE_REQUIRED' | 'GUIDE_COMPETENCY_MISSING' | 'FIRST_AID_REQUIREMENT_NOT_MET'
+  | 'SAFETY_CONSTRAINT_FAILED' | 'SOURCE_UNVERIFIED' | 'SOURCE_STALE';
+
+/** Plan section 7.3 deterministic validator rules. `UNSOLVABLE` is the explicit
+ * "this request cannot be satisfied" declaration required so an infeasible case
+ * is reported rather than repaired or answered with an invented itinerary. */
+export type ValidationRule =
+  | 'ROUTE_CONNECTIVITY' | 'TIME_FEASIBILITY' | 'SEASON_ACCESS' | 'TRANSPORT' | 'BUDGET'
+  | 'GUIDE_ELIGIBILITY' | 'RISK_ESCALATION' | 'SOURCE_PROVENANCE' | 'SOURCE_FRESHNESS' | 'UNSOLVABLE';
+
 export interface ValidationIssue {
-  code: 'UNKNOWN_ROUTE_NODE' | 'ROUTE_EDGE_MISSING' | 'ROUTE_ORDER_INVALID' | 'TRAVEL_TIME_IMPOSSIBLE' | 'DAILY_TIME_EXCEEDED' | 'SEASON_INCOMPATIBLE' | 'TRANSPORT_INCOMPATIBLE' | 'BUDGET_EXCEEDED' | 'ACCESS_RESTRICTED' | 'PERMIT_REQUIRED' | 'GUIDE_REQUIRED' | 'GUIDE_COMPETENCY_MISSING' | 'FIRST_AID_REQUIREMENT_NOT_MET' | 'SAFETY_CONSTRAINT_FAILED' | 'SOURCE_UNVERIFIED' | 'SOURCE_STALE';
-  rule: 'ROUTE_CONNECTIVITY' | 'TIME_FEASIBILITY' | 'SEASON_ACCESS' | 'TRANSPORT' | 'BUDGET' | 'GUIDE_ELIGIBILITY' | 'RISK_ESCALATION' | 'SOURCE_PROVENANCE' | 'SOURCE_FRESHNESS';
+  code: ValidationIssueCode;
+  rule: ValidationRule;
   severity: 'ERROR' | 'WARNING';
   message: string;
   context?: Record<string, unknown>;
+}
+
+/** How a failed itinerary should be handled next. Only `REPAIRABLE` justifies a
+ * repair round; `UNSOLVABLE` must be reported to the traveler as impossible. */
+export type FeasibilityStatus = 'FEASIBLE' | 'REPAIRABLE' | 'REQUIRES_EXTERNAL_APPROVAL' | 'UNSOLVABLE';
+
+export interface FeasibilityVerdict {
+  status: FeasibilityStatus;
+  unsolvable: boolean;
+  repairable: boolean;
+  /** Blocking issues no re-ordering or re-scheduling of this stop set can clear. */
+  reasons: ValidationIssue[];
 }
 
 type ApprovedSafetyPlan = {
@@ -184,6 +211,9 @@ export class RoutePlanningService {
     let travelMinutes = 0;
     let estimatedCostMinor = 0;
     const relevantSourceIds = new Set<string>();
+    const requiredEdges: RouteEdge[] = [];
+    const unresolvedLinks: Array<{ from: string; to: string }> = [];
+    let activityMinutes = 0;
     if (route.sourceId) relevantSourceIds.add(route.sourceId);
     // A partial itinerary or client claim can never downgrade this hard gate.
     let highestRisk: RiskClass = this.highestDeclaredRisk(route);
@@ -195,6 +225,7 @@ export class RoutePlanningService {
       const poi = route.pois.find((item) => item.id === stop.poiId);
       if (poi?.sourceId) relevantSourceIds.add(poi.sourceId);
       dailyMinutes.set(stop.day, (dailyMinutes.get(stop.day) ?? 0) + stop.activityMinutes);
+      activityMinutes += stop.activityMinutes;
     }
 
     for (let index = 0; index < dto.stops.length - 1; index += 1) {
@@ -206,8 +237,10 @@ export class RoutePlanningService {
       const edge = this.findEdge(route, from.poiId, to.poiId);
       if (!edge) {
         issues.push({ code: 'ROUTE_EDGE_MISSING', rule: 'ROUTE_CONNECTIVITY', severity: 'ERROR', message: `No verified route edge connects ${from.poiId} and ${to.poiId}.` });
+        unresolvedLinks.push({ from: from.poiId, to: to.poiId });
         continue;
       }
+      requiredEdges.push(edge);
       relevantSourceIds.add(edge.sourceId);
       dailyMinutes.set(to.day, (dailyMinutes.get(to.day) ?? 0) + edge.nominalMinutes);
       distanceKm += edge.distanceKm;
@@ -234,8 +267,15 @@ export class RoutePlanningService {
     const maxDaily = dto.maxDailyMinutes ?? 720;
     for (const [day, minutes] of dailyMinutes) {
       if (minutes > maxDaily) {
-        issues.push({ code: minutes > 1440 ? 'TRAVEL_TIME_IMPOSSIBLE' : 'DAILY_TIME_EXCEEDED', rule: 'TIME_FEASIBILITY', severity: 'ERROR', message: `Day ${day} requires ${minutes} minutes, above the ${maxDaily}-minute limit.` });
+        issues.push({ code: minutes > 1440 ? 'TRAVEL_TIME_IMPOSSIBLE' : 'DAILY_TIME_EXCEEDED', rule: 'TIME_FEASIBILITY', severity: 'ERROR', message: `Day ${day} requires ${minutes} minutes, above the ${maxDaily}-minute limit.`, context: { day, minutes, maxDailyMinutes: maxDaily, excessMinutes: minutes - maxDaily } });
       }
+    }
+    // Spreading stops over more days is the usual time repair, so the requested
+    // trip length has to be a checked constraint. Without it a "repaired" plan
+    // can silently return a longer trip than the traveler asked for.
+    const plannedDays = Math.max(...dto.stops.map((stop) => stop.day));
+    if (dto.maxDays !== undefined && plannedDays > dto.maxDays) {
+      issues.push({ code: 'TRIP_LENGTH_EXCEEDED', rule: 'TIME_FEASIBILITY', severity: 'ERROR', message: `Itinerary spans ${plannedDays} days, above the requested ${dto.maxDays}-day limit.`, context: { plannedDays, maxDays: dto.maxDays } });
     }
     if (dto.budgetMinor !== undefined && estimatedCostMinor > dto.budgetMinor) {
       issues.push({ code: 'BUDGET_EXCEEDED', rule: 'BUDGET', severity: 'ERROR', message: `Estimated transport cost ${estimatedCostMinor} exceeds budget ${dto.budgetMinor}.` });
@@ -278,6 +318,21 @@ export class RoutePlanningService {
     }
 
     const valid = !issues.some((issue) => issue.severity === 'ERROR');
+    const feasibility = this.assessFeasibility({
+      valid,
+      issues,
+      route,
+      dto,
+      start,
+      maxDaily,
+      plannedDays,
+      activityMinutes,
+      travelMinutes,
+      estimatedCostMinor,
+      requiredEdges,
+      unresolvedLinks,
+    });
+    issues.push(...feasibility.reasons);
     return {
       valid,
       routeId: route.id,
@@ -287,8 +342,9 @@ export class RoutePlanningService {
         travelMinutes,
         estimatedCostMinor,
         highestRisk,
-        days: Math.max(...dto.stops.map((stop) => stop.day)),
+        days: plannedDays,
       },
+      feasibility,
       issues,
       violations: issues,
       safetyApproval: {
@@ -304,6 +360,107 @@ export class RoutePlanningService {
       authoritativeForBooking: false,
       validatedAt: now.toISOString(),
     };
+  }
+
+  /** Deterministic plan section 7.3 `UNSOLVABLE` rule.
+   *
+   * A blocking issue is only "repairable" when re-ordering or re-scheduling the
+   * same stop set could clear it. Anything fixed by the route data itself -- a
+   * closed season, a mode-locked edge, an irreducible cost or time floor, an
+   * isolated node -- stays broken however the days are shuffled, so the request
+   * is declared impossible instead of sent through a pointless repair round.
+   * Guide and safety gates are reported separately: they are not impossible,
+   * they need an eligible guide or a recorded human approval. */
+  private assessFeasibility(input: {
+    valid: boolean;
+    issues: ValidationIssue[];
+    route: HydratedResearchRoute;
+    dto: ValidateItineraryDto;
+    start: Date;
+    maxDaily: number;
+    plannedDays: number;
+    activityMinutes: number;
+    travelMinutes: number;
+    estimatedCostMinor: number;
+    requiredEdges: RouteEdge[];
+    unresolvedLinks: Array<{ from: string; to: string }>;
+  }): FeasibilityVerdict {
+    const { dto, route, requiredEdges } = input;
+    const reasons: ValidationIssue[] = [];
+    const add = (code: ValidationIssueCode, message: string, context?: Record<string, unknown>) =>
+      reasons.push({ code, rule: 'UNSOLVABLE', severity: 'ERROR', message, context });
+
+    // The day budget is a floor: every stop's activity time plus every required
+    // travel leg has to fit, no matter how the stops are distributed.
+    const dayBudget = dto.maxDays ?? input.plannedDays;
+    const requiredMinutes = input.activityMinutes + input.travelMinutes;
+    const availableMinutes = dayBudget * input.maxDaily;
+    if (requiredMinutes > availableMinutes) {
+      add('TIME_BUDGET_EXCEEDED', `The stops need ${requiredMinutes} minutes of activity and travel, above the ${availableMinutes} minutes available in ${dayBudget} day(s) at ${input.maxDaily} minutes per day.`, { requiredMinutes, availableMinutes, dayBudget, maxDailyMinutes: input.maxDaily });
+    }
+
+    // A single leg longer than one day's limit cannot be split across days.
+    for (const edge of requiredEdges) {
+      if (edge.nominalMinutes > input.maxDaily) {
+        add('TIME_BUDGET_EXCEEDED', `${edge.id} alone needs ${edge.nominalMinutes} minutes, above the ${input.maxDaily}-minute daily limit.`, { edgeId: edge.id, nominalMinutes: edge.nominalMinutes });
+      }
+    }
+
+    // Transport mode is a property of the edge, so no schedule change supplies
+    // a different one unless a parallel edge already exists in the RouteGraph.
+    const requested = dto.transportation;
+    if (requested && requested !== 'ANY') {
+      for (const edge of requiredEdges) {
+        if (edge.mode === requested) continue;
+        const alternative = route.edges.some((candidate) =>
+          candidate.mode === requested &&
+          ((candidate.from === edge.from && candidate.to === edge.to) ||
+            (candidate.bidirectional === true && candidate.from === edge.to && candidate.to === edge.from)),
+        );
+        if (!alternative) {
+          add('TRANSPORT_UNAVAILABLE', `No ${requested} connection exists between ${edge.from} and ${edge.to}; the RouteGraph only records ${edge.mode}.`, { edgeId: edge.id, requested, available: edge.mode });
+        }
+      }
+    }
+
+    // Closed for every day the trip could occupy from this start date.
+    const reachableMonths = new Set<number>();
+    for (let offset = 0; offset < Math.max(dayBudget, input.plannedDays); offset += 1) {
+      const day = new Date(input.start);
+      day.setUTCDate(input.start.getUTCDate() + offset);
+      reachableMonths.add(day.getUTCMonth() + 1);
+    }
+    for (const edge of requiredEdges) {
+      if (![...reachableMonths].some((month) => edge.openMonths.includes(month))) {
+        add('SEASON_CLOSED_ALL_DAYS', `${edge.id} is closed for every day of a ${dayBudget}-day trip starting ${dto.startDate}.`, { edgeId: edge.id, openMonths: edge.openMonths, reachableMonths: [...reachableMonths] });
+      }
+    }
+
+    // The cost of connecting a fixed stop set is irreducible by re-ordering.
+    if (dto.budgetMinor !== undefined && input.estimatedCostMinor > dto.budgetMinor) {
+      add('BUDGET_INSUFFICIENT', `The cheapest recorded transport for these stops costs ${input.estimatedCostMinor}, above the ${dto.budgetMinor} budget.`, { estimatedCostMinor: input.estimatedCostMinor, budgetMinor: dto.budgetMinor });
+    }
+
+    // A node no edge touches can never be reached, in any order.
+    for (const { from, to } of input.unresolvedLinks) {
+      for (const poiId of [from, to]) {
+        const connected = route.edges.some((edge) => edge.from === poiId || edge.to === poiId);
+        if (!connected) {
+          add('POI_DISCONNECTED', `${poiId} has no route edge in ${route.name}, so no itinerary order can reach it.`, { poiId });
+        }
+      }
+    }
+
+    const deduped = reasons.filter((reason, index) =>
+      reasons.findIndex((other) => other.code === reason.code && other.message === reason.message) === index,
+    );
+    if (input.valid) return { status: 'FEASIBLE', unsolvable: false, repairable: false, reasons: [] };
+    if (deduped.length) return { status: 'UNSOLVABLE', unsolvable: true, repairable: false, reasons: deduped };
+    const externalOnly = input.issues
+      .filter((issue) => issue.severity === 'ERROR')
+      .every((issue) => issue.rule === 'GUIDE_ELIGIBILITY' || issue.rule === 'RISK_ESCALATION' || issue.rule === 'SOURCE_PROVENANCE');
+    if (externalOnly) return { status: 'REQUIRES_EXTERNAL_APPROVAL', unsolvable: false, repairable: false, reasons: [] };
+    return { status: 'REPAIRABLE', unsolvable: false, repairable: true, reasons: [] };
   }
 
   private fixtureRoute(id: string): HydratedResearchRoute {

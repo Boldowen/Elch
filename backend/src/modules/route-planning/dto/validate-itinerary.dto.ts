@@ -55,6 +55,14 @@ export class ValidateItineraryDto {
   @Max(1440)
   maxDailyMinutes?: number;
 
+  /** Requested trip length. A time repair that spreads stops over extra days
+   * must not silently return a longer trip than this. */
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  @Max(30)
+  maxDays?: number;
+
   @IsOptional()
   @IsInt()
   @Min(0)

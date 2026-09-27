@@ -469,6 +469,7 @@ export type GuideProfileWhereInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptListRelationFilter
   matchResults?: Prisma.GuideMatchResultListRelationFilter
   safetyPlans?: Prisma.SafetyPlanListRelationFilter
+  availabilitySlots?: Prisma.GuideAvailabilityListRelationFilter
 }
 
 export type GuideProfileOrderByWithRelationInput = {
@@ -518,6 +519,7 @@ export type GuideProfileOrderByWithRelationInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptOrderByRelationAggregateInput
   matchResults?: Prisma.GuideMatchResultOrderByRelationAggregateInput
   safetyPlans?: Prisma.SafetyPlanOrderByRelationAggregateInput
+  availabilitySlots?: Prisma.GuideAvailabilityOrderByRelationAggregateInput
 }
 
 export type GuideProfileWhereUniqueInput = Prisma.AtLeast<{
@@ -570,6 +572,7 @@ export type GuideProfileWhereUniqueInput = Prisma.AtLeast<{
   assessmentAttempts?: Prisma.AssessmentAttemptListRelationFilter
   matchResults?: Prisma.GuideMatchResultListRelationFilter
   safetyPlans?: Prisma.SafetyPlanListRelationFilter
+  availabilitySlots?: Prisma.GuideAvailabilityListRelationFilter
 }, "id" | "userId">
 
 export type GuideProfileOrderByWithAggregationInput = {
@@ -698,6 +701,7 @@ export type GuideProfileCreateInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutGuideProfileInput
   matchResults?: Prisma.GuideMatchResultCreateNestedManyWithoutGuideProfileInput
   safetyPlans?: Prisma.SafetyPlanCreateNestedManyWithoutGuideProfileInput
+  availabilitySlots?: Prisma.GuideAvailabilityCreateNestedManyWithoutGuideInput
 }
 
 export type GuideProfileUncheckedCreateInput = {
@@ -746,6 +750,7 @@ export type GuideProfileUncheckedCreateInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutGuideProfileInput
   matchResults?: Prisma.GuideMatchResultUncheckedCreateNestedManyWithoutGuideProfileInput
   safetyPlans?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutGuideProfileInput
+  availabilitySlots?: Prisma.GuideAvailabilityUncheckedCreateNestedManyWithoutGuideInput
 }
 
 export type GuideProfileUpdateInput = {
@@ -794,6 +799,7 @@ export type GuideProfileUpdateInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutGuideProfileNestedInput
   matchResults?: Prisma.GuideMatchResultUpdateManyWithoutGuideProfileNestedInput
   safetyPlans?: Prisma.SafetyPlanUpdateManyWithoutGuideProfileNestedInput
+  availabilitySlots?: Prisma.GuideAvailabilityUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideProfileUncheckedUpdateInput = {
@@ -842,6 +848,7 @@ export type GuideProfileUncheckedUpdateInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutGuideProfileNestedInput
   matchResults?: Prisma.GuideMatchResultUncheckedUpdateManyWithoutGuideProfileNestedInput
   safetyPlans?: Prisma.SafetyPlanUncheckedUpdateManyWithoutGuideProfileNestedInput
+  availabilitySlots?: Prisma.GuideAvailabilityUncheckedUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideProfileCreateManyInput = {
@@ -1197,6 +1204,20 @@ export type DecimalFieldUpdateOperationsInput = {
   divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
+export type GuideProfileCreateNestedOneWithoutAvailabilitySlotsInput = {
+  create?: Prisma.XOR<Prisma.GuideProfileCreateWithoutAvailabilitySlotsInput, Prisma.GuideProfileUncheckedCreateWithoutAvailabilitySlotsInput>
+  connectOrCreate?: Prisma.GuideProfileCreateOrConnectWithoutAvailabilitySlotsInput
+  connect?: Prisma.GuideProfileWhereUniqueInput
+}
+
+export type GuideProfileUpdateOneRequiredWithoutAvailabilitySlotsNestedInput = {
+  create?: Prisma.XOR<Prisma.GuideProfileCreateWithoutAvailabilitySlotsInput, Prisma.GuideProfileUncheckedCreateWithoutAvailabilitySlotsInput>
+  connectOrCreate?: Prisma.GuideProfileCreateOrConnectWithoutAvailabilitySlotsInput
+  upsert?: Prisma.GuideProfileUpsertWithoutAvailabilitySlotsInput
+  connect?: Prisma.GuideProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.GuideProfileUpdateToOneWithWhereWithoutAvailabilitySlotsInput, Prisma.GuideProfileUpdateWithoutAvailabilitySlotsInput>, Prisma.GuideProfileUncheckedUpdateWithoutAvailabilitySlotsInput>
+}
+
 export type GuideProfileCreateNestedOneWithoutEvidenceInput = {
   create?: Prisma.XOR<Prisma.GuideProfileCreateWithoutEvidenceInput, Prisma.GuideProfileUncheckedCreateWithoutEvidenceInput>
   connectOrCreate?: Prisma.GuideProfileCreateOrConnectWithoutEvidenceInput
@@ -1410,6 +1431,7 @@ export type GuideProfileCreateWithoutUserInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutGuideProfileInput
   matchResults?: Prisma.GuideMatchResultCreateNestedManyWithoutGuideProfileInput
   safetyPlans?: Prisma.SafetyPlanCreateNestedManyWithoutGuideProfileInput
+  availabilitySlots?: Prisma.GuideAvailabilityCreateNestedManyWithoutGuideInput
 }
 
 export type GuideProfileUncheckedCreateWithoutUserInput = {
@@ -1457,6 +1479,7 @@ export type GuideProfileUncheckedCreateWithoutUserInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutGuideProfileInput
   matchResults?: Prisma.GuideMatchResultUncheckedCreateNestedManyWithoutGuideProfileInput
   safetyPlans?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutGuideProfileInput
+  availabilitySlots?: Prisma.GuideAvailabilityUncheckedCreateNestedManyWithoutGuideInput
 }
 
 export type GuideProfileCreateOrConnectWithoutUserInput = {
@@ -1520,10 +1543,220 @@ export type GuideProfileUpdateWithoutUserInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutGuideProfileNestedInput
   matchResults?: Prisma.GuideMatchResultUpdateManyWithoutGuideProfileNestedInput
   safetyPlans?: Prisma.SafetyPlanUpdateManyWithoutGuideProfileNestedInput
+  availabilitySlots?: Prisma.GuideAvailabilityUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideProfileUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  experienceYears?: Prisma.IntFieldUpdateOperationsInput | number
+  languages?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileUpdateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileUpdateavailabilityInput | string[]
+  pricingType?: Prisma.EnumPricingTypeFieldUpdateOperationsInput | $Enums.PricingType
+  price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  legalRole?: Prisma.EnumGuideLegalRoleFieldUpdateOperationsInput | $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileUpdaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileUpdatespecialtySkillsInput | string[]
+  firstAidVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: Prisma.IntFieldUpdateOperationsInput | number
+  referenceContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rankPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  completedTrips?: Prisma.IntFieldUpdateOperationsInput | number
+  responseRate?: Prisma.IntFieldUpdateOperationsInput | number
+  acceptanceRate?: Prisma.IntFieldUpdateOperationsInput | number
+  providerCancellationCount?: Prisma.IntFieldUpdateOperationsInput | number
+  confirmedReportCount?: Prisma.IntFieldUpdateOperationsInput | number
+  rankingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  verificationReviews?: Prisma.GuideVerificationReviewUncheckedUpdateManyWithoutGuideProfileNestedInput
+  evidence?: Prisma.GuideEvidenceUncheckedUpdateManyWithoutGuideProfileNestedInput
+  competencyAttempts?: Prisma.CompetencyAttemptUncheckedUpdateManyWithoutGuideProfileNestedInput
+  competencies?: Prisma.GuideCompetencyUncheckedUpdateManyWithoutGuideProfileNestedInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentUncheckedUpdateManyWithoutGuideProfileNestedInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentUncheckedUpdateManyWithoutGuideProfileNestedInput
+  skillAssessments?: Prisma.GuideSkillAssessmentUncheckedUpdateManyWithoutGuideProfileNestedInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyUncheckedUpdateManyWithoutGuideProfileNestedInput
+  firstAidRecords?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutGuideProfileNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutGuideProfileNestedInput
+  matchResults?: Prisma.GuideMatchResultUncheckedUpdateManyWithoutGuideProfileNestedInput
+  safetyPlans?: Prisma.SafetyPlanUncheckedUpdateManyWithoutGuideProfileNestedInput
+  availabilitySlots?: Prisma.GuideAvailabilityUncheckedUpdateManyWithoutGuideNestedInput
+}
+
+export type GuideProfileCreateWithoutAvailabilitySlotsInput = {
+  id?: string
+  country: string
+  city: string
+  bio: string
+  experienceYears?: number
+  languages: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileCreateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileCreateavailabilityInput | string[]
+  pricingType?: $Enums.PricingType
+  price?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: $Enums.GuideStatus
+  verified?: boolean
+  legalRole?: $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileCreaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileCreatespecialtySkillsInput | string[]
+  firstAidVerified?: boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: number
+  referenceContact?: string | null
+  codeOfConductAccepted?: boolean
+  rankPoints?: number
+  completedTrips?: number
+  responseRate?: number
+  acceptanceRate?: number
+  providerCancellationCount?: number
+  confirmedReportCount?: number
+  rankingUpdatedAt?: Date | string | null
+  rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  user: Prisma.UserCreateNestedOneWithoutGuideProfileInput
+  verificationReviews?: Prisma.GuideVerificationReviewCreateNestedManyWithoutGuideProfileInput
+  evidence?: Prisma.GuideEvidenceCreateNestedManyWithoutGuideProfileInput
+  competencyAttempts?: Prisma.CompetencyAttemptCreateNestedManyWithoutGuideProfileInput
+  competencies?: Prisma.GuideCompetencyCreateNestedManyWithoutGuideProfileInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentCreateNestedManyWithoutGuideProfileInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentCreateNestedManyWithoutGuideProfileInput
+  skillAssessments?: Prisma.GuideSkillAssessmentCreateNestedManyWithoutGuideProfileInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyCreateNestedManyWithoutGuideProfileInput
+  firstAidRecords?: Prisma.GuideFirstAidCreateNestedManyWithoutGuideProfileInput
+  assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutGuideProfileInput
+  matchResults?: Prisma.GuideMatchResultCreateNestedManyWithoutGuideProfileInput
+  safetyPlans?: Prisma.SafetyPlanCreateNestedManyWithoutGuideProfileInput
+}
+
+export type GuideProfileUncheckedCreateWithoutAvailabilitySlotsInput = {
+  id?: string
+  userId: string
+  country: string
+  city: string
+  bio: string
+  experienceYears?: number
+  languages: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileCreateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileCreateavailabilityInput | string[]
+  pricingType?: $Enums.PricingType
+  price?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: $Enums.GuideStatus
+  verified?: boolean
+  legalRole?: $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileCreaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileCreatespecialtySkillsInput | string[]
+  firstAidVerified?: boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: number
+  referenceContact?: string | null
+  codeOfConductAccepted?: boolean
+  rankPoints?: number
+  completedTrips?: number
+  responseRate?: number
+  acceptanceRate?: number
+  providerCancellationCount?: number
+  confirmedReportCount?: number
+  rankingUpdatedAt?: Date | string | null
+  rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  verificationReviews?: Prisma.GuideVerificationReviewUncheckedCreateNestedManyWithoutGuideProfileInput
+  evidence?: Prisma.GuideEvidenceUncheckedCreateNestedManyWithoutGuideProfileInput
+  competencyAttempts?: Prisma.CompetencyAttemptUncheckedCreateNestedManyWithoutGuideProfileInput
+  competencies?: Prisma.GuideCompetencyUncheckedCreateNestedManyWithoutGuideProfileInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentUncheckedCreateNestedManyWithoutGuideProfileInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentUncheckedCreateNestedManyWithoutGuideProfileInput
+  skillAssessments?: Prisma.GuideSkillAssessmentUncheckedCreateNestedManyWithoutGuideProfileInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyUncheckedCreateNestedManyWithoutGuideProfileInput
+  firstAidRecords?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutGuideProfileInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutGuideProfileInput
+  matchResults?: Prisma.GuideMatchResultUncheckedCreateNestedManyWithoutGuideProfileInput
+  safetyPlans?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutGuideProfileInput
+}
+
+export type GuideProfileCreateOrConnectWithoutAvailabilitySlotsInput = {
+  where: Prisma.GuideProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.GuideProfileCreateWithoutAvailabilitySlotsInput, Prisma.GuideProfileUncheckedCreateWithoutAvailabilitySlotsInput>
+}
+
+export type GuideProfileUpsertWithoutAvailabilitySlotsInput = {
+  update: Prisma.XOR<Prisma.GuideProfileUpdateWithoutAvailabilitySlotsInput, Prisma.GuideProfileUncheckedUpdateWithoutAvailabilitySlotsInput>
+  create: Prisma.XOR<Prisma.GuideProfileCreateWithoutAvailabilitySlotsInput, Prisma.GuideProfileUncheckedCreateWithoutAvailabilitySlotsInput>
+  where?: Prisma.GuideProfileWhereInput
+}
+
+export type GuideProfileUpdateToOneWithWhereWithoutAvailabilitySlotsInput = {
+  where?: Prisma.GuideProfileWhereInput
+  data: Prisma.XOR<Prisma.GuideProfileUpdateWithoutAvailabilitySlotsInput, Prisma.GuideProfileUncheckedUpdateWithoutAvailabilitySlotsInput>
+}
+
+export type GuideProfileUpdateWithoutAvailabilitySlotsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  country?: Prisma.StringFieldUpdateOperationsInput | string
+  city?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.StringFieldUpdateOperationsInput | string
+  experienceYears?: Prisma.IntFieldUpdateOperationsInput | number
+  languages?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  expertise?: Prisma.GuideProfileUpdateexpertiseInput | string[]
+  availability?: Prisma.GuideProfileUpdateavailabilityInput | string[]
+  pricingType?: Prisma.EnumPricingTypeFieldUpdateOperationsInput | $Enums.PricingType
+  price?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  status?: Prisma.EnumGuideStatusFieldUpdateOperationsInput | $Enums.GuideStatus
+  verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  legalRole?: Prisma.EnumGuideLegalRoleFieldUpdateOperationsInput | $Enums.GuideLegalRole
+  routeBadges?: Prisma.GuideProfileUpdaterouteBadgesInput | string[]
+  specialtySkills?: Prisma.GuideProfileUpdatespecialtySkillsInput | string[]
+  firstAidVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  languageEstimate?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  assessmentScore?: Prisma.IntFieldUpdateOperationsInput | number
+  referenceContact?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codeOfConductAccepted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  rankPoints?: Prisma.IntFieldUpdateOperationsInput | number
+  completedTrips?: Prisma.IntFieldUpdateOperationsInput | number
+  responseRate?: Prisma.IntFieldUpdateOperationsInput | number
+  acceptanceRate?: Prisma.IntFieldUpdateOperationsInput | number
+  providerCancellationCount?: Prisma.IntFieldUpdateOperationsInput | number
+  confirmedReportCount?: Prisma.IntFieldUpdateOperationsInput | number
+  rankingUpdatedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  user?: Prisma.UserUpdateOneRequiredWithoutGuideProfileNestedInput
+  verificationReviews?: Prisma.GuideVerificationReviewUpdateManyWithoutGuideProfileNestedInput
+  evidence?: Prisma.GuideEvidenceUpdateManyWithoutGuideProfileNestedInput
+  competencyAttempts?: Prisma.CompetencyAttemptUpdateManyWithoutGuideProfileNestedInput
+  competencies?: Prisma.GuideCompetencyUpdateManyWithoutGuideProfileNestedInput
+  languageAssessments?: Prisma.GuideLanguageAssessmentUpdateManyWithoutGuideProfileNestedInput
+  knowledgeAssessments?: Prisma.GuideKnowledgeAssessmentUpdateManyWithoutGuideProfileNestedInput
+  skillAssessments?: Prisma.GuideSkillAssessmentUpdateManyWithoutGuideProfileNestedInput
+  routeCompetencies?: Prisma.GuideRouteCompetencyUpdateManyWithoutGuideProfileNestedInput
+  firstAidRecords?: Prisma.GuideFirstAidUpdateManyWithoutGuideProfileNestedInput
+  assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutGuideProfileNestedInput
+  matchResults?: Prisma.GuideMatchResultUpdateManyWithoutGuideProfileNestedInput
+  safetyPlans?: Prisma.SafetyPlanUpdateManyWithoutGuideProfileNestedInput
+}
+
+export type GuideProfileUncheckedUpdateWithoutAvailabilitySlotsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
   country?: Prisma.StringFieldUpdateOperationsInput | string
   city?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1614,6 +1847,7 @@ export type GuideProfileCreateWithoutEvidenceInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutGuideProfileInput
   matchResults?: Prisma.GuideMatchResultCreateNestedManyWithoutGuideProfileInput
   safetyPlans?: Prisma.SafetyPlanCreateNestedManyWithoutGuideProfileInput
+  availabilitySlots?: Prisma.GuideAvailabilityCreateNestedManyWithoutGuideInput
 }
 
 export type GuideProfileUncheckedCreateWithoutEvidenceInput = {
@@ -1661,6 +1895,7 @@ export type GuideProfileUncheckedCreateWithoutEvidenceInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutGuideProfileInput
   matchResults?: Prisma.GuideMatchResultUncheckedCreateNestedManyWithoutGuideProfileInput
   safetyPlans?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutGuideProfileInput
+  availabilitySlots?: Prisma.GuideAvailabilityUncheckedCreateNestedManyWithoutGuideInput
 }
 
 export type GuideProfileCreateOrConnectWithoutEvidenceInput = {
@@ -1724,6 +1959,7 @@ export type GuideProfileUpdateWithoutEvidenceInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutGuideProfileNestedInput
   matchResults?: Prisma.GuideMatchResultUpdateManyWithoutGuideProfileNestedInput
   safetyPlans?: Prisma.SafetyPlanUpdateManyWithoutGuideProfileNestedInput
+  availabilitySlots?: Prisma.GuideAvailabilityUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideProfileUncheckedUpdateWithoutEvidenceInput = {
@@ -1771,6 +2007,7 @@ export type GuideProfileUncheckedUpdateWithoutEvidenceInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutGuideProfileNestedInput
   matchResults?: Prisma.GuideMatchResultUncheckedUpdateManyWithoutGuideProfileNestedInput
   safetyPlans?: Prisma.SafetyPlanUncheckedUpdateManyWithoutGuideProfileNestedInput
+  availabilitySlots?: Prisma.GuideAvailabilityUncheckedUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideProfileCreateWithoutCompetencyAttemptsInput = {
@@ -1818,6 +2055,7 @@ export type GuideProfileCreateWithoutCompetencyAttemptsInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutGuideProfileInput
   matchResults?: Prisma.GuideMatchResultCreateNestedManyWithoutGuideProfileInput
   safetyPlans?: Prisma.SafetyPlanCreateNestedManyWithoutGuideProfileInput
+  availabilitySlots?: Prisma.GuideAvailabilityCreateNestedManyWithoutGuideInput
 }
 
 export type GuideProfileUncheckedCreateWithoutCompetencyAttemptsInput = {
@@ -1865,6 +2103,7 @@ export type GuideProfileUncheckedCreateWithoutCompetencyAttemptsInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutGuideProfileInput
   matchResults?: Prisma.GuideMatchResultUncheckedCreateNestedManyWithoutGuideProfileInput
   safetyPlans?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutGuideProfileInput
+  availabilitySlots?: Prisma.GuideAvailabilityUncheckedCreateNestedManyWithoutGuideInput
 }
 
 export type GuideProfileCreateOrConnectWithoutCompetencyAttemptsInput = {
@@ -1928,6 +2167,7 @@ export type GuideProfileUpdateWithoutCompetencyAttemptsInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutGuideProfileNestedInput
   matchResults?: Prisma.GuideMatchResultUpdateManyWithoutGuideProfileNestedInput
   safetyPlans?: Prisma.SafetyPlanUpdateManyWithoutGuideProfileNestedInput
+  availabilitySlots?: Prisma.GuideAvailabilityUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideProfileUncheckedUpdateWithoutCompetencyAttemptsInput = {
@@ -1975,6 +2215,7 @@ export type GuideProfileUncheckedUpdateWithoutCompetencyAttemptsInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutGuideProfileNestedInput
   matchResults?: Prisma.GuideMatchResultUncheckedUpdateManyWithoutGuideProfileNestedInput
   safetyPlans?: Prisma.SafetyPlanUncheckedUpdateManyWithoutGuideProfileNestedInput
+  availabilitySlots?: Prisma.GuideAvailabilityUncheckedUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideProfileCreateWithoutSafetyPlansInput = {
@@ -2022,6 +2263,7 @@ export type GuideProfileCreateWithoutSafetyPlansInput = {
   firstAidRecords?: Prisma.GuideFirstAidCreateNestedManyWithoutGuideProfileInput
   assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutGuideProfileInput
   matchResults?: Prisma.GuideMatchResultCreateNestedManyWithoutGuideProfileInput
+  availabilitySlots?: Prisma.GuideAvailabilityCreateNestedManyWithoutGuideInput
 }
 
 export type GuideProfileUncheckedCreateWithoutSafetyPlansInput = {
@@ -2069,6 +2311,7 @@ export type GuideProfileUncheckedCreateWithoutSafetyPlansInput = {
   firstAidRecords?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutGuideProfileInput
   assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutGuideProfileInput
   matchResults?: Prisma.GuideMatchResultUncheckedCreateNestedManyWithoutGuideProfileInput
+  availabilitySlots?: Prisma.GuideAvailabilityUncheckedCreateNestedManyWithoutGuideInput
 }
 
 export type GuideProfileCreateOrConnectWithoutSafetyPlansInput = {
@@ -2132,6 +2375,7 @@ export type GuideProfileUpdateWithoutSafetyPlansInput = {
   firstAidRecords?: Prisma.GuideFirstAidUpdateManyWithoutGuideProfileNestedInput
   assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutGuideProfileNestedInput
   matchResults?: Prisma.GuideMatchResultUpdateManyWithoutGuideProfileNestedInput
+  availabilitySlots?: Prisma.GuideAvailabilityUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideProfileUncheckedUpdateWithoutSafetyPlansInput = {
@@ -2179,6 +2423,7 @@ export type GuideProfileUncheckedUpdateWithoutSafetyPlansInput = {
   firstAidRecords?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutGuideProfileNestedInput
   assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutGuideProfileNestedInput
   matchResults?: Prisma.GuideMatchResultUncheckedUpdateManyWithoutGuideProfileNestedInput
+  availabilitySlots?: Prisma.GuideAvailabilityUncheckedUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideProfileCreateWithoutCompetenciesInput = {
@@ -2226,6 +2471,7 @@ export type GuideProfileCreateWithoutCompetenciesInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutGuideProfileInput
   matchResults?: Prisma.GuideMatchResultCreateNestedManyWithoutGuideProfileInput
   safetyPlans?: Prisma.SafetyPlanCreateNestedManyWithoutGuideProfileInput
+  availabilitySlots?: Prisma.GuideAvailabilityCreateNestedManyWithoutGuideInput
 }
 
 export type GuideProfileUncheckedCreateWithoutCompetenciesInput = {
@@ -2273,6 +2519,7 @@ export type GuideProfileUncheckedCreateWithoutCompetenciesInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutGuideProfileInput
   matchResults?: Prisma.GuideMatchResultUncheckedCreateNestedManyWithoutGuideProfileInput
   safetyPlans?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutGuideProfileInput
+  availabilitySlots?: Prisma.GuideAvailabilityUncheckedCreateNestedManyWithoutGuideInput
 }
 
 export type GuideProfileCreateOrConnectWithoutCompetenciesInput = {
@@ -2336,6 +2583,7 @@ export type GuideProfileUpdateWithoutCompetenciesInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutGuideProfileNestedInput
   matchResults?: Prisma.GuideMatchResultUpdateManyWithoutGuideProfileNestedInput
   safetyPlans?: Prisma.SafetyPlanUpdateManyWithoutGuideProfileNestedInput
+  availabilitySlots?: Prisma.GuideAvailabilityUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideProfileUncheckedUpdateWithoutCompetenciesInput = {
@@ -2383,6 +2631,7 @@ export type GuideProfileUncheckedUpdateWithoutCompetenciesInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutGuideProfileNestedInput
   matchResults?: Prisma.GuideMatchResultUncheckedUpdateManyWithoutGuideProfileNestedInput
   safetyPlans?: Prisma.SafetyPlanUncheckedUpdateManyWithoutGuideProfileNestedInput
+  availabilitySlots?: Prisma.GuideAvailabilityUncheckedUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideProfileCreateWithoutLanguageAssessmentsInput = {
@@ -2430,6 +2679,7 @@ export type GuideProfileCreateWithoutLanguageAssessmentsInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutGuideProfileInput
   matchResults?: Prisma.GuideMatchResultCreateNestedManyWithoutGuideProfileInput
   safetyPlans?: Prisma.SafetyPlanCreateNestedManyWithoutGuideProfileInput
+  availabilitySlots?: Prisma.GuideAvailabilityCreateNestedManyWithoutGuideInput
 }
 
 export type GuideProfileUncheckedCreateWithoutLanguageAssessmentsInput = {
@@ -2477,6 +2727,7 @@ export type GuideProfileUncheckedCreateWithoutLanguageAssessmentsInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutGuideProfileInput
   matchResults?: Prisma.GuideMatchResultUncheckedCreateNestedManyWithoutGuideProfileInput
   safetyPlans?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutGuideProfileInput
+  availabilitySlots?: Prisma.GuideAvailabilityUncheckedCreateNestedManyWithoutGuideInput
 }
 
 export type GuideProfileCreateOrConnectWithoutLanguageAssessmentsInput = {
@@ -2540,6 +2791,7 @@ export type GuideProfileUpdateWithoutLanguageAssessmentsInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutGuideProfileNestedInput
   matchResults?: Prisma.GuideMatchResultUpdateManyWithoutGuideProfileNestedInput
   safetyPlans?: Prisma.SafetyPlanUpdateManyWithoutGuideProfileNestedInput
+  availabilitySlots?: Prisma.GuideAvailabilityUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideProfileUncheckedUpdateWithoutLanguageAssessmentsInput = {
@@ -2587,6 +2839,7 @@ export type GuideProfileUncheckedUpdateWithoutLanguageAssessmentsInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutGuideProfileNestedInput
   matchResults?: Prisma.GuideMatchResultUncheckedUpdateManyWithoutGuideProfileNestedInput
   safetyPlans?: Prisma.SafetyPlanUncheckedUpdateManyWithoutGuideProfileNestedInput
+  availabilitySlots?: Prisma.GuideAvailabilityUncheckedUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideProfileCreateWithoutKnowledgeAssessmentsInput = {
@@ -2634,6 +2887,7 @@ export type GuideProfileCreateWithoutKnowledgeAssessmentsInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutGuideProfileInput
   matchResults?: Prisma.GuideMatchResultCreateNestedManyWithoutGuideProfileInput
   safetyPlans?: Prisma.SafetyPlanCreateNestedManyWithoutGuideProfileInput
+  availabilitySlots?: Prisma.GuideAvailabilityCreateNestedManyWithoutGuideInput
 }
 
 export type GuideProfileUncheckedCreateWithoutKnowledgeAssessmentsInput = {
@@ -2681,6 +2935,7 @@ export type GuideProfileUncheckedCreateWithoutKnowledgeAssessmentsInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutGuideProfileInput
   matchResults?: Prisma.GuideMatchResultUncheckedCreateNestedManyWithoutGuideProfileInput
   safetyPlans?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutGuideProfileInput
+  availabilitySlots?: Prisma.GuideAvailabilityUncheckedCreateNestedManyWithoutGuideInput
 }
 
 export type GuideProfileCreateOrConnectWithoutKnowledgeAssessmentsInput = {
@@ -2744,6 +2999,7 @@ export type GuideProfileUpdateWithoutKnowledgeAssessmentsInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutGuideProfileNestedInput
   matchResults?: Prisma.GuideMatchResultUpdateManyWithoutGuideProfileNestedInput
   safetyPlans?: Prisma.SafetyPlanUpdateManyWithoutGuideProfileNestedInput
+  availabilitySlots?: Prisma.GuideAvailabilityUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideProfileUncheckedUpdateWithoutKnowledgeAssessmentsInput = {
@@ -2791,6 +3047,7 @@ export type GuideProfileUncheckedUpdateWithoutKnowledgeAssessmentsInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutGuideProfileNestedInput
   matchResults?: Prisma.GuideMatchResultUncheckedUpdateManyWithoutGuideProfileNestedInput
   safetyPlans?: Prisma.SafetyPlanUncheckedUpdateManyWithoutGuideProfileNestedInput
+  availabilitySlots?: Prisma.GuideAvailabilityUncheckedUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideProfileCreateWithoutSkillAssessmentsInput = {
@@ -2838,6 +3095,7 @@ export type GuideProfileCreateWithoutSkillAssessmentsInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutGuideProfileInput
   matchResults?: Prisma.GuideMatchResultCreateNestedManyWithoutGuideProfileInput
   safetyPlans?: Prisma.SafetyPlanCreateNestedManyWithoutGuideProfileInput
+  availabilitySlots?: Prisma.GuideAvailabilityCreateNestedManyWithoutGuideInput
 }
 
 export type GuideProfileUncheckedCreateWithoutSkillAssessmentsInput = {
@@ -2885,6 +3143,7 @@ export type GuideProfileUncheckedCreateWithoutSkillAssessmentsInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutGuideProfileInput
   matchResults?: Prisma.GuideMatchResultUncheckedCreateNestedManyWithoutGuideProfileInput
   safetyPlans?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutGuideProfileInput
+  availabilitySlots?: Prisma.GuideAvailabilityUncheckedCreateNestedManyWithoutGuideInput
 }
 
 export type GuideProfileCreateOrConnectWithoutSkillAssessmentsInput = {
@@ -2948,6 +3207,7 @@ export type GuideProfileUpdateWithoutSkillAssessmentsInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutGuideProfileNestedInput
   matchResults?: Prisma.GuideMatchResultUpdateManyWithoutGuideProfileNestedInput
   safetyPlans?: Prisma.SafetyPlanUpdateManyWithoutGuideProfileNestedInput
+  availabilitySlots?: Prisma.GuideAvailabilityUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideProfileUncheckedUpdateWithoutSkillAssessmentsInput = {
@@ -2995,6 +3255,7 @@ export type GuideProfileUncheckedUpdateWithoutSkillAssessmentsInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutGuideProfileNestedInput
   matchResults?: Prisma.GuideMatchResultUncheckedUpdateManyWithoutGuideProfileNestedInput
   safetyPlans?: Prisma.SafetyPlanUncheckedUpdateManyWithoutGuideProfileNestedInput
+  availabilitySlots?: Prisma.GuideAvailabilityUncheckedUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideProfileCreateWithoutRouteCompetenciesInput = {
@@ -3042,6 +3303,7 @@ export type GuideProfileCreateWithoutRouteCompetenciesInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutGuideProfileInput
   matchResults?: Prisma.GuideMatchResultCreateNestedManyWithoutGuideProfileInput
   safetyPlans?: Prisma.SafetyPlanCreateNestedManyWithoutGuideProfileInput
+  availabilitySlots?: Prisma.GuideAvailabilityCreateNestedManyWithoutGuideInput
 }
 
 export type GuideProfileUncheckedCreateWithoutRouteCompetenciesInput = {
@@ -3089,6 +3351,7 @@ export type GuideProfileUncheckedCreateWithoutRouteCompetenciesInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutGuideProfileInput
   matchResults?: Prisma.GuideMatchResultUncheckedCreateNestedManyWithoutGuideProfileInput
   safetyPlans?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutGuideProfileInput
+  availabilitySlots?: Prisma.GuideAvailabilityUncheckedCreateNestedManyWithoutGuideInput
 }
 
 export type GuideProfileCreateOrConnectWithoutRouteCompetenciesInput = {
@@ -3152,6 +3415,7 @@ export type GuideProfileUpdateWithoutRouteCompetenciesInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutGuideProfileNestedInput
   matchResults?: Prisma.GuideMatchResultUpdateManyWithoutGuideProfileNestedInput
   safetyPlans?: Prisma.SafetyPlanUpdateManyWithoutGuideProfileNestedInput
+  availabilitySlots?: Prisma.GuideAvailabilityUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideProfileUncheckedUpdateWithoutRouteCompetenciesInput = {
@@ -3199,6 +3463,7 @@ export type GuideProfileUncheckedUpdateWithoutRouteCompetenciesInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutGuideProfileNestedInput
   matchResults?: Prisma.GuideMatchResultUncheckedUpdateManyWithoutGuideProfileNestedInput
   safetyPlans?: Prisma.SafetyPlanUncheckedUpdateManyWithoutGuideProfileNestedInput
+  availabilitySlots?: Prisma.GuideAvailabilityUncheckedUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideProfileCreateWithoutFirstAidRecordsInput = {
@@ -3246,6 +3511,7 @@ export type GuideProfileCreateWithoutFirstAidRecordsInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutGuideProfileInput
   matchResults?: Prisma.GuideMatchResultCreateNestedManyWithoutGuideProfileInput
   safetyPlans?: Prisma.SafetyPlanCreateNestedManyWithoutGuideProfileInput
+  availabilitySlots?: Prisma.GuideAvailabilityCreateNestedManyWithoutGuideInput
 }
 
 export type GuideProfileUncheckedCreateWithoutFirstAidRecordsInput = {
@@ -3293,6 +3559,7 @@ export type GuideProfileUncheckedCreateWithoutFirstAidRecordsInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutGuideProfileInput
   matchResults?: Prisma.GuideMatchResultUncheckedCreateNestedManyWithoutGuideProfileInput
   safetyPlans?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutGuideProfileInput
+  availabilitySlots?: Prisma.GuideAvailabilityUncheckedCreateNestedManyWithoutGuideInput
 }
 
 export type GuideProfileCreateOrConnectWithoutFirstAidRecordsInput = {
@@ -3356,6 +3623,7 @@ export type GuideProfileUpdateWithoutFirstAidRecordsInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutGuideProfileNestedInput
   matchResults?: Prisma.GuideMatchResultUpdateManyWithoutGuideProfileNestedInput
   safetyPlans?: Prisma.SafetyPlanUpdateManyWithoutGuideProfileNestedInput
+  availabilitySlots?: Prisma.GuideAvailabilityUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideProfileUncheckedUpdateWithoutFirstAidRecordsInput = {
@@ -3403,6 +3671,7 @@ export type GuideProfileUncheckedUpdateWithoutFirstAidRecordsInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutGuideProfileNestedInput
   matchResults?: Prisma.GuideMatchResultUncheckedUpdateManyWithoutGuideProfileNestedInput
   safetyPlans?: Prisma.SafetyPlanUncheckedUpdateManyWithoutGuideProfileNestedInput
+  availabilitySlots?: Prisma.GuideAvailabilityUncheckedUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideProfileCreateWithoutAssessmentAttemptsInput = {
@@ -3450,6 +3719,7 @@ export type GuideProfileCreateWithoutAssessmentAttemptsInput = {
   firstAidRecords?: Prisma.GuideFirstAidCreateNestedManyWithoutGuideProfileInput
   matchResults?: Prisma.GuideMatchResultCreateNestedManyWithoutGuideProfileInput
   safetyPlans?: Prisma.SafetyPlanCreateNestedManyWithoutGuideProfileInput
+  availabilitySlots?: Prisma.GuideAvailabilityCreateNestedManyWithoutGuideInput
 }
 
 export type GuideProfileUncheckedCreateWithoutAssessmentAttemptsInput = {
@@ -3497,6 +3767,7 @@ export type GuideProfileUncheckedCreateWithoutAssessmentAttemptsInput = {
   firstAidRecords?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutGuideProfileInput
   matchResults?: Prisma.GuideMatchResultUncheckedCreateNestedManyWithoutGuideProfileInput
   safetyPlans?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutGuideProfileInput
+  availabilitySlots?: Prisma.GuideAvailabilityUncheckedCreateNestedManyWithoutGuideInput
 }
 
 export type GuideProfileCreateOrConnectWithoutAssessmentAttemptsInput = {
@@ -3560,6 +3831,7 @@ export type GuideProfileUpdateWithoutAssessmentAttemptsInput = {
   firstAidRecords?: Prisma.GuideFirstAidUpdateManyWithoutGuideProfileNestedInput
   matchResults?: Prisma.GuideMatchResultUpdateManyWithoutGuideProfileNestedInput
   safetyPlans?: Prisma.SafetyPlanUpdateManyWithoutGuideProfileNestedInput
+  availabilitySlots?: Prisma.GuideAvailabilityUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideProfileUncheckedUpdateWithoutAssessmentAttemptsInput = {
@@ -3607,6 +3879,7 @@ export type GuideProfileUncheckedUpdateWithoutAssessmentAttemptsInput = {
   firstAidRecords?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutGuideProfileNestedInput
   matchResults?: Prisma.GuideMatchResultUncheckedUpdateManyWithoutGuideProfileNestedInput
   safetyPlans?: Prisma.SafetyPlanUncheckedUpdateManyWithoutGuideProfileNestedInput
+  availabilitySlots?: Prisma.GuideAvailabilityUncheckedUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideProfileCreateWithoutMatchResultsInput = {
@@ -3654,6 +3927,7 @@ export type GuideProfileCreateWithoutMatchResultsInput = {
   firstAidRecords?: Prisma.GuideFirstAidCreateNestedManyWithoutGuideProfileInput
   assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutGuideProfileInput
   safetyPlans?: Prisma.SafetyPlanCreateNestedManyWithoutGuideProfileInput
+  availabilitySlots?: Prisma.GuideAvailabilityCreateNestedManyWithoutGuideInput
 }
 
 export type GuideProfileUncheckedCreateWithoutMatchResultsInput = {
@@ -3701,6 +3975,7 @@ export type GuideProfileUncheckedCreateWithoutMatchResultsInput = {
   firstAidRecords?: Prisma.GuideFirstAidUncheckedCreateNestedManyWithoutGuideProfileInput
   assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutGuideProfileInput
   safetyPlans?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutGuideProfileInput
+  availabilitySlots?: Prisma.GuideAvailabilityUncheckedCreateNestedManyWithoutGuideInput
 }
 
 export type GuideProfileCreateOrConnectWithoutMatchResultsInput = {
@@ -3764,6 +4039,7 @@ export type GuideProfileUpdateWithoutMatchResultsInput = {
   firstAidRecords?: Prisma.GuideFirstAidUpdateManyWithoutGuideProfileNestedInput
   assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutGuideProfileNestedInput
   safetyPlans?: Prisma.SafetyPlanUpdateManyWithoutGuideProfileNestedInput
+  availabilitySlots?: Prisma.GuideAvailabilityUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideProfileUncheckedUpdateWithoutMatchResultsInput = {
@@ -3811,6 +4087,7 @@ export type GuideProfileUncheckedUpdateWithoutMatchResultsInput = {
   firstAidRecords?: Prisma.GuideFirstAidUncheckedUpdateManyWithoutGuideProfileNestedInput
   assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutGuideProfileNestedInput
   safetyPlans?: Prisma.SafetyPlanUncheckedUpdateManyWithoutGuideProfileNestedInput
+  availabilitySlots?: Prisma.GuideAvailabilityUncheckedUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideProfileCreateWithoutVerificationReviewsInput = {
@@ -3858,6 +4135,7 @@ export type GuideProfileCreateWithoutVerificationReviewsInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptCreateNestedManyWithoutGuideProfileInput
   matchResults?: Prisma.GuideMatchResultCreateNestedManyWithoutGuideProfileInput
   safetyPlans?: Prisma.SafetyPlanCreateNestedManyWithoutGuideProfileInput
+  availabilitySlots?: Prisma.GuideAvailabilityCreateNestedManyWithoutGuideInput
 }
 
 export type GuideProfileUncheckedCreateWithoutVerificationReviewsInput = {
@@ -3905,6 +4183,7 @@ export type GuideProfileUncheckedCreateWithoutVerificationReviewsInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptUncheckedCreateNestedManyWithoutGuideProfileInput
   matchResults?: Prisma.GuideMatchResultUncheckedCreateNestedManyWithoutGuideProfileInput
   safetyPlans?: Prisma.SafetyPlanUncheckedCreateNestedManyWithoutGuideProfileInput
+  availabilitySlots?: Prisma.GuideAvailabilityUncheckedCreateNestedManyWithoutGuideInput
 }
 
 export type GuideProfileCreateOrConnectWithoutVerificationReviewsInput = {
@@ -3968,6 +4247,7 @@ export type GuideProfileUpdateWithoutVerificationReviewsInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptUpdateManyWithoutGuideProfileNestedInput
   matchResults?: Prisma.GuideMatchResultUpdateManyWithoutGuideProfileNestedInput
   safetyPlans?: Prisma.SafetyPlanUpdateManyWithoutGuideProfileNestedInput
+  availabilitySlots?: Prisma.GuideAvailabilityUpdateManyWithoutGuideNestedInput
 }
 
 export type GuideProfileUncheckedUpdateWithoutVerificationReviewsInput = {
@@ -4015,6 +4295,7 @@ export type GuideProfileUncheckedUpdateWithoutVerificationReviewsInput = {
   assessmentAttempts?: Prisma.AssessmentAttemptUncheckedUpdateManyWithoutGuideProfileNestedInput
   matchResults?: Prisma.GuideMatchResultUncheckedUpdateManyWithoutGuideProfileNestedInput
   safetyPlans?: Prisma.SafetyPlanUncheckedUpdateManyWithoutGuideProfileNestedInput
+  availabilitySlots?: Prisma.GuideAvailabilityUncheckedUpdateManyWithoutGuideNestedInput
 }
 
 
@@ -4035,6 +4316,7 @@ export type GuideProfileCountOutputType = {
   assessmentAttempts: number
   matchResults: number
   safetyPlans: number
+  availabilitySlots: number
 }
 
 export type GuideProfileCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -4050,6 +4332,7 @@ export type GuideProfileCountOutputTypeSelect<ExtArgs extends runtime.Types.Exte
   assessmentAttempts?: boolean | GuideProfileCountOutputTypeCountAssessmentAttemptsArgs
   matchResults?: boolean | GuideProfileCountOutputTypeCountMatchResultsArgs
   safetyPlans?: boolean | GuideProfileCountOutputTypeCountSafetyPlansArgs
+  availabilitySlots?: boolean | GuideProfileCountOutputTypeCountAvailabilitySlotsArgs
 }
 
 /**
@@ -4146,6 +4429,13 @@ export type GuideProfileCountOutputTypeCountSafetyPlansArgs<ExtArgs extends runt
   where?: Prisma.SafetyPlanWhereInput
 }
 
+/**
+ * GuideProfileCountOutputType without action
+ */
+export type GuideProfileCountOutputTypeCountAvailabilitySlotsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.GuideAvailabilityWhereInput
+}
+
 
 export type GuideProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -4194,6 +4484,7 @@ export type GuideProfileSelect<ExtArgs extends runtime.Types.Extensions.Internal
   assessmentAttempts?: boolean | Prisma.GuideProfile$assessmentAttemptsArgs<ExtArgs>
   matchResults?: boolean | Prisma.GuideProfile$matchResultsArgs<ExtArgs>
   safetyPlans?: boolean | Prisma.GuideProfile$safetyPlansArgs<ExtArgs>
+  availabilitySlots?: boolean | Prisma.GuideProfile$availabilitySlotsArgs<ExtArgs>
   _count?: boolean | Prisma.GuideProfileCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["guideProfile"]>
 
@@ -4322,6 +4613,7 @@ export type GuideProfileInclude<ExtArgs extends runtime.Types.Extensions.Interna
   assessmentAttempts?: boolean | Prisma.GuideProfile$assessmentAttemptsArgs<ExtArgs>
   matchResults?: boolean | Prisma.GuideProfile$matchResultsArgs<ExtArgs>
   safetyPlans?: boolean | Prisma.GuideProfile$safetyPlansArgs<ExtArgs>
+  availabilitySlots?: boolean | Prisma.GuideProfile$availabilitySlotsArgs<ExtArgs>
   _count?: boolean | Prisma.GuideProfileCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type GuideProfileIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -4347,6 +4639,7 @@ export type $GuideProfilePayload<ExtArgs extends runtime.Types.Extensions.Intern
     assessmentAttempts: Prisma.$AssessmentAttemptPayload<ExtArgs>[]
     matchResults: Prisma.$GuideMatchResultPayload<ExtArgs>[]
     safetyPlans: Prisma.$SafetyPlanPayload<ExtArgs>[]
+    availabilitySlots: Prisma.$GuideAvailabilityPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -4789,6 +5082,7 @@ export interface Prisma__GuideProfileClient<T, Null = never, ExtArgs extends run
   assessmentAttempts<T extends Prisma.GuideProfile$assessmentAttemptsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GuideProfile$assessmentAttemptsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AssessmentAttemptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   matchResults<T extends Prisma.GuideProfile$matchResultsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GuideProfile$matchResultsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GuideMatchResultPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   safetyPlans<T extends Prisma.GuideProfile$safetyPlansArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GuideProfile$safetyPlansArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SafetyPlanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  availabilitySlots<T extends Prisma.GuideProfile$availabilitySlotsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GuideProfile$availabilitySlotsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GuideAvailabilityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5537,6 +5831,30 @@ export type GuideProfile$safetyPlansArgs<ExtArgs extends runtime.Types.Extension
   take?: number
   skip?: number
   distinct?: Prisma.SafetyPlanScalarFieldEnum | Prisma.SafetyPlanScalarFieldEnum[]
+}
+
+/**
+ * GuideProfile.availabilitySlots
+ */
+export type GuideProfile$availabilitySlotsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GuideAvailability
+   */
+  select?: Prisma.GuideAvailabilitySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the GuideAvailability
+   */
+  omit?: Prisma.GuideAvailabilityOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GuideAvailabilityInclude<ExtArgs> | null
+  where?: Prisma.GuideAvailabilityWhereInput
+  orderBy?: Prisma.GuideAvailabilityOrderByWithRelationInput | Prisma.GuideAvailabilityOrderByWithRelationInput[]
+  cursor?: Prisma.GuideAvailabilityWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.GuideAvailabilityScalarFieldEnum | Prisma.GuideAvailabilityScalarFieldEnum[]
 }
 
 /**

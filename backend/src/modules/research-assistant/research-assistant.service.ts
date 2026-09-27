@@ -239,9 +239,14 @@ export class ResearchAssistantService {
       item.status === 'SUCCEEDED' &&
       ['getLiveWeather', 'getRoadClosures', 'getPermitRequirements', 'searchTransportAvailability'].includes(item.name),
     );
+    // Plan section 7.3 `UNSOLVABLE`: an impossible request is declared, not
+    // answered with an itinerary that cannot happen.
+    const feasibility = routePlan?.feasibility ?? null;
+    const unsolvable = feasibility?.status === 'UNSOLVABLE';
     const warnings = [
       ...(route?.riskClass === 'R3' || route?.riskClass === 'R4' ? ['Qualified specialist review and an explicit safety plan are required.'] : []),
       ...(dynamicDataRequired && !liveLookupSucceeded ? ['Verified live information was not returned; treat the current condition as unknown.'] : []),
+      ...(unsolvable ? ['These constraints cannot be satisfied together on this route; no itinerary is proposed.'] : []),
     ];
     return {
       answer: generated.text,
@@ -254,9 +259,12 @@ export class ResearchAssistantService {
       recommendations: route ? [`Use the ${route.name} RouteGraph candidate and validate dates, transport, guide and budget.`] : [],
       warnings,
       routeValidation: routePlan?.validation ?? null,
-      itinerary: routePlan?.repaired?.validation.valid
-        ? routePlan.repaired.candidate
-        : routePlan?.candidate ?? null,
+      feasibility,
+      itinerary: unsolvable
+        ? null
+        : routePlan?.repaired?.validation.valid
+          ? routePlan.repaired.candidate
+          : routePlan?.candidate ?? null,
       guideMatches,
       guideMatchRunId,
       sources: retrieved,
@@ -271,6 +279,7 @@ export class ResearchAssistantService {
       limitations: [
         'This response is research guidance, not a confirmed booking.',
         ...(dynamicDataRequired && !liveLookupSucceeded ? ['Dynamic facts were not invented; a verified live tool must supply them.'] : []),
+        ...(unsolvable ? (feasibility?.reasons ?? []).map((reason: { message: string }) => reason.message) : []),
       ],
       pipeline: ['INTENT_RISK_CLASSIFIER', ...(experiment.features.useRag ? ['TOURISM_RETRIEVAL'] : []), ...(route ? ['ROUTE_GRAPH'] : []), ...(experiment.features.useTools ? ['CONTROLLED_TOOLS'] : []), ...(runtimeResult ? ['AI_SDK_TOOL_LOOP'] : []), ...(experiment.features.useValidator ? ['DETERMINISTIC_VALIDATOR'] : []), 'CONTROLLED_RESPONSE'],
       usage: generated.usage,

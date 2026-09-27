@@ -27,3 +27,6 @@ research/training/output/
 research/training/checkpoints/
 research/training/config.local.json
 .venv-research/
+
+# Generated metric runs (regenerate with `make research-metrics`)
+research/evaluation/results/

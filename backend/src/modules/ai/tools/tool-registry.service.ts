@@ -62,9 +62,13 @@ const guideSearchSchema = z.object({
   city: z.string().trim().min(1).max(100).nullable(),
   limit: z.number().int().min(1).max(20).nullable(),
 }).strict();
+const itineraryStartDateSchema = z.union([
+  z.iso.date(),
+  z.iso.datetime({ offset: true }),
+]);
 const itinerarySchema = z.object({
   routeId: z.string().trim().min(1).max(80),
-  startDate: z.string().datetime({ offset: true }),
+  startDate: itineraryStartDateSchema,
   stops: z.array(z.object({
     poiId: z.string().trim().min(1).max(100),
     day: z.number().int().min(1).max(30),

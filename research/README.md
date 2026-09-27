@@ -62,10 +62,20 @@ Additional entry points:
 
 - `scripts/export_research_data.py` produces field-whitelisted CSV/JSON with
   HMAC-pseudonymized IDs and a hash manifest.
-- `scripts/evaluate_csv.py` calculates travel and guide metrics without a
-  statistics dependency.
+- `scripts/evaluate_csv.py` calculates travel, guide, guide-match and assessment
+  item metrics without a statistics dependency.
+- `scripts/run_primary_metrics.py` recomputes every primary metric in one
+  command from `evaluation/primary_metrics.manifest.json`, writing the results
+  and an input-hash index (`make research-metrics ALLOW_DEMO=1`).
 - `training/train_qlora.py` is a manual CUDA QLoRA command. It forces offline
   model loading and rejects demo/evaluation/leaky training data by default.
+
+The authenticated admin API export uses the long-form
+`elch-research-export-v2` schema. Its record types cover AI runs/evaluations,
+guide assessment attempts, language assessment, general and route competency,
+first-aid evidence, and guide-match outcomes. IDs are domain-separated HMAC
+pseudonyms; free-form notes, raw prompts/tool payloads, document references, and
+non-allow-listed matching data are excluded.
 
 Read before collecting or training:
 
@@ -80,6 +90,8 @@ Read before collecting or training:
 ```bash
 python3 -m compileall -q research/scripts research/training research/tests
 python3 -m unittest discover -s research/tests -v
+# or, from the repository root:
+make research-test
 ```
 
 ## Study launch gate

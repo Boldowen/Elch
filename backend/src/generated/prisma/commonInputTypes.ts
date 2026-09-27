@@ -443,6 +443,23 @@ export type DecimalWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedDecimalFilter<$PrismaModel>
 }
 
+export type EnumGuideAvailabilityStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.GuideAvailabilityStatus | Prisma.EnumGuideAvailabilityStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.GuideAvailabilityStatus[] | Prisma.ListEnumGuideAvailabilityStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.GuideAvailabilityStatus[] | Prisma.ListEnumGuideAvailabilityStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumGuideAvailabilityStatusFilter<$PrismaModel> | $Enums.GuideAvailabilityStatus
+}
+
+export type EnumGuideAvailabilityStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.GuideAvailabilityStatus | Prisma.EnumGuideAvailabilityStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.GuideAvailabilityStatus[] | Prisma.ListEnumGuideAvailabilityStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.GuideAvailabilityStatus[] | Prisma.ListEnumGuideAvailabilityStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumGuideAvailabilityStatusWithAggregatesFilter<$PrismaModel> | $Enums.GuideAvailabilityStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumGuideAvailabilityStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumGuideAvailabilityStatusFilter<$PrismaModel>
+}
+
 export type EnumGuideEvidenceTypeFilter<$PrismaModel = never> = {
   equals?: $Enums.GuideEvidenceType | Prisma.EnumGuideEvidenceTypeFieldRefInput<$PrismaModel>
   in?: $Enums.GuideEvidenceType[] | Prisma.ListEnumGuideEvidenceTypeFieldRefInput<$PrismaModel>
@@ -1727,6 +1744,23 @@ export type NestedDecimalWithAggregatesFilter<$PrismaModel = never> = {
   _sum?: Prisma.NestedDecimalFilter<$PrismaModel>
   _min?: Prisma.NestedDecimalFilter<$PrismaModel>
   _max?: Prisma.NestedDecimalFilter<$PrismaModel>
+}
+
+export type NestedEnumGuideAvailabilityStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.GuideAvailabilityStatus | Prisma.EnumGuideAvailabilityStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.GuideAvailabilityStatus[] | Prisma.ListEnumGuideAvailabilityStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.GuideAvailabilityStatus[] | Prisma.ListEnumGuideAvailabilityStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumGuideAvailabilityStatusFilter<$PrismaModel> | $Enums.GuideAvailabilityStatus
+}
+
+export type NestedEnumGuideAvailabilityStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.GuideAvailabilityStatus | Prisma.EnumGuideAvailabilityStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.GuideAvailabilityStatus[] | Prisma.ListEnumGuideAvailabilityStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.GuideAvailabilityStatus[] | Prisma.ListEnumGuideAvailabilityStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumGuideAvailabilityStatusWithAggregatesFilter<$PrismaModel> | $Enums.GuideAvailabilityStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumGuideAvailabilityStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumGuideAvailabilityStatusFilter<$PrismaModel>
 }
 
 export type NestedEnumGuideEvidenceTypeFilter<$PrismaModel = never> = {

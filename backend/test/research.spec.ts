@@ -27,6 +27,25 @@ function createPrismaMock() {
     },
     assessmentAttempt: {
       count: jest.fn(),
+      findMany: jest.fn(),
+    },
+    guideRouteCompetency: {
+      groupBy: jest.fn(),
+      findMany: jest.fn(),
+    },
+    guideLanguageAssessment: {
+      groupBy: jest.fn(),
+      findMany: jest.fn(),
+    },
+    guideFirstAid: {
+      groupBy: jest.fn(),
+      findMany: jest.fn(),
+    },
+    guideCompetency: {
+      findMany: jest.fn(),
+    },
+    guideMatchRun: {
+      findMany: jest.fn(),
     },
   };
 }
@@ -119,6 +138,23 @@ describe('ResearchService', () => {
     prisma.aiExperimentRun.count.mockResolvedValue(2);
     prisma.aiEvaluationResult.count.mockResolvedValue(3);
     prisma.assessmentAttempt.count.mockResolvedValue(4);
+    prisma.assessmentAttempt.findMany.mockResolvedValue([
+      { aiScore: '80', humanScore: '70' },
+      { aiScore: '90', humanScore: '95' },
+    ]);
+    prisma.guideRouteCompetency.groupBy.mockResolvedValue([
+      { routeFamily: 'GOBI', status: 'HUMAN_VERIFIED', _count: { _all: 2 } },
+    ]);
+    prisma.guideLanguageAssessment.groupBy.mockResolvedValue([
+      { aiEstimatedCefr: 'B2', _count: { _all: 3 } },
+    ]);
+    prisma.guideFirstAid.groupBy.mockResolvedValue([
+      {
+        certificateStatus: 'DOCUMENT_VERIFIED',
+        practicalVerificationStatus: 'VERIFIED',
+        _count: { _all: 1 },
+      },
+    ]);
     prisma.aiExperimentRun.findMany.mockResolvedValue([
       {
         validatorResult: {
@@ -148,6 +184,13 @@ describe('ResearchService', () => {
       routeValidationFailures: 2,
       guideAssessmentCount: 4,
       humanEvaluationCount: 3,
+      aiVsHumanScoreComparison: {
+        aiAverage: 85,
+        humanAverage: 82.5,
+        correlation: 1,
+        sampleSize: 2,
+        truncated: false,
+      },
     });
     expect(summary.experimentModeDistribution).toEqual([
       { value: 'E', count: 5 },
@@ -156,6 +199,15 @@ describe('ResearchService', () => {
     expect(summary.commonValidationErrors).toEqual([
       { code: 'DAILY_TIME_EXCEEDED', count: 1 },
       { code: 'UNSTRUCTURED_FAILURE_REDACTED', count: 1 },
+    ]);
+    expect(summary.routeCompetencyDistribution).toEqual([
+      { label: 'GOBI:HUMAN_VERIFIED', count: 2 },
+    ]);
+    expect(summary.languageEstimateDistribution).toEqual([
+      { label: 'B2', count: 3 },
+    ]);
+    expect(summary.firstAidVerificationDistribution).toEqual([
+      { label: 'DOCUMENT_VERIFIED:VERIFIED', count: 1 },
     ]);
     expect(JSON.stringify(summary)).not.toContain('private details');
   });
@@ -223,6 +275,106 @@ describe('ResearchService', () => {
         ],
       },
     ]);
+    prisma.assessmentAttempt.findMany.mockResolvedValue([{
+      id: 'raw-attempt-id',
+      userId: 'raw-user-id',
+      guideProfileId: 'raw-guide-id',
+      routeId: 'raw-route-id',
+      routeFamily: 'GOBI',
+      assessmentType: 'GENERAL_KNOWLEDGE',
+      status: 'HUMAN_REVIEWED',
+      score: '78.00',
+      aiScore: '80.00',
+      humanScore: '76.00',
+      passed: true,
+      humanPassed: true,
+      aiEstimatedCefr: null,
+      humanCefr: null,
+      aiConfidence: '0.900',
+      createdAt: new Date('2026-08-15T09:00:00.000Z'),
+    }]);
+    prisma.guideLanguageAssessment.findMany.mockResolvedValue([{
+      id: 'raw-language-id',
+      guideProfileId: 'raw-guide-id',
+      assessmentAttemptId: 'raw-attempt-id',
+      language: 'en',
+      aiEstimatedCefr: 'B2',
+      aiConfidence: '0.850',
+      fluencyScore: '80.00',
+      grammarScore: '78.00',
+      vocabularyScore: '82.00',
+      interactionScore: '79.00',
+      clarityScore: '81.00',
+      humanVerifiedCefr: 'B1',
+      assessmentStatus: 'HUMAN_VERIFIED',
+      createdAt: new Date('2026-08-15T09:01:00.000Z'),
+    }]);
+    prisma.guideCompetency.findMany.mockResolvedValue([{
+      id: 'raw-competency-id',
+      guideProfileId: 'raw-guide-id',
+      routeId: 'raw-route-id',
+      assessmentAttemptId: 'raw-attempt-id',
+      competencyType: 'SPECIALTY',
+      competencyCode: 'private-competency-free-text',
+      score: '76.00',
+      status: 'HUMAN_VERIFIED',
+      verifiedById: 'raw-reviewer-id',
+      verificationMethod: 'HUMAN_REVIEW',
+      validFrom: new Date('2026-08-15T00:00:00.000Z'),
+      validTo: null,
+      createdAt: new Date('2026-08-15T09:02:00.000Z'),
+    }]);
+    prisma.guideRouteCompetency.findMany.mockResolvedValue([{
+      id: 'raw-route-competency-id',
+      guideProfileId: 'raw-guide-id',
+      routeId: 'raw-route-id',
+      assessmentAttemptId: 'raw-attempt-id',
+      routeFamily: 'GOBI',
+      score: '88.00',
+      status: 'HUMAN_VERIFIED',
+      passedAt: new Date('2026-08-15T00:00:00.000Z'),
+      expiresAt: new Date('2027-08-15T00:00:00.000Z'),
+      evaluatorType: 'HUMAN',
+      createdAt: new Date('2026-08-15T09:03:00.000Z'),
+    }]);
+    prisma.guideFirstAid.findMany.mockResolvedValue([{
+      id: 'raw-first-aid-id',
+      guideProfileId: 'raw-guide-id',
+      assessmentAttemptId: 'raw-attempt-id',
+      issuedAt: new Date('2026-01-01T00:00:00.000Z'),
+      expiresAt: new Date('2027-01-01T00:00:00.000Z'),
+      certificateStatus: 'DOCUMENT_VERIFIED',
+      theoryScore: '90.00',
+      practicalVerificationStatus: 'VERIFIED',
+      verifiedAt: new Date('2026-08-15T00:00:00.000Z'),
+      verifiedById: 'raw-reviewer-id',
+      createdAt: new Date('2026-08-15T09:04:00.000Z'),
+    }]);
+    prisma.guideMatchRun.findMany.mockResolvedValue([{
+      id: 'raw-match-run-id',
+      userId: 'raw-user-id',
+      routeId: 'raw-route-id',
+      experimentRunId: 'raw-run-id',
+      routeFamily: 'GOBI',
+      requestedStartAt: new Date('2026-09-01T00:00:00.000Z'),
+      requestedEndAt: new Date('2026-09-03T00:00:00.000Z'),
+      language: 'en',
+      minimumCefr: 'B2',
+      createdAt: new Date('2026-08-15T09:05:00.000Z'),
+      results: [{
+        id: 'raw-match-result-id',
+        guideProfileId: 'raw-guide-id',
+        eligible: false,
+        score: '62.500',
+        rank: null,
+        hardGateFailures: ['FIRST_AID', 'SPECIALTY:private-free-text'],
+        factors: {
+          languageFit: 80,
+          safety: 0,
+          privateNote: 'must not export',
+        },
+      }],
+    }]);
     const service = new ResearchService(
       prisma as never,
       new ConfigService({
@@ -236,23 +388,44 @@ describe('ResearchService', () => {
       data: Array<Record<string, unknown>>;
     };
     const serialized = JSON.stringify(parsed);
-    expect(jsonExport.rowCount).toBe(1);
+    expect(jsonExport.rowCount).toBe(7);
     expect(parsed.data[0].run_id).toMatch(/^p_[a-f0-9]{24}$/);
     expect(parsed.data[0].user_id).toMatch(/^p_[a-f0-9]{24}$/);
     expect(parsed.data[0].tool_calls).toBe('["searchGuides","matchGuides"]');
     expect(parsed.data[0].validation_codes).toBe('["FIRST_AID_REQUIREMENT_NOT_MET"]');
     expect(parsed.data[0]).not.toHaveProperty('notes');
     expect(parsed.data[0]).not.toHaveProperty('metadata');
+    expect(parsed.data.map((row) => row.record_type)).toEqual([
+      'AI_EXPERIMENT_EVALUATION',
+      'GUIDE_ASSESSMENT',
+      'GUIDE_LANGUAGE_ASSESSMENT',
+      'GUIDE_COMPETENCY',
+      'GUIDE_ROUTE_COMPETENCY',
+      'GUIDE_FIRST_AID',
+      'GUIDE_MATCH_OUTCOME',
+    ]);
+    expect(parsed.data.find((row) => row.record_type === 'GUIDE_COMPETENCY')?.competency_code)
+      .toBe('SPECIALTY_REDACTED');
+    const matchRow = parsed.data.at(-1)!;
+    expect(matchRow.hard_gate_failures).toBe('["FIRST_AID","SPECIALTY_REQUIREMENT"]');
+    expect(matchRow.factor_scores).toBe('{"languageFit":80,"safety":0}');
     for (const privateValue of [
       'raw-run-id',
       'raw-user-id',
       'raw-conversation-id',
       'raw-reviewer-id',
+      'raw-guide-id',
+      'raw-attempt-id',
+      'raw-match-run-id',
+      'raw-match-result-id',
       'private@example.test',
       'secret-ref',
       'private safety details',
       'private reviewer notes',
       'private prompt',
+      'private-free-text',
+      'private-competency-free-text',
+      'must not export',
     ]) {
       expect(serialized).not.toContain(privateValue);
     }

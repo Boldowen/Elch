@@ -44,21 +44,21 @@ export class RankingService {
     return { recalculated: results.length };
   }
 
-  async recalculateGuide(userId: string, now = new Date()) {
-    const guide = await this.prisma.guideProfile.findUnique({
+  async recalculateGuide(userId: string, now = new Date(), client: Prisma.TransactionClient | PrismaService = this.prisma) {
+    const guide = await client.guideProfile.findUnique({
       where: { userId },
       include: { user: { select: { lastLoginAt: true } } },
     });
     if (!guide) return null;
     const providerWhere: Prisma.BookingWhereInput = { OR: [{ guideId: userId }, { listing: { hostId: userId } }], deletedAt: null };
-    const [globalReview, decidedBookings, providerCancellations, confirmedReports, latestBooking] = await Promise.all([
-      this.prisma.review.aggregate({ where: { bookingId: { not: null }, deletedAt: null }, _avg: { rating: true } }),
-      this.prisma.booking.findMany({
+    const [globalReview, decidedBookings, providerCancellations, confirmedReports, latestProviderEvent] = await Promise.all([
+      client.review.aggregate({ where: { bookingId: { not: null }, deletedAt: null }, _avg: { rating: true } }),
+      client.booking.findMany({
         where: { ...providerWhere, status: { in: [BookingStatus.CONFIRMED, BookingStatus.IN_PROGRESS, BookingStatus.COMPLETED, BookingStatus.DECLINED, BookingStatus.EXPIRED, BookingStatus.CANCELLED_BY_TRAVELER, BookingStatus.CANCELLED_BY_PROVIDER, BookingStatus.DISPUTED, BookingStatus.REFUND_PENDING, BookingStatus.REFUNDED] } },
-        select: { status: true },
+        select: { status: true, events: { where: { actorType: 'PROVIDER', eventType: { in: ['ACCEPT', 'DECLINE'] } }, select: { eventType: true } } },
       }),
-      this.prisma.booking.count({ where: { ...providerWhere, status: BookingStatus.CANCELLED_BY_PROVIDER } }),
-      this.prisma.report.count({
+      client.booking.count({ where: { ...providerWhere, status: BookingStatus.CANCELLED_BY_PROVIDER } }),
+      client.report.count({
         where: {
           status: ReportStatus.RESOLVED,
           OR: [
@@ -68,13 +68,16 @@ export class RankingService {
           actions: { some: { action: { notIn: [ModerationActionType.WARNING, ModerationActionType.REPORT_DISMISS] } } },
         },
       }),
-      this.prisma.booking.findFirst({ where: providerWhere, orderBy: { updatedAt: 'desc' }, select: { updatedAt: true } }),
+      client.bookingEvent.findFirst({ where: { actorId: userId, actorType: 'PROVIDER', booking: providerWhere }, orderBy: { createdAt: 'desc' }, select: { createdAt: true } }),
     ]);
-    const responded = decidedBookings.filter(({ status }) => status !== BookingStatus.EXPIRED).length;
-    const accepted = decidedBookings.filter(({ status }) => status !== BookingStatus.EXPIRED && status !== BookingStatus.DECLINED).length;
+    // Legacy bookings without events can still demonstrate acceptance by their
+    // state, but a traveler cancellation alone is never a provider response.
+    const acceptedStates: BookingStatus[] = [BookingStatus.CONFIRMED, BookingStatus.IN_PROGRESS, BookingStatus.COMPLETED, BookingStatus.CANCELLED_BY_PROVIDER, BookingStatus.DISPUTED, BookingStatus.REFUND_PENDING, BookingStatus.REFUNDED];
+    const accepted = decidedBookings.filter(({ status, events }) => events.some(({ eventType }) => eventType === 'ACCEPT') || acceptedStates.includes(status)).length;
+    const responded = decidedBookings.filter(({ status, events }) => events.length > 0 || status === BookingStatus.DECLINED || acceptedStates.includes(status)).length;
     const responseRate = decidedBookings.length ? Math.round((responded * 100) / decidedBookings.length) : 100;
     const acceptanceRate = decidedBookings.length ? Math.round((accepted * 100) / decidedBookings.length) : 100;
-    const lastActivity = [guide.updatedAt, guide.user.lastLoginAt, latestBooking?.updatedAt].filter((date): date is Date => Boolean(date)).reduce((latest, date) => date > latest ? date : latest, guide.createdAt);
+    const lastActivity = [guide.user.lastLoginAt, latestProviderEvent?.createdAt].filter((date): date is Date => Boolean(date)).reduce((latest, date) => date > latest ? date : latest, guide.createdAt);
     const daysSinceActivity = Math.max(0, Math.floor((now.getTime() - lastActivity.getTime()) / 86_400_000));
     const score = this.calculate({
       rating: Number(guide.rating),
@@ -88,7 +91,7 @@ export class RankingService {
       providerCancellations,
       confirmedReports,
     });
-    return this.prisma.guideProfile.update({
+    return client.guideProfile.update({
       where: { userId },
       data: { rankPoints: score.rankPoints, responseRate, acceptanceRate, providerCancellationCount: providerCancellations, confirmedReportCount: confirmedReports, rankingUpdatedAt: now },
     });

@@ -27,7 +27,9 @@ import { AiModule } from './modules/ai/ai.module.js';
 import { TourismKnowledgeModule } from './modules/tourism-knowledge/tourism-knowledge.module.js';
 import { GuideAssessmentsModule } from './modules/guide-assessments/guide-assessments.module.js';
 import { ResearchModule } from './modules/research/research.module.js';
+import { FeaturesModule } from './modules/features/features.module.js';
 import { OperationsModule } from './modules/operations/operations.module.js';
+import { RequestLoggingMiddleware } from './modules/operations/request-logging.middleware.js';
 
 @Module({
   imports: [
@@ -53,6 +55,7 @@ import { OperationsModule } from './modules/operations/operations.module.js';
     GuideAssessmentsModule,
     ResearchModule,
     OperationsModule,
+    FeaturesModule,
     SocialModule,
     HealthModule,
   ],
@@ -64,6 +67,6 @@ import { OperationsModule } from './modules/operations/operations.module.js';
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(RequestIdMiddleware).forRoutes('*');
+    consumer.apply(RequestIdMiddleware, RequestLoggingMiddleware).forRoutes('*');
   }
 }

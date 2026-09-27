@@ -134,14 +134,16 @@ export class ListingsService {
     return this.prisma.$transaction(async (tx) => {
       for (const day of dto.days) {
         const date = this.dateOnly(day.date);
-        const existing = await tx.listingInventory.findUnique({ where: { listingId_date: { listingId: id, date } } });
-        const reserved = existing?.reservedUnits ?? 0;
-        if (day.totalUnits < reserved) throw new ConflictException(`Inventory on ${day.date} already has ${reserved} reserved unit(s)`);
-        await tx.listingInventory.upsert({
-          where: { listingId_date: { listingId: id, date } },
-          create: { listingId: id, date, totalUnits: day.totalUnits, reservedUnits: 0, availableUnits: day.totalUnits },
-          update: { totalUnits: day.totalUnits, availableUnits: day.totalUnits - reserved },
-        });
+        const changed = await tx.$executeRaw`
+          INSERT INTO "ListingInventory" ("id", "listingId", "date", "totalUnits", "reservedUnits", "availableUnits", "createdAt", "updatedAt")
+          VALUES (${randomUUID()}::uuid, ${id}::uuid, ${date}, ${day.totalUnits}, 0, ${day.totalUnits}, NOW(), NOW())
+          ON CONFLICT ("listingId", "date") DO UPDATE
+          SET "totalUnits" = EXCLUDED."totalUnits",
+              "availableUnits" = EXCLUDED."totalUnits" - "ListingInventory"."reservedUnits",
+              "updatedAt" = NOW()
+          WHERE "ListingInventory"."reservedUnits" <= EXCLUDED."totalUnits"
+        `;
+        if (changed !== 1) throw new ConflictException(`Inventory on ${day.date} cannot be reduced below its reserved units`);
       }
       return tx.listingInventory.findMany({ where: { listingId: id, date: { in: dto.days.map((day) => this.dateOnly(day.date)) } }, orderBy: { date: 'asc' } });
     });

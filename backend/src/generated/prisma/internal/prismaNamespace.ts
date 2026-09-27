@@ -389,6 +389,7 @@ export const ModelName = {
   EmailVerificationToken: 'EmailVerificationToken',
   PasswordResetToken: 'PasswordResetToken',
   GuideProfile: 'GuideProfile',
+  GuideAvailability: 'GuideAvailability',
   GuideEvidence: 'GuideEvidence',
   CompetencyAttempt: 'CompetencyAttempt',
   TourismSource: 'TourismSource',
@@ -452,7 +453,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "refreshToken" | "emailVerificationToken" | "passwordResetToken" | "guideProfile" | "guideEvidence" | "competencyAttempt" | "tourismSource" | "tourismKnowledge" | "researchRoute" | "routeNode" | "routeEdge" | "safetyPlan" | "safetyPlanAudit" | "guideCompetency" | "guideLanguageAssessment" | "guideKnowledgeAssessment" | "guideSkillAssessment" | "guideRouteCompetency" | "guideFirstAid" | "assessmentQuestion" | "assessmentAttempt" | "assessmentResponse" | "assessmentReview" | "aiConversation" | "aiMessage" | "aiExperimentRun" | "aiEvaluationResult" | "guideMatchRun" | "guideMatchResult" | "guideVerificationReview" | "listing" | "listingInventory" | "listingImage" | "booking" | "pilotPayment" | "bookingEvent" | "idempotencyKey" | "favorite" | "conversation" | "conversationParticipant" | "userBlock" | "report" | "moderationAction" | "message" | "notification" | "paymentMethod" | "review" | "post" | "postImage" | "postLike" | "postComment" | "follow"
+    modelProps: "user" | "refreshToken" | "emailVerificationToken" | "passwordResetToken" | "guideProfile" | "guideAvailability" | "guideEvidence" | "competencyAttempt" | "tourismSource" | "tourismKnowledge" | "researchRoute" | "routeNode" | "routeEdge" | "safetyPlan" | "safetyPlanAudit" | "guideCompetency" | "guideLanguageAssessment" | "guideKnowledgeAssessment" | "guideSkillAssessment" | "guideRouteCompetency" | "guideFirstAid" | "assessmentQuestion" | "assessmentAttempt" | "assessmentResponse" | "assessmentReview" | "aiConversation" | "aiMessage" | "aiExperimentRun" | "aiEvaluationResult" | "guideMatchRun" | "guideMatchResult" | "guideVerificationReview" | "listing" | "listingInventory" | "listingImage" | "booking" | "pilotPayment" | "bookingEvent" | "idempotencyKey" | "favorite" | "conversation" | "conversationParticipant" | "userBlock" | "report" | "moderationAction" | "message" | "notification" | "paymentMethod" | "review" | "post" | "postImage" | "postLike" | "postComment" | "follow"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -823,6 +824,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.GuideProfileCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.GuideProfileCountAggregateOutputType> | number
+        }
+      }
+    }
+    GuideAvailability: {
+      payload: Prisma.$GuideAvailabilityPayload<ExtArgs>
+      fields: Prisma.GuideAvailabilityFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.GuideAvailabilityFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideAvailabilityPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.GuideAvailabilityFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideAvailabilityPayload>
+        }
+        findFirst: {
+          args: Prisma.GuideAvailabilityFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideAvailabilityPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.GuideAvailabilityFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideAvailabilityPayload>
+        }
+        findMany: {
+          args: Prisma.GuideAvailabilityFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideAvailabilityPayload>[]
+        }
+        create: {
+          args: Prisma.GuideAvailabilityCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideAvailabilityPayload>
+        }
+        createMany: {
+          args: Prisma.GuideAvailabilityCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.GuideAvailabilityCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideAvailabilityPayload>[]
+        }
+        delete: {
+          args: Prisma.GuideAvailabilityDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideAvailabilityPayload>
+        }
+        update: {
+          args: Prisma.GuideAvailabilityUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideAvailabilityPayload>
+        }
+        deleteMany: {
+          args: Prisma.GuideAvailabilityDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.GuideAvailabilityUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.GuideAvailabilityUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideAvailabilityPayload>[]
+        }
+        upsert: {
+          args: Prisma.GuideAvailabilityUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GuideAvailabilityPayload>
+        }
+        aggregate: {
+          args: Prisma.GuideAvailabilityAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateGuideAvailability>
+        }
+        groupBy: {
+          args: Prisma.GuideAvailabilityGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GuideAvailabilityGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.GuideAvailabilityCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GuideAvailabilityCountAggregateOutputType> | number
         }
       }
     }
@@ -4521,6 +4596,20 @@ export const GuideProfileScalarFieldEnum = {
 export type GuideProfileScalarFieldEnum = (typeof GuideProfileScalarFieldEnum)[keyof typeof GuideProfileScalarFieldEnum]
 
 
+export const GuideAvailabilityScalarFieldEnum = {
+  id: 'id',
+  guideId: 'guideId',
+  startsAt: 'startsAt',
+  endsAt: 'endsAt',
+  timeZone: 'timeZone',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type GuideAvailabilityScalarFieldEnum = (typeof GuideAvailabilityScalarFieldEnum)[keyof typeof GuideAvailabilityScalarFieldEnum]
+
+
 export const GuideEvidenceScalarFieldEnum = {
   id: 'id',
   guideProfileId: 'guideProfileId',
@@ -5629,6 +5718,20 @@ export type ListEnumGuideLegalRoleFieldRefInput<$PrismaModel> = FieldRefInputTyp
 
 
 /**
+ * Reference to a field of type 'GuideAvailabilityStatus'
+ */
+export type EnumGuideAvailabilityStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GuideAvailabilityStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'GuideAvailabilityStatus[]'
+ */
+export type ListEnumGuideAvailabilityStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GuideAvailabilityStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'GuideEvidenceType'
  */
 export type EnumGuideEvidenceTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GuideEvidenceType'>
@@ -5695,21 +5798,21 @@ export type EnumTourismAuthorityLevelFieldRefInput<$PrismaModel> = FieldRefInput
  * Reference to a field of type 'TourismAuthorityLevel[]'
  */
 export type ListEnumTourismAuthorityLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TourismAuthorityLevel[]'>
-
+    
 
 
 /**
  * Reference to a field of type 'TourismSourceReviewStatus'
  */
 export type EnumTourismSourceReviewStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TourismSourceReviewStatus'>
-
+    
 
 
 /**
  * Reference to a field of type 'TourismSourceReviewStatus[]'
  */
 export type ListEnumTourismSourceReviewStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TourismSourceReviewStatus[]'>
-
+    
 
 
 /**
@@ -6371,6 +6474,7 @@ export type GlobalOmitConfig = {
   emailVerificationToken?: Prisma.EmailVerificationTokenOmit
   passwordResetToken?: Prisma.PasswordResetTokenOmit
   guideProfile?: Prisma.GuideProfileOmit
+  guideAvailability?: Prisma.GuideAvailabilityOmit
   guideEvidence?: Prisma.GuideEvidenceOmit
   competencyAttempt?: Prisma.CompetencyAttemptOmit
   tourismSource?: Prisma.TourismSourceOmit
@@ -6481,3 +6585,4 @@ export type PrismaAction =
  * `PrismaClient` proxy available in interactive transactions.
  */
 export type TransactionClient = Omit<DefaultPrismaClient, runtime.ITXClientDenyList>
+

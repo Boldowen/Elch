@@ -3,6 +3,8 @@ import bcrypt from 'bcrypt';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { AuthProvider, GuideStatus, ListingCategory, PriceUnit, PricingType, PrismaClient, Role } from '../src/generated/prisma/client.js';
 import { seedResearchData } from './research-seed.js';
+import { assertSeedEnvironment } from './seed-environment.js';
+assertSeedEnvironment();
 const prisma = new PrismaClient({ adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL! }) });
 const img = {
   gerYellow: 'https://images.unsplash.com/photo-1695554477492-303aacd40561?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',

@@ -20,7 +20,8 @@ Authenticated traveler request
   -> RouteGraph and controlled application tools (when enabled)
   -> candidate itinerary
   -> deterministic route/safety validator
-  -> at most one controlled repair
+  -> feasibility verdict (feasible / repairable / gated / unsolvable)
+  -> at most one controlled repair, skipped when the request is unsolvable
   -> hard-gate guide eligibility and explainable ranking
   -> structured response + citations + experiment log
 ```
@@ -96,6 +97,24 @@ Only the route catalog and route-detail reads are public.
 
 Swagger at `/docs` is the authoritative request/response reference.
 
+### Itinerary validation verdicts
+
+`POST /api/v1/research-routes/validate` and the planner both return a
+`feasibility` verdict alongside the issue list, implementing the plan's
+`UNSOLVABLE` rule (section 7.3):
+
+| Status | Meaning |
+|---|---|
+| `FEASIBLE` | Every hard constraint passed. |
+| `REPAIRABLE` | A blocking issue that re-scheduling the same stops can clear; one bounded repair round runs. |
+| `REQUIRES_EXTERNAL_APPROVAL` | Only guide-eligibility, risk-escalation or source-provenance gates remain. Not impossible, but it needs an eligible guide or a recorded human approval. |
+| `UNSOLVABLE` | The constraints cannot be satisfied together on this route, whatever the schedule: a closed season, a mode-locked edge, an irreducible time or cost floor, or a disconnected node. No repair is attempted and the assistant proposes no itinerary. |
+
+Each unsolvable verdict carries machine-readable reasons (`TIME_BUDGET_EXCEEDED`,
+`SEASON_CLOSED_ALL_DAYS`, `TRANSPORT_UNAVAILABLE`, `BUDGET_INSUFFICIENT`,
+`POI_DISCONNECTED`) so an infeasible request is reported as infeasible rather
+than answered with a plan that cannot happen.
+
 ## Database migration and seed
 
 From `backend/` outside Docker, use a localhost `DATABASE_URL`:
@@ -168,7 +187,10 @@ default and explicitly reports when verified/generated information is unavailabl
 See [research/README.md](research/README.md) for:
 
 - JSONL validation, cleaning, deduplication, grouped splitting, and leakage audits;
-- CSV/JSON pseudonymized export and evaluation metrics;
+- CSV/JSON pseudonymized export and the travel, guide, guide-match and assessment
+  item metric families;
+- a single command that recomputes every primary metric
+  (`make research-metrics ALLOW_DEMO=1`);
 - offline, manually invoked QLoRA training;
 - ethics, consent, anonymization, and reproducibility requirements.
 
@@ -186,6 +208,7 @@ npm test
 
 cd ../frontend
 npm run export:android
+npm run export:web
 
 cd ..
 python3 -m unittest discover -s research/tests -v
@@ -202,12 +225,21 @@ For research tooling:
 ```bash
 python3 -m compileall -q research/scripts research/training research/tests
 python3 -m unittest discover -s research/tests -v
+
+# Recompute every primary metric from the manifest in one command.
+# ALLOW_DEMO=1 is required while the manifest still points at the demo fixtures.
+make research-metrics ALLOW_DEMO=1
 ```
 
+`make test` runs the backend suite and the research tooling suite together.
+
 For an admin export, call `GET /api/v1/research/export?format=json` or
-`?format=csv` with an admin bearer token. The API output uses a strict field whitelist
-and HMAC-pseudonymized IDs; free-text still requires a human privacy review before
-external release.
+`?format=csv` with an admin bearer token. Export schema v2 is a privacy-bounded,
+long-form dataset covering AI runs/evaluations, guide assessment attempts, language
+scores, general and route competency, first-aid evidence, and guide-match outcomes.
+The API uses a strict field whitelist, HMAC-pseudonymized IDs, allow-listed matching
+factors/failure codes, and no document references or reviewer notes. A human privacy
+review is still required before external release.
 
 ## Production checklist
 

@@ -17,6 +17,6 @@ export class CreatePostDto {
   @IsOptional()
   @IsArray()
   @ArrayMaxSize(4)
-  @IsUrl({}, { each: true })
+  @IsUrl({ protocols: ['https'], require_protocol: true }, { each: true })
   imageUrls?: string[];
 }

@@ -29,6 +29,12 @@ FROM node:22-bookworm-slim AS build
 
 WORKDIR /app
 
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+       ca-certificates \
+       openssl \
+    && rm -rf /var/lib/apt/lists/*
+
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
@@ -53,6 +59,8 @@ COPY --chown=node:node --from=build /app/node_modules ./node_modules
 COPY --chown=node:node --from=build /app/dist ./dist
 COPY --chown=node:node --from=build /app/prisma ./prisma
 COPY --chown=node:node --from=build /app/src/generated ./src/generated
+# The TypeScript demo seed imports the shared route graph from src.
+COPY --chown=node:node --from=build /app/src/modules/route-planning/route-graph.data.ts /app/src/modules/route-planning/route.types.ts ./src/modules/route-planning/
 COPY --chown=node:node --from=build /app/prisma.config.ts ./prisma.config.ts
 COPY --chown=node:node --from=build /app/package.json ./package.json
 
@@ -62,4 +70,4 @@ USER node
 
 EXPOSE 3000
 
-CMD ["sh", "-c", "./node_modules/.bin/prisma migrate deploy && node dist/src/main.js"]
+CMD ["node", "dist/src/main.js"]

@@ -8,6 +8,11 @@ export const configValidationSchema = Joi.object({
   JWT_ACCESS_TTL: Joi.string().default('15m'),
   JWT_REFRESH_TTL: Joi.string().default('30d'),
   CORS_ORIGINS: Joi.string().allow('').default(''),
+  FEATURE_COMMUNITY_ENABLED: Joi.boolean().default(false),
+  FEATURE_REVIEWS_ENABLED: Joi.boolean().default(true),
+  FEATURE_GUIDE_RANKING_ENABLED: Joi.boolean().default(false),
+  FEATURE_IMAGE_UPLOAD_ENABLED: Joi.boolean().valid(false).default(false),
+  FEATURE_ONLINE_PAYMENT_ENABLED: Joi.boolean().valid(false).default(false),
   EMAIL_VERIFICATION_URL: Joi.string().uri().default('elch://verify-email'),
   EMAIL_FROM: Joi.string().email().allow('').default(''),
   RESEND_API_KEY: Joi.string().allow('').default(''),
@@ -78,4 +83,20 @@ export const configValidationSchema = Joi.object({
   S3_SECRET_ACCESS_KEY: Joi.string().allow('').default(''),
   S3_FORCE_PATH_STYLE: Joi.boolean().default(false),
   S3_SERVER_SIDE_ENCRYPTION: Joi.string().valid('AES256', 'aws:kms').default('AES256'),
+}).custom((config, helpers) => {
+  if (config.NODE_ENV !== 'production') return config;
+  const secrets = [config.JWT_ACCESS_SECRET, config.JWT_REFRESH_SECRET] as string[];
+  if (secrets[0] === secrets[1] || secrets.some((secret) => /change[_-]?me|replace[_-]?with|example|ci[_-].*secret/i.test(secret))) {
+    return helpers.message({ custom: 'Production JWT secrets must be distinct random values, not example credentials' });
+  }
+  const origins = (config.CORS_ORIGINS as string).split(',').map((origin) => origin.trim()).filter(Boolean);
+  if (origins.some((origin) => {
+    try {
+      const url = new URL(origin);
+      return url.protocol !== 'https:' || url.origin !== origin;
+    } catch { return true; }
+  })) {
+    return helpers.message({ custom: 'Production CORS_ORIGINS must contain exact HTTPS origins' });
+  }
+  return config;
 });

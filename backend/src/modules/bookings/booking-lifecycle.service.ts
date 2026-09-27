@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Optional } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import {
   BookingActorType,
@@ -8,10 +8,11 @@ import {
   Prisma,
 } from '../../generated/prisma/client.js';
 import { PrismaService } from '../../prisma/prisma.service.js';
+import { RankingService } from '../ranking/ranking.service.js';
 
 @Injectable()
 export class BookingLifecycleService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService, @Optional() private readonly ranking?: RankingService) {}
 
   @Cron(CronExpression.EVERY_MINUTE, { name: 'booking-lifecycle' })
   async handleCron() {
@@ -129,6 +130,7 @@ export class BookingLifecycleService {
           where: { userId: booking.guideId },
           data: { completedTrips: { increment: 1 } },
         });
+        await this.ranking?.recalculateGuide(booking.guideId, now, tx);
       }
       return true;
     }, { isolationLevel: Prisma.TransactionIsolationLevel.ReadCommitted });

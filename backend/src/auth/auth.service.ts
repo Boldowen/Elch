@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import bcrypt from 'bcrypt';
 import { createHash, randomBytes, randomUUID } from 'node:crypto';
-import { Role, UserModerationStatus } from '../generated/prisma/client.js';
+import { Prisma, Role, UserModerationStatus } from '../generated/prisma/client.js';
 import { AuthProvider } from '../generated/prisma/client.js';
 import { createRemoteJWKSet, jwtVerify, JWTPayload } from 'jose';
 import { PrismaService } from '../prisma/prisma.service.js';
@@ -227,13 +227,25 @@ export class AuthService {
     try { payload = await this.jwt.verifyAsync(refreshToken, { secret: this.config.getOrThrow('JWT_REFRESH_SECRET') }); }
     catch { throw new UnauthorizedException('Invalid refresh token'); }
     const record = await this.prisma.refreshToken.findUnique({ where: { id: payload.jti }, include: { user: true } });
-    if (!record || record.revokedAt || record.expiresAt < new Date() || !(await bcrypt.compare(refreshToken, record.tokenHash))) {
+    if (!record || record.userId !== payload.sub || record.family !== payload.family || record.revokedAt || record.expiresAt < new Date() || !(await bcrypt.compare(refreshToken, record.tokenHash))) {
       await this.prisma.refreshToken.updateMany({ where: { family: payload.family, revokedAt: null }, data: { revokedAt: new Date() } });
       throw new UnauthorizedException('Refresh token expired or reused');
     }
     await this.ensureAccountActive(record.user);
-    await this.prisma.refreshToken.update({ where: { id: record.id }, data: { revokedAt: new Date() } });
-    return this.issueSession(record.user, meta, payload.family);
+    const session = await this.prisma.$transaction(async (tx) => {
+      const now = new Date();
+      const consumed = await tx.refreshToken.updateMany({
+        where: { id: record.id, revokedAt: null, expiresAt: { gt: now } },
+        data: { revokedAt: now },
+      });
+      if (!consumed.count) return null;
+      return this.issueSession(record.user, meta, payload.family, tx);
+    });
+    if (!session) {
+      await this.prisma.refreshToken.updateMany({ where: { family: payload.family, revokedAt: null }, data: { revokedAt: new Date() } });
+      throw new UnauthorizedException('Refresh token expired or reused');
+    }
+    return session;
   }
 
   async logout(refreshToken: string) {
@@ -252,13 +264,13 @@ export class AuthService {
     return { success: true };
   }
 
-  private async issueSession(user: { id: string; email: string; name: string; roles: string[]; avatarUrl: string | null }, meta: { userAgent?: string; ip?: string }, family: string = randomUUID()) {
+  private async issueSession(user: { id: string; email: string; name: string; roles: string[]; avatarUrl: string | null }, meta: { userAgent?: string; ip?: string }, family: string = randomUUID(), client: Prisma.TransactionClient | PrismaService = this.prisma) {
     const accessToken = await this.jwt.signAsync({ sub: user.id, email: user.email, roles: user.roles }, { secret: this.config.getOrThrow('JWT_ACCESS_SECRET'), expiresIn: this.config.get('JWT_ACCESS_TTL', '15m') as any });
     const tokenId = randomUUID();
     const refreshToken = await this.jwt.signAsync({ sub: user.id, jti: tokenId, family }, { secret: this.config.getOrThrow('JWT_REFRESH_SECRET'), expiresIn: this.config.get('JWT_REFRESH_TTL', '30d') as any });
     const decoded = this.jwt.decode(refreshToken) as { exp: number };
-    await this.prisma.refreshToken.create({ data: { id: tokenId, family, userId: user.id, tokenHash: await bcrypt.hash(refreshToken, 10), expiresAt: new Date(decoded.exp * 1000), userAgent: meta.userAgent, ipAddress: meta.ip } });
-    const currentUser = await this.prisma.user.findUnique({ where: { id: user.id }, select: { emailVerifiedAt: true } });
+    await client.refreshToken.create({ data: { id: tokenId, family, userId: user.id, tokenHash: await bcrypt.hash(refreshToken, 10), expiresAt: new Date(decoded.exp * 1000), userAgent: meta.userAgent, ipAddress: meta.ip } });
+    const currentUser = await client.user.findUnique({ where: { id: user.id }, select: { emailVerifiedAt: true } });
     return { accessToken, refreshToken, user: { id: user.id, email: user.email, name: user.name, roles: user.roles, avatarUrl: user.avatarUrl, emailVerifiedAt: currentUser?.emailVerifiedAt ?? null } };
   }
 

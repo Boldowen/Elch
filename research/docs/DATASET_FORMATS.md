@@ -79,14 +79,21 @@ metric:
 
 - Identity/configuration: `run_id`, `experiment_mode`, `data_status`.
 - Scores or flags: `factual_accuracy`, `hallucination_detected`, `poi_validity`,
-  `spatial_feasibility`, `temporal_feasibility`, `budget_compliance`,
-  `season_compliance`, `safety_violation`, `personalization_score`,
-  `final_validity`.
+  `spatial_feasibility`, `spatial_score`, `temporal_feasibility`,
+  `budget_compliance`, `season_compliance`, `safety_violation`,
+  `personalization_score`, `final_validity`.
+- Tool and abstention behavior: `tool_selection_correct` (the right tool with the
+  right arguments) and `unsolvable_declared_correctly` (an impossible request was
+  reported as impossible rather than answered with an itinerary).
+- Human review, plan section 12.3: `human_feasibility`, `human_factuality`,
+  `human_usefulness`, `human_personalization`, `human_safety`, each on the 1–5
+  rubric, scored blind to the system identity.
+- Calibration: `ai_confidence` on a 0–1 scale, compared against `final_validity`.
 - Operational measures: `latency_ms`, `input_tokens`, `output_tokens`,
   `estimated_cost_usd`.
 
-Boolean values accept `true/false`, `yes/no`, or `1/0`. Accuracy and
-personalization use a documented 0–1 scale.
+Boolean values accept `true/false`, `yes/no`, or `1/0`. Accuracy,
+personalization, spatial score and confidence use a documented 0–1 scale.
 
 ## Guide evaluation CSV
 
@@ -96,5 +103,31 @@ Expected columns are `attempt_id`, `experiment_mode`, `ai_score`, `human_score`,
 risk was detected. Optional `reviewer_pass_1`, `reviewer_pass_2`, … columns enable
 Fleiss' kappa when every included row has the same number of raters.
 
+Optional `ai_confidence` (0–1) enables the expected calibration error against
+AI/human pass agreement.
+
 Store raw per-reviewer judgments. Consensus values alone cannot reproduce
 inter-rater agreement.
+
+## Guide match evaluation CSV
+
+One row per ranked candidate in a matching run, for the plan section 9.2
+rating-only versus hard-gate comparison:
+
+- `match_run_id` groups the candidates of one ranking; `experiment_mode` names
+  the arm being compared.
+- `candidate_id` and `rank` are the candidate and the position the system
+  produced.
+- `expert_relevance` is the blind expert grade used as the NDCG gain, and
+  `expert_top_k` marks the candidates an expert placed in the top set.
+- `gate_blocked` records that a hard eligibility gate removed the candidate.
+- `unsafe_recommendation` is the ground truth that recommending this candidate
+  would have been unsafe; `system_flagged_unsafe` is what the system decided.
+  The false-negative rate over this pair is the primary safety number.
+
+## Assessment item response CSV
+
+One row per candidate answer, for the plan section 12.2 rubric-quality analysis:
+`form_id`, `candidate_id`, `item_id`, an optional `domain`, and a dichotomous
+`correct`. A candidate who did not answer every item on a form is excluded from
+that form's KR-20 and discrimination figures rather than imputed.

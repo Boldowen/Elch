@@ -37,6 +37,14 @@ export const GuideStatus = {
 export type GuideStatus = (typeof GuideStatus)[keyof typeof GuideStatus]
 
 
+export const GuideAvailabilityStatus = {
+  AVAILABLE: 'AVAILABLE',
+  BLOCKED: 'BLOCKED'
+} as const
+
+export type GuideAvailabilityStatus = (typeof GuideAvailabilityStatus)[keyof typeof GuideAvailabilityStatus]
+
+
 export const GuideVerificationDecision = {
   APPROVED: 'APPROVED',
   REJECTED: 'REJECTED'

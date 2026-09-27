@@ -16,6 +16,12 @@ describe('GuidesService public projection', () => {
     expect(query.select).not.toHaveProperty('assessmentScore');
     expect(query.select).not.toHaveProperty('cancellationCount');
     expect(query.select).not.toHaveProperty('reliabilityScore');
+    expect(query.select?.languageAssessments).toEqual(expect.objectContaining({
+      select: expect.objectContaining({ officialEvidenceType: true }),
+    }));
+    expect(query.select?.languageAssessments).toEqual(expect.objectContaining({
+      select: expect.not.objectContaining({ officialEvidenceValue: true }),
+    }));
     expect(query.select?.evidence).toEqual(expect.objectContaining({
       select: expect.not.objectContaining({ referenceContact: true, referenceName: true }),
     }));
@@ -36,5 +42,8 @@ describe('GuidesService public projection', () => {
     expect(query.select).toBeDefined();
     expect(query.include).toBeUndefined();
     expect(query.select).not.toHaveProperty('referenceContact');
+    expect(query.select?.languageAssessments).toEqual(expect.objectContaining({
+      select: expect.not.objectContaining({ officialEvidenceValue: true }),
+    }));
   });
 });

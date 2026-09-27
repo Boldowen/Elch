@@ -4,6 +4,7 @@ import {
   ForbiddenException,
   Injectable,
   NotFoundException,
+  Optional,
 } from '@nestjs/common';
 import { createHash, randomUUID } from 'node:crypto';
 import {
@@ -19,6 +20,8 @@ import { PrismaService } from '../../prisma/prisma.service.js';
 import { CreateBookingDto, UpdateBookingDraftDto } from './dto/create-booking.dto.js';
 import { BookingAction } from './dto/update-booking-status.dto.js';
 import { PriceBreakdown, PricingService } from '../pricing/pricing.service.js';
+import { assertGuideTimeAvailable } from '../guides/guide-availability.service.js';
+import { RankingService } from '../ranking/ranking.service.js';
 
 const ACTIVE_STATUSES = [
   BookingStatus.PENDING,
@@ -42,6 +45,7 @@ export class BookingsService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly pricing: PricingService,
+    @Optional() private readonly ranking?: RankingService,
   ) {}
 
   listTraveler(userId: string) {
@@ -82,45 +86,10 @@ export class BookingsService {
   }
 
   async quote(userId: string, dto: CreateBookingDto) {
-    if (Boolean(dto.listingId) === Boolean(dto.guideId)) {
-      throw new BadRequestException('Choose exactly one listing or guide');
-    }
-    const startsAt = new Date(dto.startsAt);
-    const endsAt = new Date(dto.endsAt);
-    if (endsAt <= startsAt) throw new BadRequestException('End time must be after start time');
-
-    if (dto.listingId) {
-      const listing = await this.prisma.listing.findFirst({
-        where: { id: dto.listingId, published: true, deletedAt: null },
-      });
-      if (!listing) throw new NotFoundException('Listing not found');
-      if (listing.hostId === userId) throw new ConflictException({ code: 'SELF_BOOKING_NOT_ALLOWED', message: 'You cannot book your own listing' });
-      const units = Math.max(1, Math.ceil((endsAt.getTime() - startsAt.getTime()) / 86_400_000));
-      return this.pricing.calculate({
-        basePriceMinor: listing.basePriceMinor,
-        units,
-        guests: dto.guests,
-        currency: listing.currency,
-        cleaningFeeMinor: listing.cleaningFeeMinor,
-        serviceFeeMinor: listing.serviceFeeMinor,
-        taxMinor: listing.taxMinor,
-        extraGuestFeeMinor: listing.extraGuestFeeMinor,
-        depositMinor: listing.depositMinor,
-      });
-    }
-
-    if (dto.guideId === userId) throw new ConflictException({ code: 'SELF_BOOKING_NOT_ALLOWED', message: 'You cannot book yourself as a guide' });
-    const guide = await this.prisma.guideProfile.findFirst({
-      where: { userId: dto.guideId, status: GuideStatus.APPROVED, verified: true, deletedAt: null },
-    });
-    if (!guide?.price) throw new NotFoundException('Bookable guide not found');
-    const units = Math.max(1, Math.ceil((endsAt.getTime() - startsAt.getTime()) / 3_600_000));
-    return this.pricing.calculate({
-      basePriceMinor: this.pricing.decimalToMinor(guide.price),
-      units,
-      guests: dto.guests,
-      currency: 'USD',
-    });
+    this.assertProviderSelection(dto);
+    const { startsAt, endsAt } = this.parseFutureDates(dto.startsAt, dto.endsAt);
+    const price = await this.priceDraft(this.prisma, userId, dto, startsAt, endsAt);
+    return { ...price, ...this.cancellationTerms(startsAt) };
   }
 
   async create(userId: string, dto: CreateBookingDto, idempotencyKey?: string) {
@@ -134,12 +103,7 @@ export class BookingsService {
       throw new BadRequestException('Choose exactly one listing or guide');
     }
 
-    const startsAt = new Date(dto.startsAt);
-    const endsAt = new Date(dto.endsAt);
-    if (endsAt <= startsAt) throw new BadRequestException('End time must be after start time');
-    if (startsAt.getTime() < Date.now() - 5 * 60_000) {
-      throw new BadRequestException('Booking start time must be in the future');
-    }
+    const { startsAt, endsAt } = this.parseFutureDates(dto.startsAt, dto.endsAt);
 
     const requestHash = createHash('sha256')
       .update(JSON.stringify({ ...dto, note: dto.note?.trim() || null }))
@@ -165,16 +129,17 @@ export class BookingsService {
         let title: string;
         if (dto.listingId) {
           const listing = await tx.listing.findFirst({
-            where: { id: dto.listingId, published: true, deletedAt: null },
+            where: { id: dto.listingId, published: true, status: 'PUBLISHED', deletedAt: null },
           });
           if (!listing) throw new NotFoundException('Listing not found');
           if (listing.hostId === userId) {
             throw new ConflictException({ code: 'SELF_BOOKING_NOT_ALLOWED', message: 'You cannot book your own listing' });
           }
-          const nights = Math.max(1, Math.ceil((endsAt.getTime() - startsAt.getTime()) / 86_400_000));
-          price = this.pricing.calculate({
+          price = this.pricing.calculateListing({
             basePriceMinor: listing.basePriceMinor,
-            units: nights,
+            priceUnit: listing.priceUnit,
+            startsAt,
+            endsAt,
             guests: dto.guests,
             currency: listing.currency,
             cleaningFeeMinor: listing.cleaningFeeMinor,
@@ -195,10 +160,12 @@ export class BookingsService {
             include: { user: { select: { name: true } } },
           });
           if (!guide?.price) throw new NotFoundException('Bookable guide not found');
-          const hours = Math.max(1, Math.ceil((endsAt.getTime() - startsAt.getTime()) / 3_600_000));
-          price = this.pricing.calculate({
+          await assertGuideTimeAvailable(tx, guide.userId, startsAt, endsAt);
+          price = this.pricing.calculateGuide({
             basePriceMinor: this.pricing.decimalToMinor(guide.price),
-            units: hours,
+            pricingType: guide.pricingType,
+            startsAt,
+            endsAt,
             guests: dto.guests,
             currency: 'USD',
           });
@@ -238,10 +205,7 @@ export class BookingsService {
             note: dto.note?.trim() || null,
             status: BookingStatus.PENDING,
             expiresAt: new Date(Math.min(startsAt.getTime(), Date.now() + 24 * 60 * 60_000)),
-            cancellationPolicy: CancellationPolicyType.FLEXIBLE,
-            freeCancellationUntil: new Date(startsAt.getTime() - 24 * 60 * 60_000),
-            lateCancellationPercent: 20,
-            noShowPercent: 100,
+            ...this.cancellationTerms(startsAt),
             events: {
               create: {
                 actorId: userId,
@@ -383,16 +347,17 @@ export class BookingsService {
         let title: string;
         if (draft.listingId) {
           const listing = await tx.listing.findFirst({
-            where: { id: draft.listingId, published: true, deletedAt: null },
+            where: { id: draft.listingId, published: true, status: 'PUBLISHED', deletedAt: null },
           });
           if (!listing) throw new NotFoundException('Listing is no longer bookable');
           if (listing.hostId === userId) {
             throw new ConflictException({ code: 'SELF_BOOKING_NOT_ALLOWED', message: 'You cannot book your own listing' });
           }
-          const nights = Math.max(1, Math.ceil((endsAt.getTime() - startsAt.getTime()) / 86_400_000));
-          price = this.pricing.calculate({
+          price = this.pricing.calculateListing({
             basePriceMinor: listing.basePriceMinor,
-            units: nights,
+            priceUnit: listing.priceUnit,
+            startsAt,
+            endsAt,
             guests: draft.guests,
             currency: listing.currency,
             cleaningFeeMinor: listing.cleaningFeeMinor,
@@ -413,10 +378,12 @@ export class BookingsService {
             include: { user: { select: { name: true } } },
           });
           if (!guide?.price) throw new NotFoundException('Guide is no longer bookable');
-          const hours = Math.max(1, Math.ceil((endsAt.getTime() - startsAt.getTime()) / 3_600_000));
-          price = this.pricing.calculate({
+          await assertGuideTimeAvailable(tx, guide.userId, startsAt, endsAt);
+          price = this.pricing.calculateGuide({
             basePriceMinor: this.pricing.decimalToMinor(guide.price),
-            units: hours,
+            pricingType: guide.pricingType,
+            startsAt,
+            endsAt,
             guests: draft.guests,
             currency: 'USD',
           });
@@ -439,7 +406,7 @@ export class BookingsService {
         }
 
         const changed = await tx.booking.updateMany({
-          where: { id: draft.id, travelerId: userId, status: BookingStatus.DRAFT, deletedAt: null },
+          where: { id: draft.id, travelerId: userId, status: BookingStatus.DRAFT, updatedAt: draft.updatedAt, deletedAt: null },
           data: {
             status: BookingStatus.PENDING,
             amount: this.pricing.minorToDecimal(price.amountMinor),
@@ -452,10 +419,7 @@ export class BookingsService {
             depositMinor: price.depositMinor,
             currency: price.currency,
             expiresAt: new Date(Math.min(startsAt.getTime(), Date.now() + 24 * 60 * 60_000)),
-            cancellationPolicy: CancellationPolicyType.FLEXIBLE,
-            freeCancellationUntil: new Date(startsAt.getTime() - 24 * 60 * 60_000),
-            lateCancellationPercent: 20,
-            noShowPercent: 100,
+            ...this.cancellationTerms(startsAt),
           },
         });
         if (changed.count !== 1) {
@@ -495,7 +459,7 @@ export class BookingsService {
           },
         });
         return tx.booking.findUnique({ where: { id: draft.id }, include: includeBooking });
-      }, { isolationLevel: Prisma.TransactionIsolationLevel.Serializable });
+      }, { isolationLevel: Prisma.TransactionIsolationLevel.ReadCommitted });
     } catch (error) {
       if (error instanceof BadRequestException || error instanceof ConflictException || error instanceof NotFoundException) throw error;
       const message = error instanceof Error ? error.message : '';
@@ -610,6 +574,13 @@ export class BookingsService {
         await this.releaseListingInventory(tx, booking.listingId, booking.startsAt, booking.endsAt);
       }
 
+      if (transition.to === BookingStatus.COMPLETED && booking.guideId) {
+        await tx.guideProfile.updateMany({
+          where: { userId: booking.guideId },
+          data: { completedTrips: { increment: 1 } },
+        });
+      }
+
       await tx.bookingEvent.create({
         data: {
           bookingId,
@@ -641,8 +612,11 @@ export class BookingsService {
           },
         });
       }
+      if (transition.to === BookingStatus.COMPLETED && booking.guideId) {
+        await this.ranking?.recalculateGuide(booking.guideId, new Date(), tx);
+      }
       return tx.booking.findUnique({ where: { id: bookingId }, include: includeBooking });
-    }, { isolationLevel: Prisma.TransactionIsolationLevel.Serializable });
+    }, { isolationLevel: Prisma.TransactionIsolationLevel.ReadCommitted });
   }
 
   private resolveTransition(booking: BookingWithOwner, action: BookingAction, isTraveler: boolean, isProvider: boolean) {
@@ -683,6 +657,15 @@ export class BookingsService {
     return responseBody;
   }
 
+  private cancellationTerms(startsAt: Date) {
+    return {
+      cancellationPolicy: CancellationPolicyType.FLEXIBLE,
+      freeCancellationUntil: new Date(startsAt.getTime() - 24 * 60 * 60_000),
+      lateCancellationPercent: 20,
+      noShowPercent: 100,
+    };
+  }
+
   private assertProviderSelection(dto: Pick<CreateBookingDto, 'listingId' | 'guideId'>) {
     if (Boolean(dto.listingId) === Boolean(dto.guideId)) {
       throw new BadRequestException('Choose exactly one listing or guide');
@@ -709,16 +692,17 @@ export class BookingsService {
   ): Promise<PriceBreakdown> {
     if (dto.listingId) {
       const listing = await tx.listing.findFirst({
-        where: { id: dto.listingId, published: true, deletedAt: null },
+        where: { id: dto.listingId, published: true, status: 'PUBLISHED', deletedAt: null },
       });
       if (!listing) throw new NotFoundException('Listing not found');
       if (listing.hostId === userId) {
         throw new ConflictException({ code: 'SELF_BOOKING_NOT_ALLOWED', message: 'You cannot book your own listing' });
       }
-      const nights = Math.max(1, Math.ceil((endsAt.getTime() - startsAt.getTime()) / 86_400_000));
-      return this.pricing.calculate({
+      return this.pricing.calculateListing({
         basePriceMinor: listing.basePriceMinor,
-        units: nights,
+        priceUnit: listing.priceUnit,
+        startsAt,
+        endsAt,
         guests: dto.guests,
         currency: listing.currency,
         cleaningFeeMinor: listing.cleaningFeeMinor,
@@ -736,10 +720,11 @@ export class BookingsService {
       where: { userId: dto.guideId, status: GuideStatus.APPROVED, verified: true, deletedAt: null },
     });
     if (!guide?.price) throw new NotFoundException('Bookable guide not found');
-    const hours = Math.max(1, Math.ceil((endsAt.getTime() - startsAt.getTime()) / 3_600_000));
-    return this.pricing.calculate({
+    return this.pricing.calculateGuide({
       basePriceMinor: this.pricing.decimalToMinor(guide.price),
-      units: hours,
+      pricingType: guide.pricingType,
+      startsAt,
+      endsAt,
       guests: dto.guests,
       currency: 'USD',
     });

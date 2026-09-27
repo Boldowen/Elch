@@ -21,6 +21,7 @@ services:
       retries: 20
 
   pgadmin:
+    profiles: [admin]
     image: dpage/pgadmin4:9
     restart: unless-stopped
     environment:
@@ -28,7 +29,7 @@ services:
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin_change_me}
       PGADMIN_CONFIG_SERVER_MODE: "False"
     ports:
-      - "${PGADMIN_PORT:-5050}:80"
+      - "127.0.0.1:${PGADMIN_PORT:-5050}:80"
     volumes:
       - pgadmin_data:/var/lib/pgadmin
     networks:
@@ -36,6 +37,22 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+
+  migrate:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-ventour}:${POSTGRES_PASSWORD:-ventour_change_me}@postgres:5432/${POSTGRES_DB:-elch}?schema=public
+    networks:
+      - ventour_network
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: "no"
+    command: ["./node_modules/.bin/prisma", "migrate", "deploy"]
 
   backend:
     build:
@@ -46,7 +63,7 @@ services:
     env_file:
       - .env
     environment:
-      NODE_ENV: production
+      NODE_ENV: ${NODE_ENV:-development}
       DATABASE_URL: postgresql://${POSTGRES_USER:-ventour}:${POSTGRES_PASSWORD:-ventour_change_me}@postgres:5432/${POSTGRES_DB:-elch}?schema=public
       PORT: 3000
       STORAGE_LOCAL_ROOT: /app/data/uploads
@@ -63,19 +80,10 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-    command:
-      - sh
-      - -c
-      - |
-        echo "Waiting for PostgreSQL..."
-        until ./node_modules/.bin/prisma migrate deploy; do
-          echo "PostgreSQL not ready. Retrying in 3 seconds..."
-          sleep 3
-        done
-        echo "Migration complete. Starting backend..."
-        exec node dist/src/main.js
+      migrate:
+        condition: service_completed_successfully
     healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:3000/api/v1/health"]
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/api/v1/health/ready"]
       interval: 10s
       timeout: 5s
       retries: 15

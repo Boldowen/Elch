@@ -52,7 +52,7 @@ const publicGuideSelect = () => ({
   languageAssessments: {
     orderBy: { createdAt: 'desc' as const },
     take: 10,
-    select: { language: true, aiEstimatedCefr: true, aiConfidence: true, humanVerifiedCefr: true, assessmentStatus: true, createdAt: true },
+    select: { language: true, officialEvidenceType: true, aiEstimatedCefr: true, aiConfidence: true, humanVerifiedCefr: true, assessmentStatus: true, createdAt: true },
   },
   knowledgeAssessments: {
     orderBy: { createdAt: 'desc' as const },

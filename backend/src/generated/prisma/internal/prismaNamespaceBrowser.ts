@@ -56,6 +56,7 @@ export const ModelName = {
   EmailVerificationToken: 'EmailVerificationToken',
   PasswordResetToken: 'PasswordResetToken',
   GuideProfile: 'GuideProfile',
+  GuideAvailability: 'GuideAvailability',
   GuideEvidence: 'GuideEvidence',
   CompetencyAttempt: 'CompetencyAttempt',
   TourismSource: 'TourismSource',
@@ -224,6 +225,20 @@ export const GuideProfileScalarFieldEnum = {
 } as const
 
 export type GuideProfileScalarFieldEnum = (typeof GuideProfileScalarFieldEnum)[keyof typeof GuideProfileScalarFieldEnum]
+
+
+export const GuideAvailabilityScalarFieldEnum = {
+  id: 'id',
+  guideId: 'guideId',
+  startsAt: 'startsAt',
+  endsAt: 'endsAt',
+  timeZone: 'timeZone',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type GuideAvailabilityScalarFieldEnum = (typeof GuideAvailabilityScalarFieldEnum)[keyof typeof GuideAvailabilityScalarFieldEnum]
 
 
 export const GuideEvidenceScalarFieldEnum = {

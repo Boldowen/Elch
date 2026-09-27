@@ -529,6 +529,7 @@ describe('RoutePlanningService safety-plan binding', () => {
         authority: 4,
         lastVerifiedAt: '2026-08-20T00:00:00.000Z',
         verificationStatus: 'HUMAN_VERIFIED',
+        licenseOrUsageNote: 'Test fixture approved for validation coverage.',
       }],
       disclaimer: 'Research preflight only.',
     };
