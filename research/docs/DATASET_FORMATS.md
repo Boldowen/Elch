@@ -9,7 +9,8 @@ never overwritten.
 Every record requires:
 
 - `id`: immutable unique ID; use a pseudonymous ID for people.
-- `dataStatus`: one of `VERIFIED_SOURCE_DERIVED`,
+- `dataStatus`: one of `VERIFIED_SOURCE_DERIVED`, `SOURCE_DERIVED_DRAFT` (extracted
+  from a cited source but not yet human reviewed; `lastVerifiedAt` may be null),
   `SYNTHETIC_SOURCE_DERIVED`, `COLLECTED_WITH_CONSENT`, or
   `DEMO_RESEARCH_GENERATED`.
 - `splitGroup`: the unit that must remain in one split. Choose the widest relevant

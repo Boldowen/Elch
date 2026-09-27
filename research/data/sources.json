@@ -15,7 +15,11 @@
       "accessedAt": "2026-09-27",
       "licenseOrUsageNote": "Official legal text published by the National Legal Institute; quote with citation. Page also carries an official English translation.",
       "reviewStatus": "PENDING",
-      "usedFor": ["guide legal requirements (art. 10)", "special-interest tourism definition (4.1.13)", "mandatory accident insurance (14.2)"]
+      "usedFor": [
+        "guide legal requirements (art. 10)",
+        "special-interest tourism definition (4.1.13)",
+        "mandatory accident insurance (14.2)"
+      ]
     },
     {
       "id": "gov-resolution-246-2025",
@@ -30,7 +34,9 @@
       "accessedAt": "2026-09-27",
       "licenseOrUsageNote": "Official regulation; quote with citation. The zone list is a separate annex not present in the HTML page - obtain the annex before assigning zone identifiers.",
       "reviewStatus": "PENDING",
-      "usedFor": ["17 national tourism zones (zone ids pending annex)"]
+      "usedFor": [
+        "17 national tourism zones (zone ids pending annex)"
+      ]
     },
     {
       "id": "mto-guide-exam-2026q1",
@@ -45,7 +51,12 @@
       "accessedAt": "2026-09-27",
       "licenseOrUsageNote": "Public exam guideline; use structure, weights and criteria with citation. Do not republish the annexed exhibit photographs.",
       "reviewStatus": "PENDING",
-      "usedFor": ["guide rubric weights", "knowledge blueprint", "skill criteria", "recommended reading list"]
+      "usedFor": [
+        "guide rubric weights",
+        "knowledge blueprint",
+        "skill criteria",
+        "recommended reading list"
+      ]
     },
     {
       "id": "mto-central",
@@ -60,7 +71,9 @@
       "accessedAt": "2026-09-27",
       "licenseOrUsageNote": "Verify reuse terms before corpus ingestion; link and attribute.",
       "reviewStatus": "PENDING",
-      "usedFor": ["general destination context"]
+      "usedFor": [
+        "general destination context"
+      ]
     },
     {
       "id": "unesco-orkhon",
@@ -75,7 +88,9 @@
       "accessedAt": "2026-09-27",
       "licenseOrUsageNote": "Link and attribute. The page blocks automated access (HTTP 403); claims must be checked manually in a browser before verification.",
       "reviewStatus": "PENDING",
-      "usedFor": ["Central Heritage route nodes and heritage facts"]
+      "usedFor": [
+        "Central Heritage route nodes and heritage facts"
+      ]
     },
     {
       "id": "unesco-altai",
@@ -90,12 +105,14 @@
       "accessedAt": "2026-09-27",
       "licenseOrUsageNote": "Link and attribute. The page blocks automated access (HTTP 403); claims must be checked manually in a browser before verification.",
       "reviewStatus": "PENDING",
-      "usedFor": ["Western Altai route nodes and heritage facts"]
+      "usedFor": [
+        "Western Altai route nodes and heritage facts"
+      ]
     },
     {
       "id": "omnogovi",
       "title": "Өмнөговь аймгийн түүх, соёлын танилцуулга",
-      "organization": "Өмнөговь аймгийн Засаг даргын Тамгын газар / Umnugovi provincial government",
+      "organization": "Өмнөговь аймаг дахь Улсын бүртгэлийн хэлтэс / Umnugovi State Registration Department (hosts the provincial history and culture page)",
       "sourceType": "WEBSITE",
       "authorityLevel": "LOCAL_AUTHORITY",
       "authorityTier": 4,
@@ -103,9 +120,11 @@
       "language": "mn",
       "publishedAt": null,
       "accessedAt": "2026-09-27",
-      "licenseOrUsageNote": "Official provincial page; verify reuse terms, link and attribute.",
+      "licenseOrUsageNote": "Page footer states 'Бүх эрхийг хуулиар хамгаалсан' (all rights reserved): cite individual facts with a link; do not ingest the text into the corpus. States Khongoryn Els lies 220 km west of the aimag centre in Sevrei sum.",
       "reviewStatus": "PENDING",
-      "usedFor": ["Gobi route nodes and local facts"]
+      "usedFor": [
+        "Gobi route nodes and local facts"
+      ]
     },
     {
       "id": "khuvsgul",
@@ -120,7 +139,9 @@
       "accessedAt": "2026-09-27",
       "licenseOrUsageNote": "The portal cited by the plan (khovsgol.mn/tour/d/places/55) did not resolve on 2026-09-27; find the current official page before verification.",
       "reviewStatus": "PENDING",
-      "usedFor": ["Khuvsgul route nodes and local facts"]
+      "usedFor": [
+        "Khuvsgul route nodes and local facts"
+      ]
     },
     {
       "id": "redcross-mn-training",
@@ -135,7 +156,10 @@
       "accessedAt": "2026-09-27",
       "licenseOrUsageNote": "Reference for training formats only; first-aid content must not be presented as certification.",
       "reviewStatus": "PENDING",
-      "usedFor": ["first-aid evidence policy", "first-aid theory topics"]
+      "usedFor": [
+        "first-aid evidence policy",
+        "first-aid theory topics"
+      ]
     },
     {
       "id": "wikidata",
@@ -150,7 +174,9 @@
       "accessedAt": "2026-09-27",
       "licenseOrUsageNote": "CC0. Discovery-tier data: coordinates are cited per node by QID and need human spot checks; never a factual authority on its own.",
       "reviewStatus": "PENDING",
-      "usedFor": ["node coordinates and elevations"]
+      "usedFor": [
+        "node coordinates and elevations"
+      ]
     },
     {
       "id": "osm",
@@ -165,7 +191,98 @@
       "accessedAt": "2026-09-27",
       "licenseOrUsageNote": "ODbL 1.0: attribute \"© OpenStreetMap contributors\"; derived distances are a produced work. Road network coverage of Mongolian tracks is incomplete, so distances need field verification.",
       "reviewStatus": "PENDING",
-      "usedFor": ["node coordinates cited by OSM id", "edge road distances"]
+      "usedFor": [
+        "node coordinates cited by OSM id",
+        "edge road distances"
+      ]
+    },
+    {
+      "id": "law-cultural-heritage",
+      "title": "Соёлын өвийг хамгаалах тухай хууль (2014, шинэчилсэн найруулга)",
+      "organization": "Улсын Их Хурал / State Great Khural",
+      "sourceType": "LAW",
+      "authorityLevel": "LEGAL",
+      "authorityTier": 1,
+      "url": "https://legalinfo.mn/mn/detail/10439",
+      "language": "mn",
+      "publishedAt": "2014-05-15",
+      "accessedAt": "2026-09-28",
+      "licenseOrUsageNote": "Official legal text (not protected by copyright); quote with citation. Confirm that the consolidated text includes the 2021 amendments before verification.",
+      "reviewStatus": "PENDING",
+      "usedFor": [
+        "tourism RAG corpus",
+        "guide law/ethics knowledge"
+      ]
+    },
+    {
+      "id": "law-protected-areas",
+      "title": "Тусгай хамгаалалттай газар нутгийн тухай хууль",
+      "organization": "Улсын Их Хурал / State Great Khural",
+      "sourceType": "LAW",
+      "authorityLevel": "LEGAL",
+      "authorityTier": 1,
+      "url": "https://legalinfo.mn/mn/detail/479",
+      "language": "mn",
+      "publishedAt": "1994-11-15",
+      "accessedAt": "2026-09-28",
+      "licenseOrUsageNote": "Official legal text; quote with citation. The English translation on legalinfo predates later amendments and is intentionally not used.",
+      "reviewStatus": "PENDING",
+      "usedFor": [
+        "tourism RAG corpus",
+        "protected-area access rules"
+      ]
+    },
+    {
+      "id": "law-protected-area-buffer-zones",
+      "title": "Тусгай хамгаалалттай газар нутгийн орчны бүсийн тухай хууль",
+      "organization": "Улсын Их Хурал / State Great Khural",
+      "sourceType": "LAW",
+      "authorityLevel": "LEGAL",
+      "authorityTier": 1,
+      "url": "https://legalinfo.mn/mn/detail/478",
+      "language": "mn",
+      "publishedAt": "1997-10-23",
+      "accessedAt": "2026-09-28",
+      "licenseOrUsageNote": "Official legal text; quote with citation.",
+      "reviewStatus": "PENDING",
+      "usedFor": [
+        "tourism RAG corpus"
+      ]
+    },
+    {
+      "id": "law-museum-2021",
+      "title": "Музейн тухай хууль (2021) / Law on Museums",
+      "organization": "Улсын Их Хурал / State Great Khural",
+      "sourceType": "LAW",
+      "authorityLevel": "LEGAL",
+      "authorityTier": 1,
+      "url": "https://legalinfo.mn/mn/detail?lawId=16160832622081",
+      "language": "mn",
+      "publishedAt": "2021-01-29",
+      "accessedAt": "2026-09-28",
+      "licenseOrUsageNote": "Official legal text with official English translation; quote with citation.",
+      "reviewStatus": "PENDING",
+      "usedFor": [
+        "tourism RAG corpus"
+      ]
+    },
+    {
+      "id": "reg-visa-procedure",
+      "title": "Монгол Улсын виз олгох журам (Засгийн газрын 2021 оны 192 дугаар тогтоолын хавсралт)",
+      "organization": "Монгол Улсын Засгийн газар / Government of Mongolia",
+      "sourceType": "REGULATION",
+      "authorityLevel": "GOVERNMENT",
+      "authorityTier": 1,
+      "url": "https://legalinfo.mn/mn/detail?lawId=16230721365191",
+      "language": "mn",
+      "publishedAt": null,
+      "accessedAt": "2026-09-28",
+      "licenseOrUsageNote": "Official regulation; quote with citation. Adopted by Government resolution no. 192 of 2021 (exact date not stated in the retrieved text); amended in 2022 and 2024 - confirm the consolidated text is current.",
+      "reviewStatus": "PENDING",
+      "usedFor": [
+        "tourism RAG corpus",
+        "traveler entry requirements"
+      ]
     }
   ]
 }

@@ -19,6 +19,17 @@ const CATEGORY_BY_TYPE: Record<AssessmentType, AssessmentCategory[]> = {
   FIRST_AID_THEORY: [AssessmentCategory.FIRST_AID_THEORY], SAFETY_SCENARIO: [AssessmentCategory.SAFETY],
 };
 
+/** Items per 50-item general-knowledge form (plan appendix A.1; 2026 exam weights 30/25/25/10/10 %). */
+const GENERAL_KNOWLEDGE_FORM = {
+  [AssessmentCategory.HISTORY_ARCHAEOLOGY]: 15,
+  [AssessmentCategory.RELIGION_CULTURE]: 12,
+  [AssessmentCategory.GEOGRAPHY_NATURE]: 12,
+  [AssessmentCategory.LAW_ETHICS]: 5,
+  [AssessmentCategory.SOCIETY_ECONOMY]: 5,
+} as const;
+const DEFAULT_FORM_SIZE = 10;
+const CANDIDATE_POOL_LIMIT = 2000;
+
 const KNOWLEDGE_WEIGHTS = {
   [AssessmentCategory.HISTORY_ARCHAEOLOGY]: 15,
   [AssessmentCategory.RELIGION_CULTURE]: 12.5,
@@ -87,10 +98,12 @@ export class GuideAssessmentsService {
     if (existing) return this.getOwned(userId, existing.id);
     const candidates = await this.prisma.assessmentQuestion.findMany({
       where: { active: true, category: { in: CATEGORY_BY_TYPE[dto.assessmentType] }, ...(dto.routeFamily ? { OR: [{ routeFamily: dto.routeFamily }, { routeFamily: null }] } : {}), ...(language ? { language } : {}) },
-      select: { id: true }, take: 100,
+      select: { id: true, category: true }, take: CANDIDATE_POOL_LIMIT,
     });
     if (!candidates.length) throw new NotFoundException('No active assessment questions are available');
-    const questionIds = this.shuffle(candidates.map((item) => item.id)).slice(0, Math.min(10, candidates.length));
+    const questionIds = dto.assessmentType === AssessmentType.GENERAL_KNOWLEDGE
+      ? this.generalKnowledgeForm(candidates)
+      : this.shuffle(candidates.map((item) => item.id)).slice(0, Math.min(DEFAULT_FORM_SIZE, candidates.length));
     let attempt;
     try {
       attempt = await this.prisma.assessmentAttempt.create({ data: {
@@ -707,6 +720,20 @@ export class GuideAssessmentsService {
 
   private async guideForUser(userId: string) { const guide = await this.prisma.guideProfile.findUnique({ where: { userId }, select: { id: true } }); if (!guide) throw new NotFoundException('Guide profile not found'); return guide; }
   private questionIds(metadata: Prisma.JsonValue): string[] { if (!metadata || typeof metadata !== 'object' || Array.isArray(metadata)) return []; const ids = (metadata as Record<string, unknown>).questionIds; return Array.isArray(ids) ? ids.filter((id): id is string => typeof id === 'string') : []; }
+  /**
+   * Stratified form: each content domain contributes its blueprint quota, so a
+   * small or skewed bank cannot silently change the domain weighting. Religion
+   * and geography share the 25-item block as 13/12, alternating at random.
+   * Missing items in a domain are not back-filled from other domains.
+   */
+  private generalKnowledgeForm(candidates: Array<{ id: string; category: AssessmentCategory }>) {
+    const quotas: Record<string, number> = { ...GENERAL_KNOWLEDGE_FORM };
+    quotas[randomInt(2) === 0 ? AssessmentCategory.RELIGION_CULTURE : AssessmentCategory.GEOGRAPHY_NATURE] += 1;
+    const selected = Object.entries(quotas).flatMap(([category, quota]) =>
+      this.shuffle(candidates.filter((item) => item.category === category).map((item) => item.id)).slice(0, quota));
+    return this.shuffle(selected);
+  }
+
   private shuffle<T>(items: T[]) { const shuffled = [...items]; for (let index = shuffled.length - 1; index > 0; index -= 1) { const target = randomInt(index + 1); [shuffled[index], shuffled[target]] = [shuffled[target], shuffled[index]]; } return shuffled; }
   private isCorrect(key: Prisma.JsonValue, payload: Prisma.JsonValue, text: string | null) { const answer = key && typeof key === 'object' && !Array.isArray(key) ? (key as Record<string, unknown>).correctOption : key; const supplied = payload && typeof payload === 'object' && !Array.isArray(payload) ? (payload as Record<string, unknown>).option : text; return String(supplied ?? '').trim().toLowerCase() === String(answer ?? '').trim().toLowerCase(); }
   private attemptSummarySelect() { return { id: true, assessmentType: true, routeFamily: true, language: true, status: true, score: true, aiScore: true, humanScore: true, passed: true, aiEstimatedCefr: true, humanCefr: true, startedAt: true, submittedAt: true, completedAt: true, createdAt: true } as const; }

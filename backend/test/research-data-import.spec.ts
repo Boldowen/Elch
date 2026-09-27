@@ -12,7 +12,16 @@ function fakePrisma() {
   return {
     calls,
     client: {
-      tourismSource: { upsert: record('tourismSource.upsert') },
+      tourismSource: {
+        upsert: record('tourismSource.upsert'),
+        findUniqueOrThrow: jest.fn(async ({ where }: { where: { id: string } }) => ({ id: where.id, reviewStatus: 'PENDING', lastVerifiedAt: new Date(0) })),
+      },
+      tourismKnowledge: {
+        findUnique: jest.fn(async () => null),
+        upsert: record('tourismKnowledge.upsert'),
+        updateMany: record('tourismKnowledge.updateMany'),
+      },
+      assessmentQuestion: { upsert: record('assessmentQuestion.upsert') },
       researchRoute: { upsert: record('researchRoute.upsert') },
       routeNode: { upsert: record('routeNode.upsert'), updateMany: record('routeNode.updateMany') },
       routeEdge: {
@@ -24,6 +33,8 @@ function fakePrisma() {
     },
   };
 }
+
+const embedder = { embed: jest.fn(async () => [0.6, 0.8]), identity: (dimensions: number) => `local:test:${dimensions}` };
 
 describe('research data import', () => {
   const dataset = loadResearchDataset();
@@ -37,7 +48,7 @@ describe('research data import', () => {
 
   it('creates sources as PENDING and never overwrites a recorded review decision', async () => {
     const { client, calls } = fakePrisma();
-    await importResearchData(client as never, dataset);
+    await importResearchData(client as never, dataset, embedder);
     const sources = calls['tourismSource.upsert'];
     expect(sources).toHaveLength(dataset.sources.length);
     for (const call of sources) {
@@ -50,7 +61,7 @@ describe('research data import', () => {
 
   it('flags core-sequence nodes in order and gates permits only on protected or explicitly flagged edges', async () => {
     const { client, calls } = fakePrisma();
-    const summary = await importResearchData(client as never, dataset);
+    const summary = await importResearchData(client as never, dataset, embedder);
     expect(summary.routes).toBe(dataset.routes.length);
 
     const gobi = dataset.routes.find((route) => route.id === 'gobi')!;
@@ -71,6 +82,32 @@ describe('research data import', () => {
     }
     const ubKharkhorin = calls['routeEdge.upsert'].find((call) => call.create.code === 'ub-kharkhorin')!;
     expect(ubKharkhorin.create).toMatchObject({ requiresPermitCheck: false, transportMode: 'ROAD', lastVerifiedAt: new Date(0) });
+  });
+});
+
+describe('research corpus and question bank import', () => {
+  const dataset = loadResearchDataset();
+
+  it('stages corpus chunks inactive while their source is pending and embeds each once', async () => {
+    const { client, calls } = fakePrisma();
+    const summary = await importResearchData(client as never, dataset, embedder);
+    expect(summary.knowledge).toBe(dataset.corpus.length);
+    expect(summary.knowledgeEmbedded).toBe(dataset.corpus.length);
+    const chunk = calls['tourismKnowledge.upsert'][0];
+    expect(chunk.create).toMatchObject({ active: false, embeddingModel: 'local:test:2', embedding: [0.6, 0.8] });
+    expect(chunk.create.metadata).toMatchObject({ dataStatus: 'SOURCE_DERIVED_DRAFT', corpusId: dataset.corpus[0].id });
+  });
+
+  it('imports questions inactive with their evidence hidden inside the answer key', async () => {
+    const { client, calls } = fakePrisma();
+    const summary = await importResearchData(client as never, dataset, embedder);
+    expect(summary.questions).toBe(dataset.questions.length);
+    for (const call of calls['assessmentQuestion.upsert']) {
+      expect(call.create.active).toBe(false);
+      expect(call.update).not.toHaveProperty('active');
+      expect(call.create.answerKey.evidence.length).toBeGreaterThan(0);
+      expect(call.create.answerKey.correctOption).toMatch(/^[ABCD]$/);
+    }
   });
 });
 

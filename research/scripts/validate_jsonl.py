@@ -18,6 +18,7 @@ except ImportError:  # pragma: no cover - supports direct script execution
 
 DATA_STATUSES = {
     "VERIFIED_SOURCE_DERIVED",
+    "SOURCE_DERIVED_DRAFT",
     "SYNTHETIC_SOURCE_DERIVED",
     "COLLECTED_WITH_CONSENT",
     "DEMO_RESEARCH_GENERATED",
@@ -82,7 +83,9 @@ def validate_record(
         not isinstance(source_ids, list) or not all(isinstance(item, str) and item for item in source_ids)
     ):
         errors.append("provenance.sourceIds must be an array of non-empty strings")
-    if status in {"VERIFIED_SOURCE_DERIVED", "SYNTHETIC_SOURCE_DERIVED"} and not source_ids:
+    if status == "SOURCE_DERIVED_DRAFT":
+        warnings.append("draft source-derived record: not human reviewed; import only as inactive/pending knowledge")
+    if status in {"VERIFIED_SOURCE_DERIVED", "SOURCE_DERIVED_DRAFT", "SYNTHETIC_SOURCE_DERIVED"} and not source_ids:
         errors.append("source-derived records require provenance.sourceIds")
     if status == "COLLECTED_WITH_CONSENT" and not provenance.get("consentRecordId"):
         errors.append("collected records require provenance.consentRecordId")
@@ -100,7 +103,9 @@ def validate_record(
             warnings.append("evaluationOnly instruction must remain outside train/validation output")
 
     elif kind == "tourism-knowledge":
-        for field in ("sourceId", "content", "category", "language", "lastVerifiedAt"):
+        # A draft chunk is not verified yet, so it may not carry a verification date.
+        required = ("sourceId", "content", "category", "language") + (() if status == "SOURCE_DERIVED_DRAFT" else ("lastVerifiedAt",))
+        for field in required:
             if not _present(record, field, str):
                 errors.append(f"{field} must be a non-empty string")
         if status == "DEMO_RESEARCH_GENERATED":

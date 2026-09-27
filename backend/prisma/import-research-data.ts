@@ -9,10 +9,14 @@
  * historic itineraries, safety plans and experiment runs keep their references.
  */
 import { createHash } from 'node:crypto';
-import { readFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
+import { ConfigService } from '@nestjs/config';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
+  AssessmentCategory,
+  AssessmentDifficulty,
+  AssessmentQuestionType,
   Prisma,
   PrismaClient,
   RouteFamily,
@@ -20,11 +24,13 @@ import {
   RouteRiskLevel,
   RouteTransportMode,
   TourismAuthorityLevel,
+  TourismKnowledgeCategory,
   TourismSourceReviewStatus,
   TourismSourceType,
   type GuideLegalRole,
   type CefrLevel,
 } from '../src/generated/prisma/client.js';
+import { EmbeddingService } from '../src/modules/ai/embedding.service.js';
 
 const UNVERIFIED_AT = new Date('1970-01-01T00:00:00.000Z');
 const DRAFT_NOTICE = 'DRAFT research data compiled for human review. Travel time, season, access, permits and safety must be re-verified for the travel date.';
@@ -54,17 +60,46 @@ interface EdgeRecord {
   note?: string; knownIssue?: string;
 }
 
+interface CorpusRow {
+  id: string; sourceId: string; title: string; content: string; category: string; language: string;
+  region: string | null; routeFamily: string | null; splitGroup: string; dataStatus: string; provenance: Record<string, unknown>;
+}
+
+interface QuestionRow {
+  id: string; category: string; routeFamily: string | null; difficulty: string; language: string; questionType: string;
+  prompt: string; responseOptions?: string[]; answerKey: Record<string, unknown>; scoringRubric: Record<string, unknown>;
+  evidence: Array<{ corpusId: string; quote: string }>; sourceId: string; splitGroup: string; provenance: Record<string, unknown>;
+}
+
 export interface ResearchDataset {
   sources: SourceRecord[];
   pois: PoiRecord[];
   routes: RouteRecord[];
   edges: EdgeRecord[];
+  corpus: CorpusRow[];
+  questions: QuestionRow[];
 }
+
+export type CorpusEmbedder = Pick<EmbeddingService, 'embed' | 'identity'>;
 
 export function loadResearchDataset(dataDir = researchDataDir()): ResearchDataset {
   const read = <T>(file: string) => JSON.parse(readFileSync(resolve(dataDir, file), 'utf8')) as T;
+  const jsonlDir = <T>(name: string) => {
+    const directory = resolve(dataDir, name);
+    return existsSync(directory)
+      ? readdirSync(directory).filter((file) => file.endsWith('.jsonl')).sort().flatMap((file) =>
+        readFileSync(resolve(directory, file), 'utf8').split('\n').filter((line) => line.trim()).map((line) => JSON.parse(line) as T))
+      : [];
+  };
+  const corpus = jsonlDir<CorpusRow>('corpus');
+  const questions = jsonlDir<QuestionRow>('question-bank');
+  const generatedSources = existsSync(resolve(dataDir, 'sources.wikipedia.json'))
+    ? read<{ sources: SourceRecord[] }>('sources.wikipedia.json').sources
+    : [];
   return {
-    sources: read<{ sources: SourceRecord[] }>('sources.json').sources,
+    corpus,
+    questions,
+    sources: [...read<{ sources: SourceRecord[] }>('sources.json').sources, ...generatedSources],
     pois: read<{ pois: PoiRecord[] }>('routegraph/pois.json').pois,
     routes: read<{ routes: RouteRecord[] }>('routegraph/routes.json').routes,
     edges: read<{ edges: EdgeRecord[] }>('routegraph/edges.json').edges,
@@ -87,7 +122,11 @@ function months(value: number[] | 'all') {
   return value === 'all' ? Array.from({ length: 12 }, (_, index) => index + 1) : value;
 }
 
-export async function importResearchData(prisma: PrismaClient, dataset = loadResearchDataset()) {
+export async function importResearchData(
+  prisma: PrismaClient,
+  dataset = loadResearchDataset(),
+  embedder: CorpusEmbedder = new EmbeddingService(new ConfigService(process.env)),
+) {
   const sourceIds = new Map<string, string>();
   for (const source of dataset.sources) {
     const id = stableUuid('source', source.id);
@@ -116,7 +155,10 @@ export async function importResearchData(prisma: PrismaClient, dataset = loadRes
   };
 
   const poiById = new Map(dataset.pois.map((poi) => [poi.id, poi]));
-  const summary = { sources: sourceIds.size, routes: 0, nodes: 0, edges: 0, deactivatedNodes: 0, deactivatedEdges: 0 };
+  const summary = {
+    sources: sourceIds.size, routes: 0, nodes: 0, edges: 0, deactivatedNodes: 0, deactivatedEdges: 0,
+    knowledge: 0, knowledgeEmbedded: 0, deactivatedKnowledge: 0, questions: 0,
+  };
 
   for (const route of dataset.routes) {
     const routeData = {
@@ -249,7 +291,111 @@ export async function importResearchData(prisma: PrismaClient, dataset = loadRes
     summary.deactivatedNodes += staleNodes.count;
     summary.deactivatedEdges += staleEdges.count;
   }
+
+  await importCorpus(prisma, dataset.corpus, sourceId, embedder, summary);
+  summary.questions = await importQuestions(prisma, dataset.questions, sourceId);
   return summary;
+}
+
+/**
+ * Draft items stay inactive until an expert activates them (plan gate G2), so a
+ * candidate is never examined on unreviewed content. RESEARCH_ACTIVATE_DRAFT_QUESTIONS
+ * exists only for local demos. Evidence travels inside answerKey, which the
+ * guide-facing APIs never return.
+ */
+async function importQuestions(prisma: PrismaClient, rows: QuestionRow[], sourceId: (key: string) => string) {
+  const activateDrafts = process.env.RESEARCH_ACTIVATE_DRAFT_QUESTIONS === 'true';
+  for (const row of rows) {
+    const id = stableUuid('question', row.id);
+    const data = {
+      category: enumValue(AssessmentCategory, row.category, 'question category'),
+      routeFamily: row.routeFamily ? enumValue(RouteFamily, row.routeFamily, 'routeFamily') : null,
+      difficulty: enumValue(AssessmentDifficulty, row.difficulty, 'difficulty'),
+      language: row.language,
+      questionType: enumValue(AssessmentQuestionType, row.questionType, 'question type'),
+      prompt: row.prompt,
+      responseOptions: (row.responseOptions ?? Prisma.JsonNull) as Prisma.InputJsonValue,
+      answerKey: { ...row.answerKey, evidence: row.evidence, bankId: row.id, splitGroup: row.splitGroup } as Prisma.InputJsonValue,
+      scoringRubric: row.scoringRubric as Prisma.InputJsonValue,
+      sourceId: sourceId(row.sourceId),
+    };
+    // Activation is a review decision: re-imports never re-activate or deactivate an existing item.
+    await prisma.assessmentQuestion.upsert({
+      where: { id },
+      update: data,
+      create: { id, ...data, active: activateDrafts },
+    });
+  }
+  return rows.length;
+}
+
+/**
+ * Knowledge chunks follow the ingestion rule: active only while their source is
+ * HUMAN_VERIFIED (source review activates them later). Unchanged chunks keep
+ * their vector when the embedding identity still matches.
+ */
+async function importCorpus(
+  prisma: PrismaClient,
+  rows: CorpusRow[],
+  sourceId: (key: string) => string,
+  embedder: CorpusEmbedder,
+  summary: { knowledge: number; knowledgeEmbedded: number; deactivatedKnowledge: number },
+) {
+  const bySource = new Map<string, CorpusRow[]>();
+  for (const row of rows) bySource.set(row.sourceId, [...(bySource.get(row.sourceId) ?? []), row]);
+  for (const [key, sourceRows] of bySource) {
+    const id = sourceId(key);
+    const source = await prisma.tourismSource.findUniqueOrThrow({ where: { id } });
+    const verified = source.reviewStatus === TourismSourceReviewStatus.HUMAN_VERIFIED;
+    const hashes: string[] = [];
+    for (const [chunkIndex, row] of sourceRows.entries()) {
+      const language = row.language.toLowerCase();
+      const contentHash = createHash('sha256').update(row.content).digest('hex');
+      hashes.push(contentHash);
+      const where = { sourceId_contentHash_language: { sourceId: id, contentHash, language } };
+      const existing = await prisma.tourismKnowledge.findUnique({ where, select: { embeddingModel: true, embedding: true } });
+      let embedding = existing?.embedding ?? null;
+      let embeddingModel = existing?.embeddingModel ?? null;
+      const currentModel = Array.isArray(embedding) ? embedder.identity(embedding.length) : null;
+      if (!embedding || embeddingModel !== currentModel) {
+        const vector = await embedder.embed(row.content);
+        embedding = vector as Prisma.JsonValue;
+        embeddingModel = embedder.identity(vector.length);
+        summary.knowledgeEmbedded += 1;
+      }
+      const data = {
+        title: row.title.slice(0, 500),
+        chunkIndex,
+        region: row.region,
+        routeFamily: row.routeFamily ? enumValue(RouteFamily, row.routeFamily, 'routeFamily') : null,
+        category: enumValue(TourismKnowledgeCategory, row.category, 'knowledge category'),
+        embedding: embedding as Prisma.InputJsonValue,
+        embeddingModel,
+        tokenCount: Math.ceil(row.content.length / 4),
+        metadata: {
+          corpusId: row.id,
+          splitGroup: row.splitGroup,
+          dataStatus: row.dataStatus,
+          provenance: row.provenance,
+          sourceReviewStatus: source.reviewStatus,
+        } as Prisma.InputJsonValue,
+        lastVerifiedAt: source.lastVerifiedAt,
+        active: verified,
+      };
+      await prisma.tourismKnowledge.upsert({
+        where,
+        update: data,
+        create: { sourceId: id, content: row.content, contentHash, language, ...data },
+      });
+      summary.knowledge += 1;
+    }
+    // Chunks whose text left the corpus files are retired, never silently kept active.
+    const stale = await prisma.tourismKnowledge.updateMany({
+      where: { sourceId: id, contentHash: { notIn: hashes }, active: true },
+      data: { active: false },
+    });
+    summary.deactivatedKnowledge += stale.count;
+  }
 }
 
 async function main() {

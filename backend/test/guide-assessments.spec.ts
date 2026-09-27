@@ -123,3 +123,47 @@ describe('guide assessment safety', () => {
     await expect(new GuideAssessmentsService(prisma as never).getOwned('other-user', 'attempt')).rejects.toMatchObject({ status: 404 });
   });
 });
+
+describe('general knowledge form blueprint', () => {
+  function bank(counts: Record<string, number>) {
+    return Object.entries(counts).flatMap(([category, count]) =>
+      Array.from({ length: count }, (_, index) => ({ id: `${category}-${index}`, category })));
+  }
+
+  async function startForm(candidates: Array<{ id: string; category: string }>, assessmentType = AssessmentType.GENERAL_KNOWLEDGE) {
+    let created: { metadata: { questionIds: string[] } } | undefined;
+    const prisma = {
+      guideProfile: { findUnique: async () => ({ id: 'guide' }) },
+      assessmentAttempt: {
+        findFirst: async () => (created ? { ...created, id: 'attempt', userId: 'owner', responses: [] } : null),
+        create: async ({ data }: { data: { metadata: { questionIds: string[] } } }) => { created = data; return { id: 'attempt' }; },
+      },
+      assessmentQuestion: { findMany: async () => candidates },
+    };
+    await new GuideAssessmentsService(prisma as never).start('owner', { assessmentType } as never);
+    return created!.metadata.questionIds;
+  }
+
+  it('draws a 50-item form with the 2026 domain weights', async () => {
+    const ids = await startForm(bank({ HISTORY_ARCHAEOLOGY: 40, RELIGION_CULTURE: 30, GEOGRAPHY_NATURE: 30, LAW_ETHICS: 12, SOCIETY_ECONOMY: 12 }));
+    const perDomain = (prefix: string) => ids.filter((id) => id.startsWith(prefix)).length;
+    expect(ids).toHaveLength(50);
+    expect(new Set(ids).size).toBe(50);
+    expect(perDomain('HISTORY_ARCHAEOLOGY')).toBe(15);
+    expect(perDomain('LAW_ETHICS')).toBe(5);
+    expect(perDomain('SOCIETY_ECONOMY')).toBe(5);
+    expect([perDomain('RELIGION_CULTURE'), perDomain('GEOGRAPHY_NATURE')].sort()).toEqual([12, 13]);
+  });
+
+  it('never back-fills a thin domain from another domain', async () => {
+    const ids = await startForm(bank({ HISTORY_ARCHAEOLOGY: 40, RELIGION_CULTURE: 30, GEOGRAPHY_NATURE: 30, LAW_ETHICS: 2, SOCIETY_ECONOMY: 0 }));
+    expect(ids.filter((id) => id.startsWith('HISTORY_ARCHAEOLOGY'))).toHaveLength(15);
+    expect(ids.filter((id) => id.startsWith('LAW_ETHICS'))).toHaveLength(2);
+    expect(ids).toHaveLength(15 + 25 + 2);
+  });
+
+  it('keeps short random forms for the other assessment types', async () => {
+    const ids = await startForm(bank({ SAFETY: 40 }), AssessmentType.SAFETY_SCENARIO);
+    expect(ids).toHaveLength(10);
+  });
+});

@@ -35,6 +35,41 @@ experimental claim.
 the target sample sizes have already been collected. `experiments/a-e.json` is the
 canonical runtime configuration; `E0`–`E4` remain documented legacy thesis aliases.
 
+## Draft research data (`data/`)
+
+Everything under `data/` is a **draft for human review**: every source is `PENDING`,
+every row is `SOURCE_DERIVED_DRAFT` with `humanReviewed: false`, and nothing becomes
+active in the application until an accountable reviewer verifies its source.
+
+| Path | Content | How it is produced |
+|---|---|---|
+| `data/sources.json` | Hand-curated registry (laws, MTO exam guideline, UNESCO, provincial pages, OSM, Wikidata) | Edited by hand |
+| `data/routegraph/pois.json`, `routes.json` | 64 POIs with cited coordinates, 4 route families, edge topology | Edited by hand |
+| `data/routegraph/edges.json` | 79 edges with distance/time and quality flags | `python3 research/scripts/compute_route_distances.py` (OSRM, cached) |
+| `data/raw/laws/*.txt` | Clean current legal texts (official texts are not copyrighted) | `python3 -m research.scripts.build_corpus fetch-laws` |
+| `data/raw/wikipedia/*.json` | Wikipedia articles pinned to a revision id (CC BY-SA 4.0) | `python3 -m research.scripts.build_corpus fetch-wiki` |
+| `data/corpus/*.jsonl`, `data/sources.wikipedia.json` | RAG chunks (≈3.4k) and generated per-article sources | `python3 -m research.scripts.build_corpus build` |
+| `data/question-bank/*.jsonl` | Guide knowledge items; each quotes its corpus evidence verbatim | Authored, then `research/scripts/balance_answer_keys.py` |
+
+Load it into PostgreSQL with `cd backend && npm run data:import` (idempotent; recorded
+review decisions are never overwritten; draft questions import inactive).
+
+Safeguards enforced by `research/tests`:
+
+- repealed or amendment-only acts are refused by the law fetcher, and inserted articles
+  keep their superscript numbers (`2¹` is never flattened to `21`);
+- every question quotes its evidence chunk verbatim, and any article/paragraph cited in a
+  legal explanation must appear in that evidence;
+- answer keys stay balanced across A-D; no first-aid content enters the corpus (plan 8.6);
+- the RouteGraph is connected per route, core sequences follow direct edges, and every
+  coordinate cites a Wikidata/OSM/Wikipedia reference.
+
+Known limits: road distances are OSRM estimates (19 edges flagged LOW), UNESCO pages
+block automated access and must be checked manually, Wikipedia is discovery-tier evidence
+(questions citing it need corroboration before activation), and the default local hash
+embedding retrieves poorly for Mongolian - use a multilingual embedding service
+(`AI_EMBEDDING_PROVIDER=compat`) for real evaluations.
+
 ## Phase 7 tooling
 
 All dataset and evaluation utilities use only the Python standard library. Run
