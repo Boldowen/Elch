@@ -14,6 +14,9 @@ import {
 } from '../src/generated/prisma/client.js';
 import { ROUTE_GRAPH } from '../src/modules/route-planning/route-graph.data.js';
 import { createHash } from 'node:crypto';
+import { existsSync } from 'node:fs';
+import { resolve } from 'node:path';
+import { importResearchData, loadResearchDataset, researchDataDir } from './import-research-data.js';
 
 const UNVERIFIED_AT = new Date('1970-01-01T00:00:00.000Z');
 const PROTOTYPE_NOTICE =
@@ -204,178 +207,192 @@ export async function seedResearchData(prisma: PrismaClient) {
     knowledgeCount += 1;
   }
 
-  const routeIds = new Map<string, string>();
-  const nodeIds = new Map<string, string>();
+  // Real draft data (research/data) replaces the static fixture whenever it is available.
+  const dataDir = researchDataDir();
+  let routeGraph: Record<string, unknown>;
+  if (existsSync(resolve(dataDir, 'routegraph/edges.json'))) {
+    routeGraph = await importResearchData(prisma, loadResearchDataset(dataDir));
+  } else {
+    const routeIds = new Map<string, string>();
+    const nodeIds = new Map<string, string>();
 
-  for (const route of ROUTE_GRAPH.routes) {
-    const routeFamily = routeFamilies[route.id];
-    const primarySourceId = sourceIds[routePrimarySources[route.id]];
-    if (!routeFamily || !primarySourceId) {
-      throw new Error(`Missing research seed mapping for route ${route.id}`);
-    }
-    const description = [
-      `[PROTOTYPE] ${route.description}`,
-      `Static planning range: ${route.recommendedDays.min}-${route.recommendedDays.max} days.`,
-      PROTOTYPE_NOTICE,
-    ].join(' ');
-    const seededRoute = await prisma.researchRoute.upsert({
-      where: { code: route.id },
-      update: {
-        sourceId: primarySourceId,
-        name: `[PROTOTYPE] ${route.name}`,
-        routeFamily,
-        description,
-        minimumDays: route.recommendedDays.min,
-        recommendedDays: route.recommendedDays.max,
-        riskLevel: routeRisks[route.riskClass],
-        minimumLanguageLevel: route.guideRequirements.minimumLanguageLevel as 'B2',
-        routeBadge: route.guideRequirements.routeBadge,
-        firstAidRequired: route.guideRequirements.firstAidRequired,
-        requiredGuideLegalRole: route.guideRequirements.legalRole,
-        requiredSpecialtySkills: route.guideRequirements.specialtySkills,
-        active: true,
-      },
-      create: {
-        code: route.id,
-        sourceId: primarySourceId,
-        name: `[PROTOTYPE] ${route.name}`,
-        routeFamily,
-        description,
-        minimumDays: route.recommendedDays.min,
-        recommendedDays: route.recommendedDays.max,
-        riskLevel: routeRisks[route.riskClass],
-        minimumLanguageLevel: route.guideRequirements.minimumLanguageLevel as 'B2',
-        routeBadge: route.guideRequirements.routeBadge,
-        firstAidRequired: route.guideRequirements.firstAidRequired,
-        requiredGuideLegalRole: route.guideRequirements.legalRole,
-        requiredSpecialtySkills: route.guideRequirements.specialtySkills,
-        active: true,
-      },
-    });
-    routeIds.set(route.id, seededRoute.id);
-
-    for (const [sequence, poiId] of route.poiIds.entries()) {
-      const poi = ROUTE_GRAPH.pois.find((candidate) => candidate.id === poiId);
-      if (!poi) throw new Error(`Missing POI ${poiId} for route ${route.id}`);
-      const nodeType = nodeTypes[poi.type];
-      const sourceId = sourceIds[poi.sourceId];
-      if (!nodeType || !sourceId) throw new Error(`Missing research seed mapping for POI ${poi.id}`);
-      const seededNode = await prisma.routeNode.upsert({
-        where: { routeId_code: { routeId: seededRoute.id, code: poi.id } },
+    for (const route of ROUTE_GRAPH.routes) {
+      const routeFamily = routeFamilies[route.id];
+      const primarySourceId = sourceIds[routePrimarySources[route.id]];
+      if (!routeFamily || !primarySourceId) {
+        throw new Error(`Missing research seed mapping for route ${route.id}`);
+      }
+      const description = [
+        `[PROTOTYPE] ${route.description}`,
+        `Static planning range: ${route.recommendedDays.min}-${route.recommendedDays.max} days.`,
+        PROTOTYPE_NOTICE,
+      ].join(' ');
+      const seededRoute = await prisma.researchRoute.upsert({
+        where: { code: route.id },
         update: {
-          sourceId,
-          destinationId: null,
-          name: `[PROTOTYPE] ${poi.nameEn} / ${poi.nameMn}`,
-          nameMn: poi.nameMn,
-          nameEn: poi.nameEn,
-          region: poi.region,
-          latitude: poi.latitude,
-          longitude: poi.longitude,
-          altitude: poi.elevationMeters ?? null,
-          nodeType,
-          sequenceHint: sequence + 1,
-          minimumVisitMinutes: 0,
-          seasonalityMetadata: {
-            verificationStatus: 'PROTOTYPE_REQUIRES_REVIEW',
-            note: 'No verified node-level season rule has been seeded.',
-          },
-          accessMetadata: {
-            verificationStatus: 'PROTOTYPE_REQUIRES_REVIEW',
-            note: 'Confirm current access and permit requirements before travel.',
-          },
-          safetyMetadata: { classification: 'RESEARCH_ONLY', notice: PROTOTYPE_NOTICE },
+          sourceId: primarySourceId,
+          name: `[PROTOTYPE] ${route.name}`,
+          routeFamily,
+          description,
+          minimumDays: route.recommendedDays.min,
+          recommendedDays: route.recommendedDays.max,
+          riskLevel: routeRisks[route.riskClass],
+          minimumLanguageLevel: route.guideRequirements.minimumLanguageLevel as 'B2',
+          routeBadge: route.guideRequirements.routeBadge,
+          firstAidRequired: route.guideRequirements.firstAidRequired,
+          requiredGuideLegalRole: route.guideRequirements.legalRole,
+          requiredSpecialtySkills: route.guideRequirements.specialtySkills,
           active: true,
         },
         create: {
-          routeId: seededRoute.id,
-          sourceId,
-          destinationId: null,
-          code: poi.id,
-          name: `[PROTOTYPE] ${poi.nameEn} / ${poi.nameMn}`,
-          nameMn: poi.nameMn,
-          nameEn: poi.nameEn,
-          region: poi.region,
-          latitude: poi.latitude,
-          longitude: poi.longitude,
-          altitude: poi.elevationMeters ?? null,
-          nodeType,
-          sequenceHint: sequence + 1,
-          minimumVisitMinutes: 0,
-          seasonalityMetadata: {
-            verificationStatus: 'PROTOTYPE_REQUIRES_REVIEW',
-            note: 'No verified node-level season rule has been seeded.',
-          },
-          accessMetadata: {
-            verificationStatus: 'PROTOTYPE_REQUIRES_REVIEW',
-            note: 'Confirm current access and permit requirements before travel.',
-          },
-          safetyMetadata: { classification: 'RESEARCH_ONLY', notice: PROTOTYPE_NOTICE },
+          code: route.id,
+          sourceId: primarySourceId,
+          name: `[PROTOTYPE] ${route.name}`,
+          routeFamily,
+          description,
+          minimumDays: route.recommendedDays.min,
+          recommendedDays: route.recommendedDays.max,
+          riskLevel: routeRisks[route.riskClass],
+          minimumLanguageLevel: route.guideRequirements.minimumLanguageLevel as 'B2',
+          routeBadge: route.guideRequirements.routeBadge,
+          firstAidRequired: route.guideRequirements.firstAidRequired,
+          requiredGuideLegalRole: route.guideRequirements.legalRole,
+          requiredSpecialtySkills: route.guideRequirements.specialtySkills,
           active: true,
         },
       });
-      nodeIds.set(`${route.id}:${poi.id}`, seededNode.id);
-    }
-  }
+      routeIds.set(route.id, seededRoute.id);
 
-  for (const route of ROUTE_GRAPH.routes) {
-    const routeId = routeIds.get(route.id);
-    if (!routeId) throw new Error(`Research route ${route.id} was not seeded`);
-    const routeEdges = ROUTE_GRAPH.edges.filter(
-      (edge) => route.poiIds.includes(edge.from) && route.poiIds.includes(edge.to),
-    );
-    for (const edge of routeEdges) {
-      const fromNodeId = nodeIds.get(`${route.id}:${edge.from}`);
-      const toNodeId = nodeIds.get(`${route.id}:${edge.to}`);
-      const sourceId = sourceIds[edge.sourceId];
-      const transportMode = transportModes[edge.mode];
-      const riskLevel = routeRisks[edge.riskClass];
-      if (!fromNodeId || !toNodeId || !sourceId || !transportMode || !riskLevel) {
-        throw new Error(`Missing research seed mapping for edge ${edge.id}`);
-      }
-      const data = {
-        code: edge.id,
-        sourceId,
-        distanceKm: edge.distanceKm,
-        estimatedTravelMinutes: edge.nominalMinutes,
-        estimatedCostMinor: edge.estimatedCostMinor ?? null,
-        estimatedCostCurrency: edge.estimatedCostMinor === undefined ? null : 'USD',
-        terrain: edge.mode,
-        riskLevel,
-        seasonality: {
-          openMonthsPrototype: edge.openMonths,
-          verificationStatus: 'PROTOTYPE_REQUIRES_REVIEW',
-          estimatedCostStatus: 'DEMO_ONLY_NOT_A_QUOTE',
-          notice: PROTOTYPE_NOTICE,
-        },
-        bidirectional: true,
-        requiresRoadCheck:
-          transportMode === RouteTransportMode.ROAD || transportMode === RouteTransportMode.OFF_ROAD,
-        requiresWeatherCheck: riskLevel !== RouteRiskLevel.R0 && riskLevel !== RouteRiskLevel.R1,
-        // The static graph does not contain verified permit data, so every edge
-        // remains gated on a current permit/access check.
-        requiresPermitCheck: true,
-        requiresGuide: edge.requiredSkills.length > 0,
-        requiredGuideCompetencies: edge.requiredSkills,
-        emergencyPlanRequired:
-          riskLevel === RouteRiskLevel.R2 ||
-          riskLevel === RouteRiskLevel.R3 ||
-          riskLevel === RouteRiskLevel.R4,
-        active: true,
-        lastVerifiedAt: UNVERIFIED_AT,
-      };
-      await prisma.routeEdge.upsert({
-        where: {
-          routeId_fromNodeId_toNodeId_transportMode: {
-            routeId,
-            fromNodeId,
-            toNodeId,
-            transportMode,
+      for (const [sequence, poiId] of route.poiIds.entries()) {
+        const poi = ROUTE_GRAPH.pois.find((candidate) => candidate.id === poiId);
+        if (!poi) throw new Error(`Missing POI ${poiId} for route ${route.id}`);
+        const nodeType = nodeTypes[poi.type];
+        const sourceId = sourceIds[poi.sourceId];
+        if (!nodeType || !sourceId) throw new Error(`Missing research seed mapping for POI ${poi.id}`);
+        const seededNode = await prisma.routeNode.upsert({
+          where: { routeId_code: { routeId: seededRoute.id, code: poi.id } },
+          update: {
+            sourceId,
+            destinationId: null,
+            name: `[PROTOTYPE] ${poi.nameEn} / ${poi.nameMn}`,
+            nameMn: poi.nameMn,
+            nameEn: poi.nameEn,
+            region: poi.region,
+            latitude: poi.latitude,
+            longitude: poi.longitude,
+            altitude: poi.elevationMeters ?? null,
+            nodeType,
+            sequenceHint: sequence + 1,
+            minimumVisitMinutes: 0,
+            seasonalityMetadata: {
+              verificationStatus: 'PROTOTYPE_REQUIRES_REVIEW',
+              note: 'No verified node-level season rule has been seeded.',
+            },
+            accessMetadata: {
+              verificationStatus: 'PROTOTYPE_REQUIRES_REVIEW',
+              note: 'Confirm current access and permit requirements before travel.',
+            },
+            safetyMetadata: { classification: 'RESEARCH_ONLY', notice: PROTOTYPE_NOTICE },
+            active: true,
           },
-        },
-        update: data,
-        create: { routeId, fromNodeId, toNodeId, transportMode, ...data },
-      });
+          create: {
+            routeId: seededRoute.id,
+            sourceId,
+            destinationId: null,
+            code: poi.id,
+            name: `[PROTOTYPE] ${poi.nameEn} / ${poi.nameMn}`,
+            nameMn: poi.nameMn,
+            nameEn: poi.nameEn,
+            region: poi.region,
+            latitude: poi.latitude,
+            longitude: poi.longitude,
+            altitude: poi.elevationMeters ?? null,
+            nodeType,
+            sequenceHint: sequence + 1,
+            minimumVisitMinutes: 0,
+            seasonalityMetadata: {
+              verificationStatus: 'PROTOTYPE_REQUIRES_REVIEW',
+              note: 'No verified node-level season rule has been seeded.',
+            },
+            accessMetadata: {
+              verificationStatus: 'PROTOTYPE_REQUIRES_REVIEW',
+              note: 'Confirm current access and permit requirements before travel.',
+            },
+            safetyMetadata: { classification: 'RESEARCH_ONLY', notice: PROTOTYPE_NOTICE },
+            active: true,
+          },
+        });
+        nodeIds.set(`${route.id}:${poi.id}`, seededNode.id);
+      }
     }
+
+    for (const route of ROUTE_GRAPH.routes) {
+      const routeId = routeIds.get(route.id);
+      if (!routeId) throw new Error(`Research route ${route.id} was not seeded`);
+      const routeEdges = ROUTE_GRAPH.edges.filter(
+        (edge) => route.poiIds.includes(edge.from) && route.poiIds.includes(edge.to),
+      );
+      for (const edge of routeEdges) {
+        const fromNodeId = nodeIds.get(`${route.id}:${edge.from}`);
+        const toNodeId = nodeIds.get(`${route.id}:${edge.to}`);
+        const sourceId = sourceIds[edge.sourceId];
+        const transportMode = transportModes[edge.mode];
+        const riskLevel = routeRisks[edge.riskClass];
+        if (!fromNodeId || !toNodeId || !sourceId || !transportMode || !riskLevel) {
+          throw new Error(`Missing research seed mapping for edge ${edge.id}`);
+        }
+        const data = {
+          code: edge.id,
+          sourceId,
+          distanceKm: edge.distanceKm,
+          estimatedTravelMinutes: edge.nominalMinutes,
+          estimatedCostMinor: edge.estimatedCostMinor ?? null,
+          estimatedCostCurrency: edge.estimatedCostMinor === undefined ? null : 'USD',
+          terrain: edge.mode,
+          riskLevel,
+          seasonality: {
+            openMonthsPrototype: edge.openMonths,
+            verificationStatus: 'PROTOTYPE_REQUIRES_REVIEW',
+            estimatedCostStatus: 'DEMO_ONLY_NOT_A_QUOTE',
+            notice: PROTOTYPE_NOTICE,
+          },
+          bidirectional: true,
+          requiresRoadCheck:
+            transportMode === RouteTransportMode.ROAD || transportMode === RouteTransportMode.OFF_ROAD,
+          requiresWeatherCheck: riskLevel !== RouteRiskLevel.R0 && riskLevel !== RouteRiskLevel.R1,
+          // The static graph does not contain verified permit data, so every edge
+          // remains gated on a current permit/access check.
+          requiresPermitCheck: true,
+          requiresGuide: edge.requiredSkills.length > 0,
+          requiredGuideCompetencies: edge.requiredSkills,
+          emergencyPlanRequired:
+            riskLevel === RouteRiskLevel.R2 ||
+            riskLevel === RouteRiskLevel.R3 ||
+            riskLevel === RouteRiskLevel.R4,
+          active: true,
+          lastVerifiedAt: UNVERIFIED_AT,
+        };
+        await prisma.routeEdge.upsert({
+          where: {
+            routeId_fromNodeId_toNodeId_transportMode: {
+              routeId,
+              fromNodeId,
+              toNodeId,
+              transportMode,
+            },
+          },
+          update: data,
+          create: { routeId, fromNodeId, toNodeId, transportMode, ...data },
+        });
+      }
+    }
+
+    routeGraph = {
+      routes: ROUTE_GRAPH.routes.length,
+      nodes: nodeIds.size,
+      edges: ROUTE_GRAPH.edges.length,
+      status: 'PROTOTYPE_DEMO_NOT_VERIFIED',
+    };
   }
 
   const demoRubric = {
@@ -656,12 +673,9 @@ export async function seedResearchData(prisma: PrismaClient) {
   }
 
   return {
-    sources: ROUTE_GRAPH.sources.length + 1,
-    routes: ROUTE_GRAPH.routes.length,
-    nodes: nodeIds.size,
-    edges: ROUTE_GRAPH.edges.length,
+    fixtureSources: ROUTE_GRAPH.sources.length + 1,
+    routeGraph,
     knowledge: knowledgeCount,
     questions: questions.length,
-    status: 'PROTOTYPE_DEMO_NOT_VERIFIED',
   };
 }

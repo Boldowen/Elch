@@ -144,6 +144,17 @@ describe('RouteGraphRepository', () => {
     expect((await repository.find('database-route')).name).toBe('Database Route');
   });
 
+  it('exposes the imported core sequence only when at least two nodes are flagged', async () => {
+    const flagged = (node: typeof firstNode) => ({ ...node, accessMetadata: { coreSequence: true } });
+    const find = (nodes: typeof firstNode[]) => new RouteGraphRepository({
+      researchRoute: { findFirst: jest.fn().mockResolvedValue({ ...databaseRoute, nodes }) },
+    } as never).find('database-route');
+
+    await expect(find([flagged(firstNode), flagged(secondNode)])).resolves.toMatchObject({ coreSequence: ['alpha', 'beta'] });
+    await expect(find([flagged(firstNode), secondNode])).resolves.not.toHaveProperty('coreSequence');
+    await expect(find([firstNode, secondNode])).resolves.not.toHaveProperty('coreSequence');
+  });
+
   it('fails closed when an active database route is missing', async () => {
     const repository = new RouteGraphRepository({
       researchRoute: { findFirst: jest.fn().mockResolvedValue(null) },

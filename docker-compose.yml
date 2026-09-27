@@ -67,12 +67,14 @@ services:
       DATABASE_URL: postgresql://${POSTGRES_USER:-ventour}:${POSTGRES_PASSWORD:-ventour_change_me}@postgres:5432/${POSTGRES_DB:-elch}?schema=public
       PORT: 3000
       STORAGE_LOCAL_ROOT: /app/data/uploads
+      RESEARCH_DATA_DIR: /app/research-data
     ports:
       - "${BACKEND_PORT:-3000}:3000"
     networks:
       - ventour_network
     volumes:
       - uploads_data:/app/data/uploads
+      - ./research/data:/app/research-data:ro
     security_opt:
       - no-new-privileges:true
     cap_drop:

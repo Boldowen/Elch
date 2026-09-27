@@ -147,6 +147,7 @@ export class RouteGraphRepository {
       routeFamily: route.routeFamily,
       recommendedDays: { min: route.minimumDays, max: route.recommendedDays },
       poiIds: pois.map((poi) => poi.id),
+      ...this.coreSequence(route),
       riskClass: route.riskLevel as RiskClass,
       guideRequirements: {
         minimumLanguageLevel: route.minimumLanguageLevel,
@@ -184,6 +185,17 @@ export class RouteGraphRepository {
       sources: ROUTE_GRAPH.sources.filter((source) => sourceIds.has(source.id)),
       disclaimer: ROUTE_RESEARCH_DISCLAIMER,
     };
+  }
+
+  /** Nodes flagged `accessMetadata.coreSequence` by the research data import, in sequence order. */
+  private coreSequence(route: DbRouteGraph): { coreSequence?: string[] } {
+    const core = route.nodes
+      .filter((node) => {
+        const metadata = node.accessMetadata;
+        return Boolean(metadata && typeof metadata === 'object' && !Array.isArray(metadata) && metadata.coreSequence === true);
+      })
+      .map((node) => node.code);
+    return core.length >= 2 ? { coreSequence: core } : {};
   }
 
   private openMonths(value: Prisma.JsonValue | null): number[] {

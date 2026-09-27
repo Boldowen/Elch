@@ -1,0 +1,594 @@
+{
+ "amarbayasgalant->bulgan-city": {
+  "distanceKm": 173.3,
+  "durationMinutes": 168,
+  "snapMeters": [
+   82,
+   66
+  ]
+ },
+ "aral-tolgoi->khoton-lake": {
+  "distanceKm": 0.0,
+  "durationMinutes": 0,
+  "snapMeters": [
+   16319,
+   2822
+  ]
+ },
+ "baga-gazryn-chuluu->mandalgovi": {
+  "distanceKm": 57.7,
+  "durationMinutes": 92,
+  "snapMeters": [
+   987,
+   13
+  ]
+ },
+ "bayanzag->bulgan-umnugovi": {
+  "distanceKm": 20.8,
+  "durationMinutes": 50,
+  "snapMeters": [
+   291,
+   47
+  ]
+ },
+ "bayanzag->dalanzadgad": {
+  "distanceKm": 90.2,
+  "durationMinutes": 182,
+  "snapMeters": [
+   291,
+   7
+  ]
+ },
+ "bayanzag->tugrugiin-shiree": {
+  "distanceKm": 43.4,
+  "durationMinutes": 104,
+  "snapMeters": [
+   291,
+   9921
+  ]
+ },
+ "bulgan-city->uran-togoo": {
+  "distanceKm": 71.1,
+  "durationMinutes": 61,
+  "snapMeters": [
+   66,
+   4714
+  ]
+ },
+ "chinggis-khaan-airport->ulaanbaatar": {
+  "distanceKm": 47.6,
+  "durationMinutes": 45,
+  "snapMeters": [
+   658,
+   4
+  ]
+ },
+ "dalanzadgad->yolyn-am": {
+  "distanceKm": 47.2,
+  "durationMinutes": 63,
+  "snapMeters": [
+   7,
+   1463
+  ]
+ },
+ "dalanzadgad-airport->dalanzadgad": {
+  "distanceKm": 50.7,
+  "durationMinutes": 96,
+  "snapMeters": [
+   337,
+   7
+  ]
+ },
+ "dungenee-am->khongoryn-els": {
+  "distanceKm": 205.3,
+  "durationMinutes": 299,
+  "snapMeters": [
+   150,
+   7222
+  ]
+ },
+ "elsen-tasarkhai->kharkhorin": {
+  "distanceKm": 79.7,
+  "durationMinutes": 58,
+  "snapMeters": [
+   675,
+   29
+  ]
+ },
+ "elsen-tasarkhai->khogno-khan-ovgon": {
+  "distanceKm": 15.8,
+  "durationMinutes": 30,
+  "snapMeters": [
+   675,
+   1598
+  ]
+ },
+ "erdene-zuu->kharkhorum-museum": {
+  "distanceKm": 0.8,
+  "durationMinutes": 2,
+  "snapMeters": [
+   251,
+   64
+  ]
+ },
+ "hustai->elsen-tasarkhai": {
+  "distanceKm": 277.8,
+  "durationMinutes": 332,
+  "snapMeters": [
+   497,
+   675
+  ]
+ },
+ "jankhai->toilogt": {
+  "distanceKm": 13.7,
+  "durationMinutes": 29,
+  "snapMeters": [
+   0,
+   66
+  ]
+ },
+ "khar-balgas->khoshoo-tsaidam": {
+  "distanceKm": 97.1,
+  "durationMinutes": 133,
+  "snapMeters": [
+   297,
+   41
+  ]
+ },
+ "kharkhorin->erdene-zuu": {
+  "distanceKm": 2.0,
+  "durationMinutes": 3,
+  "snapMeters": [
+   29,
+   251
+  ]
+ },
+ "kharkhorin->khar-balgas": {
+  "distanceKm": 51.3,
+  "durationMinutes": 63,
+  "snapMeters": [
+   29,
+   297
+  ]
+ },
+ "kharkhorin->kharkhorum-museum": {
+  "distanceKm": 2.2,
+  "durationMinutes": 3,
+  "snapMeters": [
+   29,
+   64
+  ]
+ },
+ "kharkhorin->orkhon-valley": {
+  "distanceKm": 47.6,
+  "durationMinutes": 73,
+  "snapMeters": [
+   29,
+   412
+  ]
+ },
+ "kharkhorin->orkhon-waterfall": {
+  "distanceKm": 94.7,
+  "durationMinutes": 142,
+  "snapMeters": [
+   29,
+   924
+  ]
+ },
+ "kharkhorin->shankh": {
+  "distanceKm": 23.1,
+  "durationMinutes": 22,
+  "snapMeters": [
+   29,
+   48
+  ]
+ },
+ "kharkhorin->tsetserleg": {
+  "distanceKm": 119.6,
+  "durationMinutes": 86,
+  "snapMeters": [
+   29,
+   12
+  ]
+ },
+ "kharkhorin->tuvkhun": {
+  "distanceKm": 77.1,
+  "durationMinutes": 136,
+  "snapMeters": [
+   29,
+   34
+  ]
+ },
+ "kharkhorum-museum->khar-balgas": {
+  "distanceKm": 52.5,
+  "durationMinutes": 64,
+  "snapMeters": [
+   64,
+   297
+  ]
+ },
+ "khatgal->jankhai": {
+  "distanceKm": 20.7,
+  "durationMinutes": 31,
+  "snapMeters": [
+   62,
+   0
+  ]
+ },
+ "khatgal->khankh": {
+  "distanceKm": 181.3,
+  "durationMinutes": 428,
+  "snapMeters": [
+   62,
+   39
+  ]
+ },
+ "khatgal->renchinlkhumbe": {
+  "distanceKm": 100.7,
+  "durationMinutes": 525,
+  "snapMeters": [
+   62,
+   96
+  ]
+ },
+ "khongoryn-els->bayanzag": {
+  "distanceKm": 139.4,
+  "durationMinutes": 273,
+  "snapMeters": [
+   7222,
+   291
+  ]
+ },
+ "khongoryn-els->khermen-tsav": {
+  "distanceKm": 345.9,
+  "durationMinutes": 677,
+  "snapMeters": [
+   7222,
+   29130
+  ]
+ },
+ "khoton-lake->khurgan-lake": {
+  "distanceKm": 331.6,
+  "durationMinutes": 698,
+  "snapMeters": [
+   2822,
+   3067
+  ]
+ },
+ "khurgan-lake->dayan-lake": {
+  "distanceKm": 45.9,
+  "durationMinutes": 194,
+  "snapMeters": [
+   3067,
+   4506
+  ]
+ },
+ "mandalgovi->dalanzadgad": {
+  "distanceKm": 305.5,
+  "durationMinutes": 255,
+  "snapMeters": [
+   13,
+   7
+  ]
+ },
+ "mandalgovi->ongi-monastery": {
+  "distanceKm": 256.7,
+  "durationMinutes": 348,
+  "snapMeters": [
+   13,
+   114
+  ]
+ },
+ "mandalgovi->tsagaan-suvarga": {
+  "distanceKm": 173.9,
+  "durationMinutes": 371,
+  "snapMeters": [
+   13,
+   6095
+  ]
+ },
+ "moron->khatgal": {
+  "distanceKm": 97.6,
+  "durationMinutes": 90,
+  "snapMeters": [
+   46,
+   62
+  ]
+ },
+ "moron->uushigiin-ovor": {
+  "distanceKm": 18.2,
+  "durationMinutes": 48,
+  "snapMeters": [
+   46,
+   105
+  ]
+ },
+ "moron-airport->moron": {
+  "distanceKm": 5.9,
+  "durationMinutes": 9,
+  "snapMeters": [
+   348,
+   46
+  ]
+ },
+ "olgii->bayan-ulgii-museum": {
+  "distanceKm": 1.2,
+  "durationMinutes": 2,
+  "snapMeters": [
+   7,
+   29
+  ]
+ },
+ "olgii->sagsai": {
+  "distanceKm": 28.6,
+  "durationMinutes": 43,
+  "snapMeters": [
+   7,
+   199
+  ]
+ },
+ "olgii->tolbo-lake": {
+  "distanceKm": 56.9,
+  "durationMinutes": 144,
+  "snapMeters": [
+   7,
+   1786
+  ]
+ },
+ "olgii->tsagaan-salaa": {
+  "distanceKm": 172.8,
+  "durationMinutes": 506,
+  "snapMeters": [
+   7,
+   545
+  ]
+ },
+ "olgii->tsagaannuur-bayan-ulgii": {
+  "distanceKm": 67.8,
+  "durationMinutes": 53,
+  "snapMeters": [
+   7,
+   12
+  ]
+ },
+ "olgii-airport->olgii": {
+  "distanceKm": 5.8,
+  "durationMinutes": 7,
+  "snapMeters": [
+   24,
+   7
+  ]
+ },
+ "ongi-monastery->bayanzag": {
+  "distanceKm": 220.2,
+  "durationMinutes": 385,
+  "snapMeters": [
+   114,
+   291
+  ]
+ },
+ "orkhon-valley->khoshoo-tsaidam": {
+  "distanceKm": 0.7,
+  "durationMinutes": 3,
+  "snapMeters": [
+   412,
+   41
+  ]
+ },
+ "renchinlkhumbe->darkhad-valley": {
+  "distanceKm": 14.2,
+  "durationMinutes": 34,
+  "snapMeters": [
+   96,
+   2546
+  ]
+ },
+ "renchinlkhumbe->tsagaannuur-khuvsgul": {
+  "distanceKm": 44.3,
+  "durationMinutes": 228,
+  "snapMeters": [
+   96,
+   56
+  ]
+ },
+ "sagsai->tsengel": {
+  "distanceKm": 57.3,
+  "durationMinutes": 81,
+  "snapMeters": [
+   199,
+   15
+  ]
+ },
+ "taikhar-chuluu->terkhiin-tsagaan-lake": {
+  "distanceKm": 156.9,
+  "durationMinutes": 149,
+  "snapMeters": [
+   170,
+   413
+  ]
+ },
+ "terkhiin-tsagaan-lake->khorgo-volcano": {
+  "distanceKm": 12.4,
+  "durationMinutes": 33,
+  "snapMeters": [
+   413,
+   487
+  ]
+ },
+ "tsagaan-salaa->upper-tsagaan-gol": {
+  "distanceKm": 112.5,
+  "durationMinutes": 401,
+  "snapMeters": [
+   545,
+   16907
+  ]
+ },
+ "tsagaan-suvarga->dalanzadgad": {
+  "distanceKm": 476.1,
+  "durationMinutes": 622,
+  "snapMeters": [
+   6095,
+   7
+  ]
+ },
+ "tsagaannuur-bayan-ulgii->tsagaan-salaa": {
+  "distanceKm": 165.6,
+  "durationMinutes": 519,
+  "snapMeters": [
+   12,
+   545
+  ]
+ },
+ "tsengel->khoton-lake": {
+  "distanceKm": 93.9,
+  "durationMinutes": 417,
+  "snapMeters": [
+   15,
+   2822
+  ]
+ },
+ "tsetserleg->taikhar-chuluu": {
+  "distanceKm": 23.4,
+  "durationMinutes": 22,
+  "snapMeters": [
+   12,
+   170
+  ]
+ },
+ "tsetserleg->tsenkher-hot-spring": {
+  "distanceKm": 28.1,
+  "durationMinutes": 43,
+  "snapMeters": [
+   12,
+   84
+  ]
+ },
+ "tsetserleg->zayain-khuree": {
+  "distanceKm": 1.1,
+  "durationMinutes": 2,
+  "snapMeters": [
+   12,
+   21
+  ]
+ },
+ "tuvkhun->orkhon-waterfall": {
+  "distanceKm": 48.2,
+  "durationMinutes": 93,
+  "snapMeters": [
+   34,
+   924
+  ]
+ },
+ "ulaanbaatar->amarbayasgalant": {
+  "distanceKm": 318.7,
+  "durationMinutes": 364,
+  "snapMeters": [
+   4,
+   82
+  ]
+ },
+ "ulaanbaatar->baga-gazryn-chuluu": {
+  "distanceKm": 277.7,
+  "durationMinutes": 300,
+  "snapMeters": [
+   4,
+   987
+  ]
+ },
+ "ulaanbaatar->bulgan-city": {
+  "distanceKm": 389.6,
+  "durationMinutes": 370,
+  "snapMeters": [
+   4,
+   66
+  ]
+ },
+ "ulaanbaatar->chinggis-khaan-museum": {
+  "distanceKm": 0.9,
+  "durationMinutes": 2,
+  "snapMeters": [
+   4,
+   35
+  ]
+ },
+ "ulaanbaatar->gandan": {
+  "distanceKm": 1.5,
+  "durationMinutes": 3,
+  "snapMeters": [
+   4,
+   25
+  ]
+ },
+ "ulaanbaatar->hustai": {
+  "distanceKm": 129.4,
+  "durationMinutes": 234,
+  "snapMeters": [
+   4,
+   497
+  ]
+ },
+ "ulaanbaatar->kharkhorin": {
+  "distanceKm": 359.4,
+  "durationMinutes": 293,
+  "snapMeters": [
+   4,
+   29
+  ]
+ },
+ "ulaanbaatar->mandalgovi": {
+  "distanceKm": 272.3,
+  "durationMinutes": 228,
+  "snapMeters": [
+   4,
+   13
+  ]
+ },
+ "upper-tsagaan-gol->aral-tolgoi": {
+  "distanceKm": 112.4,
+  "durationMinutes": 248,
+  "snapMeters": [
+   16907,
+   16319
+  ]
+ },
+ "upper-tsagaan-gol->tavan-bogd-base-camp": {
+  "distanceKm": 388.0,
+  "durationMinutes": 728,
+  "snapMeters": [
+   16907,
+   14866
+  ]
+ },
+ "uran-togoo->moron": {
+  "distanceKm": 272.8,
+  "durationMinutes": 210,
+  "snapMeters": [
+   4714,
+   46
+  ]
+ },
+ "uushigiin-ovor->khatgal": {
+  "distanceKm": 103.5,
+  "durationMinutes": 129,
+  "snapMeters": [
+   105,
+   62
+  ]
+ },
+ "yolyn-am->dungenee-am": {
+  "distanceKm": 91.7,
+  "durationMinutes": 141,
+  "snapMeters": [
+   1463,
+   150
+  ]
+ },
+ "yolyn-am->khongoryn-els": {
+  "distanceKm": 238.0,
+  "durationMinutes": 311,
+  "snapMeters": [
+   1463,
+   7222
+  ]
+ }
+}

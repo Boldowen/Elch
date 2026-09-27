@@ -73,6 +73,8 @@ export interface ResearchRoute {
 
 export interface HydratedResearchRoute extends ResearchRoute {
   databaseId: string;
+  /** Ordered, edge-connected core stops; absent when the route defines none (all nodes are then used). */
+  coreSequence?: string[];
   routeFamily: 'CENTRAL_HERITAGE' | 'GOBI' | 'KHUVSGUL' | 'WESTERN_ALTAI';
   active: boolean;
   pois: RoutePoi[];

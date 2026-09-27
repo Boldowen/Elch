@@ -15,7 +15,8 @@
     "prisma:deploy": "prisma migrate deploy",
     "prisma:seed": "tsx prisma/seed.ts",
     "postinstall": "prisma generate",
-    "ai:smoke": "tsx --env-file-if-exists=../.env scripts/claude-smoke.ts"
+    "ai:smoke": "tsx --env-file-if-exists=../.env scripts/claude-smoke.ts",
+    "data:import": "tsx prisma/import-research-data.ts"
   },
   "dependencies": {
     "@ai-sdk/openai": "^4.0.50",

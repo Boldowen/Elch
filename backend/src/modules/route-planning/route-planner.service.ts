@@ -61,7 +61,8 @@ export class RoutePlannerService {
   async planAuthoritative(dto: PlanRouteDto, actorId?: string) {
     if (!this.graph) return this.plan(dto);
     const route = await this.selectDatabaseRoute(dto);
-    const stops = this.spreadStops(route.poiIds, dto.days);
+    // Optional extension nodes (airports, side trips) are only planned when a route has no core sequence.
+    const stops = this.spreadStops(route.coreSequence ?? route.poiIds, dto.days);
     const candidate = this.candidate(route.id, stops, dto);
     const validation = await this.validator.validateAuthoritative(candidate, new Date(), actorId);
     const repaired = await this.repair(candidate, validation, (next) =>
